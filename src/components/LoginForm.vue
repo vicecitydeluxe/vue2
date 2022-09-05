@@ -14,7 +14,7 @@
             </div>
             <small v-if="!validInput" class="p-error">Min 5 characters required</small>
           </div>
-          <Button :disabled='!userInfo.username' type="submit" label="Register" class="p-mt-2"/>
+          <Button :disabled='!isDisabledButton' type="submit" label="Register" class="p-mt-2"/>
         </form>
       </div>
     </div>
@@ -38,6 +38,7 @@ export default {
   beforeCreate() {
     globalTelegram.ready()
     globalTelegram.expand()
+    globalTelegram.enableClosingConfirmation()
   },
   mounted() {
     this.userInfo.username = globalTelegram.initDataUnsafe.user ? globalTelegram.initDataUnsafe.user.username : 'Unknown_user'
@@ -59,6 +60,9 @@ export default {
   computed: {
     validInput() {
       return /[0-9a-zA-Z]{5,}/.test(this.userInfo.username)
+    },
+    isDisabledButton() {
+      return this.validInput && this.userInfo.username
     }
   },
   watch: {
