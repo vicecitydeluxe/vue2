@@ -37,6 +37,10 @@ export default {
   computed: {
     ...mapGetters(['name'])
   },
+  mounted() {
+    globalTelegram.expand()
+    globalTelegram.enableClosingConfirmation()
+  }
 }
 </script>
 

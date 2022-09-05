@@ -46,9 +46,6 @@ export default {
     this.userInfo.tgID = globalTelegram.initDataUnsafe.user ? globalTelegram.initDataUnsafe.user.id : '000000000'
     this.$store.commit('setName', this.userInfo.username)
 
-    this.$watch('globalTelegram.isExpanded', function (newVal) {
-      if(newVal === false) globalTelegram.isExpanded = true
-    })
     // this.$watch('$data.userInfo.username', function (newVal) {
     //   console.log(newVal)}, {deep: true})
 
