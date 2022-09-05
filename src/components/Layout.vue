@@ -20,6 +20,7 @@ export default {
   methods: {
     previousMenu() {
       this.$parent.layoutVisible = false
+      this.$store.commit('setName', '')
     }
   },
   computed: {

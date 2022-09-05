@@ -11,7 +11,7 @@
                 username*</label>
             </div>
           </div>
-          <Button type="submit" label="Register" class="p-mt-2"/>
+          <Button :disabled='!userInfo.username' type="submit" label="Register" class="p-mt-2"/>
         </form>
       </div>
     </div>
@@ -19,7 +19,6 @@
 </template>
 
 <script>
-
 const globalTelegram = window.Telegram.WebApp
 
 export default {
@@ -29,6 +28,7 @@ export default {
       userInfo: {
         username: '',
         tgNickname: '',
+        tgID: '',
       },
     }
   },
@@ -39,6 +39,10 @@ export default {
   mounted() {
     this.userInfo.username = globalTelegram.initDataUnsafe.user ? globalTelegram.initDataUnsafe.user.username : 'Unknown_user'
     this.userInfo.tgNickname = globalTelegram.initDataUnsafe.user ? globalTelegram.initDataUnsafe.user.username : 'Unknown_user'
+    this.userInfo.tgID = globalTelegram.initDataUnsafe.user ? globalTelegram.initDataUnsafe.user.id : '000000000'
+    this.$store.commit('setName', this.userInfo.username)
+
+    //if(this.userInfo.tgID === JSON.parse(localStorage.getItem("userInfo")).tgID) return
   },
   methods: {
     resetForm() {
