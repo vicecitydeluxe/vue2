@@ -2,7 +2,6 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import VueCompositionAPI from '@vue/composition-api'
 
 import PrimeVue from 'primevue/config';
 import InputText from 'primevue/inputtext';
@@ -16,7 +15,6 @@ import "./index.css";
 Vue.component('InputText', InputText);
 Vue.component('Button', Button);
 
-Vue.use(VueCompositionAPI)
 Vue.use(PrimeVue);
 
 Vue.config.productionTip = false

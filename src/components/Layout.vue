@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="title">Welcome!</h1>
+    <h1 class="title">Welcome, {{ name }}!</h1>
     <div class="layout">
       <Button icon="pi pi-paypal" label="Top-up" iconPos="left" class="p-button-lg"/>
       <Button icon="pi pi-upload" label="Upload" iconPos="left" class="p-button-lg"/>
@@ -13,13 +13,17 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
+
 export default {
   name: "Layout",
   methods: {
     previousMenu() {
       this.$parent.layoutVisible = false
     }
-
+  },
+  computed: {
+    ...mapGetters(['name'])
   },
 }
 </script>
