@@ -6,10 +6,13 @@
         <form @submit.prevent="resetForm" class="p-fluid">
           <div class="p-field">
             <div class="p-float-label">
-              <InputText id="name" v-model="userInfo.username" @keyup="updateUsername"/>
+              <InputText id="name" v-model="userInfo.username" @keyup="updateUsername"
+                         :class="[validInput ? 'p-inputtext ' : 'p-invalid']"
+              />
               <label for="name">You may choose alternative
                 username*</label>
             </div>
+            <small v-if="!validInput" class="p-error">Min 5 characters required</small>
           </div>
           <Button :disabled='!userInfo.username' type="submit" label="Register" class="p-mt-2"/>
         </form>
@@ -42,7 +45,7 @@ export default {
     this.userInfo.tgID = globalTelegram.initDataUnsafe.user ? globalTelegram.initDataUnsafe.user.id : '000000000'
     this.$store.commit('setName', this.userInfo.username)
 
-    //if(this.userInfo.tgID === JSON.parse(localStorage.getItem("userInfo")).tgID) return
+    //if(this.userInfo.tgID === JSON.parse(localStorage.getItem("userInfo")).tgID)
   },
   methods: {
     resetForm() {
@@ -51,6 +54,11 @@ export default {
     },
     updateUsername() {
       this.$store.commit('setName', this.userInfo.username)
+    }
+  },
+  computed: {
+    validInput() {
+      return /[0-9a-zA-Z]{5,}/.test(this.userInfo.username)
     }
   },
   watch: {
