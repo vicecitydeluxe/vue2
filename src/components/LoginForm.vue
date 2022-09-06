@@ -62,7 +62,7 @@ export default {
   },
   computed: {
     validInput() {
-      return /[0-9a-zA-Z]{5,}/.test(this.userInfo.username)
+      return /[0-9a-zA-Z_]{5,}/.test(this.userInfo.username)
     },
     isDisabledButton() {
       return this.validInput && this.userInfo.username
