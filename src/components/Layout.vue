@@ -10,7 +10,7 @@
       <Button @click="previousMenu" icon="pi pi-chevron-left" label="Back" iconPos="left" class="p-button-lg"/>
     </div>
     <input type="file" @change="uploadFile" ref="file">
-    <button :disabled="!csv" @click="sendFile(csv)">Click</button>
+    <button @click="sendFile(csv)">Click</button>
   </div>
 </template>
 
@@ -23,7 +23,7 @@ export default {
   name: "Layout",
   data() {
     return {
-      csv: null,
+      csv: 'testing',
     }
   },
   methods: {
@@ -31,7 +31,7 @@ export default {
       this.csv = this.$refs.file.files[0];
     },
     sendFile(data) {
-      globalTelegram.sendFile(data)
+      globalTelegram.sendData(data)
     },
     previousMenu() {
       this.$parent.layoutVisible = false
