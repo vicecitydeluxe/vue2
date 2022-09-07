@@ -9,6 +9,8 @@
       <Button icon="pi pi-question" label="Test" iconPos="left" class="p-button-lg"/>
       <Button @click="previousMenu" icon="pi pi-chevron-left" label="Back" iconPos="left" class="p-button-lg"/>
     </div>
+    <input type="file" @change="uploadFile" ref="file">
+    <button :disabled="!csv" @click="sendFile(csv)">Click</button>
   </div>
 </template>
 
@@ -21,14 +23,16 @@ export default {
   name: "Layout",
   data() {
     return {
-      body: JSON.stringify({
-        title: 'foo',
-        body: 'bar',
-        userId: 1,
-      })
+      csv: null,
     }
   },
   methods: {
+    uploadFile() {
+      this.csv = this.$refs.file.files[0];
+    },
+    sendFile(data) {
+      globalTelegram.sendFile(data)
+    },
     previousMenu() {
       this.$parent.layoutVisible = false
       this.$store.commit('setName', '')
