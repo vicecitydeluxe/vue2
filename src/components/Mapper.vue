@@ -16,11 +16,18 @@
 <script>
 import {mapGetters} from 'vuex'
 
+const globalTelegram = window.Telegram.WebApp
+
 export default {
   name: "Mapper",
   computed: {
     ...mapGetters(['listName', "fileName"]),
   },
+  mounted() {
+    globalTelegram.expand()
+    globalTelegram.enableClosingConfirmation()
+    globalTelegram.MainButton.hide()
+  }
 }
 </script>
 

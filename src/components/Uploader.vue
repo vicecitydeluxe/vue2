@@ -33,6 +33,7 @@
 import {mapGetters} from 'vuex'
 import Papa from 'papaparse'
 
+const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "Uploader",
@@ -91,6 +92,11 @@ export default {
       },
       deep: true
     }
+  },
+  mounted() {
+    globalTelegram.expand()
+    globalTelegram.enableClosingConfirmation()
+    globalTelegram.MainButton.hide()
   },
 }
 </script>

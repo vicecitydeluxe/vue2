@@ -42,6 +42,10 @@ export default {
     globalTelegram.enableClosingConfirmation()
   },
   mounted() {
+    globalTelegram.expand()
+    globalTelegram.enableClosingConfirmation()
+    globalTelegram.MainButton.hide()
+
     this.userInfo.username = globalTelegram.initDataUnsafe.user ? globalTelegram.initDataUnsafe.user.username : 'Unknown_user'
     this.userInfo.tgNickname = globalTelegram.initDataUnsafe.user ? globalTelegram.initDataUnsafe.user.username : 'Unknown_user'
     this.userInfo.tgID = globalTelegram.initDataUnsafe.user ? globalTelegram.initDataUnsafe.user.id : '000000000'
@@ -72,8 +76,8 @@ export default {
       },
       deep: true
     }
+  },
   }
-}
 </script>
 
 <style lang="scss" scoped>

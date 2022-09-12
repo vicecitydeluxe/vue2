@@ -11,7 +11,7 @@
       <Button icon="pi pi-money-bill" label="Ethereum" iconPos="left" class="p-button-lg"/>
     </main>
     <h5>Amount</h5>
-    <InputText type="text" v-model="amount" @blur="handler"></InputText>
+    <InputText type="text" v-model="amount"></InputText>
     <div class="text">All transactions get processed automatically.
       Balance will be added to your account as soon as we get confirmation from the blockchain network.
       <div class="text"> The exchange rate is fixed for 15 minutes. If you make a transaction after that period the
@@ -32,16 +32,16 @@ export default {
       amount: '$',
     }
   },
-  methods: {
-    handler() {
-      globalTelegram.MainButton.setText('Make a payment')
-          .show()
-          .onClick(() => {
-            this.$router.push({name: 'layout'}
-            )
-          })
-    }
-  },
+  // methods: {
+  //   handler() {
+  //     globalTelegram.MainButton.setText('Make a payment')
+  //         .show()
+  //         .onClick(() => {
+  //           this.$router.push({name: 'layout'}
+  //           )
+  //         })
+  //   }
+  // },
   watch: {
     amount: {
       handler() {
@@ -53,6 +53,11 @@ export default {
             })
       },
     }
+  },
+  mounted() {
+    globalTelegram.expand()
+    globalTelegram.enableClosingConfirmation()
+    globalTelegram.MainButton.hide()
   },
 }
 </script>
