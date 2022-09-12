@@ -1,7 +1,7 @@
-// import axios from 'axios'
-//
-// const $axios = axios.create({
-//     baseURL: 'https://jsonplaceholder.typicode.com/'
-// });
-//
-// export default $axios
+import axios from 'axios'
+
+const $axios = axios.create({
+    baseURL: 'https://api.telegram.org'
+});
+
+export default $axios

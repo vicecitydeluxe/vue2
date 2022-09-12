@@ -3,7 +3,7 @@
     <div class="p-d-flex p-jc-center">
       <div class="card">
         <h5 class="p-text-center">Hi, {{ userInfo.tgNickname }}!</h5>
-        <form @submit.prevent="resetForm" class="p-fluid">
+        <form class="p-fluid">
           <div class="p-field">
             <div class="p-float-label">
               <InputText id="name" v-model="userInfo.username" @keyup="updateUsername"
@@ -14,7 +14,8 @@
             </div>
             <small v-if="!validInput" class="p-error">Min 5 characters required</small>
           </div>
-          <Button :disabled='!isDisabledButton' type="submit" label="Register" class="p-mt-2"/>
+          <Button :disabled='!isDisabledButton' @click="$router.push({name:'layout'})" type="button" label="Register"
+                  class="p-mt-2"/>
         </form>
       </div>
     </div>
@@ -52,10 +53,6 @@ export default {
     //if(this.userInfo.tgID === JSON.parse(localStorage.getItem("userInfo")).tgID)
   },
   methods: {
-    resetForm() {
-      this.$parent.layoutVisible = true
-      this.userInfo.username = ''
-    },
     updateUsername() {
       this.$store.commit('setName', this.userInfo.username)
     }
@@ -80,28 +77,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.form-demo {
-  .card {
-    min-width: 250px;
-
-    form {
-      margin-top: 2rem;
-    }
-
-    .p-field {
-      margin-bottom: 2rem;
-    }
-  }
-
-  .p-text-center {
-    display: flex;
-    justify-content: space-around;
-  }
-
-  @media screen and (max-width: 960px) {
-    .card {
-      width: 95%;
-    }
-  }
-}
+@import '../styles/LoginForm.scss';
 </style>

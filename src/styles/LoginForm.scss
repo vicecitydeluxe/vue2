@@ -1,0 +1,24 @@
+.form-demo {
+  .card {
+    min-width: 250px;
+
+    form {
+      margin-top: 2rem;
+    }
+
+    .p-field {
+      margin-bottom: 2rem;
+    }
+  }
+
+  .p-text-center {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  @media screen and (max-width: 960px) {
+    .card {
+      width: 95%;
+    }
+  }
+}

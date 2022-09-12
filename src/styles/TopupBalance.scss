@@ -1,0 +1,24 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.layout {
+  display: flex;
+  justify-content: center;
+}
+
+.p-inputtext {
+  margin-bottom: 10px;
+  font-size: 100%;
+  width: 100%;
+}
+
+.text {
+  text-indent: 10px;
+}
+
+.p-button.p-button-lg {
+  margin: 5px;
+}

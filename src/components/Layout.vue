@@ -2,15 +2,16 @@
   <div>
     <h4 class="title">Welcome, {{ name }} to the *marketplace name*. Use the buttons below to access commands.</h4>
     <div class="layout">
-      <Button icon="pi pi-paypal" label="Top-up" iconPos="left" class="p-button-lg" @click="showPopupMessage"/>
-      <Button icon="pi pi-upload" label="Upload" iconPos="left" class="p-button-lg" @click="showPopupAlert"/>
+      <Button icon="pi pi-paypal" label="Top-up" iconPos="left" class="p-button-lg"
+              @click="$router.push({name:'balance'})"/>
+      <Button icon="pi pi-download" label="Download" iconPos="left" class="p-button-lg" @click="showPopupAlert"/>
       <Button icon="pi pi-money-bill" label="Buy" iconPos="left" class="p-button-lg" @click="showConfirmMessage"/>
       <Button icon="pi pi-history" label="History" iconPos="left" class="p-button-lg"/>
-      <Button icon="pi pi-question" label="Test" iconPos="left" class="p-button-lg"/>
-      <Button @click="previousMenu" icon="pi pi-chevron-left" label="Back" iconPos="left" class="p-button-lg"/>
+      <Button @click="$router.push({name: 'uploadLayout'})" icon="pi pi-shopping-cart" label="Sell leads" iconPos="left"
+              class="p-button-lg"/>
+      <Button @click="$router.push({name: 'login'})" icon="pi pi-chevron-left" label="Back" iconPos="left"
+              class="p-button-lg"/>
     </div>
-    <input type="file" @change="uploadFile" ref="file">
-    <button @click="sendFile(csv)">Click</button>
   </div>
 </template>
 
@@ -21,28 +22,13 @@ const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "Layout",
-  data() {
-    return {
-      csv: 'testing',
-    }
-  },
   methods: {
-    uploadFile() {
-      this.csv = this.$refs.file.files[0];
-    },
-    sendFile(data) {
-      globalTelegram.sendData(data)
-    },
-    previousMenu() {
-      this.$parent.layoutVisible = false
-      this.$store.commit('setName', '')
-    },
-    showPopupMessage() {
-      globalTelegram.showPopup({
-        title: 'You can easily top up your balance',
-        message: 'This feature would be added soon'
-      })
-    },
+    // showPopupMessage() {
+    //   globalTelegram.showPopup({
+    //     title: 'You can easily top up your balance',
+    //     message: 'This feature would be added soon'
+    //   })
+    // },
     showPopupAlert() {
       globalTelegram.showAlert('This feature would be added soon')
     },
@@ -57,7 +43,7 @@ export default {
     // }
   },
   computed: {
-    ...mapGetters(['name'])
+    ...mapGetters(['name']),
   },
   mounted() {
     globalTelegram.expand()
@@ -67,17 +53,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.layout {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.title {
-  display: flex;
-  justify-content: center;
-  text-align: center;
-}
+@import '../styles/Layout.scss';
 </style>

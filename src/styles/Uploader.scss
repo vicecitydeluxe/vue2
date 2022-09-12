@@ -1,0 +1,22 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.description {
+  margin-bottom: 15px;
+}
+
+.p-button.p-fileupload-choose {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+}
+
+.bottom-button {
+  width: 100%;
+  margin-top: 50px;
+  display: block;
+  text-align: center;
+}
