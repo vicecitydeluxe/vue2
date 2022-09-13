@@ -38,8 +38,6 @@ export default {
   },
   beforeCreate() {
     globalTelegram.ready()
-    globalTelegram.expand()
-    globalTelegram.enableClosingConfirmation()
   },
   mounted() {
     globalTelegram.expand()

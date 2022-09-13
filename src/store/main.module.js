@@ -3,7 +3,8 @@ import $axios from '../api/index'
 const state = {
     name: 'Unknown_user',
     listName: 'CM DE May 2022 depositors',
-    fileName: 'Default.csv'
+    fileName: 'Default.csv',
+    balanceAmount: '',
 }
 const getters = {
     name() {
@@ -15,6 +16,9 @@ const getters = {
     fileName() {
         return state.fileName
     },
+    balanceAmount() {
+        return state.balanceAmount
+    }
 }
 const actions = {
 
@@ -61,6 +65,9 @@ const mutations = {
     },
     setFileName(ctx, data) {
         state.fileName = data
+    },
+    setBalanceAmount(ctx, data) {
+        state.balanceAmount = data
     }
 }
 

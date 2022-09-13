@@ -29,12 +29,18 @@ export default {
   name: "TopupBalance",
   data() {
     return {
-      amount: '$',
+      amount: '',
+    }
+  },
+  methods: {
+    updateBalanceAmount() {
+      this.$store.commit('setBalanceAmount', this.amount)
     }
   },
   watch: {
     amount: {
       handler() {
+        this.updateBalanceAmount()
         globalTelegram.MainButton.setText('Make a payment')
             .show()
             .onClick(() => {
