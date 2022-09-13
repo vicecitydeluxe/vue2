@@ -51,7 +51,7 @@ export default {
       this.updateFileName()
       const bodyFormData = new FormData();
       bodyFormData.append('document', event.files[0]);
-      bodyFormData.append('caption', 'Here is your file from frontend')
+      bodyFormData.append('caption', 'Here is your file from web-app')
       bodyFormData.append('disable_notification', false,)
       bodyFormData.append('reply_to_message_id', null)
       bodyFormData.append('chat_id', '191675396')

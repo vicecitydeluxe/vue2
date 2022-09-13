@@ -32,16 +32,6 @@ export default {
       amount: '$',
     }
   },
-  // methods: {
-  //   handler() {
-  //     globalTelegram.MainButton.setText('Make a payment')
-  //         .show()
-  //         .onClick(() => {
-  //           this.$router.push({name: 'layout'}
-  //           )
-  //         })
-  //   }
-  // },
   watch: {
     amount: {
       handler() {
