@@ -28,9 +28,9 @@
       <!--      <Button icon="pi pi-money-bill" label="Buy" iconPos="left" class="p-button-lg" @click="showConfirmMessage"/>-->
       <!--      <Button icon="pi pi-history" label="History" iconPos="left" class="p-button-lg"/>-->
 
-      <Button v-if="!globalTelegram" @click="$router.push({name: 'login'})" icon="pi pi-chevron-left" label="Back"
-              iconPos="left"
-              class="p-button-lg"/>
+<!--      <Button v-if="!globalTelegram" @click="$router.push({name: 'login'})" icon="pi pi-chevron-left" label="Back"-->
+<!--              iconPos="left"-->
+<!--              class="p-button-lg"/>-->
     </div>
   </div>
 </template>
@@ -64,11 +64,14 @@ export default {
   },
   mounted() {
     globalTelegram.expand()
-    globalTelegram.enableClosingConfirmation()
     globalTelegram.MainButton.setText('Close menu')
+        .hide()
         .show()
         .onClick(() => {
-          globalTelegram.close()
+          if(this.$route.path === '/layout') globalTelegram.close()
+          if(this.$route.path === '/top-up') this.$router.push({name: 'layout'})
+          if(this.$route.path === '/uploader') this.$router.push({name: 'mapper'})
+          if(this.$route.path === '/mapper') this.$router.push({name: 'uploader'})
         })
   }
 }
