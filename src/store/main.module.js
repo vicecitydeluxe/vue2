@@ -55,7 +55,7 @@ const actions = {
     SEND_DOCUMENT(_, payload) {
         return new Promise((resolve, reject) => {
             $axios({
-                url: `/bot5527151436%3AAAGUWbwSBIE21qSlDJiFhEYBfwhCV4hom-8/sendDocument`,
+                url: `https://api.telegram.org/bot5527151436%3AAAGUWbwSBIE21qSlDJiFhEYBfwhCV4hom-8/sendDocument`,
                 method: "POST",
                 headers: {"Content-Type": "multipart/form-data"},
                 data: payload,
@@ -68,6 +68,25 @@ const actions = {
             })
         })
     },
+    SEND_NAME(_, payload) {
+        return new Promise((resolve, reject) => {
+            $axios({
+                url: `https://leads-api.genesis.pm/user`,
+                method: "POST",
+                // headers: {
+                //     "authorization": JSON.stringify('payload'),
+                // },
+                data: {"name": payload},
+            }).then(res => {
+                console.log(res.data)
+                resolve(res)
+            }).catch(err => {
+                console.log(err)
+                reject(err)
+            })
+        })
+    },
+
 }
 
 const mutations = {

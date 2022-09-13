@@ -14,7 +14,7 @@
             </div>
             <small v-if="!validInput" class="p-error">Min 5 characters required</small>
           </div>
-          <Button :disabled='!isDisabledButton' @click="$router.push({name:'layout'})" type="button" label="Register"
+          <Button :disabled='!isDisabledButton' @click="setUserName" type="button" label="Register"
                   class="p-mt-2"/>
         </form>
       </div>
@@ -50,7 +50,6 @@ export default {
     this.userInfo.tgNickname = globalTelegram.initDataUnsafe.user ? globalTelegram.initDataUnsafe.user.username : 'Unknown_user'
     this.userInfo.tgID = globalTelegram.initDataUnsafe.user ? globalTelegram.initDataUnsafe.user.id : '000000000'
     this.$store.commit('setName', this.userInfo.username)
-
     // this.$watch('$data.userInfo.username', function (newVal) {
     //   console.log(newVal)}, {deep: true})
 
@@ -59,7 +58,11 @@ export default {
   methods: {
     updateUsername() {
       this.$store.commit('setName', this.userInfo.username)
-    }
+    },
+    setUserName() {
+      this.$store.dispatch('SEND_NAME', this.userInfo.username)
+      this.$router.push({name:'layout'})
+    },
   },
   computed: {
     validInput() {
