@@ -35,12 +35,6 @@ export default {
     showConfirmMessage() {
       globalTelegram.showConfirm('Testing confirm')
     },
-    // testFake() {
-    //   this.$store.dispatch('GET_TODOS')
-    // },
-    // testPost(payload) {
-    //   this.$store.dispatch('SEND_DATA', payload)
-    // }
   },
   computed: {
     ...mapGetters(['name']),
