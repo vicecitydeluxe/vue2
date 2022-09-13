@@ -27,7 +27,7 @@
       <Dropdown v-model="selectedFunnel" placeholder="Unknown" :options="funnels"
                 optionLabel="name"></Dropdown>
       <h6 v-if="validUploadButton">Upload list:</h6>
-<!--      <Button :disabled="!validUploadButton" @click="$router.push({name: 'uploader'})">Hit me!</Button>-->
+      <!--      <Button :disabled="!validUploadButton" @click="$router.push({name: 'uploader'})">Hit me!</Button>-->
     </main>
   </div>
 </template>
@@ -77,14 +77,14 @@ export default {
   watch: {
     validUploadButton: {
       handler(newValue, oldValue) {
-        if(newValue) {
+        if (newValue) {
           globalTelegram.MainButton.setText('Create a list')
               .show()
               .onClick(() => {
-                this.$router.push({name: 'uploader'}
+                if (this.$route.path === '/upload-layout') this.$router.push({name: 'uploader'}
                 )
               })
-        } else if(oldValue) globalTelegram.MainButton.hide()
+        } else if (oldValue) globalTelegram.MainButton.hide()
       },
     }
   },

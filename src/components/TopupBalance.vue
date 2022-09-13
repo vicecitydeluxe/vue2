@@ -44,7 +44,7 @@ export default {
         globalTelegram.MainButton.setText('Make a payment')
             .show()
             .onClick(() => {
-              this.$router.push({name: 'layout'}
+              if (this.$route.path === '/top-up') this.$router.push({name: 'layout'}
               )
             })
       },

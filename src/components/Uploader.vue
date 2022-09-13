@@ -98,7 +98,7 @@ export default {
         globalTelegram.MainButton.setText('Map columns')
             .show()
             .onClick(() => {
-              this.$router.push({name: 'mapper'}
+              if (this.$route.path === '/uploader') this.$router.push({name: 'mapper'}
               )
             })
       },
