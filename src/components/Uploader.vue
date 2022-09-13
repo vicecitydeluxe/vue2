@@ -25,7 +25,7 @@
                responsiveLayout="scroll">
       <Column v-for="col of columns" :field="col.field" :header="col.header" :key="col.id"></Column>
     </DataTable>
-    <Button v-if="parsed" class="bottom-button" @click="$router.push({name:'mapper'})">Map columns</Button>
+<!--    <Button v-if="parsed" class="bottom-button" @click="$router.push({name:'mapper'})">Map columns</Button>-->
   </div>
 </template>
 
@@ -91,8 +91,20 @@ export default {
         this.columns = newValue.meta.fields.map((el) => ({field: el, header: el}))
       },
       deep: true
+    },
+    parsed: {
+      handler() {
+        globalTelegram.MainButton.setText('Map columns')
+            .show()
+            .onClick(() => {
+              this.$router.push({name: 'mapper'}
+              )
+            })
+      },
     }
+
   },
+
   mounted() {
     globalTelegram.expand()
     globalTelegram.enableClosingConfirmation()
