@@ -11,6 +11,7 @@
 
     <FileUpload
         :customUpload="true"
+        :auto="true"
         @uploader="sendFile"
         mode="basic"
         accept=".csv, .xls, .xlsx"
