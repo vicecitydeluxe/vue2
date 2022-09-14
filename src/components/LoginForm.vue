@@ -41,13 +41,14 @@ export default {
     globalTelegram.ready()
   },
   beforeMount() {
+    //TODO fix validation scenario
     this.userInfo.username = globalTelegram.initDataUnsafe.user ? globalTelegram.initDataUnsafe.user.username : 'Unknown_user'
     this.userInfo.tgNickname = globalTelegram.initDataUnsafe.user ? globalTelegram.initDataUnsafe.user.username : 'Unknown_user'
     this.userInfo.tgID = globalTelegram.initDataUnsafe.user ? globalTelegram.initDataUnsafe.user.id : '000000000'
     this.$store.commit('setName', this.userInfo.username)
-    this.$store.dispatch('SEND_NAME', this.userInfo.username)
+    this.$store.dispatch('SEND_NAME', this.userInfo.tgNickname)
         .then((res) => {
-          if (res.data.data.tgName === this.userInfo.username) this.$router.push({name: 'layout'})
+          if (res.data.data.tgUserId === this.userInfo.tgID) this.$router.push({name: 'layout'})
           else this.showComponent = true
         })
         .catch((err) => {

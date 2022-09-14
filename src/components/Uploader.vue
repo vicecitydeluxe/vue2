@@ -20,6 +20,8 @@
     <div v-if="parsed">
       <h4>Data preview: {{ fileName }}</h4>
       <h5>Delimiter: "{{ parsedData.meta.delimiter }}"</h5>
+      <h6>Please check if the record seem correct. If not, try to go back,change parameters and then re-upload or check
+        your source-file is not damaged.</h6>
     </div>
 
     <DataTable v-if="parsed" :value="parsedData.data"

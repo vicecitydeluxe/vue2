@@ -4,6 +4,34 @@
   align-items: center;
 }
 
-.description{
+.description {
   margin-top: 15px;
-  margin-bottom: 15px;}
+  margin-bottom: 15px;
+}
+
+.map_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  gap: 3px;
+}
+
+.sub_map_container {
+  display: flex;
+  margin-bottom: 15px;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 65px;
+}
+
+.options_container {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin: 15px 0 15px 0;
+}
+
+.dropdown {
+  width: 150px;
+}

@@ -11,6 +11,8 @@ import FileUpload from 'primevue/fileupload';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Dropdown from 'primevue/dropdown';
+import Checkbox from 'primevue/checkbox';
+import InputMask from 'primevue/inputmask';
 
 import 'primevue/resources/themes/md-light-deeppurple/theme.css'
 import 'primevue/resources/primevue.min.css'
@@ -23,6 +25,8 @@ Vue.component('FileUpload', FileUpload);
 Vue.component('DataTable', DataTable);
 Vue.component('Column', Column);
 Vue.component('Dropdown', Dropdown);
+Vue.component('Checkbox', Checkbox);
+Vue.component('InputMask', InputMask);
 
 Vue.use(PrimeVue);
 

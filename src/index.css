@@ -86,11 +86,11 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .p-datatable .p-datatable-thead > tr > th:first-child {
-    border-radius: 9px 1px 0px 0px;
+    border-radius: 9px 1px 0 0;
 }
 
 .p-datatable .p-datatable-thead > tr > th:last-child {
-    border-radius: 0px 9px 0px 0px;
+    border-radius: 0 9px 0 0;
 }
 
 .customer-badge {
@@ -201,10 +201,6 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .p-multiselect-representative-option span {
     margin-top: .125rem;
-}
-
-.p-dropdown-item {
-    max-width: 225px;
 }
 
 .p-checkbox {
