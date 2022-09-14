@@ -18,7 +18,6 @@
         <Dropdown class="dropdown" v-model="selectedCountry" placeholder="GB" :options="countries"
                   optionLabel="name"></Dropdown>
       </div>
-      <hr>
       <div>This is the final step which will load leads to the DB.</div>
     </main>
   </div>

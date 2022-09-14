@@ -167,10 +167,10 @@ export default {
     checkedCountry: {
       handler(newValue) {
         if (newValue) {
-          globalTelegram.MainButton.setText('Create leads')
+          globalTelegram.MainButton.setText('Next')
               .show()
               .onClick(() => {
-                if (this.$route.path === '/country-mapper') this.$router.push({name: 'layout'}
+                if (this.$route.path === '/mapper') this.$router.push({name: 'country'}
                 )
               })
         } else if (!newValue) {
