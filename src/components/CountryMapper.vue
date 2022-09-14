@@ -56,6 +56,11 @@ export default {
       },
     }
   },
+  mounted() {
+    globalTelegram.expand()
+    globalTelegram.enableClosingConfirmation()
+    globalTelegram.MainButton.hide()
+  },
 }
 </script>
 
