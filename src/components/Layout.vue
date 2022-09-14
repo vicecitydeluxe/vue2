@@ -15,7 +15,7 @@
       <Button icon="pi pi-book" label="My lists" iconPos="left" class="p-button-lg"
               @click="$router.push({name: 'uploader'})"/>
       <Button icon="pi pi-book" label="My deals" iconPos="left" class="p-button-lg"
-              @click="showPopupAlert"/>
+              @click="$router.push({name: 'country'})"/>
       <Button icon="pi pi-shopping-cart" label="Buy leads" iconPos="left" class="p-button-lg"
               @click="showPopupAlert"/>
       <Button icon="pi pi-sort-alt" label="Marketplace" iconPos="left" class="p-button-lg"

@@ -163,6 +163,22 @@ export default {
   computed: {
     ...mapGetters(['listName', "fileName"]),
   },
+  watch: {
+    checkedCountry: {
+      handler(newValue) {
+        if (newValue) {
+          globalTelegram.MainButton.setText('Create leads')
+              .show()
+              .onClick(() => {
+                if (this.$route.path === '/country-mapper') this.$router.push({name: 'layout'}
+                )
+              })
+        } else if (!newValue) {
+          globalTelegram.MainButton.hide()
+        }
+      },
+    }
+  },
   mounted() {
     globalTelegram.expand()
     globalTelegram.enableClosingConfirmation()
@@ -172,5 +188,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/Mapper.scss';
+@import '../styles/ColumnMapper.scss';
 </style>

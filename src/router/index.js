@@ -17,29 +17,33 @@ const routes = [
     {
         path: '*',
         name: 'incorrect',
-        component: () => import(/* webpackChunkName: "layout" */ '@/components/LoginForm')
+        component: () => import(/* webpackChunkName: "loginForm" */ '@/components/LoginForm')
     },
     {
         path: '/top-up',
         name: 'balance',
-        component: () => import(/* webpackChunkName: "layout" */ '@/components/TopupBalance')
+        component: () => import(/* webpackChunkName: "topup" */ '@/components/TopupBalance')
     },
     {
         path: '/upload-layout',
         name: 'uploadLayout',
-        component: () => import(/* webpackChunkName: "layout" */ '@/components/UploadLayout')
+        component: () => import(/* webpackChunkName: "uploadLayout" */ '@/components/UploadLayout')
     },
     {
         path: '/uploader',
         name: 'uploader',
-        component: () => import(/* webpackChunkName: "layout" */ '@/components/Uploader')
+        component: () => import(/* webpackChunkName: "uploader" */ '@/components/Uploader')
     },
     {
         path: '/mapper',
         name: 'mapper',
-        component: () => import(/* webpackChunkName: "layout" */ '@/components/Mapper')
+        component: () => import(/* webpackChunkName: "colMapper" */ '@/components/ColumnMapper')
     },
-
+    {
+        path: '/country-mapper',
+        name: 'country',
+        component: () => import(/* webpackChunkName: "countryMapper" */ '@/components/CountryMapper')
+    },
 
 ]
 
