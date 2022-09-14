@@ -24,13 +24,11 @@
               @click="showPopupAlert"/>
       <Button icon="pi pi-paypal" label="Top-up" iconPos="left" class="p-button-lg"
               @click="$router.push({name:'balance'})"/>
-      <!--      <Button icon="pi pi-download" label="Download" iconPos="left" class="p-button-lg" @click="showPopupAlert"/>-->
-      <!--      <Button icon="pi pi-money-bill" label="Buy" iconPos="left" class="p-button-lg" @click="showConfirmMessage"/>-->
-      <!--      <Button icon="pi pi-history" label="History" iconPos="left" class="p-button-lg"/>-->
-
-<!--      <Button v-if="!globalTelegram" @click="$router.push({name: 'login'})" icon="pi pi-chevron-left" label="Back"-->
-<!--              iconPos="left"-->
-<!--              class="p-button-lg"/>-->
+      <Button @click="showConfirmationMessage" icon="pi pi-times" label="Close app"
+              iconPos="left"
+              class="p-button-lg"
+              style="background: #2289da;"
+      />
     </div>
   </div>
 </template>
@@ -43,36 +41,23 @@ const globalTelegram = window.Telegram.WebApp
 export default {
   name: "Layout",
   methods: {
-    // showPopupMessage() {
-    //   globalTelegram.showPopup({
-    //     title: 'You can easily top up your balance',
-    //     message: 'This feature would be added soon'
-    //   })
-    // },
     showPopupAlert() {
       globalTelegram.showAlert('This feature would be added soon')
     },
     showBalance() {
       globalTelegram.showAlert(`Your balance is ${this.balanceAmount}$`)
     },
-    // showConfirmMessage() {
-    //   globalTelegram.showConfirm('Testing confirm')
-    // },
+    showConfirmationMessage() {
+      globalTelegram.showAlert('Do you want to close the app?', () => globalTelegram.close())
+    },
   },
   computed: {
     ...mapGetters(['name', 'balanceAmount']),
   },
   mounted() {
     globalTelegram.expand()
-    globalTelegram.MainButton.setText('Close menu')
-        .hide()
-        .show()
-        .onClick(() => {
-          if(this.$route.path === '/layout') globalTelegram.close()
-          if(this.$route.path === '/top-up') this.$router.push({name: 'layout'})
-          if(this.$route.path === '/uploader') this.$router.push({name: 'mapper'})
-          if(this.$route.path === '/mapper') this.$router.push({name: 'uploader'})
-        })
+    globalTelegram.enableClosingConfirmation()
+    globalTelegram.MainButton.hide()
   }
 }
 </script>

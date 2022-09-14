@@ -39,14 +39,19 @@ export default {
   },
   watch: {
     amount: {
-      handler() {
-        this.updateBalanceAmount()
-        globalTelegram.MainButton.setText('Make a payment')
-            .show()
-            .onClick(() => {
-              if (this.$route.path === '/top-up') this.$router.push({name: 'layout'}
-              )
-            })
+      handler(newValue) {
+        if (newValue) {
+          this.updateBalanceAmount()
+          globalTelegram.MainButton.setText('Make a payment')
+              .show()
+              .onClick(() => {
+                if (this.$route.path === '/top-up') this.$router.push({name: 'layout'}
+                )
+              })
+        } else if (!newValue) {
+          this.updateBalanceAmount()
+          globalTelegram.MainButton.hide()
+        }
       },
     }
   },
