@@ -1,5 +1,5 @@
 <template>
-  <div class="form-demo">
+  <div class="form-demo" v-if="showComponent">
     <div class="p-d-flex p-jc-center">
       <div class="card">
         <h5 class="p-text-center">Hi, {{ userInfo.tgNickname }}!</h5>
@@ -29,6 +29,7 @@ export default {
   name: "LoginForm",
   data() {
     return {
+      showComponent: false,
       userInfo: {
         username: '',
         tgNickname: '',
@@ -39,16 +40,25 @@ export default {
   beforeCreate() {
     globalTelegram.ready()
   },
-  mounted() {
-    globalTelegram.expand()
-    globalTelegram.enableClosingConfirmation()
-    globalTelegram.MainButton.hide()
-
+  beforeMount() {
     this.userInfo.username = globalTelegram.initDataUnsafe.user ? globalTelegram.initDataUnsafe.user.username : 'Unknown_user'
     this.userInfo.tgNickname = globalTelegram.initDataUnsafe.user ? globalTelegram.initDataUnsafe.user.username : 'Unknown_user'
     this.userInfo.tgID = globalTelegram.initDataUnsafe.user ? globalTelegram.initDataUnsafe.user.id : '000000000'
     this.$store.commit('setName', this.userInfo.username)
-
+    this.$store.dispatch('SEND_NAME', this.userInfo.username)
+        .then((res) => {
+          if (res.data.data.tgName === this.userInfo.username) this.$router.push({name: 'layout'})
+          else this.showComponent = true
+        })
+        .catch((err) => {
+          this.showComponent = true
+          console.log(err)
+        })
+  },
+  mounted() {
+    globalTelegram.expand()
+    globalTelegram.enableClosingConfirmation()
+    globalTelegram.MainButton.hide()
   },
   methods: {
     updateUsername() {
@@ -56,7 +66,7 @@ export default {
     },
     setUserName() {
       this.$store.dispatch('SEND_NAME', this.userInfo.username)
-      this.$router.push({name:'layout'})
+      this.$router.push({name: 'layout'})
     },
   },
   computed: {
@@ -75,7 +85,7 @@ export default {
   //     deep: true
   //   }
   // },
-  }
+}
 </script>
 
 <style lang="scss" scoped>
