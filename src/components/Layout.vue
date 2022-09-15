@@ -40,6 +40,12 @@ const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "Layout",
+  data() {
+    return {
+      switchTheme: '',
+      themeParams: '',
+    }
+  },
   methods: {
     showPopupAlert() {
       globalTelegram.showAlert('This feature would be added soon')
@@ -55,6 +61,8 @@ export default {
     ...mapGetters(['name', 'balanceAmount']),
   },
   mounted() {
+    globalTelegram.onEvent('themeChanged', () => this.switchTheme = 'true');
+    globalTelegram.onEvent('mainButtonClicked', () => this.themeParams = globalTelegram.colorScheme)
     globalTelegram.expand()
     globalTelegram.enableClosingConfirmation()
     globalTelegram.MainButton.hide()
