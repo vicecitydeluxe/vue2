@@ -1,24 +1,27 @@
 <template>
   <div>
     <header class="header">
-      <h3>Top up</h3>
+      <h3>TOPUP</h3>
       <Button icon="pi pi-times" class="p-button-rounded p-button-help p-button-text"
               @click="$router.push({name:'layout'})"/>
     </header>
     <main class="layout">
-      <Button icon="pi pi-money-bill" label="Bitcoin" iconPos="left" class="p-button-lg"/>
-      <Button icon="pi pi-dollar" label="USDT" iconPos="left" class="p-button-lg"/>
-      <Button icon="pi pi-money-bill" label="Ethereum" iconPos="left" class="p-button-lg"/>
+      <button class="btn_left">Bitcoin</button>
+      <button class="btn_mid">USDT ERC20</button>
+      <button class="btn_right">Ethereum TRC20</button>
     </main>
-    <h5>Amount</h5>
-    <InputText type="text" v-model="amount"></InputText>
-    <div class="text">All transactions get processed automatically.
-      Balance will be added to your account as soon as we get confirmation from the blockchain network.
-      <div class="text"> The exchange rate is fixed for 15 minutes. If you make a transaction after that period the
-        actual exchange rate
-        will be used.
+    <div class="section">
+      <h6>Amount</h6>
+      <InputText type="text" v-model="amount" class=""></InputText>
+      <div class="text">All transactions get processed automatically.
+        Balance will be added to your account as soon as we get confirmation from the blockchain network.
+        <div class="text"> The exchange rate is fixed for 15 minutes. If you make a transaction after that period the
+          actual exchange rate
+          will be used.
+        </div>
       </div>
     </div>
+
   </div>
 </template>
 

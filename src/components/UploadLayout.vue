@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="section">
     <header class="header">
       <h3>New list</h3>
       <Button icon="pi pi-times" class="p-button-rounded p-button-help p-button-text"
@@ -20,9 +20,13 @@
       <Dropdown v-model="selectedCrypto" placeholder="Select a crypto" :options="cryptoPairs"
                 optionLabel="name"></Dropdown>
       <h6>Type</h6>
-      <Button label="Registrations" iconPos="left" class="p-button-lg"/>
-      <Button label="Depositors" iconPos="left" class="p-button-lg"/>
-      <Button label="Unknown" iconPos="left" class="p-button-lg"/>
+<!--      <Button label="Registrations" iconPos="left" class="p-button-lg"/>-->
+<!--      <Button label="Depositors" iconPos="left" class="p-button-lg"/>-->
+<!--      <Button label="Unknown" iconPos="left" class="p-button-lg"/>-->
+      <div class="btn_container">      <button class="btn_left">Registrations</button>
+        <button class="btn_mid">Depositors</button>
+        <button class="btn_right">Unknown</button></div>
+
       <h6>Funnel type</h6>
       <Dropdown v-model="selectedFunnel" placeholder="Unknown" :options="funnels"
                 optionLabel="name"></Dropdown>

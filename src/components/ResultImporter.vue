@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="section">
     <header class="header">
       <h3>{{ listName }}</h3>
       <Button icon="pi pi-times" class="p-button-rounded p-button-help p-button-text"
@@ -8,18 +8,14 @@
     <main>
       <div>List: {{ listName }}</div>
       <div>File: {{ fileName }}</div>
-      <hr class="hidden">
       <div>Estimation of how loaded leads are unique across all your leads. Numbers are valid on: {{ this.todayDate }}
       </div>
-      <hr class="hidden">
       <div>These stats are available only for you:</div>
-      <hr class="hidden">
       <DataTable :value="privateResults" responsiveLayout="scroll">
         <Column v-for="col of privateColumns" :field="col.field" :header="col.header" :key="col.field"></Column>
       </DataTable>
       <hr class="hidden">
       <div>Some of leads are found in your previously imported lists. Among them:</div>
-      <hr class="hidden">
       <div class="map_container">
         <h6>24</h6>
         <div>Full duplicates (email+phone)</div>
@@ -36,15 +32,12 @@
         <Button label="Remove from the list"></Button>
         <Button label="Remove from  other lists"></Button>
       </div>
-      <hr class="hidden">
       <div>This stats are available to all buyers:</div>
-      <hr class="hidden">
       <DataTable :value="publicResults" responsiveLayout="scroll">
         <Column v-for="col of publicColumns" :field="col.field" :header="col.header" :key="col.field"></Column>
       </DataTable>
       <hr class="hidden">
       <div>Estimation of how loaded leads are unique across the Marketplace. Numbers are valid on {{ todayDate }}</div>
-      <hr class="hidden">
       <DataTable :value="uniqueResults" responsiveLayout="scroll">
         <Column v-for="col of uniqueColumns" :field="col.field" :header="col.header" :key="col.field"></Column>
       </DataTable>

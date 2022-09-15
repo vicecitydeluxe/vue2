@@ -2,6 +2,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .layout {
@@ -17,8 +19,109 @@
 
 .text {
   text-indent: 10px;
+  background: #F7F7FD;
+  border-radius: 7px;
 }
 
 .p-button.p-button-lg {
   margin: 5px;
+}
+
+.btn_left {
+  font-size: 14px;
+  padding: 0.714rem 1rem;
+  margin: 0;
+  display: inline-flex;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  align-items: center;
+  vertical-align: bottom;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+
+  background: white;
+  border-radius: 7px 0 0 7px;
+  border-width: 1px 0 1px 1px;
+  border-style: solid;
+  border-color: #CED4DA;
+
+  &:hover {
+    background: #2563EB;
+    color: white;
+  }
+
+  &:active {
+    background: #2563EB;
+    color: white;
+  }
+}
+
+.btn_mid {
+  font-size: 14px;
+  padding: 0.714rem 1rem;
+  margin: 0;
+  display: inline-flex;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  align-items: center;
+  vertical-align: bottom;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  border-width: 1px 0 1px 1px;
+  border-style: solid;
+  border-color: #CED4DA;
+  background: white;
+  border-radius: inherit;
+
+  &:hover {
+    background: #2563EB;
+    color: white;
+  }
+
+  &:active {
+    background: #2563EB;
+    color: white;
+  }
+}
+
+.btn_right {
+  font-size: 14px;
+  padding: 0.714rem 1rem;
+  margin: 0;
+  display: inline-flex;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  align-items: center;
+  vertical-align: bottom;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  border-width: 1px 1px 1px 1px;
+  border-style: solid;
+  border-color: #CED4DA;
+  background: white;
+  border-radius: 0 7px 7px 0;
+
+  &:hover {
+    background: #2563EB;
+    color: white;
+  }
+
+  &:active {
+    background: #2563EB;
+    color: white;
+  }
+}
+
+.section {
+  margin-right: 20px;
+  margin-left: 20px;
 }

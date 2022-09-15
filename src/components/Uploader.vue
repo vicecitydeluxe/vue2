@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="section">
     <header class="header">
       <h3>File upload</h3>
       <Button icon="pi pi-times" class="p-button-rounded p-button-help p-button-text"
@@ -10,6 +10,7 @@
     </main>
 
     <FileUpload
+        class="p-button-label"
         :customUpload="true"
         :auto="true"
         @uploader="sendFile"

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="section">
     <header class="header">
       <h3>Country mapping</h3>
       <Button icon="pi pi-times" class="p-button-rounded p-button-help p-button-text"
