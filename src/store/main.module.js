@@ -4,7 +4,7 @@ const state = {
     name: 'Unknown_user',
     listName: 'CM DE May 2022 depositors',
     fileName: 'Default.csv',
-    balanceAmount: '',
+    balanceAmount: '0',
 }
 const getters = {
     name() {

@@ -14,7 +14,7 @@ import Dropdown from 'primevue/dropdown';
 import Checkbox from 'primevue/checkbox';
 import InputMask from 'primevue/inputmask';
 
-import 'primevue/resources/themes/md-light-deeppurple/theme.css'
+import 'primevue/resources/themes/md-light-indigo/theme.css'
 import 'primevue/resources/primevue.min.css'
 import 'primeicons/primeicons.css'
 import "./index.css";

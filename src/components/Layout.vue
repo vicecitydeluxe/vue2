@@ -1,34 +1,42 @@
 <template>
   <div>
-    <h4 class="title">Welcome, {{ name }} to the *marketplace name*. Use the buttons below to access commands.</h4>
+    <header>
+      <div class="header_container">
+        <div class="balance_container">
+          <i class="pi pi-wallet"></i>
+          <div>Your balance:</div>
+          <div class="icon">${{ balanceAmount }}</div>
+        </div>
+        <div class="profile_container">
+          <i class="pi pi-user icon"></i>
+          <div>Profile</div>
+        </div>
+      </div>
+    </header>
     <div class="layout">
-      <Button icon="pi pi-percentage" label="Balance" iconPos="left" class="p-button-lg"
-              @click="showBalance"/>
-      <Button icon="pi pi-user" label="Profile" iconPos="left" class="p-button-lg"
+      <Button icon="pi pi-download" label="Withdrawal" iconPos="top" class="p-button-lg"
               @click="showPopupAlert"/>
-      <Button icon="pi pi-credit-card" label="Transactions" iconPos="left" class="p-button-lg"
+      <Button icon="pi pi-copy" label="Transactions" iconPos="top" class="p-button-lg"
               @click="showPopupAlert"/>
-      <Button icon="pi pi-sign-out" label="Withdrawal" iconPos="left" class="p-button-lg"
-              @click="showPopupAlert"/>
-      <Button @click="$router.push({name: 'uploadLayout'})" icon="pi pi-briefcase" label="Sell leads" iconPos="left"
-              class="p-button-lg"/>
-      <Button icon="pi pi-book" label="My lists" iconPos="left" class="p-button-lg"
-              @click="$router.push({name: 'uploader'})"/>
-      <Button icon="pi pi-book" label="My deals" iconPos="left" class="p-button-lg"
-              @click="$router.push({name: 'country'})"/>
-      <Button icon="pi pi-shopping-cart" label="Buy leads" iconPos="left" class="p-button-lg"
-              @click="showPopupAlert"/>
-      <Button icon="pi pi-sort-alt" label="Marketplace" iconPos="left" class="p-button-lg"
-              @click="showPopupAlert"/>
-      <Button icon="pi pi-book" label="My deals *" iconPos="left" class="p-button-lg"
-              @click="showPopupAlert"/>
-      <Button icon="pi pi-paypal" label="Top-up" iconPos="left" class="p-button-lg"
+      <Button icon="pi pi-wallet" label="Topup" iconPos="top" class="p-button-lg"
               @click="$router.push({name:'balance'})"/>
-      <Button @click="showConfirmationMessage" icon="pi pi-times" label="Close app"
-              iconPos="left"
-              class="p-button-lg"
-              style="background: #2289da;"
-      />
+      <Button icon="pi pi-list" label="My deals" iconPos="top" class="p-button-lg"
+              @click="$router.push({name: 'country'})"/>
+      <Button icon="pi pi-users" label="My lists" iconPos="top" class="p-button-lg"
+              @click="$router.push({name: 'uploader'})"/>
+      <Button @click="$router.push({name: 'uploadLayout'})" icon="pi pi-database" label="Sell leads" iconPos="top"
+              class="p-button-lg"/>
+      <Button icon="pi pi-briefcase" label="My deals" iconPos="top" class="p-button-lg"
+              @click="showPopupAlert"/>
+      <Button icon="pi pi-globe" label="Marketplace" iconPos="top" class="p-button-lg"
+              @click="showPopupAlert"/>
+      <Button icon="pi pi-shopping-cart" label="Buy leads" iconPos="top" class="p-button-lg"
+              @click="showPopupAlert"/>
+      <!--      <Button @click="showConfirmationMessage" icon="pi pi-times" label="Close app"-->
+      <!--              iconPos="top"-->
+      <!--              class="p-button-lg"-->
+      <!--              style="background: #2289da;"-->
+      <!--      />-->
     </div>
   </div>
 </template>
@@ -50,12 +58,12 @@ export default {
     showPopupAlert() {
       globalTelegram.showAlert('This feature would be added soon')
     },
-    showBalance() {
-      globalTelegram.showAlert(`Your balance is ${this.balanceAmount}$`)
-    },
-    showConfirmationMessage() {
-      globalTelegram.showAlert('Do you want to close the app?', () => globalTelegram.close())
-    },
+    // showBalance() {
+    //   globalTelegram.showAlert(`Your balance is ${this.balanceAmount}$`)
+    // },
+    // showConfirmationMessage() {
+    //   globalTelegram.showAlert('Do you want to close the app?', () => globalTelegram.close())
+    // },
   },
   computed: {
     ...mapGetters(['name', 'balanceAmount']),
