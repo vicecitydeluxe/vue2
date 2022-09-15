@@ -26,8 +26,6 @@
       <h6>Funnel type</h6>
       <Dropdown v-model="selectedFunnel" placeholder="Unknown" :options="funnels"
                 optionLabel="name"></Dropdown>
-      <h6 v-if="validUploadButton">Upload list:</h6>
-      <!--      <Button :disabled="!validUploadButton" @click="$router.push({name: 'uploader'})">Hit me!</Button>-->
     </main>
   </div>
 </template>

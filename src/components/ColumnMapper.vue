@@ -82,8 +82,8 @@
                   optionLabel="name"></Dropdown>
       </div>
       <hr>
-      <div>What to do do with the rest fields found in the source file? (You better don't include them if they contain
-        sensitive data.)
+      <div>What to do with the rest of the fields found in the source file? (You shouldn't include them if they contain
+        sensitive data)
       </div>
       <div class="options_container">
         <Button style="width: 100%" label="Don't include"></Button>
