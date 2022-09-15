@@ -44,6 +44,11 @@ const routes = [
         name: 'country',
         component: () => import(/* webpackChunkName: "countryMapper" */ '@/components/CountryMapper')
     },
+    {
+        path: '/result-importer',
+        name: 'results',
+        component: () => import(/* webpackChunkName: "resulImporter" */ '@/components/ResultImporter')
+    },
 
 ]
 

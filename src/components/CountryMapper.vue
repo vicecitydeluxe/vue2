@@ -49,7 +49,7 @@ export default {
           globalTelegram.MainButton.setText('Create leads')
               .show()
               .onClick(() => {
-                if (this.$route.path === '/country-mapper') this.$router.push({name: 'layout'}
+                if (this.$route.path === '/country-mapper') this.$router.push({name: 'results'}
                 )
               })
         }
