@@ -61,9 +61,9 @@ export default {
   },
   mounted() {
     globalTelegram.expand()
-        .enableClosingConfirmation()
-        .MainButton.hide()
-        .BackButton.show().onClick(() => this.$router.push({name: 'layout'}
+    globalTelegram.enableClosingConfirmation()
+    globalTelegram.MainButton.hide()
+    globalTelegram.BackButton.show().onClick(() => this.$router.push({name: 'layout'}
     ))
   },
 }
