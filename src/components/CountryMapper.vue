@@ -2,8 +2,6 @@
   <div class="section">
     <header class="header">
       <h3>Country mapping</h3>
-      <Button icon="pi pi-times" class="p-button-rounded p-button-help p-button-text"
-              @click="$router.push({name:'mapper'})"/>
     </header>
     <main>
       <div>List: {{ listName }}</div>
@@ -47,7 +45,8 @@ export default {
       handler(newValue) {
         if (newValue) {
           globalTelegram.MainButton.setText('Create leads')
-              .show()
+          globalTelegram.MainButton.color = '#16a34a'
+          globalTelegram.MainButton.show()
               .onClick(() => {
                 if (this.$route.path === '/country-mapper') this.$router.push({name: 'results'}
                 )
@@ -60,6 +59,10 @@ export default {
     globalTelegram.expand()
     globalTelegram.enableClosingConfirmation()
     globalTelegram.MainButton.hide()
+    globalTelegram.BackButton.show().onClick(() => this.$router.push({name: 'mapper'}))
+  },
+  beforeDestroy() {
+    globalTelegram.BackButton.hide().offClick(() => this.$router.push({name: 'mapper'}))
   },
 }
 </script>

@@ -2,8 +2,6 @@
   <div class="section">
     <header class="header">
       <h3>Column mapping</h3>
-      <Button icon="pi pi-times" class="p-button-rounded p-button-help p-button-text"
-              @click="$router.push({name:'uploader'})"/>
     </header>
     <main>
       <div>List: {{ listName }}</div>
@@ -168,7 +166,8 @@ export default {
       handler(newValue) {
         if (newValue) {
           globalTelegram.MainButton.setText('Next')
-              .show()
+          globalTelegram.MainButton.color = '#16a34a'
+          globalTelegram.MainButton.show()
               .onClick(() => {
                 if (this.$route.path === '/mapper') this.$router.push({name: 'country'}
                 )
@@ -183,7 +182,11 @@ export default {
     globalTelegram.expand()
     globalTelegram.enableClosingConfirmation()
     globalTelegram.MainButton.hide()
-  }
+    globalTelegram.BackButton.show().onClick(() => this.$router.push({name: 'uploader'}))
+  },
+  beforeDestroy() {
+    globalTelegram.BackButton.hide().offClick(() => this.$router.push({name: 'uploader'}))
+  },
 }
 </script>
 

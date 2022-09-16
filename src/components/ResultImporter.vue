@@ -3,7 +3,7 @@
     <header class="header">
       <h3>{{ listName }}</h3>
       <Button icon="pi pi-times" class="p-button-rounded p-button-help p-button-text"
-              @click="$router.push({name:'mapper'})"/>
+              @click="$router.push({name:'country'})"/>
     </header>
     <main>
       <div>List: {{ listName }}</div>
@@ -104,13 +104,19 @@ export default {
   mounted() {
     globalTelegram.expand()
     globalTelegram.enableClosingConfirmation()
-    // globalTelegram.MainButton.hide()
+    globalTelegram.MainButton.hide()
+
     globalTelegram.MainButton.setText('Import results')
-        .show()
+    globalTelegram.MainButton.color = '#16a34a'
+    globalTelegram.MainButton.show()
         .onClick(() => {
           if (this.$route.path === '/result-importer') this.$router.push({name: 'layout'}
           )
         })
+    globalTelegram.BackButton.show().onClick(() => this.$router.push({name: 'mapper'}))
+  },
+  beforeDestroy() {
+    globalTelegram.BackButton.hide().offClick(() => this.$router.push({name: 'mapper'}))
   },
 }
 </script>

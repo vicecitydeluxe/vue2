@@ -2,8 +2,6 @@
   <div class="section">
     <header class="header">
       <h3>File upload</h3>
-      <Button icon="pi pi-times" class="p-button-rounded p-button-help p-button-text"
-              @click="$router.push({name:'uploadLayout'})"/>
     </header>
     <main>
       <div class="description">List: {{ listName }}</div>
@@ -98,7 +96,8 @@ export default {
     parsed: {
       handler() {
         globalTelegram.MainButton.setText('Map columns')
-            .show()
+        globalTelegram.MainButton.color = '#16a34a'
+        globalTelegram.MainButton.show()
             .onClick(() => {
               if (this.$route.path === '/uploader') this.$router.push({name: 'mapper'}
               )
@@ -110,6 +109,10 @@ export default {
     globalTelegram.expand()
     globalTelegram.enableClosingConfirmation()
     globalTelegram.MainButton.hide()
+    globalTelegram.BackButton.show().onClick(() => this.$router.push({name: 'uploadLayout'}))
+  },
+  beforeDestroy() {
+    globalTelegram.BackButton.hide().offClick(() => this.$router.push({name: 'uploadLayout'}))
   },
 }
 </script>
