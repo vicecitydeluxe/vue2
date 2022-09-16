@@ -46,8 +46,8 @@ export default {
         if (newValue) {
           this.updateBalanceAmount()
           globalTelegram.MainButton.setText('Make a payment')
-              .color('#16A34A')
-              .show()
+          globalTelegram.MainButton.color('#16a34a')
+          globalTelegram.MainButton.show()
               .onClick(() => {
                 if (this.$route.path === '/top-up') this.$router.push({name: 'layout'}
                 )
@@ -65,6 +65,9 @@ export default {
     globalTelegram.MainButton.hide()
     globalTelegram.BackButton.show().onClick(() => this.$router.push({name: 'layout'}
     ))
+  },
+  beforeDestroy() {
+    globalTelegram.BackButton.hide().offClick(() => this.$router.push({name: 'layout'}))
   },
 }
 </script>
