@@ -1,7 +1,7 @@
 <template>
   <div class="section">
     <header class="header">
-      <h3>Country mapping</h3>
+      <h3>COUNTRY MAPPING</h3>
     </header>
     <main>
       <div>List: {{ listName }}</div>

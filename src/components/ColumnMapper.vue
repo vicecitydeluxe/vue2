@@ -1,34 +1,41 @@
 <template>
   <div class="section">
     <header class="header">
-      <h3>Column mapping</h3>
+      <h3>COLUMN MAPPING</h3>
     </header>
     <main>
       <div>List: {{ listName }}</div>
+      <hr class="top_section_divider">
       <div>File: {{ fileName }}</div>
       <div class="description">Please map the required columns. You can import either full name or first+last name.
       </div>
-      <div class="map_container"><h5>firstname *</h5>
+      <div class="map_container">
+        <div class="title">First name</div>
         <Dropdown class="dropdown" v-model="selectedFirstName" placeholder="name" :options="firstNames"
                   optionLabel="name"></Dropdown>
       </div>
-      <div class="map_container"><h5>lastname *</h5>
+      <div class="map_container">
+        <div class="title">Last name</div>
         <Dropdown class="dropdown" v-model="selectedSecondName" placeholder="f_name" :options="lastNames"
                   optionLabel="name"></Dropdown>
       </div>
-      <div class="map_container"><h5>fullname</h5>
+      <div class="map_container">
+        <div class="title">Full name</div>
         <Dropdown class="dropdown" v-model="selectedFullName" placeholder="(select)" :options="fullNames"
                   optionLabel="name"></Dropdown>
       </div>
-      <div class="map_container"><h5>email *</h5>
+      <div class="map_container">
+        <div class="title">Email</div>
         <Dropdown class="dropdown" v-model="selectedEmail" placeholder="email" :options="emails"
                   optionLabel="name"></Dropdown>
       </div>
-      <div class="map_container"><h5>phone-number *</h5>
+      <div class="map_container">
+        <div class="title">Phone number</div>
         <Dropdown class="dropdown" v-model="selectedPhoneNumber" placeholder="phone" :options="phoneNumbers"
                   optionLabel="name"></Dropdown>
       </div>
-      <div class="map_container"><h5>country</h5>
+      <div class="map_container">
+        <div class="title">Country</div>
         <div class="field-checkbox">
           <Checkbox id="binary" v-model="checkedCountry" :binary="true"/>
           <label for="binary">load</label>
@@ -50,14 +57,17 @@
         <Dropdown class="dropdown" v-model="selectedCountryFromList" placeholder="(choose)" :options="countriesList"
                   optionLabel="name"></Dropdown>
       </div>
-      <div class="map_container"><h5>registration date *</h5>
+      <div class="map_container">
+        <div class="title">Reg date</div>
         <div class="field-checkbox">
           <Checkbox id="binary" v-model="checkedRegDate" :binary="true"/>
           <label for="binary">set all to</label>
         </div>
-        <InputMask mask="99/99/9999" v-model="registrationDate" placeholder="  /  /    "
-                   slotChar="mm/dd/yyyy"></InputMask>
-        <i class="pi pi-calendar" style="font-size: 2rem"></i>
+        <span class="p-input-icon-right">
+          <InputMask class="inputmask" mask="99/99/9999" v-model="registrationDate" placeholder="  /  /    "
+                     slotChar="mm/dd/yyyy"></InputMask>
+        <i class="pi pi-calendar" ></i>
+        </span>
       </div>
       <div class="sub_map_container">
         <div class="field-checkbox">
@@ -71,24 +81,36 @@
         <div class="field-checkbox">
           <label for="binary">set empty or broken to</label>
         </div>
-        <InputMask mask="99/99/9999" v-model="emptyDateSetter" placeholder="  /  /    "
-                   slotChar="mm/dd/yyyy"></InputMask>
-        <i class="pi pi-calendar" style="font-size: 2rem"></i>
+        <span class="p-input-icon-right">
+                  <InputMask class="inputmask" mask="99/99/9999" v-model="emptyDateSetter" placeholder="  /  /    "
+                             slotChar="mm/dd/yyyy"></InputMask>
+        <i class="pi pi-calendar" ></i>
+        </span>
+
       </div>
-      <div class="map_container"><h5>deposit/sales date</h5>
+      <div class="map_container">
+        <div class="title">Deposit/sales date</div>
         <Dropdown class="dropdown" v-model="selectedDeposit" placeholder="ftd" :options="deposits"
                   optionLabel="name"></Dropdown>
       </div>
-      <hr>
-      <div>What to do with the rest of the fields found in the source file? (You shouldn't include them if they contain
-        sensitive data)
+
+
+      <div class="bottom_section_container">
+        <div>What to do with the rest of the fields found in the source file? (You shouldn't include them if they contain
+          sensitive data)
+        </div>
+        <div class="options_container">
+          <!--        <Button style="width: 100%" label="Don't include"></Button>-->
+          <!--        <Button style="width: 100%" label="Include"></Button>-->
+          <button class="btn_left">Bitcoin</button>
+          <button class="btn_right">Ethereum TRC20</button>
+        </div>
+        <div>Other fields will be imported, stored and buyers will be able to see them after purchase these leads.
+        </div>
+
+
       </div>
-      <div class="options_container">
-        <Button style="width: 100%" label="Don't include"></Button>
-        <Button style="width: 100%" label="Include"></Button>
-      </div>
-      <div>Other fields will be imported, stored and buyers will be able to see them after purchase these leads.
-      </div>
+
     </main>
   </div>
 </template>

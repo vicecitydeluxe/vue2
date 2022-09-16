@@ -2,8 +2,6 @@
   <div class="section">
     <header class="header">
       <h3>{{ listName }}</h3>
-      <Button icon="pi pi-times" class="p-button-rounded p-button-help p-button-text"
-              @click="$router.push({name:'country'})"/>
     </header>
     <main>
       <div>List: {{ listName }}</div>

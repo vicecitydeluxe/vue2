@@ -1,7 +1,7 @@
 <template>
   <div class="section">
     <header class="header">
-      <h3>New list</h3>
+      <h3>NEW LIST</h3>
     </header>
     <main>
       <h6>List name (visible to you)</h6>
