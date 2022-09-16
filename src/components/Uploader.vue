@@ -10,6 +10,7 @@
     <FileUpload
         class="p-button-label"
         :customUpload="true"
+        :auto="true"
         @uploader="sendFile"
         mode="basic"
         accept=".csv, .xls, .xlsx"
@@ -17,7 +18,7 @@
 
     <div v-if="parsed">
       <h4>DATA PREVIEW: {{ fileName }}</h4>
-      <div class="parsed_data"> {{parsedDataLength}} record found</div>
+      <div class="parsed_data"> {{ parsedDataLength }} record(s) found</div>
       <h5>Delimiter: "{{ parsedData.meta.delimiter }}"</h5>
       <h6>Please check if the record seem correct. If not, try to go back,change parameters and then re-upload or check
         your source-file is not damaged.</h6>
