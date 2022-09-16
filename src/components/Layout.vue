@@ -2,12 +2,12 @@
   <div>
     <header>
       <div class="header_container">
-        <div class="balance_container">
+        <div class="balance_container" @click="$router.push({name:'balance'})">
           <i class="pi pi-wallet"></i>
           <div>Your balance:</div>
           <div class="icon">${{ balanceAmount }}</div>
         </div>
-        <div class="profile_container">
+        <div @click="showPopupAlert" class="profile_container">
           <i class="pi pi-user icon"></i>
           <div>Profile</div>
         </div>
@@ -32,11 +32,6 @@
               @click="showPopupAlert"/>
       <Button icon="pi pi-shopping-cart" label="Buy leads" iconPos="top" class="p-button-lg"
               @click="showPopupAlert"/>
-      <!--      <Button @click="showConfirmationMessage" icon="pi pi-times" label="Close app"-->
-      <!--              iconPos="top"-->
-      <!--              class="p-button-lg"-->
-      <!--              style="background: #2289da;"-->
-      <!--      />-->
     </div>
   </div>
 </template>
@@ -58,12 +53,6 @@ export default {
     showPopupAlert() {
       globalTelegram.showAlert('This feature would be added soon')
     },
-    // showBalance() {
-    //   globalTelegram.showAlert(`Your balance is ${this.balanceAmount}$`)
-    // },
-    // showConfirmationMessage() {
-    //   globalTelegram.showAlert('Do you want to close the app?', () => globalTelegram.close())
-    // },
   },
   computed: {
     ...mapGetters(['name', 'balanceAmount']),
