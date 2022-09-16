@@ -2,8 +2,6 @@
   <div class="section">
     <header class="header">
       <h3>New list</h3>
-      <Button icon="pi pi-times" class="p-button-rounded p-button-help p-button-text"
-              @click="$router.push({name:'layout'})"/>
     </header>
     <main>
       <h6>List name (visible to you)</h6>
@@ -20,12 +18,14 @@
       <Dropdown v-model="selectedCrypto" placeholder="Select a crypto" :options="cryptoPairs"
                 optionLabel="name"></Dropdown>
       <h6>Type</h6>
-<!--      <Button label="Registrations" iconPos="left" class="p-button-lg"/>-->
-<!--      <Button label="Depositors" iconPos="left" class="p-button-lg"/>-->
-<!--      <Button label="Unknown" iconPos="left" class="p-button-lg"/>-->
-      <div class="btn_container">      <button class="btn_left">Registrations</button>
+      <!--      <Button label="Registrations" iconPos="left" class="p-button-lg"/>-->
+      <!--      <Button label="Depositors" iconPos="left" class="p-button-lg"/>-->
+      <!--      <Button label="Unknown" iconPos="left" class="p-button-lg"/>-->
+      <div class="btn_container">
+        <button class="btn_left">Registrations</button>
         <button class="btn_mid">Depositors</button>
-        <button class="btn_right">Unknown</button></div>
+        <button class="btn_right">Unknown</button>
+      </div>
 
       <h6>Funnel type</h6>
       <Dropdown v-model="selectedFunnel" placeholder="Unknown" :options="funnels"
@@ -81,7 +81,8 @@ export default {
       handler(newValue, oldValue) {
         if (newValue) {
           globalTelegram.MainButton.setText('Create a list')
-              .show()
+          globalTelegram.MainButton.color = '#16a34a'
+          globalTelegram.MainButton.show()
               .onClick(() => {
                 if (this.$route.path === '/upload-layout') this.$router.push({name: 'uploader'}
                 )
@@ -94,6 +95,10 @@ export default {
     globalTelegram.expand()
     globalTelegram.enableClosingConfirmation()
     globalTelegram.MainButton.hide()
+    globalTelegram.BackButton.show().onClick(() => this.$router.push({name: 'layout'}))
+  },
+  beforeDestroy() {
+    globalTelegram.BackButton.hide().offClick(() => this.$router.push({name: 'layout'}))
   },
 }
 </script>

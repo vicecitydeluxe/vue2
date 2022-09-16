@@ -2,8 +2,6 @@
   <div>
     <header class="header">
       <h3>TOPUP</h3>
-      <Button icon="pi pi-times" class="p-button-rounded p-button-help p-button-text"
-              @click="$router.push({name:'layout'})"/>
     </header>
     <main class="layout">
       <button class="btn_left">Bitcoin</button>
@@ -46,7 +44,7 @@ export default {
         if (newValue) {
           this.updateBalanceAmount()
           globalTelegram.MainButton.setText('Make a payment')
-          globalTelegram.MainButton.color('#16a34a')
+          globalTelegram.MainButton.color = '#16a34a'
           globalTelegram.MainButton.show()
               .onClick(() => {
                 if (this.$route.path === '/top-up') this.$router.push({name: 'layout'}

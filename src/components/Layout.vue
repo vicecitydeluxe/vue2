@@ -21,10 +21,10 @@
       <Button icon="pi pi-wallet" label="Topup" iconPos="top" class="p-button-lg"
               @click="$router.push({name:'balance'})"/>
       <Button icon="pi pi-list" label="My deals" iconPos="top" class="p-button-lg"
-              @click="$router.push({name: 'country'})"/>
+              @click="showPopupAlert"/>
       <Button icon="pi pi-users" label="My lists" iconPos="top" class="p-button-lg"
-              @click="$router.push({name: 'uploader'})"/>
-      <Button @click="$router.push({name: 'uploadLayout'})" icon="pi pi-database" label="Sell leads" iconPos="top"
+              @click="$router.push({name: 'uploadLayout'})"/>
+      <Button @click="$router.push({name: 'results'})" icon="pi pi-database" label="Sell leads" iconPos="top"
               class="p-button-lg"/>
       <Button icon="pi pi-briefcase" label="My deals" iconPos="top" class="p-button-lg"
               @click="showPopupAlert"/>
