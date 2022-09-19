@@ -83,7 +83,11 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .p-button {
-  background: #2563EB
+  background: #2563EB;
+
+  &:enabled:hover {
+    background: #2563EB;
+  }
 }
 
 .p-button-lg {
@@ -107,6 +111,7 @@ input[type="number"]::-webkit-inner-spin-button {
 .p-radiobutton .p-radiobutton-box .p-radiobutton-icon {
   background-color: #2563eb;
 }
+
 .p-radiobutton .p-radiobutton-box.p-highlight {
   border-color: #2563eb;
 }

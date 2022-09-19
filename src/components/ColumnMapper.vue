@@ -212,8 +212,6 @@ export default {
                 if (this.$route.path === '/mapper') this.$router.push({name: 'country'}
                 )
               })
-        } else if (!newValue) {
-          globalTelegram.MainButton.hide()
         }
       },
     }

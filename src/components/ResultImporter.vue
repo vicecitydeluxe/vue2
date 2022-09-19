@@ -119,10 +119,10 @@ export default {
           if (this.$route.path === '/result-importer') this.$router.push({name: 'layout'}
           )
         })
-    globalTelegram.BackButton.show().onClick(() => this.$router.push({name: 'mapper'}))
+    globalTelegram.BackButton.show().onClick(() => this.$router.push({name: 'country'}))
   },
   beforeDestroy() {
-    globalTelegram.BackButton.hide().offClick(() => this.$router.push({name: 'mapper'}))
+    globalTelegram.BackButton.hide().offClick(() => this.$router.push({name: 'country'}))
   },
 }
 </script>
