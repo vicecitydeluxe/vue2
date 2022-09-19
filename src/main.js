@@ -14,6 +14,7 @@ import Dropdown from 'primevue/dropdown';
 import Checkbox from 'primevue/checkbox';
 import InputMask from 'primevue/inputmask';
 import RadioButton from 'primevue/radiobutton';
+import ProgressSpinner from 'primevue/progressspinner';
 
 import 'primevue/resources/themes/md-light-indigo/theme.css'
 import 'primevue/resources/primevue.min.css'
@@ -29,6 +30,8 @@ Vue.component('Dropdown', Dropdown);
 Vue.component('Checkbox', Checkbox);
 Vue.component('InputMask', InputMask);
 Vue.component('RadioButton', RadioButton);
+Vue.component('ProgressSpinner', ProgressSpinner);
+
 
 Vue.use(PrimeVue);
 

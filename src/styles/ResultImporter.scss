@@ -3,18 +3,47 @@
   margin-left: 20px;
 }
 
+.name_divider {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+.details_container {
+  margin-top: 20px;
+  margin-bottom: 7px;
+  display: flex;
+  align-items: start;
+  gap: 5px;
+}
+
 .map_container {
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 18px;
+  gap: 10px;
 }
 
 .hidden {
   visibility: hidden;
+}
+
+.description {
+  background: #F7F7FD;
+  border-radius: 7px;
+  padding: 15px;
+  margin-bottom: 25px;
+}
+
+.description_divider {
+  margin-top: 20px;
+  margin-bottom: 7px;
+  font-size: 16px;
+  line-height: 17px;
+  color: #495057;
 }

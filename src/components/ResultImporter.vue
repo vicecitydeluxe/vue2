@@ -5,37 +5,45 @@
     </header>
     <main>
       <div>List: {{ listName }}</div>
+      <hr class="name_divider">
       <div>File: {{ fileName }}</div>
-      <div>Estimation of how loaded leads are unique across all your leads. Numbers are valid on: {{ this.todayDate }}
+      <div class="description">Estimation of how loaded leads are unique across all your leads. Numbers are valid on:
+        {{ this.todayDate }}
       </div>
-      <div>These stats are available only for you:</div>
+      <h6>Lead loading results</h6>
       <DataTable :value="privateResults" responsiveLayout="scroll">
         <Column v-for="col of privateColumns" :field="col.field" :header="col.header" :key="col.field"></Column>
       </DataTable>
       <hr class="hidden">
-      <div>Some of leads are found in your previously imported lists. Among them:</div>
-      <div class="map_container">
-        <h6>24</h6>
-        <div>Full duplicates (email+phone)</div>
-      </div>
-      <div class="map_container">
-        <Button label="Remove from the list"></Button>
-        <Button label="Remove from  other lists"></Button>
-      </div>
-      <div class="map_container">
-        <h6>105</h6>
-        <div>Partial duplicates (email or phone)</div>
-      </div>
-      <div class="map_container">
-        <Button label="Remove from the list"></Button>
-        <Button label="Remove from  other lists"></Button>
-      </div>
-      <div>This stats are available to all buyers:</div>
+      <h6>Duplicates</h6>
+      <section class="description">
+        <div>Some of leads are found in your previously imported lists. Among them:</div>
+        <div class="details_container">
+          <div>24</div>
+          <div>Full duplicates (email+phone)</div>
+        </div>
+        <div class="map_container">
+          <Button style="font-size: 12px;" label="Remove from the list"></Button>
+          <Button style="font-size: 12px;" label="Remove from  other lists"></Button>
+        </div>
+        <div class="details_container">
+          <div>105</div>
+          <div>Partial duplicates (email or phone)</div>
+        </div>
+        <div class="map_container">
+          <Button style="font-size: 12px;" label="Remove from the list"></Button>
+          <Button style="font-size: 12px;" label="Remove from  other lists"></Button>
+        </div>
+      </section>
+
+      <div>Public statistics</div>
+      <div class="description">Numbers are valid at the time of loading on {{this.todayDate}}</div>
+      <div class="description_divider">Leads age</div>
       <DataTable :value="publicResults" responsiveLayout="scroll">
         <Column v-for="col of publicColumns" :field="col.field" :header="col.header" :key="col.field"></Column>
       </DataTable>
       <hr class="hidden">
-      <div>Estimation of how loaded leads are unique across the Marketplace. Numbers are valid on {{ todayDate }}</div>
+      <div class="description_divider">Uniqueness</div>
       <DataTable :value="uniqueResults" responsiveLayout="scroll">
         <Column v-for="col of uniqueColumns" :field="col.field" :header="col.header" :key="col.field"></Column>
       </DataTable>

@@ -49,6 +49,11 @@ const routes = [
         name: 'results',
         component: () => import(/* webpackChunkName: "resulImporter" */ '@/components/ResultImporter')
     },
+    {
+        path: '/spinner',
+        name: 'spinner',
+        component: () => import(/* webpackChunkName: "Spinner" */ '@/components/ImportSpinner')
+    },
 
 ]
 
