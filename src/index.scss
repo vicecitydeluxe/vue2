@@ -104,6 +104,13 @@ input[type="number"]::-webkit-inner-spin-button {
   font-size: 100%;
 }
 
+.p-radiobutton .p-radiobutton-box .p-radiobutton-icon {
+  background-color: #2563eb;
+}
+.p-radiobutton .p-radiobutton-box.p-highlight {
+  border-color: #2563eb;
+}
+
 .p-datatable .p-datatable-thead > tr > th {
   background: #E7E7F3;
   color: #f5f5f5;

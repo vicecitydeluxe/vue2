@@ -36,10 +36,12 @@
       </div>
       <div class="map_container">
         <div class="title">Country</div>
-        <div class="field-checkbox">
-          <Checkbox id="binary" v-model="checkedCountry" :binary="true"/>
-          <label for="binary">load</label>
+
+        <div>
+          <RadioButton id="load" value="load" v-model="checkedCountry"/>
+          <label class="radio_label_divider" for="load">Load</label>
         </div>
+
         <Dropdown class="dropdown" v-model="selectedCountry" placeholder="country" :options="countries"
                   optionLabel="name"></Dropdown>
       </div>
@@ -51,18 +53,21 @@
                   optionLabel="name"></Dropdown>
       </div>
       <div class="sub_map_container">
-        <div class="field-checkbox">
-          <label for="binary">set all to</label>
+        <div>
+          <RadioButton id="all_to" value="set_all_to" v-model="checkedCountry"/>
+          <label class="radio_label_divider" for="all_to">Set all to</label>
         </div>
         <Dropdown class="dropdown" v-model="selectedCountryFromList" placeholder="(choose)" :options="countriesList"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="map_container">
         <div class="title">Reg date</div>
-        <div class="field-checkbox">
-          <Checkbox id="binary" v-model="checkedRegDate" :binary="true"/>
-          <label for="binary">set all to</label>
+
+        <div>
+          <RadioButton id="all_to" value="load" v-model="checkedRegDate"/>
+          <label class="radio_label_divider" for="all_to">Set all to</label>
         </div>
+
         <span class="p-input-icon-right">
           <InputMask class="inputmask" mask="99/99/9999" v-model="registrationDate" placeholder="  /  /    "
                      slotChar="mm/dd/yyyy"></InputMask>
@@ -70,10 +75,12 @@
         </span>
       </div>
       <div class="sub_map_container">
-        <div class="field-checkbox">
-          <Checkbox id="binary" v-model="checkedRegDateToLoad" :binary="true"/>
-          <label for="binary">load</label>
+
+        <div>
+          <RadioButton id="load" value="set_all_to" v-model="checkedRegDate"/>
+          <label class="radio_label_divider " for="load">Load</label>
         </div>
+
         <Dropdown class="dropdown" v-model="selectedRegDate" placeholder="reg" :options="regGateList"
                   optionLabel="name"></Dropdown>
       </div>
@@ -126,9 +133,8 @@ export default {
       selectedCountryFromList: null,
       selectedRegDate: null,
       selectedDeposit: null,
-      checkedCountry: false,
-      checkedRegDate: false,
-      checkedRegDateToLoad: false,
+      checkedCountry: '',
+      checkedRegDate: '',
       registrationDate: null,
       emptyDateSetter: null,
       firstNames: [
