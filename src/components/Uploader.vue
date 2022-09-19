@@ -46,6 +46,7 @@ export default {
       parsed: false,
       fileName: '',
       parsedDataLength: '',
+      delimiter: '',
     }
   },
   methods: {
@@ -66,21 +67,50 @@ export default {
           header: true,
           worker: true,
           skipEmptyLines: true,
+          delimitersToGuess: [',', '\t', '|', ';', ' ', '/', ':', Papa.RECORD_SEP, Papa.UNIT_SEP],
           complete: result => {
             resolve(result)
             this.parsed = true
             this.parsedData = result
+            if (result.meta.delimiter === '\t') this.parsedData.meta.delimiter = 'Tab'
+            if (result.meta.delimiter === ' ') this.parsedData.meta.delimiter = 'Space'
           }
         })
       }).then(() => Papa.parse(event.files[0], {
         header: true,
         worker: true,
         skipEmptyLines: true,
+        delimitersToGuess: [',', '\t', '|', ';', ' ', '/', ':', Papa.RECORD_SEP, Papa.UNIT_SEP],
         complete: result => {
           this.parsedDataLength = result.data.length
           console.log(result)
-        }
+        },
       }))
+    },
+    unparser() {
+      return new Promise((resolve) => {
+        resolve(Papa.unparse({
+          "fields": ["Column 1", "Column 2"],
+          "data": [
+            ["foo", "bar"],
+            ["abc", "def"]
+          ]
+        }))
+      }).then(res => {
+        const download = function (res) {
+          const blob = new Blob([res], {type: 'text/csv'});
+          const url = window.URL.createObjectURL(blob)
+          const a = document.createElement('a')
+          a.setAttribute('href', url)
+          a.setAttribute('download', 'parsed.csv');
+          // uncomment next line to download file
+          // a.click()
+        }
+        //disable timeout to download instantly
+        setTimeout(() => download(res), 3000)
+
+        console.log(res)
+      })
     },
     updateFileName() {
       this.$store.commit('setFileName', this.fileName)
@@ -109,6 +139,8 @@ export default {
     }
   },
   mounted() {
+    // this.unparser()
+
     globalTelegram.expand()
     globalTelegram.enableClosingConfirmation()
     globalTelegram.MainButton.hide()

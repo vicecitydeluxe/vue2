@@ -1,7 +1,7 @@
 const {defineConfig} = require('@vue/cli-service')
 module.exports = defineConfig({
     transpileDependencies: true,
-    publicPath: '/coldleads-frontend/'
+    publicPath: '/vue2/'
 })
 /**
  * csv-loader frontend usage

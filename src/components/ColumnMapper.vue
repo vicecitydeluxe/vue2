@@ -66,7 +66,7 @@
         <span class="p-input-icon-right">
           <InputMask class="inputmask" mask="99/99/9999" v-model="registrationDate" placeholder="  /  /    "
                      slotChar="mm/dd/yyyy"></InputMask>
-        <i class="pi pi-calendar" ></i>
+        <i class="pi pi-calendar"></i>
         </span>
       </div>
       <div class="sub_map_container">
@@ -84,33 +84,26 @@
         <span class="p-input-icon-right">
                   <InputMask class="inputmask" mask="99/99/9999" v-model="emptyDateSetter" placeholder="  /  /    "
                              slotChar="mm/dd/yyyy"></InputMask>
-        <i class="pi pi-calendar" ></i>
+        <i class="pi pi-calendar"></i>
         </span>
-
       </div>
       <div class="map_container">
         <div class="title">Deposit/sales date</div>
         <Dropdown class="dropdown" v-model="selectedDeposit" placeholder="ftd" :options="deposits"
                   optionLabel="name"></Dropdown>
       </div>
-
-
       <div class="bottom_section_container">
-        <div>What to do with the rest of the fields found in the source file? (You shouldn't include them if they contain
+        <div>What to do with the rest of the fields found in the source file? (You shouldn't include them if they
+          contain
           sensitive data)
         </div>
         <div class="options_container">
-          <!--        <Button style="width: 100%" label="Don't include"></Button>-->
-          <!--        <Button style="width: 100%" label="Include"></Button>-->
-          <button class="btn_left">Bitcoin</button>
-          <button class="btn_right">Ethereum TRC20</button>
+          <button class="btn_left">Don't include</button>
+          <button class="btn_right">Include</button>
         </div>
         <div>Other fields will be imported, stored and buyers will be able to see them after purchase these leads.
         </div>
-
-
       </div>
-
     </main>
   </div>
 </template>
@@ -139,13 +132,15 @@ export default {
       registrationDate: null,
       emptyDateSetter: null,
       firstNames: [
-        {name: 'name'},
         {name: 'firstname'},
-        {name: 'f_name'},
+        {name: 'fname'},
+        {name: 'first_name'},
       ],
       lastNames: [
         {name: 'lastname'},
-        {name: 'l_name'},
+        {name: 'last'},
+        {name: 'last name'},
+        {name: 'lname'},
       ],
       fullNames: [
         {name: 'fullname'},
@@ -153,24 +148,41 @@ export default {
       ],
       emails: [
         {name: 'email'},
+        {name: 'mail'},
         {name: 'e-mail'},
       ],
       phoneNumbers: [
         {name: 'phone'},
+        {name: 'mobile phone'},
+        {name: 'phone number'},
         {name: 'mobile'},
+        {name: 'main number'},
+        {name: 'main phone'},
         {name: 'phone_number'},
+        {name: 'mobile_phone'},
       ],
       countries: [
-        {name: 'countries'},
         {name: 'country'},
+        {name: 'countryid'},
+        {name: 'geo'},
+        {name: 'country_id'},
+        {name: 'country code'},
       ],
       regGateList: [
+        {name: 'regdate'},
+        {name: 'reg date'},
         {name: 'reg_date'},
-        {name: 'registration-date'},
+        {name: 'registration_date'},
+        {name: 'registered'},
+        {name: 'registered_at'},
       ],
       deposits: [
-        {name: 'depo'},
-        {name: 'example'},
+        {name: 'deposited'},
+        {name: 'deposit date'},
+        {name: 'deposit_date'},
+        {name: 'ftd date'},
+        {name: 'ftd_date'},
+        {name: 'ftd'},
       ],
       countriesList: [
         {name: 'GB'},
