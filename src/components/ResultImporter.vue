@@ -1,6 +1,6 @@
 <template>
-  <div class="section">
-    <header class="header">
+  <div class="header">
+    <header class="header_section">
       <h3>{{ listName }}</h3>
     </header>
     <main>
