@@ -6,7 +6,7 @@
         <form class="p-fluid">
           <div class="p-field">
             <div class="p-float-label">
-              <InputText enterkeyhint="send" id="name" v-model="userInfo.username" @keyup="updateUsername"
+              <InputText id="name" v-model="userInfo.username" @keyup="updateUsername"
                          :class="[validInput ? 'p-inputtext ' : 'p-invalid']"
               />
               <label for="name">You may choose alternative

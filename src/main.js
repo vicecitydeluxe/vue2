@@ -7,6 +7,7 @@ import PrimeVue from 'primevue/config';
 
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
+import SelectButton from 'primevue/selectbutton';
 import FileUpload from 'primevue/fileupload';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
@@ -15,6 +16,7 @@ import Checkbox from 'primevue/checkbox';
 import InputMask from 'primevue/inputmask';
 import RadioButton from 'primevue/radiobutton';
 import ProgressSpinner from 'primevue/progressspinner';
+import Panel from 'primevue/panel';
 
 import 'primevue/resources/themes/md-light-indigo/theme.css'
 import 'primevue/resources/primevue.min.css'
@@ -31,7 +33,8 @@ Vue.component('Checkbox', Checkbox);
 Vue.component('InputMask', InputMask);
 Vue.component('RadioButton', RadioButton);
 Vue.component('ProgressSpinner', ProgressSpinner);
-
+Vue.component('SelectButton', SelectButton);
+Vue.component('Panel', Panel);
 
 Vue.use(PrimeVue);
 

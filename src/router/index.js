@@ -54,6 +54,11 @@ const routes = [
         name: 'spinner',
         component: () => import(/* webpackChunkName: "Spinner" */ '@/components/ImportSpinner')
     },
+    {
+        path: '/leads-finder',
+        name: 'finder',
+        component: () => import(/* webpackChunkName: "LeadsFinder" */ '@/components/LeadsFinder')
+    },
 
 ]
 

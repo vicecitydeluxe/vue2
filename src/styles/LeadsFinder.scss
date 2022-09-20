@@ -9,21 +9,114 @@
   }
 }
 
-.p-input_text {
-  font-size: 100%;
+.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: white;
+
+  &_number {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 17px;
+    color: #2563EB;
+
+    &__title {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 17px;
+      color: #000000;
+
+    }
+  }
+}
+
+.main {
+  z-index: 0;
+}
+
+.filter_header {
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 38px;
+  background: #F8F9FA;
+  border-bottom: 1px solid #DEE2E6;
+  border-radius: 7px 7px 0 0;
+
+  &_divider {
+    margin-bottom: 7px;
+    font-weight: 600;
+    font-size: 14px;
+  }
+}
+
+.filter_container {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  height: 415px;
+  border: 1px solid #DEE2E6;
+  border-radius: 7px;
+
+  &_wrapper {
+    margin: 15px;
+  }
+}
+
+.dropdown {
   width: 100%;
-  margin-bottom: 10px;
+  height: 38px;
   border: 1px solid #CED4DA;
   border-radius: 7px;
 }
 
-.button_container {
-  display: flex;
-  justify-content: center
+.limit_container {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  height: 164px;
+  border: 1px solid #DEE2E6;
+  border-radius: 7px;
 }
 
-.btn_left {
+.limit_header {
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 38px;
+  background: #F8F9FA;
+  border-bottom: 1px solid #DEE2E6;
+  border-radius: 7px 7px 0 0;
+}
+
+.limit_wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.input {
+  width: 50%;
+  height: 38px;
+  border: 1px solid #CED4DA;
+  border-radius: 7px;
+}
+
+.panel {
+  margin-bottom: 15px;
+  background: #F8F9FA;
+  border: 1px solid #DEE2E6;
+  border-radius: 7px;
+}
+
+.button_left {
   width: 100%;
+  height: 38px;
   min-width: 110px;
   font-size: 14px;
   padding: 0.714rem 1rem;
@@ -56,7 +149,8 @@
   }
 }
 
-.btn_middle {
+.button_middle {
+  height: 38px;
   width: 100%;
   min-width: 110px;
   font-size: 14px;
@@ -89,7 +183,8 @@
   }
 }
 
-.btn_right {
+.button_right {
+  height: 38px;
   width: 100%;
   min-width: 110px;
   font-size: 14px;
@@ -122,6 +217,8 @@
   }
 }
 
-.p-dropdown {
-  width: 100%;
+.button-container {
+  margin-top: 7px;
+  display: flex;
+  justify-content: center;
 }

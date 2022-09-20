@@ -1,0 +1,126 @@
+<template>
+  <div class="header">
+    <header class="header_section">
+      <h3>FIND LEADS</h3>
+    </header>
+    <div class="sticky">
+      <div class="sticky_number">205 192</div>
+      <span class="sticky_number__title">leads are currently for sale found in the database</span>
+    </div>
+    <main class="main">
+      <div class="filter_container">
+        <div class="filter_header">Filter</div>
+        <div class="filter_container_wrapper">
+          <div class="filter_header_divider">Type (Multiple select)</div>
+          <SelectButton v-model="selectedType" :options="selectedOptions" optionLabel="name" multiple/>
+        </div>
+        <div class="filter_container_wrapper">
+          <div class="filter_header_divider">Countries</div>
+          <Dropdown class="dropdown"></Dropdown>
+        </div>
+        <div class="filter_container_wrapper">
+          <div class="filter_header_divider">Registration date</div>
+          <Dropdown class="dropdown"></Dropdown>
+        </div>
+        <div class="filter_container_wrapper">
+          <div class="filter_header_divider">Lead price <</div>
+          <InputText class="dropdown"></InputText>
+        </div>
+        <div class="filter_container_wrapper">
+          <div class="field-checkbox">
+            <Checkbox id="binary" v-model="checked" :binary="true"/>
+            <label for="binary">Exclude leads I bought or already have (leads having the same email or phone)</label>
+          </div>
+        </div>
+      </div>
+      <Panel header="Any seller" class="panel" :toggleable="true" :collapsed="true">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua.
+      </Panel>
+      <Panel header="Any list" class="panel" :toggleable="true" :collapsed="true">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua.
+      </Panel>
+      <div class="limit_container">
+        <div class="limit_header">Limit</div>
+        <div class="limit_wrapper">
+          <div class="field-radiobutton">
+            <RadioButton id="city1" name="city" value="demand" v-model="demand"/>
+            <label style="margin-right: 34px; margin-left:4px;" for="city1">I need</label>
+          </div>
+          <InputText class="input" type="text" v-model="value1"/>
+          <span :style="{marginLeft: '.5em'}">leads</span>
+        </div>
+        <div class="limit_wrapper">
+          <div class="field-radiobutton">
+            <RadioButton id="city1" name="city" value="maxAmount" v-model="maxAmount"/>
+            <label style="margin-left:4px;" for="city1">I spent max</label>
+          </div>
+          <InputText class="input" type="text" v-model="value1" placeholder="$"/>
+          <span :style="{marginLeft: '.5em'}">balance:</span>
+        </div>
+      </div>
+      <div>Sort by
+        <div class="button-container">
+          <button class="button_left">Min price first</button>
+          <button class="button_middle">New leads first</button>
+          <button class="button_right">Seller rank</button>
+        </div>
+      </div>
+    </main>
+  </div>
+</template>
+
+<script>
+const globalTelegram = window.Telegram.WebApp
+
+export default {
+  name: "LeadsFinder",
+  data() {
+    return {
+      checked: false,
+      selectedType: null,
+      selectedOptions: [
+        {name: 'Registrations', value: 1},
+        {name: 'Depositors', value: 2},
+        {name: 'Unknown', value: 3}
+      ],
+      demand: null,
+      maxAmount: null,
+    }
+  },
+  watch: {
+    checked: {
+      handler(newValue) {
+        if (newValue) {
+          globalTelegram.MainButton.setText('Apply changes / Buy leads')
+          globalTelegram.MainButton.color = '#16a34a'
+          globalTelegram.MainButton.show()
+              .onClick(() => {
+                if (this.$route.path === '/leads-finder') this.$router.push({name: 'layout'}
+                )
+              })
+        } else if (!newValue) {
+          globalTelegram.MainButton.hide()
+        }
+      },
+    }
+  },
+  mounted() {
+    globalTelegram.expand()
+    globalTelegram.enableClosingConfirmation()
+    globalTelegram.MainButton.hide()
+    globalTelegram.BackButton.show().onClick(() => this.$router.push({name: 'layout'}
+    ))
+  },
+  beforeDestroy() {
+    globalTelegram.BackButton.hide().offClick(() => this.$router.push({name: 'layout'}))
+    globalTelegram.MainButton.hide().offClick(() => this.$router.push({name: 'layout'}))
+  },
+
+}
+</script>
+
+<style lang="scss" scoped>
+@import '../styles/LeadsFinder.scss';
+</style>

@@ -31,7 +31,7 @@
       <Button icon="pi pi-globe" label="Marketplace" iconPos="top" class="p-button-lg"
               @click="showPopupAlert"/>
       <Button icon="pi pi-shopping-cart" label="Buy leads" iconPos="top" class="p-button-lg"
-              @click="showPopupAlert"/>
+              @click="$router.push({name: 'finder'})"/>
     </main>
   </div>
 </template>
