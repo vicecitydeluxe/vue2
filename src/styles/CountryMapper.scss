@@ -1,12 +1,12 @@
 .header {
   margin-right: 20px;
   margin-left: 20px;
+}
 
-  &_section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+.header_section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .name_divider {
