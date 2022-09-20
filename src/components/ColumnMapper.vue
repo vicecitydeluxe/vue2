@@ -1,75 +1,75 @@
 <template>
-  <div class="section">
-    <header class="header">
+  <div class="header">
+    <header class="header_section">
       <h3>COLUMN MAPPING</h3>
     </header>
     <main>
       <div>List: {{ listName }}</div>
-      <hr class="top_section_divider">
+      <hr class="main_section_divider">
       <div>File: {{ fileName }}</div>
       <div class="description">Please map the required columns. You can import either full name or first+last name.
       </div>
       <div class="map_container">
-        <div class="title">First name</div>
-        <Dropdown class="dropdown" v-model="selectedFirstName" placeholder="name" :options="firstNames"
+        <div class="map_container_title">First name</div>
+        <Dropdown class="map_container_dropdown" v-model="selectedFirstName" placeholder="name" :options="firstNames"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="map_container">
-        <div class="title">Last name</div>
-        <Dropdown class="dropdown" v-model="selectedSecondName" placeholder="f_name" :options="lastNames"
+        <div class="map_container_title">Last name</div>
+        <Dropdown class="map_container_dropdown" v-model="selectedSecondName" placeholder="f_name" :options="lastNames"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="map_container">
-        <div class="title">Full name</div>
-        <Dropdown class="dropdown" v-model="selectedFullName" placeholder="(select)" :options="fullNames"
+        <div class="map_container_title">Full name</div>
+        <Dropdown class="map_container_dropdown" v-model="selectedFullName" placeholder="(select)" :options="fullNames"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="map_container">
-        <div class="title">Email</div>
-        <Dropdown class="dropdown" v-model="selectedEmail" placeholder="email" :options="emails"
+        <div class="map_container_title">Email</div>
+        <Dropdown class="map_container_dropdown" v-model="selectedEmail" placeholder="email" :options="emails"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="map_container">
-        <div class="title">Phone number</div>
-        <Dropdown class="dropdown" v-model="selectedPhoneNumber" placeholder="phone" :options="phoneNumbers"
+        <div class="map_container_title">Phone number</div>
+        <Dropdown class="map_container_dropdown" v-model="selectedPhoneNumber" placeholder="phone" :options="phoneNumbers"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="map_container">
-        <div class="title">Country</div>
+        <div class="map_container_title">Country</div>
 
         <div>
           <RadioButton id="load" value="load" v-model="checkedCountry"/>
-          <label class="radio_label_divider" for="load">Load</label>
+          <label class="sub_map_container_divider" for="load">Load</label>
         </div>
 
-        <Dropdown class="dropdown" v-model="selectedCountry" placeholder="country" :options="countries"
+        <Dropdown class="map_container_dropdown" v-model="selectedCountry" placeholder="country" :options="countries"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="sub_map_container">
         <div class="field-checkbox">
           <label for="binary">set empty to</label>
         </div>
-        <Dropdown class="dropdown" v-model="selectedCountryFromList" placeholder="GB UK" :options="countriesList"
+        <Dropdown class="map_container_dropdown" v-model="selectedCountryFromList" placeholder="GB UK" :options="countriesList"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="sub_map_container">
         <div>
           <RadioButton id="all_to" value="set_all_to" v-model="checkedCountry"/>
-          <label class="radio_label_divider" for="all_to">Set all to</label>
+          <label class="sub_map_container_divider" for="all_to">Set all to</label>
         </div>
-        <Dropdown class="dropdown" v-model="selectedCountryFromList" placeholder="(choose)" :options="countriesList"
+        <Dropdown class="map_container_dropdown" v-model="selectedCountryFromList" placeholder="(choose)" :options="countriesList"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="map_container">
-        <div class="title">Reg date</div>
+        <div class="map_container_title">Reg date</div>
 
         <div>
           <RadioButton id="all_to" value="load" v-model="checkedRegDate"/>
-          <label class="radio_label_divider" for="all_to">Set all to</label>
+          <label class="sub_map_container_divider" for="all_to">Set all to</label>
         </div>
 
         <span class="p-input-icon-right">
-          <InputMask class="inputmask" mask="99/99/9999" v-model="registrationDate" placeholder="  /  /    "
+          <InputMask class="input_mask" mask="99/99/9999" v-model="registrationDate" placeholder="  /  /    "
                      slotChar="mm/dd/yyyy"></InputMask>
         <i class="pi pi-calendar"></i>
         </span>
@@ -81,7 +81,7 @@
           <label class="radio_label_divider " for="load">Load</label>
         </div>
 
-        <Dropdown class="dropdown" v-model="selectedRegDate" placeholder="reg" :options="regGateList"
+        <Dropdown class="map_container_dropdown" v-model="selectedRegDate" placeholder="reg" :options="regGateList"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="map_container">
@@ -89,14 +89,14 @@
           <label for="binary">set empty or broken to</label>
         </div>
         <span class="p-input-icon-right">
-                  <InputMask class="inputmask" mask="99/99/9999" v-model="emptyDateSetter" placeholder="  /  /    "
+                  <InputMask class="input_mask" mask="99/99/9999" v-model="emptyDateSetter" placeholder="  /  /    "
                              slotChar="mm/dd/yyyy"></InputMask>
         <i class="pi pi-calendar"></i>
         </span>
       </div>
       <div class="map_container">
-        <div class="title">Deposit/sales date</div>
-        <Dropdown class="dropdown" v-model="selectedDeposit" placeholder="ftd" :options="deposits"
+        <div class="map_container_title">Deposit/sales date</div>
+        <Dropdown class="map_container_dropdown" v-model="selectedDeposit" placeholder="ftd" :options="deposits"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="bottom_section_container">

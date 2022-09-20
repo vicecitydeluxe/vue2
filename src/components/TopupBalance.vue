@@ -8,7 +8,7 @@
       <button class="btn_mid">USDT ERC20</button>
       <button class="btn_right">Ethereum TRC20</button>
     </main>
-    <div class="section">
+    <div class="main">
       <h6>Amount</h6>
       <InputText type="text" v-model="amount" class=""></InputText>
       <div class="text">All transactions get processed automatically.

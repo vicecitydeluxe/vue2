@@ -1,14 +1,15 @@
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  margin-right: 20px;
+  margin-left: 20px;
+
+  &_section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 
-.p-button-lg {
-  margin: 1px;
-}
-
-.p-inputtext {
+.p-input_text {
   font-size: 100%;
   width: 100%;
   margin-bottom: 10px;
@@ -16,13 +17,9 @@
   border-radius: 7px;
 }
 
-.section {
-  margin-right: 20px;
-  margin-left: 20px;
-}
-
-.p-dropdown {
-  width: 100%;
+.button_container {
+  display: flex;
+  justify-content: center
 }
 
 .btn_left {
@@ -57,7 +54,7 @@
   }
 }
 
-.btn_mid {
+.btn_middle {
   font-size: 14px;
   padding: 0.714rem 1rem;
   margin: 0;
@@ -119,7 +116,6 @@
   }
 }
 
-.btn_container {
-  display: flex;
-  justify-content: center
+.p-dropdown {
+  width: 100%;
 }

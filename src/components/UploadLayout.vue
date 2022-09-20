@@ -1,16 +1,16 @@
 <template>
-  <div class="section">
-    <header class="header">
+  <div class="header">
+    <header class="header_section">
       <h3>NEW LIST</h3>
     </header>
     <main>
       <h6>List name (visible to you)</h6>
-      <InputText @keyup="updateListName" :class="[validListName ? 'p-inputtext ' : 'p-invalid']" type="text"
+      <InputText @keyup="updateListName" :class="[validListName ? 'p-input_text ' : 'p-invalid']" type="text"
                  v-model="listName"></InputText>
       <small v-if="!validListName" class="p-error">Min 5 characters required</small>
 
       <h6>List description (visible to buyers)</h6>
-      <InputText :class="[validListDescription ? 'p-inputtext ' : 'p-invalid']" type="text"
+      <InputText :class="[validListDescription ? 'p-input_text ' : 'p-invalid']" type="text"
                  v-model="listDescription"></InputText>
       <small v-if="!validListDescription" class="p-error">Min 5 characters required</small>
 
@@ -21,9 +21,9 @@
       <!--      <Button label="Registrations" iconPos="left" class="p-button-lg"/>-->
       <!--      <Button label="Depositors" iconPos="left" class="p-button-lg"/>-->
       <!--      <Button label="Unknown" iconPos="left" class="p-button-lg"/>-->
-      <div class="btn_container">
+      <div class="button_container">
         <button class="btn_left">Registrations</button>
-        <button class="btn_mid">Depositors</button>
+        <button class="btn_middle">Depositors</button>
         <button class="btn_right">Unknown</button>
       </div>
 

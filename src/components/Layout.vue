@@ -1,19 +1,19 @@
 <template>
   <div>
     <header>
-      <div class="header_container">
-        <div class="balance_container" @click="$router.push({name:'balance'})">
+      <div class="header">
+        <div class="header_balance_container" @click="$router.push({name:'balance'})">
           <i class="pi pi-wallet"></i>
           <div>Your balance:</div>
-          <div class="icon">${{ balanceAmount }}</div>
+          <div class="header__icon">${{ balanceAmount }}</div>
         </div>
-        <div @click="showPopupAlert" class="profile_container">
+        <div @click="showPopupAlert" class="header_profile_container">
           <i class="pi pi-user icon"></i>
           <div>Profile</div>
         </div>
       </div>
     </header>
-    <div class="layout">
+    <main class="layout">
       <Button icon="pi pi-download" label="Withdrawal" iconPos="top" class="p-button-lg"
               @click="showPopupAlert"/>
       <Button icon="pi pi-copy" label="Transactions" iconPos="top" class="p-button-lg"
@@ -32,7 +32,7 @@
               @click="showPopupAlert"/>
       <Button icon="pi pi-shopping-cart" label="Buy leads" iconPos="top" class="p-button-lg"
               @click="showPopupAlert"/>
-    </div>
+    </main>
   </div>
 </template>
 

@@ -1,29 +1,16 @@
-.section {
+.header {
   margin-right: 20px;
   margin-left: 20px;
-}
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  &_section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 
 .description {
   margin-bottom: 15px;
-}
-
-.p-button.p-fileupload-choose {
-  position: relative;
-  overflow: hidden;
-  display: flex;
-}
-
-.bottom-button {
-  width: 100%;
-  margin-top: 50px;
-  display: block;
-  text-align: center;
 }
 
 .p-button-label {
@@ -36,3 +23,10 @@
   line-height: 17px;
   color: #3950CC;
 }
+
+
+
+
+
+
+
