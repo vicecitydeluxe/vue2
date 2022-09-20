@@ -5,12 +5,12 @@
     </header>
     <main>
       <h6>List name (visible to you)</h6>
-      <InputText @keyup="updateListName" :class="[validListName ? 'p-input_text ' : 'p-invalid']" type="text"
+      <InputText enterkeyhint="enter" @keyup="updateListName" :class="[validListName ? 'p-input_text ' : 'p-invalid']" type="text"
                  v-model="listName"></InputText>
       <small v-if="!validListName" class="p-error">Min 5 characters required</small>
 
       <h6>List description (visible to buyers)</h6>
-      <InputText :class="[validListDescription ? 'p-input_text ' : 'p-invalid']" type="text"
+      <InputText enterkeyhint="enter" :class="[validListDescription ? 'p-input_text ' : 'p-invalid']" type="text"
                  v-model="listDescription"></InputText>
       <small v-if="!validListDescription" class="p-error">Min 5 characters required</small>
 

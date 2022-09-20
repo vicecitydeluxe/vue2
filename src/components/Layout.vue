@@ -5,10 +5,10 @@
         <div class="header_balance_container" @click="$router.push({name:'balance'})">
           <i class="pi pi-wallet"></i>
           <div>Your balance:</div>
-          <div class="header__icon">${{ balanceAmount }}</div>
+          <div class="header_icon">${{ balanceAmount }}</div>
         </div>
         <div @click="showPopupAlert" class="header_profile_container">
-          <i class="pi pi-user icon"></i>
+          <i class="pi pi-user icon" style="color: #3950CC"></i>
           <div>Profile</div>
         </div>
       </div>

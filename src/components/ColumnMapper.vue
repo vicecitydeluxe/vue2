@@ -31,7 +31,8 @@
       </div>
       <div class="map_container">
         <div class="map_container_title">Phone number</div>
-        <Dropdown class="map_container_dropdown" v-model="selectedPhoneNumber" placeholder="phone" :options="phoneNumbers"
+        <Dropdown class="map_container_dropdown" v-model="selectedPhoneNumber" placeholder="phone"
+                  :options="phoneNumbers"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="map_container">
@@ -49,7 +50,8 @@
         <div class="field-checkbox">
           <label for="binary">set empty to</label>
         </div>
-        <Dropdown class="map_container_dropdown" v-model="selectedCountryFromList" placeholder="GB UK" :options="countriesList"
+        <Dropdown class="map_container_dropdown" v-model="selectedCountryFromList" placeholder="GB UK"
+                  :options="countriesList"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="sub_map_container">
@@ -57,7 +59,8 @@
           <RadioButton id="all_to" value="set_all_to" v-model="checkedCountry"/>
           <label class="sub_map_container_divider" for="all_to">Set all to</label>
         </div>
-        <Dropdown class="map_container_dropdown" v-model="selectedCountryFromList" placeholder="(choose)" :options="countriesList"
+        <Dropdown class="map_container_dropdown" v-model="selectedCountryFromList" placeholder="(choose)"
+                  :options="countriesList"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="map_container">
@@ -69,7 +72,8 @@
         </div>
 
         <span class="p-input-icon-right">
-          <InputMask class="input_mask" mask="99/99/9999" v-model="registrationDate" placeholder="  /  /    "
+          <InputMask inputmode="decimal" class="input_mask" mask="99/99/9999" v-model="registrationDate"
+                     placeholder="  /  /    "
                      slotChar="mm/dd/yyyy"></InputMask>
         <i class="pi pi-calendar"></i>
         </span>
@@ -89,7 +93,8 @@
           <label for="binary">set empty or broken to</label>
         </div>
         <span class="p-input-icon-right">
-                  <InputMask class="input_mask" mask="99/99/9999" v-model="emptyDateSetter" placeholder="  /  /    "
+                  <InputMask inputmode="decimal" class="input_mask" mask="99/99/9999" v-model="emptyDateSetter"
+                             placeholder="  /  /    "
                              slotChar="mm/dd/yyyy"></InputMask>
         <i class="pi pi-calendar"></i>
         </span>
