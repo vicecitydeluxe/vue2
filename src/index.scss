@@ -90,6 +90,18 @@ input[type="number"]::-webkit-inner-spin-button {
   }
 }
 
+.p-togglebutton.p-button.p-highlight {
+  background: #2563eb;
+  color: white;
+}
+
+.p-togglebutton.p-button:not(.p-disabled):not(.p-highlight):hover {
+  background: white;
+  border-color: #2563eb;
+  color: rgb(37 99 235);
+}
+
+
 .p-button-lg {
   font-size: 14px;
   padding: 0.8925rem 1.25rem;

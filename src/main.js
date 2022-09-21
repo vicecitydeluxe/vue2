@@ -17,6 +17,8 @@ import InputMask from 'primevue/inputmask';
 import RadioButton from 'primevue/radiobutton';
 import ProgressSpinner from 'primevue/progressspinner';
 import Panel from 'primevue/panel';
+import ToggleButton from 'primevue/togglebutton';
+
 
 import 'primevue/resources/themes/md-light-indigo/theme.css'
 import 'primevue/resources/primevue.min.css'
@@ -35,6 +37,7 @@ Vue.component('RadioButton', RadioButton);
 Vue.component('ProgressSpinner', ProgressSpinner);
 Vue.component('SelectButton', SelectButton);
 Vue.component('Panel', Panel);
+Vue.component('ToggleButton', ToggleButton);
 
 Vue.use(PrimeVue);
 

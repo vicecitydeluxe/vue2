@@ -27,7 +27,7 @@
       <Button @click="$router.push({name: 'results'})" icon="pi pi-database" label="Sell leads" iconPos="top"
               class="p-button-lg"/>
       <Button icon="pi pi-briefcase" label="My deals" iconPos="top" class="p-button-lg"
-              @click="showPopupAlert"/>
+              @click="$router.push({name: 'sellers'})"/>
       <Button icon="pi pi-globe" label="Marketplace" iconPos="top" class="p-button-lg"
               @click="showPopupAlert"/>
       <Button icon="pi pi-shopping-cart" label="Buy leads" iconPos="top" class="p-button-lg"

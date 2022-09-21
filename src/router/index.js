@@ -59,6 +59,11 @@ const routes = [
         name: 'finder',
         component: () => import(/* webpackChunkName: "LeadsFinder" */ '@/components/LeadsFinder')
     },
+    {
+        path: '/filter-sellers',
+        name: 'sellers',
+        component: () => import(/* webpackChunkName: "SellerFiler" */ '@/components/SellerFilter')
+    },
 
 ]
 
