@@ -13,7 +13,7 @@
       <InputText inputmode="decimal" type="text" v-model="amount" class=""></InputText>
       <div class="text">All transactions get processed automatically.
         Balance will be added to your account as soon as we get confirmation from the blockchain network.
-        <div class="text"> The exchange rate is fixed for 15 minutes. If you make a transaction after that period the
+        <div> The exchange rate is fixed for 15 minutes. If you make a transaction after that period the
           actual exchange rate
           will be used.
         </div>
