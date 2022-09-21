@@ -21,7 +21,7 @@
       <Button icon="pi pi-wallet" label="Topup" iconPos="top" class="p-button-lg"
               @click="$router.push({name:'balance'})"/>
       <Button icon="pi pi-list" label="My deals" iconPos="top" class="p-button-lg"
-              @click="showPopupAlert"/>
+              @click="$router.push({name: 'lists'})"/>
       <Button icon="pi pi-users" label="My lists" iconPos="top" class="p-button-lg"
               @click="$router.push({name: 'uploadLayout'})"/>
       <Button @click="$router.push({name: 'results'})" icon="pi pi-database" label="Sell leads" iconPos="top"

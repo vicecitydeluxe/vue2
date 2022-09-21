@@ -1,0 +1,120 @@
+.header {
+  margin-right: 20px;
+  margin-left: 20px;
+
+  &_section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.button_left {
+  width: 100%;
+  height: 38px;
+  min-width: 110px;
+  font-size: 14px;
+  padding: 0.714rem 1rem;
+  margin: 0;
+  display: inline-flex;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  align-items: center;
+  vertical-align: bottom;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+
+  background: white;
+  border-radius: 7px 0 0 7px;
+  border-width: 1px 0 1px 1px;
+  border-style: solid;
+  border-color: #CED4DA;
+
+  &:hover {
+    background: #2563EB;
+    color: white;
+  }
+
+  &:active {
+    background: #2563EB;
+    color: white;
+  }
+}
+
+.button_middle {
+  height: 38px;
+  width: 100%;
+  min-width: 110px;
+  font-size: 14px;
+  padding: 0.714rem 1rem;
+  margin: 0;
+  display: inline-flex;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  align-items: center;
+  vertical-align: bottom;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  border-width: 1px 0 1px 1px;
+  border-style: solid;
+  border-color: #CED4DA;
+  background: white;
+  border-radius: inherit;
+
+  &:hover {
+    background: #2563EB;
+    color: white;
+  }
+
+  &:active {
+    background: #2563EB;
+    color: white;
+  }
+}
+
+.button_right {
+  height: 38px;
+  width: 100%;
+  min-width: 110px;
+  font-size: 14px;
+  padding: 0.714rem 1rem;
+  margin: 0;
+  display: inline-flex;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  align-items: center;
+  vertical-align: bottom;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  border-width: 1px 1px 1px 1px;
+  border-style: solid;
+  border-color: #CED4DA;
+  background: white;
+  border-radius: 0 7px 7px 0;
+
+  &:hover {
+    background: #2563EB;
+    color: white;
+  }
+
+  &:active {
+    background: #2563EB;
+    color: white;
+  }
+}
+
+.button-container {
+  margin-top: 7px;
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: center;
+}
