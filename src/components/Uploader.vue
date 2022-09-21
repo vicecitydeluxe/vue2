@@ -76,16 +76,28 @@ export default {
             if (result.meta.delimiter === ' ') this.parsedData.meta.delimiter = 'Space'
           }
         })
-      }).then(() => Papa.parse(event.files[0], {
-        header: true,
-        worker: true,
-        skipEmptyLines: true,
-        delimitersToGuess: [',', '\t', '|', ';', ' ', '/', ':', Papa.RECORD_SEP, Papa.UNIT_SEP],
-        complete: result => {
-          this.parsedDataLength = result.data.length
-          console.log(result)
-        },
-      }))
+      }).then(() => {
+            return new Promise((resolve) => {
+              Papa.parse(event.files[0], {
+                header: true,
+                worker: true,
+                skipEmptyLines: true,
+                delimitersToGuess: [',', '\t', '|', ';', ' ', '/', ':', Papa.RECORD_SEP, Papa.UNIT_SEP],
+                complete: result => {
+                  resolve(result)
+                  this.parsedDataLength = result.data.length
+                  console.log(result)
+                },
+              })
+            })
+          }
+      ).then(() => console.log(Papa.unparse({
+        "fields": ["Column 1", "Column 2"],
+        "data": [
+          ["foo", "bar"],
+          ["abc", "def"]
+        ]
+      })))
     },
     unparser() {
       return new Promise((resolve) => {
