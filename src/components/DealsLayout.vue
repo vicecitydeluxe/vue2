@@ -14,8 +14,19 @@
 </template>
 
 <script>
+const globalTelegram = window.Telegram.WebApp
+
 export default {
-  name: "DealsLayout"
+  name: "DealsLayout",
+  mounted() {
+    globalTelegram.expand()
+    globalTelegram.enableClosingConfirmation()
+    globalTelegram.MainButton.hide()
+    globalTelegram.BackButton.show().onClick(() => this.$router.push({name: 'layout'}))
+  },
+  beforeDestroy() {
+    globalTelegram.BackButton.hide().offClick(() => this.$router.push({name: 'layout'}))
+  },
 }
 </script>
 
