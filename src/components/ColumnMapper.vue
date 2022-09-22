@@ -11,27 +11,32 @@
       </div>
       <div class="map_container">
         <div class="map_container_title">First name</div>
-        <Dropdown class="map_container_dropdown" v-model="selectedFirstName" placeholder="name" :options="firstNames"
+        <Dropdown @change="firstNameValidator" class="map_container_dropdown" v-model="selectedFirstName"
+                  placeholder="name" :options="firstNames"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="map_container">
         <div class="map_container_title">Last name</div>
-        <Dropdown class="map_container_dropdown" v-model="selectedSecondName" placeholder="f_name" :options="lastNames"
+        <Dropdown @change="lastNameValidator" class="map_container_dropdown" v-model="selectedLastName"
+                  placeholder="last_name" :options="lastNames"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="map_container">
         <div class="map_container_title">Full name</div>
-        <Dropdown class="map_container_dropdown" v-model="selectedFullName" placeholder="(select)" :options="fullNames"
+        <Dropdown @change="fullNameValidator" class="map_container_dropdown" v-model="selectedFullName"
+                  placeholder="(select)" :options="fullNames"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="map_container">
         <div class="map_container_title">Email</div>
-        <Dropdown class="map_container_dropdown" v-model="selectedEmail" placeholder="email" :options="emails"
+        <Dropdown @change="emailValidator" class="map_container_dropdown" v-model="selectedEmail" placeholder="email"
+                  :options="emails"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="map_container">
         <div class="map_container_title">Phone number</div>
-        <Dropdown class="map_container_dropdown" v-model="selectedPhoneNumber" placeholder="phone"
+        <Dropdown @change="phoneNumberValidator" class="map_container_dropdown" v-model="selectedPhoneNumber"
+                  placeholder="phone"
                   :options="phoneNumbers"
                   optionLabel="name"></Dropdown>
       </div>
@@ -43,7 +48,8 @@
           <label class="sub_map_container_divider" for="load">Load</label>
         </div>
 
-        <Dropdown class="map_container_dropdown" v-model="selectedCountry" placeholder="country" :options="countries"
+        <Dropdown @change="countryValidator" class="map_container_dropdown" v-model="selectedCountry"
+                  placeholder="country" :options="countries"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="sub_map_container">
@@ -130,7 +136,7 @@ export default {
   data() {
     return {
       selectedFirstName: null,
-      selectedSecondName: null,
+      selectedLastName: null,
       selectedFullName: null,
       selectedEmail: null,
       selectedPhoneNumber: null,
@@ -203,6 +209,44 @@ export default {
       ],
     }
   },
+  methods: {
+    firstNameValidator() {
+      let splittedObject = this.$parsedObject.split(',')
+      splittedObject[0] = this.selectedFirstName.name
+      this.$parsedObject = splittedObject.join()
+      console.log(this.$parsedObject)
+    },
+    lastNameValidator() {
+      let splittedObject = this.$parsedObject.split(',')
+      splittedObject[1] = this.selectedLastName.name
+      this.$parsedObject = splittedObject.join()
+      console.log(this.$parsedObject)
+    },
+    fullNameValidator() {
+      let splittedObject = this.$parsedObject.split(',')
+      splittedObject[2] = this.selectedFullName.name
+      this.$parsedObject = splittedObject.join()
+      console.log(this.$parsedObject)
+    },
+    emailValidator() {
+      let splittedObject = this.$parsedObject.split(',')
+      splittedObject[3] = this.selectedEmail.name
+      this.$parsedObject = splittedObject.join()
+      console.log(this.$parsedObject)
+    },
+    phoneNumberValidator() {
+      let splittedObject = this.$parsedObject.split(',')
+      splittedObject[4] = this.selectedPhoneNumber.name
+      this.$parsedObject = splittedObject.join()
+      console.log(this.$parsedObject)
+    },
+    countryValidator() {
+      let splittedObject = this.$parsedObject.split(',')
+      splittedObject[5] = this.selectedCountry.name
+      this.$parsedObject = splittedObject.join()
+      console.log(this.$parsedObject)
+    }
+  },
   computed: {
     ...mapGetters(['listName', "fileName"]),
   },
@@ -222,6 +266,8 @@ export default {
     }
   },
   mounted() {
+    // uncomment to see init variation of the $parsedObject
+    // console.log(this.$parsedObject.split(','))
     globalTelegram.expand()
     globalTelegram.enableClosingConfirmation()
     globalTelegram.MainButton.hide()

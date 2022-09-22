@@ -28,10 +28,12 @@
                responsiveLayout="scroll">
       <Column v-for="col of columns" :field="col.field" :header="col.header" :key="col.id"></Column>
     </DataTable>
+<!--    <button @click="$router.push({name: 'mapper'})"></button>-->
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
 import {mapGetters} from 'vuex'
 import Papa from 'papaparse'
 
@@ -91,13 +93,12 @@ export default {
               })
             })
           }
-      ).then(() => console.log(Papa.unparse({
-        "fields": ["Column 1", "Column 2"],
-        "data": [
-          ["foo", "bar"],
-          ["abc", "def"]
-        ]
-      })))
+      ).then((result) => {
+        Vue.prototype.$parsedObject = Papa.unparse(Object.assign({
+          'fields': Object.keys(result.data[0]),
+          // 'data': result.data.map((el) => Object.values(el))
+        }))
+      })
     },
     unparser() {
       return new Promise((resolve) => {
