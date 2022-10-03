@@ -29,9 +29,9 @@
       <Button icon="pi pi-briefcase" label="My deals" iconPos="top" class="p-button-lg"
               @click="$router.push({name: 'sellers'})"/>
       <Button icon="pi pi-globe" label="Marketplace" iconPos="top" class="p-button-lg"
-              @click="showPopupAlert"/>
-      <Button icon="pi pi-shopping-cart" label="Buy leads" iconPos="top" class="p-button-lg"
               @click="$router.push({name: 'finder'})"/>
+      <Button icon="pi pi-shopping-cart" label="Buy leads" iconPos="top" class="p-button-lg"
+              @click="$router.push({name: 'buy'})"/>
     </main>
   </div>
 </template>

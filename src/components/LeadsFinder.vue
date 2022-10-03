@@ -33,14 +33,18 @@
           </div>
         </div>
       </div>
-      <Panel header="Any seller" class="panel" :toggleable="true" :collapsed="true">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua.
-      </Panel>
-      <Panel header="Any list" class="panel" :toggleable="true" :collapsed="true">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua.
-      </Panel>
+      <Accordion>
+        <AccordionTab header="Any seller">
+          <p>
+            Lorem ipsum dolor sit amet
+          </p>
+        </AccordionTab>
+          <AccordionTab header="Any list">
+          <p>
+            Lorem ipsum dolor sit amet
+          </p>
+        </AccordionTab>
+      </Accordion>
       <div class="limit_container">
         <div class="limit_header">Limit</div>
         <div class="limit_wrapper">

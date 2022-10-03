@@ -16,8 +16,9 @@ import Checkbox from 'primevue/checkbox';
 import InputMask from 'primevue/inputmask';
 import RadioButton from 'primevue/radiobutton';
 import ProgressSpinner from 'primevue/progressspinner';
-import Panel from 'primevue/panel';
 import ToggleButton from 'primevue/togglebutton';
+import Accordion from 'primevue/accordion';
+import AccordionTab from 'primevue/accordiontab';
 
 
 import 'primevue/resources/themes/md-light-indigo/theme.css'
@@ -36,8 +37,9 @@ Vue.component('InputMask', InputMask);
 Vue.component('RadioButton', RadioButton);
 Vue.component('ProgressSpinner', ProgressSpinner);
 Vue.component('SelectButton', SelectButton);
-Vue.component('Panel', Panel);
 Vue.component('ToggleButton', ToggleButton);
+Vue.component('Accordion', Accordion);
+Vue.component('AccordionTab', AccordionTab);
 
 Vue.use(PrimeVue);
 
