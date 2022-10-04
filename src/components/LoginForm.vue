@@ -7,7 +7,7 @@
           <div class="p-field">
             <div class="p-float-label">
               <InputText id="name" v-model="userInfo.username" @keyup="updateUsername"
-                :class="[validInput ? 'p-inputtext ' : 'p-invalid']"
+                         :class="[validInput ? 'p-inputtext ' : 'p-invalid']"
               />
               <label for="name">You may choose alternative
                 username*</label>
@@ -29,7 +29,6 @@ export default {
   name: "LoginForm",
   data() {
     return {
-      globalTelegram: globalTelegram,
       darkModeSwitch: false,
       showComponent: false,
       userInfo: {
@@ -43,7 +42,7 @@ export default {
     globalTelegram.ready()
   },
   beforeMount() {
-    //TODO fix validation scenario
+    //TODO fix validation scenario (after backend is ready)
     this.userInfo.username = globalTelegram.initDataUnsafe.user ? globalTelegram.initDataUnsafe.user.username : 'Unknown_user'
     this.userInfo.tgNickname = globalTelegram.initDataUnsafe.user ? globalTelegram.initDataUnsafe.user.username : 'Unknown_user'
     this.userInfo.tgID = globalTelegram.initDataUnsafe.user ? globalTelegram.initDataUnsafe.user.id : '000000000'
@@ -62,6 +61,10 @@ export default {
     globalTelegram.expand()
     globalTelegram.enableClosingConfirmation()
     globalTelegram.MainButton.hide()
+    globalTelegram.onEvent('themeChanged', () => {
+      console.log(globalTelegram.colorScheme)
+      globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
+    })
   },
   methods: {
     updateUsername() {
@@ -81,15 +84,6 @@ export default {
     }
   },
   watch: {
-    globalTelegram: {
-      handler(newValue) {
-        if (newValue.colorScheme === 'light') {
-         this.darkModeSwitch = false
-        } else if (newValue.colorScheme === 'dark') {
-         this.darkModeSwitch = true
-        }
-      },deep:true 
-    },
     darkModeSwitch: {
       handler(newValue) {
         if (newValue) {
@@ -101,11 +95,12 @@ export default {
           document.querySelectorAll('.p-inputwrapper-filled').forEach(e => e.classList.replace('p-inputwrapper-filled', 'p-inputwrapper-filled-dark'))
           document.querySelectorAll('.p-button').forEach(e => e.classList.replace('p-button', 'p-button-dark'))
           document.querySelectorAll('.p-component').forEach(e => e.classList.replace('p-component', 'p-component-dark'))
-        } if (!newValue) {
+        }
+        if (!newValue) {
           document.querySelectorAll('.p-fluid-dark').forEach(e => e.classList.replace('p-fluid-dark', 'p-fluid'))
           document.querySelectorAll('.p-inputtext-dark').forEach(e => e.classList.replace('p-inputtext-dark', 'p-inputtext'))
           document.querySelectorAll('.p-float-label-dark').forEach(e => e.classList.replace('p-float-label-dark', 'p-float-label'))
-          document.querySelectorAll('.p-filled-dark').forEach(e => e.classList.replace('p-filled-dark', 'p-filled'))  
+          document.querySelectorAll('.p-filled-dark').forEach(e => e.classList.replace('p-filled-dark', 'p-filled'))
           document.querySelectorAll('.p-inputwrapper-focus-dark').forEach(e => e.classList.replace('p-inputwrapper-focus-dark', 'p-inputwrapper-focus'))
           document.querySelectorAll('.p-inputwrapper-filled-dark').forEach(e => e.classList.replace('p-inputwrapper-filled-dark', 'p-inputwrapper-filled'))
           document.querySelectorAll('.p-button-dark').forEach(e => e.classList.replace('p-button-dark', 'p-button'))
@@ -115,30 +110,30 @@ export default {
     },
     userInfo: {
       handler(newValue) {
-        if (newValue.username.length < 5 && newValue.username.length !==0 && this.darkModeSwitch) {
+        if (newValue.username.length < 5 && newValue.username.length !== 0 && this.darkModeSwitch) {
           setTimeout(() => {
-          document.querySelectorAll('.p-inputtext').forEach(e => e.classList.replace('p-inputtext', 'p-inputtext-dark'))
-          document.querySelectorAll('.p-component').forEach(e => e.classList.replace('p-component', 'p-component-dark'))
-          document.querySelectorAll('.p-filled').forEach(e => e.classList.replace('p-filled', 'p-filled-dark'))
-          document.querySelectorAll('.p-invalid').forEach(e => e.classList.replace('p-invalid', 'p-invalid-dark'))    
-          },0)
+            document.querySelectorAll('.p-inputtext').forEach(e => e.classList.replace('p-inputtext', 'p-inputtext-dark'))
+            document.querySelectorAll('.p-component').forEach(e => e.classList.replace('p-component', 'p-component-dark'))
+            document.querySelectorAll('.p-filled').forEach(e => e.classList.replace('p-filled', 'p-filled-dark'))
+            document.querySelectorAll('.p-invalid').forEach(e => e.classList.replace('p-invalid', 'p-invalid-dark'))
+          }, 0)
         } else if (!newValue.username.length && this.darkModeSwitch) {
-          setTimeout(()=> {
-          document.querySelectorAll('.p-inputtext').forEach(e => e.classList.replace('p-inputtext', 'p-inputtext-dark'))
-          document.querySelectorAll('.p-component').forEach(e => e.classList.replace('p-component', 'p-component-dark'))
-          document.querySelectorAll('.p-filled').forEach(e => e.classList.replace('p-filled', 'p-filled-dark'))
-          document.querySelectorAll('.p-invalid').forEach(e => e.classList.replace('p-invalid', 'p-invalid-dark'))
+          setTimeout(() => {
+            document.querySelectorAll('.p-inputtext').forEach(e => e.classList.replace('p-inputtext', 'p-inputtext-dark'))
+            document.querySelectorAll('.p-component').forEach(e => e.classList.replace('p-component', 'p-component-dark'))
+            document.querySelectorAll('.p-filled').forEach(e => e.classList.replace('p-filled', 'p-filled-dark'))
+            document.querySelectorAll('.p-invalid').forEach(e => e.classList.replace('p-invalid', 'p-invalid-dark'))
           }, 0)
         } else if (newValue.username.length >= 5 && this.darkModeSwitch) {
-          setTimeout(()=> {
-          document.querySelectorAll('.p-inputtext').forEach(e => e.classList.replace('p-inputtext', 'p-inputtext-dark'))
-          document.querySelectorAll('.p-component').forEach(e => e.classList.replace('p-component', 'p-component-dark'))
-          document.querySelectorAll('.p-filled').forEach(e => e.classList.replace('p-filled', 'p-filled-dark'))
-          document.querySelectorAll('.p-invalid').forEach(e => e.classList.replace('p-invalid', 'p-invalid-dark'))
+          setTimeout(() => {
+            document.querySelectorAll('.p-inputtext').forEach(e => e.classList.replace('p-inputtext', 'p-inputtext-dark'))
+            document.querySelectorAll('.p-component').forEach(e => e.classList.replace('p-component', 'p-component-dark'))
+            document.querySelectorAll('.p-filled').forEach(e => e.classList.replace('p-filled', 'p-filled-dark'))
+            document.querySelectorAll('.p-invalid').forEach(e => e.classList.replace('p-invalid', 'p-invalid-dark'))
           }, 0)
         }
       },
-      deep:true
+      deep: true
     },
   },
 }

@@ -10,21 +10,16 @@ const globalTelegram = window.Telegram.WebApp;
 export default {
   data() {
     return {
-      globalTelegram: globalTelegram,
       darkModeSwitch: false,
     };
   },
+  mounted() {
+    globalTelegram.onEvent('themeChanged', () => {
+      console.log(globalTelegram.colorScheme)
+      globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
+    })
+  },
   watch: {
-    globalTelegram: {
-      handler(newValue) {
-        if (newValue.colorScheme === "light") {
-          this.darkModeSwitch = false;
-        } else if (newValue.colorScheme === "dark") {
-          this.darkModeSwitch = true;
-        }
-      },
-      deep: true,
-    },
     darkModeSwitch: {
       handler(newValue) {
         if (newValue) {
