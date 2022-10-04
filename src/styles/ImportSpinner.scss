@@ -16,4 +16,14 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  &_dark {
+    background: #3950CC;
+    color: white;
+    border-radius: 7px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
 }

@@ -15,6 +15,13 @@
   z-index: 1;
   background: white;
 
+  &_dark {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: #000000;
+  }
+
   &_number {
     font-weight: 700;
     font-size: 16px;
@@ -26,6 +33,13 @@
       font-size: 14px;
       line-height: 17px;
       color: #000000;
+
+      &_dark {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 17px;
+        color: #ffffff;
+      }
 
     }
   }
@@ -46,10 +60,30 @@
   border-bottom: 1px solid #DEE2E6;
   border-radius: 7px 7px 0 0;
 
+  &_dark {
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 38px;
+    color: white;
+    background: #2563EB;
+    border-bottom: 1px solid #DEE2E6;
+    border-radius: 7px 7px 0 0;
+  }
+
   &_divider {
     margin-bottom: 7px;
     font-weight: 600;
     font-size: 14px;
+
+    &_dark {
+      color: white;
+      margin-bottom: 7px;
+      font-weight: 600;
+      font-size: 14px;
+    }
   }
 }
 
@@ -60,8 +94,22 @@
   border: 1px solid #DEE2E6;
   border-radius: 7px;
 
+  &_dark {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    height: 415px;
+    border: 1px solid #DEE2E6;
+    border-radius: 7px;
+    background: #00006e;
+  }
+
   &_wrapper {
     margin: 15px;
+
+    &_dark {
+      margin: 15px;
+      color: white;
+    }
   }
 }
 
@@ -78,6 +126,16 @@
   height: 164px;
   border: 1px solid #DEE2E6;
   border-radius: 7px;
+
+  &_dark {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    height: 164px;
+    border: 1px solid #DEE2E6;
+    border-radius: 7px;
+    background: #00006e;
+    color: white;
+  }
 }
 
 .limit_header {
@@ -90,6 +148,19 @@
   background: #F8F9FA;
   border-bottom: 1px solid #DEE2E6;
   border-radius: 7px 7px 0 0;
+
+  &_dark {
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 38px;
+    background: #00006e;
+    color: white;
+    border-bottom: 1px solid #DEE2E6;
+    border-radius: 7px 7px 0 0;
+  }
 }
 
 .limit_wrapper {

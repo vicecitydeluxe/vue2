@@ -39,7 +39,7 @@
             Lorem ipsum dolor sit amet
           </p>
         </AccordionTab>
-          <AccordionTab header="Any list">
+        <AccordionTab header="Any list">
           <p>
             Lorem ipsum dolor sit amet
           </p>
@@ -82,6 +82,7 @@ export default {
   name: "LeadsFinder",
   data() {
     return {
+      darkModeSwitch: false,
       checked: false,
       selectedType: null,
       selectedOptions: [
@@ -108,9 +109,38 @@ export default {
           globalTelegram.MainButton.hide()
         }
       },
-    }
+    },
+    darkModeSwitch: {
+      handler(newValue) {
+        if (newValue) {
+          document.querySelectorAll('.sticky').forEach(e => e.classList.replace('sticky', 'sticky_dark'))
+          document.querySelectorAll('.sticky_number__title').forEach(e => e.classList.replace('sticky_number__title', 'sticky_number__title_dark'))
+          document.querySelectorAll('.filter_header').forEach(e => e.classList.replace('filter_header', 'filter_header_dark'))
+          document.querySelectorAll('.filter_header_divider').forEach(e => e.classList.replace('filter_header_divider', 'filter_header_divider_dark'))
+          document.querySelectorAll('.filter_container').forEach(e => e.classList.replace('filter_container', 'filter_container_dark'))
+          document.querySelectorAll('.filter_container_wrapper').forEach(e => e.classList.replace('filter_container_wrapper', 'filter_container_wrapper_dark'))
+          document.querySelectorAll('.limit_header').forEach(e => e.classList.replace('limit_header', 'limit_header_dark'))
+          document.querySelectorAll('.limit_container').forEach(e => e.classList.replace('limit_container', 'limit_container_dark'))
+        } else if (!newValue) {
+          document.querySelectorAll('.sticky_dark').forEach(e => e.classList.replace('sticky_dark', 'sticky'))
+          document.querySelectorAll('.sticky_number__title_dark').forEach(e => e.classList.replace('sticky_number__title_dark', 'sticky_number__title'))
+          document.querySelectorAll('.filter_header_dark').forEach(e => e.classList.replace('filter_header_dark', 'filter_header'))
+          document.querySelectorAll('.filter_header_divider_dark').forEach(e => e.classList.replace('filter_header_divider_dark', 'filter_header_divider'))
+          document.querySelectorAll('.filter_container_dark').forEach(e => e.classList.replace('filter_container_divider', 'filter_container'))
+          document.querySelectorAll('.filter_container_wrapper').forEach(e => e.classList.replace('filter_container_wrapper_dark', 'filter_container_wrapper'))
+          document.querySelectorAll('.limit_header_dark').forEach(e => e.classList.replace('limit_header_dark', 'limit_header'))
+          document.querySelectorAll('.limit_container_dark').forEach(e => e.classList.replace('limit_container_dark', 'limit_container'))
+        }
+      },
+    },
+  },
+  created() {
+    globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
   },
   mounted() {
+    globalTelegram.onEvent('themeChanged', () => {
+      globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
+    })
     globalTelegram.expand()
     globalTelegram.enableClosingConfirmation()
     globalTelegram.MainButton.hide()

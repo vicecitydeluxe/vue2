@@ -18,7 +18,18 @@ const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "ImportSpinner",
+  data() {
+    return {
+      darkModeSwitch: false,
+    }
+  },
+  created() {
+    globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
+  },
   mounted() {
+    globalTelegram.onEvent('themeChanged', () => {
+      globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
+    })
     globalTelegram.expand()
     globalTelegram.enableClosingConfirmation()
     globalTelegram.MainButton.hide()
@@ -31,6 +42,17 @@ export default {
   beforeDestroy() {
     globalTelegram.BackButton.hide().offClick(() => this.$router.push({name: 'country'}))
   },
+  watch: {
+    darkModeSwitch: {
+      handler(newValue) {
+        if (newValue) {
+          document.querySelectorAll('.description').forEach(e => e.classList.replace('description', 'description_dark'))
+        } else if (!newValue) {
+          document.querySelectorAll('.description_dark').forEach(e => e.classList.replace('description_dark', 'description'))
+        }
+      },
+    },
+  }
 }
 </script>
 
