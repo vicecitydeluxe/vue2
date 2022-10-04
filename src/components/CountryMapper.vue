@@ -30,6 +30,7 @@ export default {
   name: "CountryMapper",
   data() {
     return {
+      darkModeSwitch: false,
       selectedCountry: null,
       countries: [
         {name: 'Ireland'},
@@ -53,9 +54,25 @@ export default {
               })
         }
       },
-    }
+    },
+    darkModeSwitch: {
+      handler(newValue) {
+        if (newValue) {
+          document.querySelectorAll('.description').forEach(e => e.classList.replace('description', 'description_dark'))
+        }
+        if (!newValue) {
+          document.querySelectorAll('.description_dark').forEach(e => e.classList.replace('description_dark', 'description'))
+        }
+      },
+    },
+  },
+  created() {
+    globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
   },
   mounted() {
+    globalTelegram.onEvent('themeChanged', () => {
+      globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
+    })
     globalTelegram.expand()
     globalTelegram.enableClosingConfirmation()
     globalTelegram.MainButton.hide()

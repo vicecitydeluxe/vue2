@@ -19,7 +19,17 @@
   margin-bottom: 15px;
   background: #F7F7FD;
   border-radius: 7px;
+
+  &_dark {
+    padding: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background: #3950CC;
+    color: white;
+    border-radius: 7px;
+  }
 }
+
 
 .map_container {
   display: flex;
@@ -41,6 +51,19 @@
     font-size: 14px;
     line-height: 17px;
     color: #000000;
+
+    &_dark {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 17px;
+      color: #ffffff;
+
+      &::after {
+        content: ' *';
+        color: red;
+      }
+    }
 
     &::after {
       content: ' *';
@@ -75,6 +98,14 @@
   text-indent: 10px;
   background: #F7F7FD;
   border-radius: 7px;
+
+  &_dark {
+    padding: 15px;
+    text-indent: 10px;
+    background: #3950CC;
+    color: white;
+    border-radius: 7px;
+  }
 }
 
 .options_container {

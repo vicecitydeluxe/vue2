@@ -135,6 +135,7 @@ export default {
   name: "Mapper",
   data() {
     return {
+      darkModeSwitch: false,
       selectedFirstName: null,
       selectedLastName: null,
       selectedFullName: null,
@@ -263,11 +264,31 @@ export default {
               })
         }
       },
-    }
+    },
+    darkModeSwitch: {
+      handler(newValue) {
+        if (newValue) {
+          document.querySelectorAll('.bottom_section_container').forEach(e => e.classList.replace('bottom_section_container', 'bottom_section_container_dark'))
+          document.querySelectorAll('.description').forEach(e => e.classList.replace('description', 'description_dark'))
+          document.querySelectorAll('.map_container_title').forEach(e => e.classList.replace('map_container_title', 'map_container_title_dark'))
+        }
+        if (!newValue) {
+          document.querySelectorAll('.bottom_section_container_dark').forEach(e => e.classList.replace('bottom_section_container_dark', 'bottom_section_container'))
+          document.querySelectorAll('.description_dark').forEach(e => e.classList.replace('description_dark', 'description'))
+          document.querySelectorAll('.map_container_title_dark').forEach(e => e.classList.replace('map_container_title_dark', 'map_container_title'))
+        }
+      },
+    },
+  },
+  created() {
+    globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
   },
   mounted() {
     // uncomment to see init variation of the $parsedObject
     // console.log(this.$parsedObject.split(','))
+    globalTelegram.onEvent('themeChanged', () => {
+      globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
+    })
     globalTelegram.expand()
     globalTelegram.enableClosingConfirmation()
     globalTelegram.MainButton.hide()

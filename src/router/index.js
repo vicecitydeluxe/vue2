@@ -10,14 +10,14 @@ const routes = [
         component: () => import(/* webpackChunkName: "login" */ '@/components/LoginForm')
     },
     {
-        path: '/layout',
-        name: 'layout',
-        component: () => import(/* webpackChunkName: "layout" */ '@/components/Layout')
-    },
-    {
         path: '*',
         name: 'incorrect',
         component: () => import(/* webpackChunkName: "loginForm" */ '@/components/LoginForm')
+    },
+    {
+        path: '/layout',
+        name: 'layout',
+        component: () => import(/* webpackChunkName: "layout" */ '@/components/Layout')
     },
     {
         path: '/top-up',
