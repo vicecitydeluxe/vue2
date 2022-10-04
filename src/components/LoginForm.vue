@@ -40,6 +40,7 @@ export default {
   },
   beforeCreate() {
     globalTelegram.ready()
+    globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
   },
   beforeMount() {
     //TODO fix validation scenario (after backend is ready)
@@ -62,7 +63,6 @@ export default {
     globalTelegram.enableClosingConfirmation()
     globalTelegram.MainButton.hide()
     globalTelegram.onEvent('themeChanged', () => {
-      console.log(globalTelegram.colorScheme)
       globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
     })
   },

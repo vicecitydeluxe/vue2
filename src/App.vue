@@ -13,20 +13,18 @@ export default {
       darkModeSwitch: false,
     };
   },
+  beforeCreate() {
+    globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
+  },
   mounted() {
     globalTelegram.onEvent('themeChanged', () => {
-      console.log(globalTelegram.colorScheme)
       globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
     })
   },
   watch: {
     darkModeSwitch: {
       handler(newValue) {
-        if (newValue) {
-          document.body.className = "dark";
-        } else if (!newValue) {
-          document.body.className = "light";
-        }
+        newValue ? document.body.className = "dark" : document.body.className = "light"
       },
     },
   },
