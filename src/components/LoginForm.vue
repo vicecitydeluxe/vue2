@@ -38,7 +38,7 @@ export default {
       },
     }
   },
-  beforeCreate() {
+  created() {
     globalTelegram.ready()
     globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
   },

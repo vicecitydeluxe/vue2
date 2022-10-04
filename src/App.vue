@@ -13,7 +13,7 @@ export default {
       darkModeSwitch: false,
     };
   },
-  beforeCreate() {
+  created() {
     globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
   },
   mounted() {
