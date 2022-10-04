@@ -45,8 +45,7 @@ export default {
   name: "Layout",
   data() {
     return {
-      switchTheme: '',
-      themeParams: '',
+      darkModeSwitch: false,
     }
   },
   methods: {
@@ -57,12 +56,28 @@ export default {
   computed: {
     ...mapGetters(['name', 'balanceAmount']),
   },
+  created() {
+    globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
+  },
   mounted() {
-    globalTelegram.onEvent('themeChanged', () => this.switchTheme = 'true');
-    globalTelegram.onEvent('mainButtonClicked', () => this.themeParams = globalTelegram.colorScheme)
+    globalTelegram.onEvent('themeChanged', () => {
+      globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
+    })
     globalTelegram.expand()
     globalTelegram.enableClosingConfirmation()
     globalTelegram.MainButton.hide()
+  },
+  watch: {
+    darkModeSwitch: {
+      handler(newValue) {
+        if (newValue) {
+          document.querySelectorAll('.p-button-lg').forEach(e => e.classList.replace('p-button-lg', 'p-button-lg-dark'))
+        }
+        if (!newValue) {
+          document.querySelectorAll('.p-button-lg-dark').forEach(e => e.classList.replace('p-button-lg-dark', 'p-button-lg'))
+        }
+      },
+    },
   }
 }
 </script>

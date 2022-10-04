@@ -30,6 +30,7 @@ export default {
   name: "TopupBalance",
   data() {
     return {
+      darkModeSwitch: false,
       amount: '',
     }
   },
@@ -50,14 +51,41 @@ export default {
                 if (this.$route.path === '/top-up') this.$router.push({name: 'layout'}
                 )
               })
+          if (this.darkModeSwitch) {
+            setTimeout(() => {
+              document.querySelectorAll('.p-inputtext').forEach(e => e.classList.replace('p-inputtext', 'p-inputtext-dark'))
+            }, 0)
+          }
         } else if (!newValue) {
           this.updateBalanceAmount()
           globalTelegram.MainButton.hide()
+          if (this.darkModeSwitch) {
+            setTimeout(() => {
+              document.querySelectorAll('.p-inputtext').forEach(e => e.classList.replace('p-inputtext', 'p-inputtext-dark'))
+            }, 0)
+          }
         }
       },
-    }
+    },
+    darkModeSwitch: {
+      handler(newValue) {
+        if (newValue) {
+          document.querySelectorAll('.p-inputtext').forEach(e => e.classList.replace('p-inputtext', 'p-inputtext-dark'))
+          document.querySelectorAll('.text').forEach(e => e.classList.replace('text', 'text-dark'))
+        } else if (!newValue) {
+          document.querySelectorAll('.p-inputtext-dark').forEach(e => e.classList.replace('p-inputtext-dark', 'p-inputtext'))
+          document.querySelectorAll('.text-dark').forEach(e => e.classList.replace('text-dark', 'text'))
+        }
+      },
+    },
+  },
+  created() {
+    globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
   },
   mounted() {
+    globalTelegram.onEvent('themeChanged', () => {
+      globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
+    })
     globalTelegram.expand()
     globalTelegram.enableClosingConfirmation()
     globalTelegram.MainButton.hide()
