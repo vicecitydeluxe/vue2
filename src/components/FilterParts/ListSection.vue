@@ -17,13 +17,38 @@
 </template>
 
 <script>
+const globalTelegram = window.Telegram.WebApp
+
 export default {
   name: "ListSection",
   data() {
     return {
+      darkModeSwitch: false,
       checked: true,
     }
   },
+  created() {
+    globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
+  },
+  mounted() {
+    globalTelegram.onEvent('themeChanged', () => {
+      globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
+    })
+  },
+  watch: {
+    darkModeSwitch: {
+      handler(newValue) {
+        if (newValue) {
+          document.querySelectorAll('.container').forEach(e => e.classList.replace('container', 'container-dark'))
+          document.querySelectorAll('.container_title').forEach(e => e.classList.replace('container_title', 'container_title_dark'))
+        }
+        if (!newValue) {
+          document.querySelectorAll('.container-dark').forEach(e => e.classList.replace('container-dark', 'container'))
+          document.querySelectorAll('.container_title_dark').forEach(e => e.classList.replace('container_title_dark', 'container_title'))
+        }
+      },
+    },
+  }
 }
 </script>
 
@@ -35,9 +60,23 @@ export default {
   border-radius: 7px;
   margin-bottom: 25px;
 
+  &-dark {
+    background: #3950CC;
+    color: white;
+    padding: 15px;
+    height: 260px;
+    border-radius: 7px;
+    margin-bottom: 25px;
+  }
+
   &_title {
     font-weight: 600;
     color: #495057;
+
+    &_dark {
+      font-weight: 600;
+      color: #ffffff;
+    }
   }
 
   &_top {

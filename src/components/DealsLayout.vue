@@ -18,7 +18,18 @@ const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "DealsLayout",
+  data() {
+    return {
+      darkModeSwitch: false,
+    }
+  },
+  created() {
+    globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
+  },
   mounted() {
+    globalTelegram.onEvent('themeChanged', () => {
+      globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
+    })
     globalTelegram.expand()
     globalTelegram.enableClosingConfirmation()
     globalTelegram.MainButton.hide()
@@ -27,6 +38,18 @@ export default {
   beforeDestroy() {
     globalTelegram.BackButton.hide().offClick(() => this.$router.push({name: 'layout'}))
   },
+  watch: {
+    darkModeSwitch: {
+      handler(newValue) {
+        if (newValue) {
+          document.querySelectorAll('.text').forEach(e => e.classList.replace('text', 'text-dark'))
+        }
+        if (!newValue) {
+          document.querySelectorAll('.text-dark').forEach(e => e.classList.replace('text-dark', 'text'))
+        }
+      },
+    },
+  }
 }
 </script>
 
