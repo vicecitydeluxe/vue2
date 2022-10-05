@@ -15,6 +15,8 @@
 </template>
 
 <script>
+const globalTelegram = window.Telegram.WebApp
+
 export default {
   name: "SellerSection",
   data() {
