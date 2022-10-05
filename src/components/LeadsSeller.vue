@@ -6,24 +6,24 @@
     <main>
       <div class="main_top_container"><span>600</span> <span>1500$</span></div>
       <span class="main_title">Review your options</span>
-      <OptionsSection />
+      <OptionsSection/>
       <Accordion :activeIndex="0">
         <AccordionTab header="Any seller except 2 selected">
           <div class="field-checkbox">
             <Checkbox
-              id="seller1"
-              name="seller"
-              value="Seller 1"
-              v-model="options"
+                id="seller1"
+                name="seller"
+                value="Seller 1"
+                v-model="options"
             />
             <label for="seller1">Seller 1</label>
           </div>
           <div class="field-checkbox">
             <Checkbox
-              id="seller2"
-              name="seller"
-              value="Seller 2"
-              v-model="options"
+                id="seller2"
+                name="seller"
+                value="Seller 2"
+                v-model="options"
             />
             <label for="seller2">Seller 2</label>
           </div>
@@ -61,6 +61,7 @@ export default {
   },
   data() {
     return {
+      darkModeSwitch: false,
       options: [],
     };
   },
@@ -72,28 +73,43 @@ export default {
           globalTelegram.MainButton.color = "#16a34a";
           globalTelegram.MainButton.show().onClick(() => {
             if (this.$route.path === "/buy-leads")
-              this.$router.push({ name: "layout" });
+              this.$router.push({name: "layout"});
           });
         } else if (newValue.length === 0) {
           globalTelegram.MainButton.hide();
         }
       },
     },
+    darkModeSwitch: {
+      handler(newValue) {
+        if (newValue) {
+          document.querySelectorAll('.description').forEach(e => e.classList.replace('description', 'description_dark'))
+        } else if (!newValue) {
+          document.querySelectorAll('.description_dark').forEach(e => e.classList.replace('description_dark', 'description'))
+        }
+      },
+    },
+  },
+  created() {
+    globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
   },
   mounted() {
+    globalTelegram.onEvent('themeChanged', () => {
+      globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
+    })
     globalTelegram.expand();
     globalTelegram.enableClosingConfirmation();
     globalTelegram.MainButton.hide();
     globalTelegram.BackButton.show().onClick(() =>
-      this.$router.push({ name: "layout" })
+        this.$router.push({name: "layout"})
     );
   },
   beforeDestroy() {
     globalTelegram.BackButton.hide().offClick(() =>
-      this.$router.push({ name: "layout" })
+        this.$router.push({name: "layout"})
     );
     globalTelegram.MainButton.hide().offClick(() =>
-      this.$router.push({ name: "layout" })
+        this.$router.push({name: "layout"})
     );
   },
 };

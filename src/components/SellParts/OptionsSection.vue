@@ -12,8 +12,34 @@
 </template>
 
 <script>
+const globalTelegram = window.Telegram.WebApp;
+
 export default {
   name: "OptionsSection",
+  data() {
+    return {
+      darkModeSwitch: false,
+    }
+  },
+  created() {
+    globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
+  },
+  mounted() {
+    globalTelegram.onEvent('themeChanged', () => {
+      globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
+    })
+  },
+  watch: {
+    darkModeSwitch: {
+      handler(newValue) {
+        if (newValue) {
+          document.querySelectorAll('.container').forEach(e => e.classList.replace('container', 'container_dark'))
+        } else if (!newValue) {
+          document.querySelectorAll('.container_dark').forEach(e => e.classList.replace('container_dark', 'container'))
+        }
+      },
+    },
+  },
 };
 </script>
 
@@ -23,6 +49,14 @@ export default {
   background: #f7f7fd;
   border-radius: 7px;
   margin-bottom: 25px;
+
+  &_dark {
+    padding: 15px;
+    color: white;
+    background: #2563EB;
+    border-radius: 7px;
+    margin-bottom: 25px;
+  }
 
   &_bottom {
     display: flex;

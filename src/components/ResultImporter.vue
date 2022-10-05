@@ -37,7 +37,7 @@
       </section>
 
       <div>Public statistics</div>
-      <div class="description">Numbers are valid at the time of loading on {{this.todayDate}}</div>
+      <div class="description">Numbers are valid at the time of loading on {{ this.todayDate }}</div>
       <div class="description_divider">Leads age</div>
       <DataTable :value="publicResults" responsiveLayout="scroll">
         <Column v-for="col of publicColumns" :field="col.field" :header="col.header" :key="col.field"></Column>
@@ -60,6 +60,7 @@ export default {
   name: "ResultImporter",
   data() {
     return {
+      darkModeSwitch: false,
       todayDate: new Date().toLocaleDateString("ru-RU", {
         year: 'numeric',
         month: 'short',
@@ -107,7 +108,27 @@ export default {
   computed: {
     ...mapGetters(['listName', 'fileName'])
   },
+  watch: {
+    darkModeSwitch: {
+      handler(newValue) {
+        if (newValue) {
+          document.querySelectorAll('.description').forEach(e => e.classList.replace('description', 'description_dark'))
+          document.querySelectorAll('.description_divider').forEach(e => e.classList.replace('description_divider', 'description_divider_dark'))
+        }
+        if (!newValue) {
+          document.querySelectorAll('.description_dark').forEach(e => e.classList.replace('description_dark', 'description'))
+          document.querySelectorAll('.description_divider').forEach(e => e.classList.replace('description_divider_dark', 'description_divider'))
+        }
+      },
+    },
+  },
+  created() {
+    globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
+  },
   mounted() {
+    globalTelegram.onEvent('themeChanged', () => {
+      globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
+    })
     globalTelegram.expand()
     globalTelegram.enableClosingConfirmation()
     globalTelegram.MainButton.hide()

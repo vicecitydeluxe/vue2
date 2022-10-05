@@ -19,9 +19,32 @@ export default {
   name: "SellerSection",
   data() {
     return {
+      darkModeSwitch: false,
       checked: true,
     }
   },
+  watch: {
+    darkModeSwitch: {
+      handler(newValue) {
+        if (newValue) {
+          document.querySelectorAll('.container').forEach(e => e.classList.replace('container', 'container_dark'))
+          document.querySelectorAll('.container_title').forEach(e => e.classList.replace('container_title', 'container_title_dark'))
+        }
+        if (!newValue) {
+          document.querySelectorAll('.container_dark').forEach(e => e.classList.replace('description_dark', 'description'))
+          document.querySelectorAll('.container_title_dark').forEach(e => e.classList.replace('container_title_dark', 'container_title'))
+        }
+      },
+    },
+  },
+  created() {
+    globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
+  },
+  mounted() {
+    globalTelegram.onEvent('themeChanged', () => {
+      globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
+    })
+  }
 }
 </script>
 
@@ -33,9 +56,22 @@ export default {
   border-radius: 7px;
   margin-bottom: 25px;
 
+  &_dark {
+    padding: 15px;
+    height: 140px;
+    background: #00006e;
+    border-radius: 7px;
+    margin-bottom: 25px;
+  }
+
   &_title {
     font-weight: 600;
     color: #495057;
+
+    &_dark {
+      font-weight: 600;
+      color: white;
+    }
   }
 
   &_top {
