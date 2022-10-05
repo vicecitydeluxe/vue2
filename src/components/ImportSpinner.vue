@@ -14,27 +14,15 @@
 </template>
 
 <script>
+import tgMixin from "@/mixins/tgMixin";
+
 const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "ImportSpinner",
-  data() {
-    return {
-      darkModeSwitch: false,
-    }
-  },
-  created() {
-    globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
-  },
+  mixins: [tgMixin],
   mounted() {
-    globalTelegram.onEvent('themeChanged', () => {
-      globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
-    })
-    globalTelegram.expand()
-    globalTelegram.enableClosingConfirmation()
-    globalTelegram.MainButton.hide()
     globalTelegram.BackButton.show().onClick(() => this.$router.push({name: 'country'}))
-
     setTimeout(() => {
       this.$router.push({name: 'results'})
     }, 4500)

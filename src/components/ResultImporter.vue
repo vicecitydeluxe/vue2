@@ -53,14 +53,15 @@
 
 <script>
 import {mapGetters} from 'vuex'
+import tgMixin from "@/mixins/tgMixin";
 
 const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "ResultImporter",
+  mixins: [tgMixin],
   data() {
     return {
-      darkModeSwitch: false,
       todayDate: new Date().toLocaleDateString("ru-RU", {
         year: 'numeric',
         month: 'short',
@@ -122,17 +123,7 @@ export default {
       },
     },
   },
-  created() {
-    globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
-  },
   mounted() {
-    globalTelegram.onEvent('themeChanged', () => {
-      globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
-    })
-    globalTelegram.expand()
-    globalTelegram.enableClosingConfirmation()
-    globalTelegram.MainButton.hide()
-
     globalTelegram.MainButton.setText('Import results')
     globalTelegram.MainButton.color = '#16a34a'
     globalTelegram.MainButton.show()

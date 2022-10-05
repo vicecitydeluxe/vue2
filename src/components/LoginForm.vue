@@ -23,13 +23,15 @@
 </template>
 
 <script>
+import tgMixin from "@/mixins/tgMixin";
+
 const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "LoginForm",
+  mixins: [tgMixin],
   data() {
     return {
-      darkModeSwitch: false,
       showComponent: false,
       userInfo: {
         username: '',
@@ -40,7 +42,6 @@ export default {
   },
   created() {
     globalTelegram.ready()
-    globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
   },
   beforeMount() {
     //TODO fix validation scenario (after backend is ready)
@@ -57,14 +58,6 @@ export default {
     //       this.showComponent = true
     //       console.log(err)
     //     })
-  },
-  mounted() {
-    globalTelegram.expand()
-    globalTelegram.enableClosingConfirmation()
-    globalTelegram.MainButton.hide()
-    globalTelegram.onEvent('themeChanged', () => {
-      globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
-    })
   },
   methods: {
     updateUsername() {

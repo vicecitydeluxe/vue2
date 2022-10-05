@@ -76,13 +76,15 @@
 </template>
 
 <script>
+import tgMixin from "@/mixins/tgMixin";
+
 const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "LeadsFinder",
+  mixins: [tgMixin],
   data() {
     return {
-      darkModeSwitch: false,
       checked: false,
       selectedType: null,
       selectedOptions: [
@@ -134,24 +136,14 @@ export default {
       },
     },
   },
-  created() {
-    globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
-  },
   mounted() {
-    globalTelegram.onEvent('themeChanged', () => {
-      globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
-    })
-    globalTelegram.expand()
-    globalTelegram.enableClosingConfirmation()
-    globalTelegram.MainButton.hide()
     globalTelegram.BackButton.show().onClick(() => this.$router.push({name: 'layout'}
     ))
   },
   beforeDestroy() {
     globalTelegram.BackButton.hide().offClick(() => this.$router.push({name: 'layout'}))
     globalTelegram.MainButton.hide().offClick(() => this.$router.push({name: 'layout'}))
-  },
-
+  }
 }
 </script>
 

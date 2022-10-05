@@ -37,17 +37,14 @@
 </template>
 
 <script>
+import tgMixin from "@/mixins/tgMixin";
 import {mapGetters} from 'vuex'
 
 const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "Layout",
-  data() {
-    return {
-      darkModeSwitch: false,
-    }
-  },
+  mixins: [tgMixin],
   methods: {
     showPopupAlert() {
       globalTelegram.showAlert('This feature would be added soon')
@@ -55,17 +52,6 @@ export default {
   },
   computed: {
     ...mapGetters(['name', 'balanceAmount']),
-  },
-  created() {
-    globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
-  },
-  mounted() {
-    globalTelegram.onEvent('themeChanged', () => {
-      globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
-    })
-    globalTelegram.expand()
-    globalTelegram.enableClosingConfirmation()
-    globalTelegram.MainButton.hide()
   },
   watch: {
     darkModeSwitch: {

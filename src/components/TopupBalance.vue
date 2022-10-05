@@ -25,12 +25,13 @@
 
 <script>
 const globalTelegram = window.Telegram.WebApp
+import tgMixin from "@/mixins/tgMixin";
 
 export default {
   name: "TopupBalance",
+  mixins: [tgMixin],
   data() {
     return {
-      darkModeSwitch: false,
       amount: '',
     }
   },
@@ -79,16 +80,7 @@ export default {
       },
     },
   },
-  created() {
-    globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
-  },
   mounted() {
-    globalTelegram.onEvent('themeChanged', () => {
-      globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
-    })
-    globalTelegram.expand()
-    globalTelegram.enableClosingConfirmation()
-    globalTelegram.MainButton.hide()
     globalTelegram.BackButton.show().onClick(() => this.$router.push({name: 'layout'}
     ))
   },

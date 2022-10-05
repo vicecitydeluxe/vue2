@@ -127,15 +127,16 @@
 </template>
 
 <script>
+import tgMixin from "@/mixins/tgMixin";
 import {mapGetters} from 'vuex'
 
 const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "Mapper",
+  mixins: [tgMixin],
   data() {
     return {
-      darkModeSwitch: false,
       selectedFirstName: null,
       selectedLastName: null,
       selectedFullName: null,
@@ -280,18 +281,9 @@ export default {
       },
     },
   },
-  created() {
-    globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
-  },
   mounted() {
     // uncomment to see init variation of the $parsedObject
     // console.log(this.$parsedObject.split(','))
-    globalTelegram.onEvent('themeChanged', () => {
-      globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
-    })
-    globalTelegram.expand()
-    globalTelegram.enableClosingConfirmation()
-    globalTelegram.MainButton.hide()
     globalTelegram.BackButton.show().onClick(() => this.$router.push({name: 'uploader'}))
   },
   beforeDestroy() {

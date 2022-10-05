@@ -16,6 +16,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   margin-bottom: 50px;
 }
+
 // ** Body Dark Styles
 body.dark {
   background: rgb(0, 0, 0);
@@ -109,7 +110,6 @@ input[type="number"]::-webkit-inner-spin-button {
   color: rgb(37 99 235);
 }
 
-
 .p-button-lg {
   font-size: 14px;
   padding: 0.8925rem 1.25rem;
@@ -141,6 +141,7 @@ input[type="number"]::-webkit-inner-spin-button {
   appearance: none;
   border-radius: 4px;
 }
+
 .p-float-label-dark {
   display: block;
   position: relative;
@@ -158,6 +159,7 @@ input[type="number"]::-webkit-inner-spin-button {
   appearance: none;
   border-radius: 4px;
 }
+
 .p-float-label-dark input:focus ~ label,
 .p-float-label-dark input.p-filled-dark ~ label,
 .p-float-label-dark textarea:focus ~ label,
@@ -174,7 +176,7 @@ input[type="number"]::-webkit-inner-spin-button {
 .p-float-label-dark input.p-filled-dark ~ label,
 .p-float-label-dark textarea:focus ~ label,
 .p-float-label-dark textarea.p-filled-dark ~ label,
-.p-float-label .p-inputwrapper-focus-dark ~ label, 
+.p-float-label .p-inputwrapper-focus-dark ~ label,
 .p-float-label .p-inputwrapper-filled-dark ~ label {
   top: -0.5rem !important;
   background-color: #000000;
@@ -193,6 +195,7 @@ input[type="number"]::-webkit-inner-spin-button {
   transition-timing-function: ease;
   line-height: 1;
 }
+
 .p-float-label-dark > label {
   color: rgb(255 255 255 / 60%);
   left: 1rem;
@@ -208,6 +211,7 @@ input[type="number"]::-webkit-inner-spin-button {
   font-size: 1rem;
   transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s, background-size 0.2s cubic-bezier(0.64, 0.09, 0.08, 1);
   border-radius: 4px;
+
   &:disabled {
     background-color: rgb(105, 105, 105) !important;
     color: rgba(255, 255, 255) !important;
@@ -215,7 +219,6 @@ input[type="number"]::-webkit-inner-spin-button {
   }
 }
 //LoginForm Dark Styles **
-
 
 //**Layout Dark Styles
 .p-button-lg-dark {
@@ -226,6 +229,7 @@ input[type="number"]::-webkit-inner-spin-button {
   color: #3950CC;
   width: 100px;
   height: 70px;
+
   &:enabled:hover {
     background: #002988;
     color: #ffffff;
@@ -254,6 +258,7 @@ input[type="number"]::-webkit-inner-spin-button {
     border: 1px solid white;
     color: rgba(255, 255, 255);
   }
+
   &:disabled {
     background: black;
     border: 1px solid white;
@@ -292,7 +297,6 @@ input[type="number"]::-webkit-inner-spin-button {
   border-radius: 0 9px 0 0;
 }
 
-
 .p-accordion {
   background: #F8F9FA;
   border: 1px solid #DEE2E6;
@@ -309,9 +313,9 @@ input[type="number"]::-webkit-inner-spin-button {
     }
   }
 
- .p-accordion-header .p-accordion-header-link {
-  padding: 15px;
-}
+  .p-accordion-header .p-accordion-header-link {
+    padding: 15px;
+  }
 }
 
 .image-text {
@@ -343,38 +347,6 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .p-checkbox {
   margin-right: 10px;
-}
-
-.country-item {
-  display: flex;
-  align-items: center;
-}
-
-.country-item img.flag {
-  width: 18px;
-  margin-right: .5rem;
-}
-
-.flag {
-  vertical-align: middle;
-}
-
-span.flag {
-  width: 44px;
-  height: 30px;
-  display: inline-block;
-}
-
-img.flag {
-  width: 30px
-}
-
-.true-icon {
-  color: #256029;
-}
-
-.false-icon {
-  color: #C63737;
 }
 
 .p-field-checkbox {

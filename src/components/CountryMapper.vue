@@ -23,14 +23,14 @@
 
 <script>
 import {mapGetters} from 'vuex'
-
+import tgMixin from "@/mixins/tgMixin";
 const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "CountryMapper",
+  mixins: [tgMixin],
   data() {
     return {
-      darkModeSwitch: false,
       selectedCountry: null,
       countries: [
         {name: 'Ireland'},
@@ -66,16 +66,7 @@ export default {
       },
     },
   },
-  created() {
-    globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
-  },
   mounted() {
-    globalTelegram.onEvent('themeChanged', () => {
-      globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
-    })
-    globalTelegram.expand()
-    globalTelegram.enableClosingConfirmation()
-    globalTelegram.MainButton.hide()
     globalTelegram.BackButton.show().onClick(() => this.$router.push({name: 'mapper'}))
   },
   beforeDestroy() {
