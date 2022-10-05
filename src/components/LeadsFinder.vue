@@ -126,7 +126,7 @@ export default {
           document.querySelectorAll('.sticky_number__title_dark').forEach(e => e.classList.replace('sticky_number__title_dark', 'sticky_number__title'))
           document.querySelectorAll('.filter_header_dark').forEach(e => e.classList.replace('filter_header_dark', 'filter_header'))
           document.querySelectorAll('.filter_header_divider_dark').forEach(e => e.classList.replace('filter_header_divider_dark', 'filter_header_divider'))
-          document.querySelectorAll('.filter_container_dark').forEach(e => e.classList.replace('filter_container_divider', 'filter_container'))
+          document.querySelectorAll('.filter_container_dark').forEach(e => e.classList.replace('filter_container_dark', 'filter_container'))
           document.querySelectorAll('.filter_container_wrapper').forEach(e => e.classList.replace('filter_container_wrapper_dark', 'filter_container_wrapper'))
           document.querySelectorAll('.limit_header_dark').forEach(e => e.classList.replace('limit_header_dark', 'limit_header'))
           document.querySelectorAll('.limit_container_dark').forEach(e => e.classList.replace('limit_container_dark', 'limit_container'))
