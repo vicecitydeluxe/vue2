@@ -15,7 +15,7 @@
     </header>
     <main class="layout">
       <Button icon="pi pi-download" label="Withdrawal" iconPos="top" class="p-button-lg"
-              @click="hapticButtonClicked"/>
+              @click="showPopupAlert"/>
       <Button icon="pi pi-copy" label="Transactions" iconPos="top" class="p-button-lg"
               @click="showPopupAlert"/>
       <Button icon="pi pi-wallet" label="Topup" iconPos="top" class="p-button-lg"
@@ -38,23 +38,18 @@
 
 <script>
 import tgMixin from "@/mixins/tgMixin";
+import tgHapticFeedback from "@/mixins/tgHapticFeedback";
 import {mapGetters} from 'vuex'
 
 const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "Layout",
-  mixins: [tgMixin],
+  mixins: [tgMixin, tgHapticFeedback],
   methods: {
     showPopupAlert() {
       globalTelegram.showAlert('This feature would be added soon')
-      globalTelegram.HapticFeedback.notificationOccurred('error')
-    },
-    hapticButtonClicked() {
-      globalTelegram.HapticFeedback.notificationOccurred('success')
-    },
-    hapticButtonWarning() {
-      globalTelegram.HapticFeedback.notificationOccurred('warning')
+      this.hapticError()
     },
   },
   computed: {
