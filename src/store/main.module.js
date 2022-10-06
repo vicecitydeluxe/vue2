@@ -54,6 +54,21 @@ const actions = {
         })
     },
 
+    CHECK_NAME(_) {
+        return new Promise((resolve, reject) => {
+            $axios({
+                url: `https://leads-api.genesis.pm/user`,
+                method: "GET",
+            }).then(res => {
+                console.log(res.data)
+                resolve(res)
+            }).catch(err => {
+                console.log(err)
+                reject(err)
+            })
+        })
+    }
+
 }
 
 const mutations = {
