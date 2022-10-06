@@ -25,7 +25,7 @@
         :value="value"
         :size="size"
         level="H"></qrcode-vue>
-<!--        <button @click="updateBalanceAmount">Test</button>-->
+<!--    <button @click="updateBalanceAmount">Test</button>-->
   </div>
 </template>
 
@@ -54,24 +54,21 @@ export default {
       this.$store.dispatch('SEND_BALANCE', this.amount)
           .then((res) => {
             console.log(res.data)
-            this.$store.commit('setBalanceAmount', res.data.data.balance)
+            this.value = `bitcoin:${res.data?.data?.address}?amount=${res.data?.data?.amountCurrency}`
+            this.$store.commit('setBalanceAmount', res.data?.data?.balance)
+            this.showQR = true
           })
           .catch((err) => {
             console.log(err)
           })
-      // this.$store.commit('setBalanceAmount', this.amount)
     },
   },
   watch: {
     amount: {
       handler(newValue) {
         if (newValue) {
-          globalTelegram.MainButton.setText('Make a payment')
-          globalTelegram.MainButton.color = '#16a34a'
           globalTelegram.MainButton.show()
-              .onClick(() => {
-                if (this.$route.path === '/top-up') this.updateBalanceAmount()
-              })
+
           if (this.darkModeSwitch) {
             setTimeout(() => {
               document.querySelectorAll('.p-inputtext').forEach(e => e.classList.replace('p-inputtext', 'p-inputtext-dark'))
@@ -79,6 +76,7 @@ export default {
           }
         } else if (!newValue) {
           globalTelegram.MainButton.hide()
+
           if (this.darkModeSwitch) {
             setTimeout(() => {
               document.querySelectorAll('.p-inputtext').forEach(e => e.classList.replace('p-inputtext', 'p-inputtext-dark'))
@@ -100,10 +98,18 @@ export default {
     },
   },
   mounted() {
+    globalTelegram.MainButton.setText('Make a payment')
+    globalTelegram.MainButton.color = '#16a34a'
+    globalTelegram.MainButton.onClick(() => {
+      if (this.$route.path === '/top-up') this.updateBalanceAmount()
+    })
     globalTelegram.BackButton.show().onClick(() => this.$router.push({name: 'layout'}
     ))
   },
   beforeDestroy() {
+    globalTelegram.MainButton.offClick(() => {
+      if (this.$route.path === '/top-up') this.updateBalanceAmount()
+    })
     globalTelegram.BackButton.hide().offClick(() => this.$router.push({name: 'layout'}))
   },
 }
