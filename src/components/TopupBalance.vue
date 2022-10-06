@@ -8,7 +8,7 @@
       <button class="btn_mid">USDT ERC20</button>
       <button class="btn_right">Ethereum TRC20</button>
     </main>
-    <div class="main">
+    <div v-if="!showQR" class="main">
       <h6>Amount</h6>
       <InputText inputmode="decimal" type="text" v-model="amount" class=""></InputText>
       <div class="text">All transactions get processed automatically.
@@ -19,20 +19,33 @@
         </div>
       </div>
     </div>
-
+    <qrcode-vue
+        class="qr_container"
+        v-if="showQR"
+        :value="value"
+        :size="size"
+        level="H"></qrcode-vue>
   </div>
 </template>
 
 <script>
-const globalTelegram = window.Telegram.WebApp
+import QrcodeVue from 'qrcode.vue'
 import tgMixin from "@/mixins/tgMixin";
+
+const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "TopupBalance",
   mixins: [tgMixin],
+  components: {
+    QrcodeVue,
+  },
   data() {
     return {
       amount: '',
+      value: 'https://example.com',
+      size: 70,
+      showQR: false,
     }
   },
   methods: {
