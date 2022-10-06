@@ -67,7 +67,38 @@ const actions = {
                 reject(err)
             })
         })
-    }
+    },
+
+    SEND_BALANCE(_, payload) {
+        return new Promise((resolve, reject) => {
+            $axios({
+                url: `https://leads-api.genesis.pm/deposit`,
+                method: "POST",
+                data: {amount: payload, currency: 'BTC'}
+            }).then(res => {
+                console.log(res.data)
+                resolve(res)
+            }).catch(err => {
+                console.log(err)
+                reject(err)
+            })
+        })
+    },
+
+    CHECK_BALANCE(_) {
+        return new Promise((resolve, reject) => {
+            $axios({
+                url: `https://leads-api.genesis.pm/balance`,
+                method: "GET",
+            }).then(res => {
+                console.log(res.data)
+                resolve(res)
+            }).catch(err => {
+                console.log(err)
+                reject(err)
+            })
+        })
+    },
 
 }
 

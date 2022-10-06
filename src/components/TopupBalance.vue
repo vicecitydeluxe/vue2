@@ -5,8 +5,8 @@
     </header>
     <main class="layout">
       <button class="btn_left">Bitcoin</button>
-      <button class="btn_mid">USDT ERC20</button>
-      <button class="btn_right">Ethereum TRC20</button>
+      <button disabled class="btn_mid">USDT ERC20</button>
+      <button disabled class="btn_right">Ethereum TRC20</button>
     </main>
     <div v-if="!showQR" class="main">
       <h6>Amount</h6>
@@ -25,6 +25,7 @@
         :value="value"
         :size="size"
         level="H"></qrcode-vue>
+<!--    <button @click="updateBalanceAmount">Test</button>-->
   </div>
 </template>
 
@@ -50,8 +51,16 @@ export default {
   },
   methods: {
     updateBalanceAmount() {
-      this.$store.commit('setBalanceAmount', this.amount)
-    }
+      this.$store.dispatch('SEND_BALANCE', this.amount)
+          .then((res) => {
+            console.log(res.data)
+            this.$store.commit('setBalanceAmount', res.data.data.balance)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      // this.$store.commit('setBalanceAmount', this.amount)
+    },
   },
   watch: {
     amount: {
