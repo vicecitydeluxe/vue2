@@ -45,7 +45,7 @@ const actions = {
                 method: "POST",
                 data: {"name": payload},
             }).then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 resolve(res)
             }).catch(err => {
                 console.log(err)
@@ -60,7 +60,7 @@ const actions = {
                 url: `https://leads-api.genesis.pm/user`,
                 method: "GET",
             }).then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 resolve(res)
             }).catch(err => {
                 console.log(err)

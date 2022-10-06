@@ -1,5 +1,5 @@
 <template>
-  <div class="form-demo">
+  <div class="form-demo" v-if="showComponent">
     <div class="p-d-flex p-jc-center">
       <div class="card">
         <h5 class="p-text-center">Hi, {{ userInfo.tgNickname }}!</h5>
@@ -48,9 +48,14 @@ export default {
     this.userInfo.tgNickname = globalTelegram.initDataUnsafe.user ? globalTelegram.initDataUnsafe.user.username : 'Unknown_user'
     this.userInfo.tgID = globalTelegram.initDataUnsafe.user ? globalTelegram.initDataUnsafe.user.id : '000000000'
     this.$store.commit('setName', this.userInfo.username)
+
     this.$store.dispatch('CHECK_NAME')
         .then((res) => {
-          console.log(`RES:${res}`)
+          if (res.data.status === 200) {
+            this.$router.push({name: 'layout'})
+          } else if (res.data.status === 400) {
+            this.showComponent = true
+          }
         })
         .catch((err) => {
           console.log(`ERR: ${err}`)
