@@ -25,7 +25,7 @@
         :value="value"
         :size="size"
         level="H"></qrcode-vue>
-<!--    <button @click="updateBalanceAmount">Test</button>-->
+<!--        <button @click="updateBalanceAmount">Test</button>-->
   </div>
 </template>
 
@@ -66,13 +66,11 @@ export default {
     amount: {
       handler(newValue) {
         if (newValue) {
-          this.updateBalanceAmount()
           globalTelegram.MainButton.setText('Make a payment')
           globalTelegram.MainButton.color = '#16a34a'
           globalTelegram.MainButton.show()
               .onClick(() => {
-                if (this.$route.path === '/top-up') this.$router.push({name: 'layout'}
-                )
+                if (this.$route.path === '/top-up') this.updateBalanceAmount()
               })
           if (this.darkModeSwitch) {
             setTimeout(() => {
@@ -80,7 +78,6 @@ export default {
             }, 0)
           }
         } else if (!newValue) {
-          this.updateBalanceAmount()
           globalTelegram.MainButton.hide()
           if (this.darkModeSwitch) {
             setTimeout(() => {

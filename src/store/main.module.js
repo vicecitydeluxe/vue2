@@ -76,7 +76,7 @@ const actions = {
                 method: "POST",
                 data: {amount: payload, currency: 'BTC'}
             }).then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 resolve(res)
             }).catch(err => {
                 console.log(err)
@@ -91,7 +91,7 @@ const actions = {
                 url: `https://leads-api.genesis.pm/balance`,
                 method: "GET",
             }).then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 resolve(res)
             }).catch(err => {
                 console.log(err)
