@@ -15,7 +15,7 @@
     </header>
     <main class="layout">
       <Button icon="pi pi-download" label="Withdrawal" iconPos="top" class="p-button-lg"
-              @click="showPopupAlert"/>
+              @click="hapticButtonClicked"/>
       <Button icon="pi pi-copy" label="Transactions" iconPos="top" class="p-button-lg"
               @click="showPopupAlert"/>
       <Button icon="pi pi-wallet" label="Topup" iconPos="top" class="p-button-lg"
@@ -48,6 +48,13 @@ export default {
   methods: {
     showPopupAlert() {
       globalTelegram.showAlert('This feature would be added soon')
+      globalTelegram.HapticFeedback.notificationOccurred('error')
+    },
+    hapticButtonClicked() {
+      globalTelegram.HapticFeedback.notificationOccurred('success')
+    },
+    hapticButtonWarning() {
+      globalTelegram.HapticFeedback.notificationOccurred('warning')
     },
   },
   computed: {
