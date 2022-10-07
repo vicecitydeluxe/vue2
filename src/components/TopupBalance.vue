@@ -130,9 +130,7 @@ export default {
     globalTelegram.MainButton.setText('Make a payment')
     globalTelegram.MainButton.color = '#16a34a'
 
-    globalTelegram.MainButton.onClick(() => {
-      this.actionCb()
-    })
+    globalTelegram.MainButton.onClick(this.actionCb)
     globalTelegram.BackButton.show()
     globalTelegram.BackButton.onClick(this.redirectCb)
   },
