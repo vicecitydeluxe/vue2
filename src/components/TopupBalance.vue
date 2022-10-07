@@ -10,7 +10,7 @@
     </main>
     <div v-if="!showQR" class="main">
       <h6>Amount</h6>
-      <InputText inputmode="decimal" type="text" v-model="amount" class=""></InputText>
+      <InputText inputmode="decimal" type="text" v-model="amount"></InputText>
       <div class="text">All transactions get processed automatically.
         Balance will be added to your account as soon as we get confirmation from the blockchain network.
         <div> The exchange rate is fixed for 15 minutes. If you make a transaction after that period the
@@ -19,13 +19,27 @@
         </div>
       </div>
     </div>
-    <qrcode-vue
-        class="qr_container"
-        v-if="showQR"
-        :value="value"
-        :size="size"
-        level="H"></qrcode-vue>
-<!--    <button @click="updateBalanceAmount">Test</button>-->
+    <div class="input_container" v-if="showQR">
+      <p class="input_container_section">
+        <label for="paymentAddress">Payment Address: </label>
+        <InputText readonly="readonly" id="paymentAddress" v-model="paymentAddress"
+                   style="width: auto; margin-bottom: 0;"/>
+        <Button @click="copy(paymentAddress)" class="p-button" icon="pi pi-copy"/>
+      </p>
+      <p class="input_container_section">
+        <label for="paymentAmount">Payment Amount: </label>
+        <InputText readonly="readonly" id="paymentAmount" v-model="paymentAmount"
+                   style="width: auto; margin-bottom: 0;"/>
+        <Button @click="copy(paymentAmount)" class="p-button" icon="pi pi-copy"/>
+      </p>
+      <qrcode-vue
+          v-if="showQR"
+          :value="value"
+          :size="size"
+          level="H"></qrcode-vue>
+      <Toast position="bottom-center"/>
+    </div>
+    <!--    <button @click="updateBalanceAmount">Test</button>-->
   </div>
 </template>
 
@@ -44,16 +58,23 @@ export default {
   data() {
     return {
       amount: '',
-      value: 'https://example.com',
-      size: 70,
+      value: '',
+      size: 200,
+      paymentAddress: '',
+      paymentAmount: '',
       showQR: false,
     }
   },
   methods: {
+    copy(text) {
+      navigator.clipboard.writeText(text);
+      this.$toast.add({severity: 'info', summary: 'Notification', detail: 'Value copied to clipboard!', life: 1500});
+    },
     updateBalanceAmount() {
       this.$store.dispatch('SEND_BALANCE', this.amount)
           .then((res) => {
-            console.log(res.data)
+            this.paymentAddress = res.data?.data?.address
+            this.paymentAmount = res.data?.data?.amountCurrency
             this.value = `bitcoin:${res.data?.data?.address}?amount=${res.data?.data?.amountCurrency}`
             this.$store.commit('setBalanceAmount', res.data?.data?.balance)
             this.showQR = true

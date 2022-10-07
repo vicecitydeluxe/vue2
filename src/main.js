@@ -19,7 +19,8 @@ import ProgressSpinner from 'primevue/progressspinner';
 import ToggleButton from 'primevue/togglebutton';
 import Accordion from 'primevue/accordion';
 import AccordionTab from 'primevue/accordiontab';
-
+import ToastService from 'primevue/toastservice';
+import Toast from 'primevue/toast';
 
 import 'primevue/resources/themes/md-light-indigo/theme.css'
 import 'primevue/resources/primevue.min.css'
@@ -40,9 +41,11 @@ Vue.component('SelectButton', SelectButton);
 Vue.component('ToggleButton', ToggleButton);
 Vue.component('Accordion', Accordion);
 Vue.component('AccordionTab', AccordionTab);
+Vue.component('Toast', Toast);
+
 
 Vue.use(PrimeVue);
-
+Vue.use(ToastService);
 
 Vue.config.productionTip = false
 // Vue.config.silent = true;
