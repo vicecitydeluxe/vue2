@@ -247,6 +247,12 @@ export default {
       splittedObject[5] = this.selectedCountry.name
       this.$parsedObject = splittedObject.join()
       console.log(this.$parsedObject)
+    },
+    redirectCb() {
+      this.$router.push({name: 'uploader'})
+    },
+    actionCb() {
+      if (this.$route.path === '/mapper') this.$router.push({name: 'country'})
     }
   },
   computed: {
@@ -259,10 +265,6 @@ export default {
           globalTelegram.MainButton.setText('Next')
           globalTelegram.MainButton.color = '#16a34a'
           globalTelegram.MainButton.show()
-              .onClick(() => {
-                if (this.$route.path === '/mapper') this.$router.push({name: 'country'}
-                )
-              })
         }
       },
     },
@@ -284,10 +286,12 @@ export default {
   mounted() {
     // uncomment to see init variation of the $parsedObject
     // console.log(this.$parsedObject.split(','))
-    globalTelegram.BackButton.show().onClick(() => this.$router.push({name: 'uploader'}))
+    globalTelegram.MainButton.onClick(this.actionCb)
+    globalTelegram.BackButton.show().onClick(this.redirectCb)
   },
   beforeDestroy() {
-    globalTelegram.BackButton.hide().offClick(() => this.$router.push({name: 'uploader'}))
+    globalTelegram.MainButton.hide().offClick(this.actionCb)
+    globalTelegram.BackButton.hide().offClick(this.redirectCb)
   },
 }
 </script>

@@ -131,13 +131,11 @@ export default {
     globalTelegram.MainButton.color = '#16a34a'
 
     globalTelegram.MainButton.onClick(this.actionCb)
-    globalTelegram.BackButton.show()
-    globalTelegram.BackButton.onClick(this.redirectCb)
+    globalTelegram.BackButton.show().onClick(this.redirectCb)
   },
   beforeDestroy() {
-    globalTelegram.MainButton.offClick(this.actionCb)
-    globalTelegram.BackButton.offClick(this.redirectCb)
-    globalTelegram.BackButton.hide()
+    globalTelegram.MainButton.hide().offClick(this.actionCb)
+    globalTelegram.BackButton.hide().offClick(this.redirectCb)
   },
 }
 </script>
