@@ -73,6 +73,7 @@ export default {
     updateBalanceAmount() {
       this.$store.dispatch('SEND_BALANCE', this.amount)
           .then((res) => {
+            globalTelegram.MainButton.hide()
             this.paymentAddress = res.data?.data?.address
             this.paymentAmount = res.data?.data?.amountCurrency
             this.value = `bitcoin:${res.data?.data?.address}?amount=${res.data?.data?.amountCurrency}`
@@ -80,6 +81,7 @@ export default {
             this.showQR = true
           })
           .catch((err) => {
+            globalTelegram.MainButton.hide()
             console.log(err)
           })
     },
