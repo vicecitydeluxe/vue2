@@ -85,6 +85,12 @@ export default {
             console.log(err)
           })
     },
+    redirectCb() {
+      this.$router.push({name: 'layout'})
+    },
+    actionCb() {
+      if (this.$route.path === '/top-up') this.updateBalanceAmount()
+    }
   },
   watch: {
     amount: {
@@ -123,17 +129,17 @@ export default {
   mounted() {
     globalTelegram.MainButton.setText('Make a payment')
     globalTelegram.MainButton.color = '#16a34a'
+
     globalTelegram.MainButton.onClick(() => {
-      if (this.$route.path === '/top-up') this.updateBalanceAmount()
+      this.actionCb()
     })
-    globalTelegram.BackButton.show().onClick(() => this.$router.push({name: 'layout'}
-    ))
+    globalTelegram.BackButton.show()
+    globalTelegram.BackButton.onClick(this.redirectCb)
   },
   beforeDestroy() {
-    globalTelegram.MainButton.offClick(() => {
-      if (this.$route.path === '/top-up') this.updateBalanceAmount()
-    })
-    globalTelegram.BackButton.hide().offClick(() => this.$router.push({name: 'layout'}))
+    globalTelegram.MainButton.offClick(this.actionCb)
+    globalTelegram.BackButton.offClick(this.redirectCb)
+    globalTelegram.BackButton.hide()
   },
 }
 </script>
