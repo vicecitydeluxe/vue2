@@ -21,11 +21,16 @@ const globalTelegram = window.Telegram.WebApp
 export default {
   name: "DealsLayout",
   mixins: [tgMixin],
+  methods: {
+    redirectCb() {
+      this.$router.push({name: 'layout'})
+    },
+  },
   mounted() {
-    globalTelegram.BackButton.show().onClick(() => this.$router.push({name: 'layout'}))
+    globalTelegram.BackButton.show().onClick(this.redirectCb)
   },
   beforeDestroy() {
-    globalTelegram.BackButton.hide().offClick(() => this.$router.push({name: 'layout'}))
+    globalTelegram.BackButton.hide().offClick(this.redirectCb)
   },
   watch: {
     darkModeSwitch: {

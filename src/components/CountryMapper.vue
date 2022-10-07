@@ -24,6 +24,7 @@
 <script>
 import {mapGetters} from 'vuex'
 import tgMixin from "@/mixins/tgMixin";
+
 const globalTelegram = window.Telegram.WebApp
 
 export default {
@@ -38,6 +39,14 @@ export default {
       ],
     }
   },
+  methods: {
+    redirectCb() {
+      this.$router.push({name: 'mapper'})
+    },
+    actionCb() {
+      if (this.$route.path === '/country-mapper') this.$router.push({name: 'spinner'})
+    }
+  },
   computed: {
     ...mapGetters(['listName', "fileName"]),
   },
@@ -48,10 +57,6 @@ export default {
           globalTelegram.MainButton.setText('Create leads')
           globalTelegram.MainButton.color = '#16a34a'
           globalTelegram.MainButton.show()
-              .onClick(() => {
-                if (this.$route.path === '/country-mapper') this.$router.push({name: 'spinner'}
-                )
-              })
         }
       },
     },
@@ -67,10 +72,12 @@ export default {
     },
   },
   mounted() {
-    globalTelegram.BackButton.show().onClick(() => this.$router.push({name: 'mapper'}))
+    globalTelegram.MainButton.onClick(this.actionCb)
+    globalTelegram.BackButton.show().onClick(this.redirectCb)
   },
   beforeDestroy() {
-    globalTelegram.BackButton.hide().offClick(() => this.$router.push({name: 'mapper'}))
+    globalTelegram.MainButton.hide().offClick(this.actionCb)
+    globalTelegram.BackButton.hide().offClick(this.redirectCb)
   },
 }
 </script>

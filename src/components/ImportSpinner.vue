@@ -21,14 +21,19 @@ const globalTelegram = window.Telegram.WebApp
 export default {
   name: "ImportSpinner",
   mixins: [tgMixin],
+  methods: {
+    redirectCb() {
+      this.$router.push({name: 'layout'})
+    },
+  },
   mounted() {
-    globalTelegram.BackButton.show().onClick(() => this.$router.push({name: 'country'}))
+    globalTelegram.BackButton.show().onClick(this.redirectCb)
     setTimeout(() => {
       this.$router.push({name: 'results'})
     }, 4500)
   },
   beforeDestroy() {
-    globalTelegram.BackButton.hide().offClick(() => this.$router.push({name: 'country'}))
+    globalTelegram.BackButton.hide().offClick(this.redirectCb)
   },
   watch: {
     darkModeSwitch: {

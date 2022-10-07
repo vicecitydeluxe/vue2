@@ -106,6 +106,14 @@ export default {
       ],
     }
   },
+  methods: {
+    redirectCb() {
+      this.$router.push({name: 'country'})
+    },
+    actionCb() {
+      if (this.$route.path === '/result-importer') this.$router.push({name: 'layout'})
+    }
+  },
   computed: {
     ...mapGetters(['listName', 'fileName'])
   },
@@ -126,15 +134,12 @@ export default {
   mounted() {
     globalTelegram.MainButton.setText('Import results')
     globalTelegram.MainButton.color = '#16a34a'
-    globalTelegram.MainButton.show()
-        .onClick(() => {
-          if (this.$route.path === '/result-importer') this.$router.push({name: 'layout'}
-          )
-        })
-    globalTelegram.BackButton.show().onClick(() => this.$router.push({name: 'country'}))
+    globalTelegram.MainButton.show().onClick(this.actionCb)
+    globalTelegram.BackButton.show().onClick(this.redirectCb)
   },
   beforeDestroy() {
-    globalTelegram.BackButton.hide().offClick(() => this.$router.push({name: 'country'}))
+    globalTelegram.MainButton.offClick(this.actionCb)
+    globalTelegram.BackButton.hide().offClick(this.redirectCb)
   },
 }
 </script>

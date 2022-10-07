@@ -28,7 +28,7 @@
                responsiveLayout="scroll">
       <Column v-for="col of columns" :field="col.field" :header="col.header" :key="col.id"></Column>
     </DataTable>
-<!--    <button @click="$router.push({name: 'mapper'})"></button>-->
+    <!--    <button @click="$router.push({name: 'mapper'})"></button>-->
   </div>
 </template>
 
@@ -52,6 +52,12 @@ export default {
     }
   },
   methods: {
+    redirectCb() {
+      this.$router.push({name: 'uploadLayout'})
+    },
+    actionCb() {
+      if (this.$route.path === '/uploader') this.$router.push({name: 'mapper'})
+    },
     sendFile(event) {
       this.fileName = event.files[0].name
       this.updateFileName()
@@ -144,10 +150,6 @@ export default {
         globalTelegram.MainButton.setText('Map columns')
         globalTelegram.MainButton.color = '#16a34a'
         globalTelegram.MainButton.show()
-            .onClick(() => {
-              if (this.$route.path === '/uploader') this.$router.push({name: 'mapper'}
-              )
-            })
       },
     }
   },
@@ -156,11 +158,12 @@ export default {
 
     globalTelegram.expand()
     globalTelegram.enableClosingConfirmation()
-    globalTelegram.MainButton.hide()
-    globalTelegram.BackButton.show().onClick(() => this.$router.push({name: 'uploadLayout'}))
+    globalTelegram.MainButton.onClick(this.actionCb)
+    globalTelegram.BackButton.show().onClick(this.redirectCb)
   },
   beforeDestroy() {
-    globalTelegram.BackButton.hide().offClick(() => this.$router.push({name: 'uploadLayout'}))
+    globalTelegram.MainButton.hide().offClick(this.actionCb)
+    globalTelegram.BackButton.hide().offClick(this.redirectCb)
   },
 }
 </script>

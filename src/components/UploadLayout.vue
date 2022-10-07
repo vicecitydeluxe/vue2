@@ -5,7 +5,8 @@
     </header>
     <main>
       <h6>List name (visible to you)</h6>
-      <InputText enterkeyhint="enter" @keyup="updateListName" :class="[validListName ? 'p-input_text ' : 'p-invalid']" type="text"
+      <InputText enterkeyhint="enter" @keyup="updateListName" :class="[validListName ? 'p-input_text ' : 'p-invalid']"
+                 type="text"
                  v-model="listName"></InputText>
       <small v-if="!validListName" class="p-error">Min 5 characters required</small>
 
@@ -60,6 +61,12 @@ export default {
     }
   },
   methods: {
+    redirectCb() {
+      this.$router.push({name: 'layout'})
+    },
+    actionCb() {
+      if (this.$route.path === '/upload-layout') this.$router.push({name: 'uploader'})
+    },
     updateListName() {
       this.$store.commit('setListName', this.listName)
     }
@@ -83,10 +90,6 @@ export default {
           globalTelegram.MainButton.setText('Create a list')
           globalTelegram.MainButton.color = '#16a34a'
           globalTelegram.MainButton.show()
-              .onClick(() => {
-                if (this.$route.path === '/upload-layout') this.$router.push({name: 'uploader'}
-                )
-              })
         } else if (oldValue) globalTelegram.MainButton.hide()
       },
     }
@@ -94,11 +97,12 @@ export default {
   mounted() {
     globalTelegram.expand()
     globalTelegram.enableClosingConfirmation()
-    globalTelegram.MainButton.hide()
-    globalTelegram.BackButton.show().onClick(() => this.$router.push({name: 'layout'}))
+    globalTelegram.MainButton.onClick(this.actionCb)
+    globalTelegram.BackButton.show().onClick(this.redirectCb)
   },
   beforeDestroy() {
-    globalTelegram.BackButton.hide().offClick(() => this.$router.push({name: 'layout'}))
+    globalTelegram.MainButton.hide().offClick(this.actionCb)
+    globalTelegram.BackButton.hide().offClick(this.redirectCb)
   },
 }
 </script>

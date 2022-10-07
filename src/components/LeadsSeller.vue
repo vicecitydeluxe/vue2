@@ -67,16 +67,21 @@ export default {
       options: [],
     };
   },
+  methods: {
+    redirectCb() {
+      this.$router.push({name: "layout"})
+    },
+    actionCb() {
+      if (this.$route.path === "/buy-leads") this.$router.push({name: "layout"})
+    }
+  },
   watch: {
     options: {
       handler(newValue) {
         if (newValue.length > 0) {
           globalTelegram.MainButton.setText("Confirm allocation and buy leads");
           globalTelegram.MainButton.color = "#16a34a";
-          globalTelegram.MainButton.show().onClick(() => {
-            if (this.$route.path === "/buy-leads")
-              this.$router.push({name: "layout"});
-          });
+          globalTelegram.MainButton.show()
         } else if (newValue.length === 0) {
           globalTelegram.MainButton.hide();
         }
@@ -93,17 +98,12 @@ export default {
     },
   },
   mounted() {
-    globalTelegram.BackButton.show().onClick(() =>
-        this.$router.push({name: "layout"})
-    );
+    globalTelegram.MainButton.onClick(this.actionCb);
+    globalTelegram.BackButton.show().onClick(this.redirectCb);
   },
   beforeDestroy() {
-    globalTelegram.BackButton.hide().offClick(() =>
-        this.$router.push({name: "layout"})
-    );
-    globalTelegram.MainButton.hide().offClick(() =>
-        this.$router.push({name: "layout"})
-    );
+    globalTelegram.MainButton.hide().offClick(this.actionCb);
+    globalTelegram.BackButton.hide().offClick(this.redirectCb);
   },
 };
 </script>
