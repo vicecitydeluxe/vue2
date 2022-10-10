@@ -94,30 +94,21 @@ export default {
                 complete: result => {
                   resolve(result)
                   this.parsedDataLength = result.data.length
-                  console.log(result)
+                  // console.log(result)
                 },
               })
             })
           }
       ).then((result) => {
-        Vue.prototype.$parsedObject = Papa.unparse(Object.assign({
-          'fields': Object.keys(result.data[0]),
-          // 'data': result.data.map((el) => Object.values(el))
-        }))
-      })
-    },
-    unparser() {
-      return new Promise((resolve) => {
-        resolve(Papa.unparse({
-          "fields": ["Column 1", "Column 2"],
-          "data": [
-            ["foo", "bar"],
-            ["abc", "def"]
-          ]
-        }))
-      }).then(res => {
-        const download = function (res) {
-          const blob = new Blob([res], {type: 'text/csv'});
+        return new Promise((resolve) => {
+          Vue.prototype.$parsedObject = resolve(Papa.unparse(Object.assign({
+            'fields': Object.keys(result.data[0]),
+            'data': result.data.map((el) => Object.values(el))
+          })))
+        })
+      }).then(result => {
+        const download = function (result) {
+          const blob = new Blob([result], {type: 'text/csv'});
           const url = window.URL.createObjectURL(blob)
           const a = document.createElement('a')
           a.setAttribute('href', url)
@@ -126,9 +117,8 @@ export default {
           // a.click()
         }
         //disable timeout to download instantly
-        setTimeout(() => download(res), 3000)
-
-        console.log(res)
+        setTimeout(() => download(result), 3000)
+        // console.log(res)
       })
     },
     updateFileName() {
@@ -154,8 +144,6 @@ export default {
     }
   },
   mounted() {
-    // this.unparser()
-
     globalTelegram.expand()
     globalTelegram.enableClosingConfirmation()
     globalTelegram.MainButton.onClick(this.actionCb)
