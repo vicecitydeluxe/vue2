@@ -64,5 +64,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/SellerFilter.scss';
+@import '../styles/ListFilter.scss';
 </style>

@@ -202,7 +202,7 @@
   border-style: solid;
   border-color: #CED4DA;
 
-  &:hover {
+  &:focus {
     background: #2563EB;
     color: white;
   }
@@ -236,7 +236,7 @@
   background: white;
   border-radius: inherit;
 
-  &:hover {
+  &:focus {
     background: #2563EB;
     color: white;
   }
@@ -270,7 +270,7 @@
   background: white;
   border-radius: 0 7px 7px 0;
 
-  &:hover {
+  &:focus {
     background: #2563EB;
     color: white;
   }
