@@ -28,7 +28,7 @@
                responsiveLayout="scroll">
       <Column v-for="col of columns" :field="col.field" :header="col.header" :key="col.id"></Column>
     </DataTable>
-    <!--    <button @click="$router.push({name: 'mapper'})"></button>-->
+<!--    <button @click="$router.push({name: 'mapper'})"></button>-->
   </div>
 </template>
 
@@ -101,10 +101,11 @@ export default {
           }
       ).then((result) => {
         return new Promise((resolve) => {
-          Vue.prototype.$parsedObject = resolve(Papa.unparse(Object.assign({
+          Vue.prototype.$parsedObject = Papa.unparse(Object.assign({
             'fields': Object.keys(result.data[0]),
-            'data': result.data.map((el) => Object.values(el))
-          })))
+            // 'data': result.data.map((el) => Object.values(el))
+          }))
+          resolve(Vue.prototype.$parsedObject)
         })
       }).then(result => {
         const download = function (result) {
