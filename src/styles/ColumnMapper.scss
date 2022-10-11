@@ -24,7 +24,7 @@
     padding: 15px;
     margin-top: 15px;
     margin-bottom: 15px;
-    background: #3950CC;
+    background: #32343A;
     color: white;
     border-radius: 7px;
   }
@@ -43,6 +43,14 @@
     left: 0;
     border: 1px solid #CED4DA;
     border-radius: 7px;
+
+    &_dark {
+      width: 166px;
+      left: 0;
+      border: 1px solid #CED4DA;
+      border-radius: 7px;
+      background: #282828;
+    }
   }
 
   &_title {
@@ -91,6 +99,17 @@
   top: 24px;
   border: 1px solid #CED4DA;
   border-radius: 7px;
+  color: #2563EB;
+  &_dark {
+    width: 166px;
+    position: static;
+    left: 0;
+    top: 24px;
+    border: 1px solid #CED4DA;
+    border-radius: 7px;
+    color: #2563EB;
+    background: #282828;
+  }
 }
 
 .bottom_section_container {
@@ -102,7 +121,7 @@
   &_dark {
     padding: 15px;
     text-indent: 10px;
-    background: #3950CC;
+    background: #32343A;
     color: white;
     border-radius: 7px;
   }
@@ -179,3 +198,12 @@
   }
 }
 
+.dropdown_dark {
+  background: #282828;
+  border: 1px solid #CED4DA;
+  width: 166px;
+  left: 0;
+  border-radius: 7px;
+}
+
+//TODO: fix placeholder black color to blue + buttons add black background

@@ -16,7 +16,7 @@
       <small v-if="!validListDescription" class="p-error">Min 5 characters required</small>
 
       <h6>Vertical</h6>
-      <Dropdown v-model="selectedCrypto" placeholder="Select a crypto" :options="cryptoPairs"
+      <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : '']" v-model="selectedCrypto" placeholder="Select a crypto" :options="cryptoPairs"
                 optionLabel="name"></Dropdown>
       <h6>Type</h6>
       <!--      <Button label="Registrations" iconPos="left" class="p-button-lg"/>-->
@@ -29,17 +29,20 @@
       </div>
 
       <h6>Funnel type</h6>
-      <Dropdown v-model="selectedFunnel" placeholder="Unknown" :options="funnels"
+      <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : '']" v-model="selectedFunnel" placeholder="Unknown" :options="funnels"
                 optionLabel="name"></Dropdown>
     </main>
   </div>
 </template>
 
 <script>
+import tgMixin from "@/mixins/tgMixin";
+
 const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "UploadLayout",
+  mixins: [tgMixin],
   data() {
     return {
       listName: 'CM DE May 2022 depositors',
@@ -92,7 +95,96 @@ export default {
           globalTelegram.MainButton.show()
         } else if (oldValue) globalTelegram.MainButton.hide()
       },
-    }
+    },
+    darkModeSwitch: {
+      handler(newValue) {
+        if (newValue) {
+          document.querySelectorAll('.p-fluid').forEach(e => e.classList.replace('p-fluid', 'p-fluid-dark'))
+          document.querySelectorAll('.p-inputtext').forEach(e => e.classList.replace('p-inputtext', 'p-inputtext-dark'))
+          document.querySelectorAll('.p-float-label').forEach(e => e.classList.replace('p-float-label', 'p-float-label-dark'))
+          document.querySelectorAll('.p-filled').forEach(e => e.classList.replace('p-filled', 'p-filled-dark'))
+          document.querySelectorAll('.p-inputwrapper-focus').forEach(e => e.classList.replace('p-inputwrapper-focus', 'p-inputwrapper-focus-dark'))
+          document.querySelectorAll('.p-inputwrapper-filled').forEach(e => e.classList.replace('p-inputwrapper-filled', 'p-inputwrapper-filled-dark'))
+          document.querySelectorAll('.p-button').forEach(e => e.classList.replace('p-button', 'p-button-dark'))
+          document.querySelectorAll('.p-component').forEach(e => e.classList.replace('p-component', 'p-component-dark'))
+          document.querySelectorAll('.btn_left').forEach(e => e.classList.replace('btn_left', 'btn_left_dark'))
+          document.querySelectorAll('.btn_middle').forEach(e => e.classList.replace('btn_middle', 'btn_middle_dark'))
+          document.querySelectorAll('.btn_right').forEach(e => e.classList.replace('btn_right', 'btn_right_dark'))
+          // document.querySelectorAll('.p-dropdown-label').forEach(e => e.classList.replace('p-dropdown-label', 'p-dropdown-label-dark'))
+          // document.querySelectorAll('.p-dropdown').forEach(e => e.classList.add('p-dropdown-dark'))
+        }
+        if (!newValue) {
+          document.querySelectorAll('.p-fluid-dark').forEach(e => e.classList.replace('p-fluid-dark', 'p-fluid'))
+          document.querySelectorAll('.p-inputtext-dark').forEach(e => e.classList.replace('p-inputtext-dark', 'p-inputtext'))
+          document.querySelectorAll('.p-float-label-dark').forEach(e => e.classList.replace('p-float-label-dark', 'p-float-label'))
+          document.querySelectorAll('.p-filled-dark').forEach(e => e.classList.replace('p-filled-dark', 'p-filled'))
+          document.querySelectorAll('.p-inputwrapper-focus-dark').forEach(e => e.classList.replace('p-inputwrapper-focus-dark', 'p-inputwrapper-focus'))
+          document.querySelectorAll('.p-inputwrapper-filled-dark').forEach(e => e.classList.replace('p-inputwrapper-filled-dark', 'p-inputwrapper-filled'))
+          document.querySelectorAll('.p-button-dark').forEach(e => e.classList.replace('p-button-dark', 'p-button'))
+          document.querySelectorAll('.p-component-dark').forEach(e => e.classList.replace('p-component-dark', 'p-component'))
+          document.querySelectorAll('.btn_left_dark').forEach(e => e.classList.replace('btn_left_dark', 'btn_left'))
+          document.querySelectorAll('.btn_middle_dark').forEach(e => e.classList.replace('btn_middle_dark', 'btn_middle'))
+          document.querySelectorAll('.btn_right_dark').forEach(e => e.classList.replace('btn_right_dark', 'btn_right'))
+          // document.querySelectorAll('.p-dropdown-label').forEach(e => e.classList.replace('p-dropdown-label', 'p-dropdown-label-dark'))
+          // document.querySelectorAll('.p-dropdown_dark').forEach(e => e.classList.remove('p-dropdown-dark'))
+
+        }
+      },
+    },
+    listName: {
+      handler(newValue) {
+        if (newValue.length < 5 && newValue.length !== 0 && this.darkModeSwitch) {
+          setTimeout(() => {
+            document.querySelectorAll('.p-inputtext').forEach(e => e.classList.replace('p-inputtext', 'p-inputtext-dark'))
+            document.querySelectorAll('.p-component').forEach(e => e.classList.replace('p-component', 'p-component-dark'))
+            document.querySelectorAll('.p-filled').forEach(e => e.classList.replace('p-filled', 'p-filled-dark'))
+            document.querySelectorAll('.p-invalid').forEach(e => e.classList.replace('p-invalid', 'p-invalid-dark'))
+          }, 0)
+        } else if (!newValue.length && this.darkModeSwitch) {
+          setTimeout(() => {
+            document.querySelectorAll('.p-inputtext').forEach(e => e.classList.replace('p-inputtext', 'p-inputtext-dark'))
+            document.querySelectorAll('.p-component').forEach(e => e.classList.replace('p-component', 'p-component-dark'))
+            document.querySelectorAll('.p-filled').forEach(e => e.classList.replace('p-filled', 'p-filled-dark'))
+            document.querySelectorAll('.p-invalid').forEach(e => e.classList.replace('p-invalid', 'p-invalid-dark'))
+          }, 0)
+        } else if (newValue.length >= 5 && this.darkModeSwitch) {
+          setTimeout(() => {
+            document.querySelectorAll('.p-inputtext').forEach(e => e.classList.replace('p-inputtext', 'p-inputtext-dark'))
+            document.querySelectorAll('.p-component').forEach(e => e.classList.replace('p-component', 'p-component-dark'))
+            document.querySelectorAll('.p-filled').forEach(e => e.classList.replace('p-filled', 'p-filled-dark'))
+            document.querySelectorAll('.p-invalid').forEach(e => e.classList.replace('p-invalid', 'p-invalid-dark'))
+          }, 0)
+        }
+      },
+      deep: true
+    },
+    listDescription: {
+      handler(newValue) {
+        if (newValue.length < 5 && newValue.length !== 0 && this.darkModeSwitch) {
+          setTimeout(() => {
+            document.querySelectorAll('.p-inputtext').forEach(e => e.classList.replace('p-inputtext', 'p-inputtext-dark'))
+            document.querySelectorAll('.p-component').forEach(e => e.classList.replace('p-component', 'p-component-dark'))
+            document.querySelectorAll('.p-filled').forEach(e => e.classList.replace('p-filled', 'p-filled-dark'))
+            document.querySelectorAll('.p-invalid').forEach(e => e.classList.replace('p-invalid', 'p-invalid-dark'))
+          }, 0)
+        } else if (!newValue.length && this.darkModeSwitch) {
+          setTimeout(() => {
+            document.querySelectorAll('.p-inputtext').forEach(e => e.classList.replace('p-inputtext', 'p-inputtext-dark'))
+            document.querySelectorAll('.p-component').forEach(e => e.classList.replace('p-component', 'p-component-dark'))
+            document.querySelectorAll('.p-filled').forEach(e => e.classList.replace('p-filled', 'p-filled-dark'))
+            document.querySelectorAll('.p-invalid').forEach(e => e.classList.replace('p-invalid', 'p-invalid-dark'))
+          }, 0)
+        } else if (newValue.length >= 5 && this.darkModeSwitch) {
+          setTimeout(() => {
+            document.querySelectorAll('.p-inputtext').forEach(e => e.classList.replace('p-inputtext', 'p-inputtext-dark'))
+            document.querySelectorAll('.p-component').forEach(e => e.classList.replace('p-component', 'p-component-dark'))
+            document.querySelectorAll('.p-filled').forEach(e => e.classList.replace('p-filled', 'p-filled-dark'))
+            document.querySelectorAll('.p-invalid').forEach(e => e.classList.replace('p-invalid', 'p-invalid-dark'))
+          }, 0)
+        }
+      },
+      deep: true
+    },
   },
   mounted() {
     globalTelegram.expand()

@@ -11,31 +11,31 @@
       </div>
       <div class="map_container">
         <div class="map_container_title">First name</div>
-        <Dropdown @change="firstNameValidator" class="map_container_dropdown" v-model="selectedFirstName"
+        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']" @change="firstNameValidator" v-model="selectedFirstName"
                   placeholder="name" :options="firstNames"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="map_container">
         <div class="map_container_title">Last name</div>
-        <Dropdown @change="lastNameValidator" class="map_container_dropdown" v-model="selectedLastName"
+        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']" @change="lastNameValidator" v-model="selectedLastName"
                   placeholder="last_name" :options="lastNames"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="map_container">
         <div class="map_container_title">Full name</div>
-        <Dropdown @change="fullNameValidator" class="map_container_dropdown" v-model="selectedFullName"
+        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']" @change="fullNameValidator" v-model="selectedFullName"
                   placeholder="(select)" :options="fullNames"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="map_container">
         <div class="map_container_title">Email</div>
-        <Dropdown @change="emailValidator" class="map_container_dropdown" v-model="selectedEmail" placeholder="email"
+        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']" @change="emailValidator" v-model="selectedEmail" placeholder="email"
                   :options="emails"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="map_container">
         <div class="map_container_title">Phone number</div>
-        <Dropdown @change="phoneNumberValidator" class="map_container_dropdown" v-model="selectedPhoneNumber"
+        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']" @change="phoneNumberValidator" v-model="selectedPhoneNumber"
                   placeholder="phone"
                   :options="phoneNumbers"
                   optionLabel="name"></Dropdown>
@@ -48,7 +48,7 @@
           <label class="sub_map_container_divider" for="load">Load</label>
         </div>
 
-        <Dropdown @change="countryValidator" class="map_container_dropdown" v-model="selectedCountry"
+        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']" @change="countryValidator" v-model="selectedCountry"
                   placeholder="country" :options="countries"
                   optionLabel="name"></Dropdown>
       </div>
@@ -56,7 +56,7 @@
         <div class="field-checkbox">
           <label for="binary">set empty to</label>
         </div>
-        <Dropdown class="map_container_dropdown" v-model="selectedCountryFromList" placeholder="GB UK"
+        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']" v-model="selectedCountryFromList" placeholder="GB UK"
                   :options="countriesList"
                   optionLabel="name"></Dropdown>
       </div>
@@ -65,7 +65,7 @@
           <RadioButton id="all_to" value="set_all_to" v-model="checkedCountry"/>
           <label class="sub_map_container_divider" for="all_to">Set all to</label>
         </div>
-        <Dropdown class="map_container_dropdown" v-model="selectedCountryFromList" placeholder="(choose)"
+        <Dropdown :class="[ darkModeSwitch ? 'map_container_dropdown_dark' : 'map_container_dropdown']" v-model="selectedCountryFromList" placeholder="(choose)"
                   :options="countriesList"
                   optionLabel="name"></Dropdown>
       </div>
@@ -78,7 +78,9 @@
         </div>
 
         <span class="p-input-icon-right">
-          <InputMask inputmode="decimal" class="input_mask" mask="99/99/9999" v-model="registrationDate"
+          <InputMask inputmode="decimal"
+                     :class="[ darkModeSwitch ? 'input_mask_dark' : 'input_mask']"
+                     mask="99/99/9999" v-model="registrationDate"
                      placeholder="  /  /    "
                      slotChar="mm/dd/yyyy"></InputMask>
         <i class="pi pi-calendar"></i>
@@ -91,7 +93,7 @@
           <label class="radio_label_divider " for="load">Load</label>
         </div>
 
-        <Dropdown class="map_container_dropdown" v-model="selectedRegDate" placeholder="reg" :options="regGateList"
+        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']" v-model="selectedRegDate" placeholder="reg" :options="regGateList"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="map_container">
@@ -99,7 +101,9 @@
           <label for="binary">set empty or broken to</label>
         </div>
         <span class="p-input-icon-right">
-                  <InputMask inputmode="decimal" class="input_mask" mask="99/99/9999" v-model="emptyDateSetter"
+                  <InputMask inputmode="decimal"
+                             :class="[ darkModeSwitch ? 'input_mask_dark' : 'input_mask']"
+                             mask="99/99/9999" v-model="emptyDateSetter"
                              placeholder="  /  /    "
                              slotChar="mm/dd/yyyy"></InputMask>
         <i class="pi pi-calendar"></i>
@@ -107,7 +111,7 @@
       </div>
       <div class="map_container">
         <div class="map_container_title">Deposit/sales date</div>
-        <Dropdown class="map_container_dropdown" v-model="selectedDeposit" placeholder="ftd" :options="deposits"
+        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']" v-model="selectedDeposit" placeholder="ftd" :options="deposits"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="bottom_section_container">

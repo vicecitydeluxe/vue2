@@ -70,12 +70,10 @@ export default {
         if (newValue) {
           document.querySelectorAll('.p-button-lg').forEach(e => e.classList.replace('p-button-lg', 'p-button-lg-dark'))
           document.querySelectorAll('.header_icon').forEach(e => e.classList.replace('header_icon', 'header_icon_dark'))
-
         }
         if (!newValue) {
           document.querySelectorAll('.p-button-lg-dark').forEach(e => e.classList.replace('p-button-lg-dark', 'p-button-lg'))
           document.querySelectorAll('.header_icon_dark').forEach(e => e.classList.replace('header_icon_dark', 'header_icon'))
-
         }
       },
     },
