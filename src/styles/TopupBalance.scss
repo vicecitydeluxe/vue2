@@ -27,7 +27,7 @@
 }
 
 .text-dark {
-  background: #3950CC;
+  background: #32343A;
   color: white;
   border-radius: 7px;
   padding: 15px;
@@ -61,6 +61,39 @@
   border-style: solid;
   border-color: #CED4DA;
 
+  &_dark {
+    font-size: 14px;
+    padding: 0.714rem 1rem;
+    margin: 0;
+    display: inline-flex;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    align-items: center;
+    vertical-align: bottom;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+
+    border-radius: 7px 0 0 7px;
+    border-width: 1px 0 1px 1px;
+    border-style: solid;
+    border-color: #CED4DA;
+    color: white;
+    background: #282828;
+
+    &:hover {
+      background: #2563EB;
+      color: white;
+    }
+
+    &:focus {
+      background: #2563EB;
+      color: white;
+    }
+  }
+
   &:hover {
     background: #2563EB;
     color: white;
@@ -92,6 +125,38 @@
   background: white;
   border-radius: inherit;
 
+  &_dark {
+    font-size: 14px;
+    padding: 0.714rem 1rem;
+    margin: 0;
+    display: inline-flex;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    align-items: center;
+    vertical-align: bottom;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    border-width: 1px 0 1px 1px;
+    border-style: solid;
+    border-color: #CED4DA;
+    border-radius: inherit;
+    color: white;
+    background: #282828;
+
+    &:hover {
+      //background: #2563EB;
+      color: white;
+    }
+
+    &:focus {
+      //background: #2563EB;
+      color: white;
+    }
+  }
+
   &:hover {
     //background: #2563EB;
     color: white;
@@ -122,6 +187,38 @@
   border-color: #CED4DA;
   background: white;
   border-radius: 0 7px 7px 0;
+
+  &_dark {
+    font-size: 14px;
+    padding: 0.714rem 1rem;
+    margin: 0;
+    display: inline-flex;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    align-items: center;
+    vertical-align: bottom;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    border-width: 1px 1px 1px 1px;
+    border-style: solid;
+    border-color: #CED4DA;
+    border-radius: 0 7px 7px 0;
+    color: white;
+    background: #282828;
+
+    &:hover {
+      //background: #2563EB;
+      color: white;
+    }
+
+    &:focus {
+      //background: #2563EB;
+      color: white;
+    }
+  }
 
   &:hover {
     //background: #2563EB;

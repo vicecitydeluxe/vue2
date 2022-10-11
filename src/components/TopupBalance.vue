@@ -119,9 +119,16 @@ export default {
         if (newValue) {
           document.querySelectorAll('.p-inputtext').forEach(e => e.classList.replace('p-inputtext', 'p-inputtext-dark'))
           document.querySelectorAll('.text').forEach(e => e.classList.replace('text', 'text-dark'))
+          document.querySelectorAll('.btn_left').forEach(e => e.classList.replace('btn_left', 'btn_left_dark'))
+          document.querySelectorAll('.btn_mid').forEach(e => e.classList.replace('btn_mid', 'btn_mid_dark'))
+          document.querySelectorAll('.btn_right').forEach(e => e.classList.replace('btn_right', 'btn_right_dark'))
+
         } else if (!newValue) {
           document.querySelectorAll('.p-inputtext-dark').forEach(e => e.classList.replace('p-inputtext-dark', 'p-inputtext'))
           document.querySelectorAll('.text-dark').forEach(e => e.classList.replace('text-dark', 'text'))
+          document.querySelectorAll('.btn_left_dark').forEach(e => e.classList.replace('btn_left_dark', 'btn_left'))
+          document.querySelectorAll('.btn_mid_dark').forEach(e => e.classList.replace('btn_mid_dark', 'btn_mid'))
+          document.querySelectorAll('.btn_right_dark').forEach(e => e.classList.replace('btn_right_dark', 'btn_right'))
         }
       },
     },
