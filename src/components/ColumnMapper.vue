@@ -11,31 +11,41 @@
       </div>
       <div class="map_container">
         <div class="map_container_title">First name</div>
-        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']" @change="firstNameValidator" v-model="selectedFirstName"
+        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
+                  @change="firstNameValidator"
+                  v-model="selectedFirstName"
                   placeholder="name" :options="firstNames"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="map_container">
         <div class="map_container_title">Last name</div>
-        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']" @change="lastNameValidator" v-model="selectedLastName"
+        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
+                  @change="lastNameValidator"
+                  v-model="selectedLastName"
                   placeholder="last_name" :options="lastNames"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="map_container">
         <div class="map_container_title">Full name</div>
-        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']" @change="fullNameValidator" v-model="selectedFullName"
+        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
+                  @change="fullNameValidator"
+                  v-model="selectedFullName"
                   placeholder="(select)" :options="fullNames"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="map_container">
         <div class="map_container_title">Email</div>
-        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']" @change="emailValidator" v-model="selectedEmail" placeholder="email"
+        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
+                  @change="emailValidator"
+                  v-model="selectedEmail" placeholder="email"
                   :options="emails"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="map_container">
         <div class="map_container_title">Phone number</div>
-        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']" @change="phoneNumberValidator" v-model="selectedPhoneNumber"
+        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
+                  @change="phoneNumberValidator"
+                  v-model="selectedPhoneNumber"
                   placeholder="phone"
                   :options="phoneNumbers"
                   optionLabel="name"></Dropdown>
@@ -48,7 +58,9 @@
           <label class="sub_map_container_divider" for="load">Load</label>
         </div>
 
-        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']" @change="countryValidator" v-model="selectedCountry"
+        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
+                  @change="countryValidator"
+                  v-model="selectedCountry"
                   placeholder="country" :options="countries"
                   optionLabel="name"></Dropdown>
       </div>
@@ -56,7 +68,8 @@
         <div class="field-checkbox">
           <label for="binary">set empty to</label>
         </div>
-        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']" v-model="selectedCountryFromList" placeholder="GB UK"
+        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
+                  v-model="selectedCountryFromList" placeholder="GB UK"
                   :options="countriesList"
                   optionLabel="name"></Dropdown>
       </div>
@@ -65,7 +78,8 @@
           <RadioButton id="all_to" value="set_all_to" v-model="checkedCountry"/>
           <label class="sub_map_container_divider" for="all_to">Set all to</label>
         </div>
-        <Dropdown :class="[ darkModeSwitch ? 'map_container_dropdown_dark' : 'map_container_dropdown']" v-model="selectedCountryFromList" placeholder="(choose)"
+        <Dropdown :class="[ darkModeSwitch ? 'map_container_dropdown_dark' : 'map_container_dropdown']"
+                  v-model="selectedCountryFromList" placeholder="(choose)"
                   :options="countriesList"
                   optionLabel="name"></Dropdown>
       </div>
@@ -93,7 +107,10 @@
           <label class="radio_label_divider " for="load">Load</label>
         </div>
 
-        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']" v-model="selectedRegDate" placeholder="reg" :options="regGateList"
+        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
+                  v-model="selectedRegDate"
+                  placeholder="reg"
+                  :options="regGateList"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="map_container">
@@ -111,7 +128,10 @@
       </div>
       <div class="map_container">
         <div class="map_container_title">Deposit/sales date</div>
-        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']" v-model="selectedDeposit" placeholder="ftd" :options="deposits"
+        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
+                  v-model="selectedDeposit"
+                  placeholder="ftd"
+                  :options="deposits"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="bottom_section_container">
@@ -275,14 +295,18 @@ export default {
     darkModeSwitch: {
       handler(newValue) {
         if (newValue) {
-          document.querySelectorAll('.bottom_section_container').forEach(e => e.classList.replace('bottom_section_container', 'bottom_section_container_dark'))
-          document.querySelectorAll('.description').forEach(e => e.classList.replace('description', 'description_dark'))
-          document.querySelectorAll('.map_container_title').forEach(e => e.classList.replace('map_container_title', 'map_container_title_dark'))
+          document.querySelectorAll('.bottom_section_container').forEach(e => e.classList.add('bottom_section_container_dark'))
+          document.querySelectorAll('.description').forEach(e => e.classList.add('description_dark'))
+          document.querySelectorAll('.map_container_title').forEach(e => e.classList.add('map_container_title_dark'))
+          document.querySelectorAll('.btn_left').forEach(e => e.classList.add('btn_left_dark'))
+          document.querySelectorAll('.btn_right').forEach(e => e.classList.add('btn_right_dark'))
         }
         if (!newValue) {
-          document.querySelectorAll('.bottom_section_container_dark').forEach(e => e.classList.replace('bottom_section_container_dark', 'bottom_section_container'))
-          document.querySelectorAll('.description_dark').forEach(e => e.classList.replace('description_dark', 'description'))
-          document.querySelectorAll('.map_container_title_dark').forEach(e => e.classList.replace('map_container_title_dark', 'map_container_title'))
+          document.querySelectorAll('.bottom_section_container_dark').forEach(e => e.classList.remove('bottom_section_container_dark'))
+          document.querySelectorAll('.description_dark').forEach(e => e.classList.remove('description_dark'))
+          document.querySelectorAll('.map_container_title_dark').forEach(e => e.classList.remove('map_container_title_dark'))
+          document.querySelectorAll('.btn_left_dark').forEach(e => e.classList.remove('btn_left_dark'))
+          document.querySelectorAll('.btn_right').forEach(e => e.classList.remove('btn_right_dark'))
         }
       },
     },

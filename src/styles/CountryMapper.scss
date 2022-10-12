@@ -24,7 +24,7 @@
   padding: 15px;
 
   &_dark {
-    background: #3950CC;
+    background: #32343A;
     color: white;
     border-radius: 7px;
     padding: 15px;
@@ -44,4 +44,14 @@
   left: 0;
   border: 1px solid #CED4DA;
   border-radius: 7px;
+
+  &_dark {
+    background: #282828;
+    color: white;
+    width: 166px;
+    left: 0;
+    border: 1px solid #CED4DA;
+    border-radius: 7px;
+
+  }
 }

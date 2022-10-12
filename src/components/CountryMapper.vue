@@ -9,11 +9,17 @@
       <div class="section_divider">File: {{ fileName }}</div>
       <div class="description">Unknown countries have been found. Map them.</div>
       <div class="map_container"><h5>IRLA</h5>
-        <Dropdown class="dropdown" v-model="selectedCountry" placeholder="Ireland" :options="countries"
+        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'dropdown']"
+                  v-model="selectedCountry"
+                  placeholder="Ireland"
+                  :options="countries"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="map_container"><h5>UK</h5>
-        <Dropdown class="dropdown" v-model="selectedCountry" placeholder="GB" :options="countries"
+        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'dropdown']"
+                  v-model="selectedCountry"
+                  placeholder="GB"
+                  :options="countries"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="description">This is the final step which will load leads to the DB.</div>
@@ -63,10 +69,10 @@ export default {
     darkModeSwitch: {
       handler(newValue) {
         if (newValue) {
-          document.querySelectorAll('.description').forEach(e => e.classList.replace('description', 'description_dark'))
+          document.querySelectorAll('.description').forEach(e => e.classList.add('description_dark'))
         }
         if (!newValue) {
-          document.querySelectorAll('.description_dark').forEach(e => e.classList.replace('description_dark', 'description'))
+          document.querySelectorAll('.description_dark').forEach(e => e.classList.remove('description_dark'))
         }
       },
     },

@@ -80,6 +80,10 @@
   }
 }
 
+.radio_label_divider {
+  margin-left: 4px;
+}
+
 .sub_map_container {
   display: flex;
   margin-bottom: 15px;
@@ -109,6 +113,11 @@
     border-radius: 7px;
     color: #2563EB;
     background: #282828;
+
+    &::placeholder {
+      color: #2563EB;
+      opacity: 1; /* Firefox */
+    }
   }
 }
 
@@ -154,6 +163,39 @@
   background: white;
   border-radius: 0 7px 7px 0;
 
+  &_dark {
+    width: 100%;
+    font-size: 14px;
+    padding: 0.714rem 1rem;
+    margin-right: 15px;
+    display: inline-flex;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    align-items: center;
+    vertical-align: bottom;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    border-width: 1px 1px 1px 1px;
+    border-style: solid;
+    border-color: #CED4DA;
+    background: #282828;
+    color: white;
+    border-radius: 0 7px 7px 0;
+
+    &:hover {
+      background: #2563EB;
+      color: white;
+    }
+
+    &:focus {
+      background: #2563EB;
+      color: white;
+    }
+  }
+
   &:hover {
     background: #2563EB;
     color: white;
@@ -180,12 +222,44 @@
   text-align: center;
   overflow: hidden;
   position: relative;
-
   background: white;
   border-radius: 7px 0 0 7px;
   border-width: 1px 0 1px 1px;
   border-style: solid;
   border-color: #CED4DA;
+
+  &_dark {
+    margin-left: 15px;
+    width: 100%;
+    font-size: 14px;
+    padding: 0.714rem 1rem;
+    display: inline-flex;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    align-items: center;
+    vertical-align: bottom;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    background: #282828;
+    color: white;
+    border-radius: 7px 0 0 7px;
+    border-width: 1px 0 1px 1px;
+    border-style: solid;
+    border-color: #CED4DA;
+
+    &:hover {
+      background: #2563EB;
+      color: white;
+    }
+
+    &:focus {
+      background: #2563EB;
+      color: white;
+    }
+  }
 
   &:hover {
     background: #2563EB;
@@ -206,4 +280,5 @@
   border-radius: 7px;
 }
 
-//TODO: fix placeholder black color to blue + buttons add black background
+
+//TODO: fix radio-buttons and dropdown switch logic
