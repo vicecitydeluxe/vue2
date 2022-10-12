@@ -24,16 +24,21 @@
         your source-file is not damaged.</h6>
     </div>
 
-    <DataTable v-if="parsed" :value="parsedData.data"
+    <DataTable v-if="parsed"
+               :value="parsedData.data"
                responsiveLayout="scroll">
-      <Column v-for="col of columns" :field="col.field" :header="col.header" :key="col.id"></Column>
+      <Column v-for="col of columns" :field="col.field" :header="col.header" :key="col.id"
+              :headerStyle="darkModeSwitch ? {'background': '#494C57'} : {}"
+              :bodyStyle=" darkModeSwitch ? {'color': 'white','background': '#32343A' } : {}"
+      ></Column>
     </DataTable>
-<!--    <button @click="$router.push({name: 'mapper'})"></button>-->
+    <!--    <button @click="$router.push({name: 'mapper'})"></button>-->
   </div>
 </template>
 
 <script>
 import Vue from 'vue'
+import tgMixin from "@/mixins/tgMixin";
 import {mapGetters} from 'vuex'
 import Papa from 'papaparse'
 
@@ -41,6 +46,7 @@ const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "Uploader",
+  mixins: [tgMixin],
   data() {
     return {
       parsedData: '',
@@ -130,9 +136,25 @@ export default {
     ...mapGetters(['listName']),
   },
   watch: {
+    darkModeSwitch: {
+      handler(newValue) {
+        if (newValue) {
+          document.querySelectorAll('.p-column-title').forEach(e => e.classList.add('p-column-title-dark'))
+        }
+        if (!newValue) {
+          document.querySelectorAll('.p-column-title-dark').forEach(e => e.classList.remove('p-column-title-dark'))
+        }
+      },
+    },
     parsedData: {
       handler(newValue) {
         this.columns = newValue.meta.fields.map((el) => ({field: el, header: el}))
+
+        if (this.darkModeSwitch) {
+          setTimeout(() => {
+            document.querySelectorAll('.p-column-title').forEach(e => e.classList.add('p-column-title-dark'))
+          }, 0)
+        }
       },
       deep: true
     },
@@ -145,8 +167,6 @@ export default {
     }
   },
   mounted() {
-    globalTelegram.expand()
-    globalTelegram.enableClosingConfirmation()
     globalTelegram.MainButton.onClick(this.actionCb)
     globalTelegram.BackButton.show().onClick(this.redirectCb)
   },
