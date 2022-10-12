@@ -51,9 +51,9 @@ export default {
 
     this.$store.dispatch('CHECK_NAME')
         .then((res) => {
-          if (res.data.status === 200) {
+          if (res.data.status === 200 || res.data?.error === 'ALREADY_REGISTERED') {
             this.$router.push({name: 'layout'})
-          } else if (res.data.status === 400) {
+          } else if ((res.data.status === 400 && res.data.error === 'NOT_REGISTERED') || res.data.error === 'NOT_STARTED') {
             this.showComponent = true
           }
         })

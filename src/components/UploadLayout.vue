@@ -40,6 +40,7 @@
                 :options="funnels"
                 optionLabel="name"></Dropdown>
     </main>
+<!--    <button @click="sendList">SENDDDDD</button>-->
   </div>
 </template>
 
@@ -80,6 +81,18 @@ export default {
     },
     updateListName() {
       this.$store.commit('setListName', this.listName)
+    },
+    sendList() {
+      const obj = {
+        name: this.listName,
+        filename: this.listDescription,
+        vertical: this.selectedCrypto?.name,
+        funnel_type: this.selectedFunnel?.name,
+        type: 'Unknown'
+      }
+      this.$store.dispatch('SEND_LIST', obj)
+          .then((res) => console.log(res))
+          .catch((err) => console.log(err))
     }
   },
   computed: {

@@ -100,6 +100,22 @@ const actions = {
         })
     },
 
+    SEND_LIST(_, payload) {
+        return new Promise((resolve, reject) => {
+            $axios({
+                url: `https://leads-api.genesis.pm/list`,
+                method: "POST",
+                data: payload
+            }).then(res => {
+                // console.log(res.data)
+                resolve(res)
+            }).catch(err => {
+                console.log(err)
+                reject(err)
+            })
+        })
+    },
+
 }
 
 const mutations = {

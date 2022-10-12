@@ -8,7 +8,9 @@
         You can wait or you can close the page. You will get a notification as soon as the lead creation process
         finishes.
       </div>
-      <ProgressSpinner style="width:50px;height:50px;" strokeWidth="8" fill="#EEEEEE"/>
+      <ProgressSpinner style="width:50px;height:50px;"
+                       strokeWidth="8"
+                       :fill="[ darkModeSwitch ? '#32343A' : '#EEEEEE' ]"/>
     </main>
   </div>
 </template>
@@ -28,9 +30,9 @@ export default {
   },
   mounted() {
     globalTelegram.BackButton.show().onClick(this.redirectCb)
-    setTimeout(() => {
-      this.$router.push({name: 'results'})
-    }, 4500)
+    // setTimeout(() => {
+    //   this.$router.push({name: 'results'})
+    // }, 4500)
   },
   beforeDestroy() {
     globalTelegram.BackButton.hide().offClick(this.redirectCb)
