@@ -33,9 +33,9 @@ export default {
     darkModeSwitch: {
       handler(newValue) {
         if (newValue) {
-          document.querySelectorAll('.container').forEach(e => e.classList.replace('container', 'container_dark'))
+          document.querySelectorAll('.container').forEach(e => e.classList.add('container_dark'))
         } else if (!newValue) {
-          document.querySelectorAll('.container_dark').forEach(e => e.classList.replace('container_dark', 'container'))
+          document.querySelectorAll('.container_dark').forEach(e => e.classList.remove('container_dark'))
         }
       },
     },

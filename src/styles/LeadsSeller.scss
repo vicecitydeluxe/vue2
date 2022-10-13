@@ -46,9 +46,11 @@
   padding: 15px;
 
   &_dark {
-    background: #2563EB;
+    background: #32343A;
+    color: white;
     border-radius: 7px;
     padding: 15px;
   }
 }
 
+//TODO AccordionTab, Checkbox nesting issue
