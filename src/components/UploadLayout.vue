@@ -77,7 +77,10 @@ export default {
       this.$router.push({name: 'layout'})
     },
     actionCb() {
-      if (this.$route.path === '/upload-layout') this.$router.push({name: 'uploader'})
+      if (this.$route.path === '/upload-layout') {
+        this.sendList()
+        this.$router.push({name: 'uploader'})
+      }
     },
     updateListName() {
       this.$store.commit('setListName', this.listName)

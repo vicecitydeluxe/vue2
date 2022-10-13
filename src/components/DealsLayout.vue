@@ -36,10 +36,10 @@ export default {
     darkModeSwitch: {
       handler(newValue) {
         if (newValue) {
-          document.querySelectorAll('.text').forEach(e => e.classList.replace('text', 'text-dark'))
+          document.querySelectorAll('.text').forEach(e => e.classList.add('text-dark'))
         }
         if (!newValue) {
-          document.querySelectorAll('.text-dark').forEach(e => e.classList.replace('text-dark', 'text'))
+          document.querySelectorAll('.text-dark').forEach(e => e.classList.remove('text-dark'))
         }
       },
     },
