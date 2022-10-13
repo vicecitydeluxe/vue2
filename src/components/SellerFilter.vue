@@ -19,10 +19,13 @@
 </template>
 
 <script>
+import tgMixin from "@/mixins/tgMixin";
+
 const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "SellerFilter",
+  mixins: [tgMixin],
   components: {
     SellerSection: () => import('@/components/FilterParts/SellerSection')
   },
@@ -40,6 +43,19 @@ export default {
     }
   },
   watch: {
+    darkModeSwitch: {
+      handler(newValue) {
+        if (newValue) {
+          document.querySelectorAll('.button_left').forEach(e => e.classList.add('button_left_dark'))
+          document.querySelectorAll('.button_middle').forEach(e => e.classList.add('button_middle_dark'))
+          document.querySelectorAll('.button_right').forEach(e => e.classList.add('button_right_dark'))
+        } else if (!newValue) {
+          document.querySelectorAll('.button_left').forEach(e => e.classList.remove('button_left_dark'))
+          document.querySelectorAll('.button_middle').forEach(e => e.classList.remove('button_middle_dark'))
+          document.querySelectorAll('.button_right').forEach(e => e.classList.remove('button_right_dark'))
+        }
+      },
+    },
     checked: {
       handler(newValue) {
         if (newValue) {
@@ -53,8 +69,6 @@ export default {
     }
   },
   mounted() {
-    globalTelegram.expand()
-    globalTelegram.enableClosingConfirmation()
     globalTelegram.MainButton.onClick(this.actionCb)
     globalTelegram.BackButton.show().onClick(this.redirectCb)
   },

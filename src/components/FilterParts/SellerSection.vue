@@ -61,7 +61,7 @@ export default {
   &_dark {
     padding: 15px;
     height: 140px;
-    background: #00006e;
+    background: #32343A;
     border-radius: 7px;
     margin-bottom: 25px;
   }

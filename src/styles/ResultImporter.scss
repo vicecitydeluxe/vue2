@@ -38,10 +38,11 @@
   border-radius: 7px;
   padding: 15px;
   margin-bottom: 25px;
-
+  margin-top: 5px;
   &_dark {
     color: white;
-    background: #00006e;
+    margin-top: 5px;
+    background: #32343A;
     border-radius: 7px;
     padding: 15px;
     margin-bottom: 25px;
@@ -49,6 +50,7 @@
 }
 
 .description_divider {
+  font-weight: 600;
   margin-top: 20px;
   margin-bottom: 7px;
   font-size: 16px;

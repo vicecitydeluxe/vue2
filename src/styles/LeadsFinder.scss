@@ -19,14 +19,14 @@
     position: sticky;
     top: 0;
     z-index: 1;
-    background: #000000;
+    background: #282828;
   }
 
   &_number {
     font-weight: 700;
     font-size: 16px;
     line-height: 17px;
-    color: #2563EB;
+    color: #4D84FF;
 
     &__title {
       font-weight: 600;
@@ -68,7 +68,7 @@
     align-items: center;
     height: 38px;
     color: white;
-    background: #2563EB;
+    background: #494C57;
     border-bottom: 1px solid #DEE2E6;
     border-radius: 7px 7px 0 0;
   }
@@ -98,9 +98,9 @@
     margin-top: 25px;
     margin-bottom: 25px;
     height: 415px;
-    border: 1px solid #DEE2E6;
+    border: 1px solid #4B4B4B;
     border-radius: 7px;
-    background: #00006e;
+    background: #282828;
   }
 
   &_wrapper {
@@ -118,6 +118,14 @@
   height: 38px;
   border: 1px solid #CED4DA;
   border-radius: 7px;
+
+  &_dark {
+    height: 38px;
+    width: 100%;
+    background: #282828;
+    border: 1px solid #CED4DA;
+    color: white;
+  }
 }
 
 .limit_container {
@@ -131,9 +139,9 @@
     margin-top: 25px;
     margin-bottom: 25px;
     height: 164px;
-    border: 1px solid #DEE2E6;
+    border: 1px solid #4B4B4B;
     border-radius: 7px;
-    background: #00006e;
+    background: #282828;
     color: white;
   }
 }
@@ -156,7 +164,7 @@
     justify-content: center;
     align-items: center;
     height: 38px;
-    background: #00006e;
+    background: #494C57;
     color: white;
     border-bottom: 1px solid #DEE2E6;
     border-radius: 7px 7px 0 0;
@@ -176,6 +184,19 @@
   height: 38px;
   border: 1px solid #CED4DA;
   border-radius: 7px;
+
+  &_dark {
+    width: 50%;
+    height: 38px;
+    border: 1px solid #CED4DA;
+    border-radius: 7px;
+    background: #282828;
+    color: white;
+
+    &::placeholder {
+      color: white;
+    }
+  }
 }
 
 .button_left {
@@ -195,12 +216,46 @@
   text-align: center;
   overflow: hidden;
   position: relative;
-
   background: white;
   border-radius: 7px 0 0 7px;
   border-width: 1px 0 1px 1px;
   border-style: solid;
   border-color: #CED4DA;
+
+  &_dark {
+    width: 100%;
+    height: 38px;
+    min-width: 110px;
+    font-size: 14px;
+    padding: 0.714rem 1rem;
+    margin: 0;
+    display: inline-flex;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    align-items: center;
+    vertical-align: bottom;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    background: #282828;
+    color: white;
+    border-radius: 7px 0 0 7px;
+    border-width: 1px 0 1px 1px;
+    border-style: solid;
+    border-color: #CED4DA;
+
+    &:focus {
+      background: #2563EB;
+      color: white;
+    }
+
+    &:active {
+      background: #2563EB;
+      color: white;
+    }
+  }
 
   &:focus {
     background: #2563EB;
@@ -236,6 +291,41 @@
   background: white;
   border-radius: inherit;
 
+  &_dark {
+    height: 38px;
+    width: 100%;
+    min-width: 110px;
+    font-size: 14px;
+    padding: 0.714rem 1rem;
+    margin: 0;
+    display: inline-flex;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    align-items: center;
+    vertical-align: bottom;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    border-width: 1px 0 1px 1px;
+    border-style: solid;
+    border-color: #CED4DA;
+    background: #282828;
+    color: white;
+    border-radius: inherit;
+
+    &:focus {
+      background: #2563EB;
+      color: white;
+    }
+
+    &:active {
+      background: #2563EB;
+      color: white;
+    }
+  }
+
   &:focus {
     background: #2563EB;
     color: white;
@@ -270,6 +360,41 @@
   background: white;
   border-radius: 0 7px 7px 0;
 
+  &_dark {
+    height: 38px;
+    width: 100%;
+    min-width: 110px;
+    font-size: 14px;
+    padding: 0.714rem 1rem;
+    margin: 0;
+    display: inline-flex;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    align-items: center;
+    vertical-align: bottom;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    border-width: 1px 1px 1px 1px;
+    border-style: solid;
+    border-color: #CED4DA;
+    background: #282828;
+    color: white;
+    border-radius: 0 7px 7px 0;
+
+    &:focus {
+      background: #2563EB;
+      color: white;
+    }
+
+    &:active {
+      background: #2563EB;
+      color: white;
+    }
+  }
+
   &:focus {
     background: #2563EB;
     color: white;
@@ -286,3 +411,10 @@
   display: flex;
   justify-content: center;
 }
+
+.dark_switch {
+  background: #282828;
+  color: white;
+}
+
+//TODO fix AccordionTab and SelectButton nesting

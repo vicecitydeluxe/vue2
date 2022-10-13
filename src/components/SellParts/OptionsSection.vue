@@ -53,7 +53,7 @@ export default {
   &_dark {
     padding: 15px;
     color: white;
-    background: #2563EB;
+    background: #32343A;
     border-radius: 7px;
     margin-bottom: 25px;
   }

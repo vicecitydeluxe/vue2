@@ -39,12 +39,12 @@ export default {
     darkModeSwitch: {
       handler(newValue) {
         if (newValue) {
-          document.querySelectorAll('.container').forEach(e => e.classList.replace('container', 'container-dark'))
-          document.querySelectorAll('.container_title').forEach(e => e.classList.replace('container_title', 'container_title_dark'))
+          document.querySelectorAll('.container').forEach(e => e.classList.add('container-dark'))
+          document.querySelectorAll('.container_title').forEach(e => e.classList.add('container_title_dark'))
         }
         if (!newValue) {
-          document.querySelectorAll('.container-dark').forEach(e => e.classList.replace('container-dark', 'container'))
-          document.querySelectorAll('.container_title_dark').forEach(e => e.classList.replace('container_title_dark', 'container_title'))
+          document.querySelectorAll('.container-dark').forEach(e => e.classList.remove('container-dark'))
+          document.querySelectorAll('.container_title_dark').forEach(e => e.classList.remove('container_title_dark'))
         }
       },
     },
@@ -61,7 +61,7 @@ export default {
   margin-bottom: 25px;
 
   &-dark {
-    background: #3950CC;
+    background: #32343A;
     color: white;
     padding: 15px;
     height: 260px;
