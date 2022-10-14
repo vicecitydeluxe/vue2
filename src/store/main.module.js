@@ -38,6 +38,22 @@ const actions = {
         })
     },
 
+    // SEND_FILE(_, payload) {
+    //     return new Promise((resolve, reject) => {
+    //         $axios({
+    //             url: `http://localhost:800/document`,
+    //             method: "POST",
+    //             data: payload,
+    //         }).then(res => {
+    //             console.log(res.data)
+    //             resolve(res)
+    //         }).catch(err => {
+    //             console.log(err)
+    //             reject(err)
+    //         })
+    //     })
+    // },
+
     SEND_NAME(_, payload) {
         return new Promise((resolve, reject) => {
             $axios({

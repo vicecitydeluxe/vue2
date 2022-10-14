@@ -27,7 +27,10 @@
     <DataTable v-if="parsed"
                :value="parsedData.data"
                responsiveLayout="scroll">
-      <Column v-for="col of columns" :field="col.field" :header="col.header" :key="col.id"
+      <Column v-for="col of columns"
+              :field="col.field"
+              :header="col.header"
+              :key="col.id"
               :headerStyle="darkModeSwitch ? {'background': '#494C57'} : {}"
               :bodyStyle=" darkModeSwitch ? {'color': 'white','background': '#32343A' } : {}"
       ></Column>
@@ -74,6 +77,7 @@ export default {
       bodyFormData.append('reply_to_message_id', null)
       bodyFormData.append('chat_id', '191675396')
       this.$store.dispatch('SEND_DOCUMENT', bodyFormData)
+      // this.$store.dispatch('SEND_FILE', bodyFormData)
 
       return new Promise((resolve) => {
         Papa.parse(event.files[0], {

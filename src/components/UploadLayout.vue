@@ -25,9 +25,6 @@
                 :options="cryptoPairs"
                 optionLabel="name"></Dropdown>
       <h6>Type</h6>
-      <!--      <Button label="Registrations" iconPos="left" class="p-button-lg"/>-->
-      <!--      <Button label="Depositors" iconPos="left" class="p-button-lg"/>-->
-      <!--      <Button label="Unknown" iconPos="left" class="p-button-lg"/>-->
       <div class="button_container">
         <button class="btn_left">Registrations</button>
         <button class="btn_middle">Depositors</button>
@@ -40,7 +37,7 @@
                 :options="funnels"
                 optionLabel="name"></Dropdown>
     </main>
-<!--    <button @click="sendList">SENDDDDD</button>-->
+<!--        <button @click="sendList">SENDDDDD</button>-->
   </div>
 </template>
 
@@ -94,7 +91,9 @@ export default {
         type: 'Unknown'
       }
       this.$store.dispatch('SEND_LIST', obj)
-          .then((res) => console.log(res))
+          .then(() => {
+            // console.log(res)
+          })
           .catch((err) => console.log(err))
     }
   },
