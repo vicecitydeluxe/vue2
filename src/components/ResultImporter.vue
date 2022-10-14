@@ -30,8 +30,10 @@
           <div>Full duplicates (email+phone)</div>
         </div>
         <div class="map_container">
-          <Button style="font-size: 12px;" label="Remove from the list"></Button>
-          <Button style="font-size: 12px;" label="Remove from  other lists"></Button>
+          <Button style="font-size: 12px;"
+                  label="Remove from the list"></Button>
+          <Button style="font-size: 12px;"
+                  label="Remove from  other lists"></Button>
         </div>
         <div class="details_container">
           <div>105</div>
@@ -142,14 +144,16 @@ export default {
     darkModeSwitch: {
       handler(newValue) {
         if (newValue) {
-          document.querySelectorAll('.p-column-title').forEach(e => e.classList.add('p-column-title-dark'))
+          document.querySelectorAll('.p-column-title')
+              .forEach(e => e.classList.replace('p-column-title', 'p-column-title-dark'))
           document.querySelectorAll('.description').forEach(e => e.classList.add('description_dark'))
           document.querySelectorAll('.description_divider').forEach(e => e.classList.add('description_divider_dark'))
         }
         if (!newValue) {
+          document.querySelectorAll('.p-column-title-dark')
+              .forEach(e => e.classList.replace('p-column-title-dark', 'p-column-title'))
           document.querySelectorAll('.description_dark').forEach(e => e.classList.remove('description_dark'))
           document.querySelectorAll('.description_divider').forEach(e => e.classList.remove('description_divider_dark'))
-          document.querySelectorAll('.p-column-title-dark').forEach(e => e.classList.remove('p-column-title-dark'))
         }
       },
     },

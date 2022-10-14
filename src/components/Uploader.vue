@@ -143,10 +143,12 @@ export default {
     darkModeSwitch: {
       handler(newValue) {
         if (newValue) {
-          document.querySelectorAll('.p-column-title').forEach(e => e.classList.add('p-column-title-dark'))
+          document.querySelectorAll('.p-column-title')
+              .forEach(e => e.classList.replace('p-column-title', 'p-column-title-dark'))
         }
         if (!newValue) {
-          document.querySelectorAll('.p-column-title-dark').forEach(e => e.classList.remove('p-column-title-dark'))
+          document.querySelectorAll('.p-column-title-dark')
+              .forEach(e => e.classList.replace('p-column-title-dark', 'p-column-title-dark'))
         }
       },
     },
@@ -156,7 +158,8 @@ export default {
 
         if (this.darkModeSwitch) {
           setTimeout(() => {
-            document.querySelectorAll('.p-column-title').forEach(e => e.classList.add('p-column-title-dark'))
+            document.querySelectorAll('.p-column-title')
+                .forEach(e => e.classList.replace('p-column-title', 'p-column-title-dark'))
           }, 0)
         }
       },
