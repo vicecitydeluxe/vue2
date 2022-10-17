@@ -159,6 +159,12 @@ export default {
     },
   },
   mounted() {
+    if (this.darkModeSwitch) {
+      setTimeout(() => {
+        document.querySelectorAll('.p-column-title')
+            .forEach(e => e.classList.replace('p-column-title', 'p-column-title-dark'))
+      }, 0)
+    }
     globalTelegram.MainButton.setText('Import results')
     globalTelegram.MainButton.color = '#16a34a'
     globalTelegram.MainButton.show().onClick(this.actionCb)
