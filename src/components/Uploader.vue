@@ -20,7 +20,8 @@
       <h4>DATA PREVIEW: {{ fileName }}</h4>
       <div class="parsed_data"> {{ parsedDataLength }} record(s) found</div>
       <h5>Delimiter: "{{ parsedData.meta.delimiter }}"</h5>
-      <h6>Please check if the record seem correct. If not, try to go back,change parameters and then re-upload or check
+      <h6>Please check if the record seem correct.
+        If not, try to go back,change parameters and then re-upload or check
         your source-file is not damaged.</h6>
     </div>
 
@@ -72,12 +73,7 @@ export default {
       this.updateFileName()
       const bodyFormData = new FormData();
       bodyFormData.append('document', event.files[0]);
-      bodyFormData.append('caption', 'Here is your file from web-app')
-      bodyFormData.append('disable_notification', false,)
-      bodyFormData.append('reply_to_message_id', null)
-      bodyFormData.append('chat_id', '191675396')
       this.$store.dispatch('SEND_DOCUMENT', bodyFormData)
-      // this.$store.dispatch('SEND_FILE', bodyFormData)
 
       return new Promise((resolve) => {
         Papa.parse(event.files[0], {
