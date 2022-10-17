@@ -90,8 +90,12 @@ export default {
     darkModeSwitch: {
       handler(newValue) {
         if (newValue) {
+          document.querySelectorAll('.p-accordion-header-link').forEach(e => e.classList.add('p-accordion-header-link_dark'))
+          document.querySelectorAll('.p-accordion-content').forEach(e => e.classList.add('p-accordion-content_dark'))
           document.querySelectorAll('.description').forEach(e => e.classList.replace('description', 'description_dark'))
         } else if (!newValue) {
+          document.querySelectorAll('.p-accordion-header-link_dark').forEach(e => e.classList.remove('p-accordion-header-link_dark'))
+          document.querySelectorAll('.p-accordion-content_dark').forEach(e => e.classList.remove('p-accordion-content_dark'))
           document.querySelectorAll('.description_dark').forEach(e => e.classList.replace('description_dark', 'description'))
         }
       },
