@@ -49,13 +49,14 @@ export default {
   background: #f7f7fd;
   border-radius: 7px;
   margin-bottom: 25px;
-
+  margin-top: 15px;
   &_dark {
     padding: 15px;
     color: white;
     background: #32343A;
     border-radius: 7px;
     margin-bottom: 25px;
+    margin-top: 15px;
   }
 
   &_bottom {
