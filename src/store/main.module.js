@@ -29,7 +29,7 @@ const actions = {
                 method: "POST",
                 data: payload,
             }).then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 resolve(res)
             }).catch(err => {
                 console.log(err)

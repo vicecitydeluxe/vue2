@@ -304,6 +304,7 @@ export default {
   computed: {
     ...mapGetters(['listName', "fileName"]),
   },
+  //TODO create mixin to change styles on every data prop change
   watch: {
     checkedCountry: {
       handler(newValue) {
@@ -317,6 +318,13 @@ export default {
     darkModeSwitch: {
       handler(newValue) {
         if (newValue) {
+          document.querySelectorAll('.p-placeholder').forEach(e => e.classList.add('p-placeholder_dark'))
+          document.querySelectorAll('.pi-chevron-down').forEach(e => e.classList.add('pi-chevron-down_dark'))
+          document.querySelectorAll('.p-dropdown-item').forEach(e => e.classList.add('p-dropdown-item_dark'))
+          document.querySelectorAll('.p-inputtext').forEach(e => e.classList.add('p-inputtext_dark'))
+          document.querySelectorAll('.p-highlight').forEach(e => e.classList.add('p-highlight_dark'))
+
+
           document.querySelectorAll('.bottom_section_container').forEach(e => e.classList.add('bottom_section_container_dark'))
           document.querySelectorAll('.description').forEach(e => e.classList.add('description_dark'))
           document.querySelectorAll('.map_container_title').forEach(e => e.classList.add('map_container_title_dark'))
@@ -324,6 +332,12 @@ export default {
           document.querySelectorAll('.btn_right').forEach(e => e.classList.add('btn_right_dark'))
         }
         if (!newValue) {
+          document.querySelectorAll('.p-placeholder').forEach(e => e.classList.remove('p-placeholder_dark'))
+          document.querySelectorAll('.pi-chevron-down').forEach(e => e.classList.remove('pi-chevron-down_dark'))
+          document.querySelectorAll('.p-dropdown-item').forEach(e => e.classList.remove('p-dropdown-item_dark'))
+          document.querySelectorAll('.p-inputtext').forEach(e => e.classList.remove('p-inputtext_dark'))
+          document.querySelectorAll('.p-highlight').forEach(e => e.classList.remove('p-highlight_dark'))
+
           document.querySelectorAll('.bottom_section_container_dark').forEach(e => e.classList.remove('bottom_section_container_dark'))
           document.querySelectorAll('.description_dark').forEach(e => e.classList.remove('description_dark'))
           document.querySelectorAll('.map_container_title_dark').forEach(e => e.classList.remove('map_container_title_dark'))
