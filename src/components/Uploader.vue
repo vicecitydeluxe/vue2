@@ -21,7 +21,8 @@
       <div class="parsed_data"> {{ parsedDataLength }} record(s) found</div>
       <h5>Delimiter: "{{ parsedData.meta.delimiter }}"</h5>
       <h6>Please check if the record seem correct.
-        If not, try to go back,change parameters and then re-upload or check
+        If not, try to go back,
+        change parameters and then re-upload or check
         your source-file is not damaged.</h6>
     </div>
 
@@ -34,7 +35,7 @@
               :key="col.id"
               :headerStyle="darkModeSwitch ? {'background': '#494C57'} : {}"
               :bodyStyle=" darkModeSwitch ? {'color': 'white','background': '#32343A' } : {}"
-      ></Column>
+      />
     </DataTable>
     <!--    <button @click="$router.push({name: 'mapper'})">Test</button>-->
     <div v-if="parsed" class="paginator_container">

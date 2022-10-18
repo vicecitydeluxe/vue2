@@ -5,7 +5,8 @@
     </header>
     <div class="sticky">
       <div class="sticky_number">205 192</div>
-      <span class="sticky_number__title">leads are currently for sale found in the database</span>
+      <span class="sticky_number__title">leads are currently
+        for sale found in the database</span>
     </div>
     <main class="main">
       <div class="filter_container">
@@ -14,7 +15,8 @@
           <div class="filter_header_divider">Type (Multiple select)</div>
           <SelectButton v-model="selectedType"
                         :options="selectedOptions"
-                        optionLabel="name" multiple
+                        optionLabel="name"
+                        multiple
           />
         </div>
         <div class="filter_container_wrapper">
@@ -36,8 +38,11 @@
         </div>
         <div class="filter_container_wrapper">
           <div class="field-checkbox">
-            <Checkbox id="binary" v-model="checked" :binary="true"/>
-            <label for="binary">Exclude leads I bought or already have (leads having the same email or phone)</label>
+            <Checkbox id="binary"
+                      v-model="checked"
+                      :binary="true"/>
+            <label for="binary">Exclude leads I bought or
+              ready have (leads having the same email or phone)</label>
           </div>
         </div>
       </div>
@@ -61,7 +66,9 @@
                          name="city"
                          value="demand"
                          v-model="demand"/>
-            <label style="margin-right: 34px; margin-left:4px;" for="city1">I need</label>
+            <label style="margin-right: 34px;
+             margin-left:4px;"
+                   for="city1">I need</label>
           </div>
           <InputText class="input"
                      type="text"
@@ -76,7 +83,8 @@
                          name="city"
                          value="maxAmount"
                          v-model="maxAmount"/>
-            <label style="margin-left:4px;" for="city1">I spent max</label>
+            <label style="margin-left:4px;"
+                   for="city1">I spent max</label>
           </div>
           <InputText :class="[ darkModeSwitch ? 'input_dark' : 'input']"
                      type="text"

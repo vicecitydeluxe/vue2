@@ -5,15 +5,23 @@
     </header>
     <main class="layout">
       <button class="btn_left">Bitcoin</button>
-      <button disabled class="btn_mid">USDT ERC20</button>
-      <button disabled class="btn_right">Ethereum TRC20</button>
+      <button
+          disabled
+          class="btn_mid">USDT ERC20
+      </button>
+      <button
+          disabled
+          class="btn_right">Ethereum TRC20
+      </button>
     </main>
     <div v-if="!showQR" class="main">
       <h6>Amount</h6>
       <InputText inputmode="decimal" type="text" v-model="amount"></InputText>
       <div class="text">All transactions get processed automatically.
-        Balance will be added to your account as soon as we get confirmation from the blockchain network.
-        <div> The exchange rate is fixed for 15 minutes. If you make a transaction after that period the
+        Balance will be added to your account
+        as soon as we get confirmation from the blockchain network.
+        <div> The exchange rate is fixed for 15 minutes.
+          If you make a transaction after that period the
           actual exchange rate
           will be used.
         </div>
@@ -22,15 +30,24 @@
     <div class="input_container" v-if="showQR">
       <p class="input_container_section">
         <label for="paymentAddress">Payment Address: </label>
-        <InputText readonly="readonly" id="paymentAddress" v-model="paymentAddress"
+        <InputText readonly="readonly"
+                   id="paymentAddress"
+                   v-model="paymentAddress"
                    style="width: auto; margin-bottom: 0;"/>
-        <Button @click="copy(paymentAddress)" class="p-button" icon="pi pi-copy"/>
+        <Button @click="copy(paymentAddress)"
+                class="p-button"
+                icon="pi pi-copy"/>
       </p>
       <p class="input_container_section">
         <label for="paymentAmount">Payment Amount: </label>
-        <InputText readonly="readonly" id="paymentAmount" v-model="paymentAmount"
-                   style="width: auto; margin-bottom: 0;"/>
-        <Button @click="copy(paymentAmount)" class="p-button" icon="pi pi-copy"/>
+        <InputText readonly="readonly"
+                   id="paymentAmount"
+                   v-model="paymentAmount"
+                   style="width: auto;
+                    margin-bottom: 0;"/>
+        <Button @click="copy(paymentAmount)"
+                class="p-button"
+                icon="pi pi-copy"/>
       </p>
       <qrcode-vue
           v-if="showQR"
@@ -100,7 +117,7 @@ export default {
 
           if (this.darkModeSwitch) {
             setTimeout(() => {
-              document.querySelectorAll('.p-inputtext').forEach(e => e.classList.replace('p-inputtext', 'p-inputtext-dark'))
+              document.querySelectorAll('.p-inputtext').forEach(e => e.classList.add('p-inputtext-dark'))
             }, 0)
           }
         } else if (!newValue) {
@@ -108,7 +125,7 @@ export default {
 
           if (this.darkModeSwitch) {
             setTimeout(() => {
-              document.querySelectorAll('.p-inputtext').forEach(e => e.classList.replace('p-inputtext', 'p-inputtext-dark'))
+              document.querySelectorAll('.p-inputtext').forEach(e => e.classList.add('p-inputtext-dark'))
             }, 0)
           }
         }
@@ -117,18 +134,18 @@ export default {
     darkModeSwitch: {
       handler(newValue) {
         if (newValue) {
-          document.querySelectorAll('.p-inputtext').forEach(e => e.classList.replace('p-inputtext', 'p-inputtext-dark'))
-          document.querySelectorAll('.text').forEach(e => e.classList.replace('text', 'text-dark'))
-          document.querySelectorAll('.btn_left').forEach(e => e.classList.replace('btn_left', 'btn_left_dark'))
-          document.querySelectorAll('.btn_mid').forEach(e => e.classList.replace('btn_mid', 'btn_mid_dark'))
-          document.querySelectorAll('.btn_right').forEach(e => e.classList.replace('btn_right', 'btn_right_dark'))
+          document.querySelectorAll('.p-inputtext').forEach(e => e.classList.add('p-inputtext-dark'))
+          document.querySelectorAll('.text').forEach(e => e.classList.add('text-dark'))
+          document.querySelectorAll('.btn_left').forEach(e => e.classList.add('btn_left_dark'))
+          document.querySelectorAll('.btn_mid').forEach(e => e.classList.add('btn_mid_dark'))
+          document.querySelectorAll('.btn_right').forEach(e => e.classList.add('btn_right_dark'))
 
         } else if (!newValue) {
-          document.querySelectorAll('.p-inputtext-dark').forEach(e => e.classList.replace('p-inputtext-dark', 'p-inputtext'))
-          document.querySelectorAll('.text-dark').forEach(e => e.classList.replace('text-dark', 'text'))
-          document.querySelectorAll('.btn_left_dark').forEach(e => e.classList.replace('btn_left_dark', 'btn_left'))
-          document.querySelectorAll('.btn_mid_dark').forEach(e => e.classList.replace('btn_mid_dark', 'btn_mid'))
-          document.querySelectorAll('.btn_right_dark').forEach(e => e.classList.replace('btn_right_dark', 'btn_right'))
+          document.querySelectorAll('.p-inputtext-dark').forEach(e => e.classList.remove('p-inputtext-dark'))
+          document.querySelectorAll('.text-dark').forEach(e => e.classList.remove('text-dark'))
+          document.querySelectorAll('.btn_left_dark').forEach(e => e.classList.remove('btn_left_dark'))
+          document.querySelectorAll('.btn_mid_dark').forEach(e => e.classList.remove('btn_mid_dark'))
+          document.querySelectorAll('.btn_right_dark').forEach(e => e.classList.remove('btn_right_dark'))
         }
       },
     },

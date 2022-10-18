@@ -9,21 +9,24 @@
                  @keyup="updateListName"
                  :class="[validListName ? 'p-input_text ' : 'p-invalid']"
                  type="text"
-                 v-model="listName"></InputText>
-      <small v-if="!validListName" class="p-error">Min 5 characters required</small>
+                 v-model="listName"/>
+      <small v-if="!validListName"
+             class="p-error">Min 5 characters required</small>
 
       <h6>List description (visible to buyers)</h6>
       <InputText enterkeyhint="enter"
                  :class="[validListDescription ? 'p-input_text ' : 'p-invalid']"
                  type="text"
-                 v-model="listDescription"></InputText>
-      <small v-if="!validListDescription" class="p-error">Min 5 characters required</small>
+                 v-model="listDescription"/>
+      <small v-if="!validListDescription"
+             class="p-error">Min 5 characters required</small>
 
       <h6>Vertical</h6>
       <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : '']"
-                v-model="selectedCrypto" placeholder="Select a crypto"
+                v-model="selectedCrypto"
+                placeholder="Select a crypto"
                 :options="cryptoPairs"
-                optionLabel="name"></Dropdown>
+                optionLabel="name"/>
       <h6>Type</h6>
       <div class="button_container">
         <button class="btn_left">Registrations</button>
@@ -33,11 +36,12 @@
 
       <h6>Funnel type</h6>
       <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : '']"
-                v-model="selectedFunnel" placeholder="Unknown"
+                v-model="selectedFunnel"
+                placeholder="Unknown"
                 :options="funnels"
-                optionLabel="name"></Dropdown>
+                optionLabel="name"/>
     </main>
-<!--    <button @click="$router.push({name: 'uploader'})">Test</button>-->
+    <!--    <button @click="$router.push({name: 'uploader'})">Test</button>-->
   </div>
 </template>
 

@@ -7,22 +7,24 @@
       <div>List: {{ listName }}</div>
       <hr class="name_divider">
       <div class="section_divider">File: {{ fileName }}</div>
-      <div class="description">Unknown countries have been found. Map them.</div>
+      <div class="description">Unknown countries have been found.
+        Map them.</div>
       <div class="map_container"><h5>IRLA</h5>
         <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'dropdown']"
                   v-model="selectedCountry"
                   placeholder="Ireland"
                   :options="countries"
-                  optionLabel="name"></Dropdown>
+                  optionLabel="name"/>
       </div>
       <div class="map_container"><h5>UK</h5>
         <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'dropdown']"
                   v-model="selectedCountry"
                   placeholder="GB"
                   :options="countries"
-                  optionLabel="name"></Dropdown>
+                  optionLabel="name"/>
       </div>
-      <div class="description">This is the final step which will load leads to the DB.</div>
+      <div class="description">This is the final step
+        which will load leads to the DB.</div>
     </main>
   </div>
 </template>

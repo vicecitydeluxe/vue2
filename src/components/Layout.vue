@@ -2,35 +2,65 @@
   <div>
     <header>
       <div class="header">
-        <div class="header_balance_container" @click="$router.push({name:'balance'})">
+        <div class="header_balance_container"
+             @click="$router.push({name:'balance'})">
           <i class="pi pi-wallet"></i>
           <div>Your balance:</div>
           <div class="header_icon">${{ balanceAmount }}</div>
         </div>
-        <div @click="$router.push({name:'deals'})" class="header_profile_container">
-          <i class="pi pi-user icon" style="color: #3950CC"></i>
+        <div @click="$router.push({name:'deals'})"
+             class="header_profile_container">
+          <i class="pi pi-user icon"
+             style="color: #3950CC"></i>
           <div>Profile</div>
         </div>
       </div>
     </header>
     <main class="layout">
-      <Button icon="pi pi-download" label="Withdrawal" iconPos="top" class="p-button-lg"
+      <Button icon="pi pi-download"
+              label="Withdrawal"
+              iconPos="top"
+              class="p-button-lg"
               @click="showPopupAlert"/>
-      <Button icon="pi pi-copy" label="Transactions" iconPos="top" class="p-button-lg"
+      <Button icon="pi pi-copy"
+              label="Transactions"
+              iconPos="top"
+              class="p-button-lg"
               @click="showPopupAlert"/>
-      <Button icon="pi pi-wallet" label="Topup" iconPos="top" class="p-button-lg"
+      <Button icon="pi pi-wallet"
+              label="Topup"
+              iconPos="top"
+              class="p-button-lg"
               @click="$router.push({name:'balance'})"/>
-      <Button icon="pi pi-list" label="My deals" iconPos="top" class="p-button-lg"
+      <Button icon="pi pi-list"
+              label="My deals"
+              iconPos="top"
+              class="p-button-lg"
               @click="$router.push({name: 'lists'})"/>
-      <Button icon="pi pi-users" label="My lists" iconPos="top" class="p-button-lg"
+      <Button icon="pi pi-users"
+              label="My lists"
+              iconPos="top"
+              class="p-button-lg"
               @click="$router.push({name: 'uploadLayout'})"/>
-      <Button @click="$router.push({name: 'results'})" icon="pi pi-database" label="Sell leads" iconPos="top"
-              class="p-button-lg"/>
-      <Button icon="pi pi-briefcase" label="My deals" iconPos="top" class="p-button-lg"
+      <Button icon="pi pi-database"
+              label="Sell leads"
+              iconPos="top"
+              class="p-button-lg"
+              @click="$router.push({name: 'results'})"/>
+      <Button icon="pi pi-briefcase"
+              label="My deals"
+              iconPos="top"
+              class="p-button-lg"
               @click="$router.push({name: 'sellers'})"/>
-      <Button icon="pi pi-globe" label="Marketplace" iconPos="top" class="p-button-lg"
+      <Button icon="pi pi-globe"
+              label="Marketplace"
+              iconPos="top"
+              class="p-button-lg"
               @click="$router.push({name: 'finder'})"/>
-      <Button icon="pi pi-shopping-cart" label="Buy leads" iconPos="top" class="p-button-lg"
+      <Button icon="pi pi-shopping-cart"
+              label="Buy leads"
+              iconPos="top"
+              class="p-button-lg"
               @click="$router.push({name: 'buy'})"/>
     </main>
   </div>
@@ -68,12 +98,12 @@ export default {
     darkModeSwitch: {
       handler(newValue) {
         if (newValue) {
-          document.querySelectorAll('.p-button-lg').forEach(e => e.classList.replace('p-button-lg', 'p-button-lg-dark'))
-          document.querySelectorAll('.header_icon').forEach(e => e.classList.replace('header_icon', 'header_icon_dark'))
+          document.querySelectorAll('.p-button-lg').forEach(e => e.classList.add('p-button-lg-dark'))
+          document.querySelectorAll('.header_icon').forEach(e => e.classList.add('header_icon_dark'))
         }
         if (!newValue) {
-          document.querySelectorAll('.p-button-lg-dark').forEach(e => e.classList.replace('p-button-lg-dark', 'p-button-lg'))
-          document.querySelectorAll('.header_icon_dark').forEach(e => e.classList.replace('header_icon_dark', 'header_icon'))
+          document.querySelectorAll('.p-button-lg-dark').forEach(e => e.classList.remove('p-button-lg-dark'))
+          document.querySelectorAll('.header_icon_dark').forEach(e => e.classList.remove('header_icon_dark'))
         }
       },
     },

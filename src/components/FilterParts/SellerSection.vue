@@ -2,9 +2,10 @@
   <section class="container">
     <div class="container_top">
       <span class="container_title">#192 MegaSeller</span>
-      <ToggleButton v-model="checked" onLabel="Include" offLabel="Exclude"></ToggleButton>
+      <ToggleButton v-model="checked"
+                    onLabel="Include"
+                    offLabel="Exclude"/>
     </div>
-
     <div class="container_bottom">
       <span>Rating: ++++-</span>
       <span> 5 lists, 4500 leads</span>
@@ -29,12 +30,12 @@ export default {
     darkModeSwitch: {
       handler(newValue) {
         if (newValue) {
-          document.querySelectorAll('.container').forEach(e => e.classList.replace('container', 'container_dark'))
-          document.querySelectorAll('.container_title').forEach(e => e.classList.replace('container_title', 'container_title_dark'))
+          document.querySelectorAll('.container').forEach(e => e.classList.add('container_dark'))
+          document.querySelectorAll('.container_title').forEach(e => e.classList.add('container_title_dark'))
         }
         if (!newValue) {
-          document.querySelectorAll('.container_dark').forEach(e => e.classList.replace('description_dark', 'description'))
-          document.querySelectorAll('.container_title_dark').forEach(e => e.classList.replace('container_title_dark', 'container_title'))
+          document.querySelectorAll('.container_dark').forEach(e => e.classList.remove('description_dark'))
+          document.querySelectorAll('.container_title_dark').forEach(e => e.classList.remove('container_title_dark'))
         }
       },
     },

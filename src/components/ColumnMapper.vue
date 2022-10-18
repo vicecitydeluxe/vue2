@@ -7,22 +7,25 @@
       <div>List: {{ listName }}</div>
       <hr class="main_section_divider">
       <div>File: {{ fileName }}</div>
-      <div class="description">Please map the required columns. You can import either full name or first+last name.
+      <div class="description">Please map the required columns.
+        You can import either full name or first+last name.
       </div>
       <div class="map_container">
         <div class="map_container_title">First name</div>
         <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
                   @change="firstNameValidator"
                   v-model="selectedFirstName"
-                  placeholder="name" :options="firstNames"
-                  optionLabel="name"></Dropdown>
+                  placeholder="name"
+                  :options="firstNames"
+                  optionLabel="name"/>
       </div>
       <div class="map_container">
         <div class="map_container_title">Last name</div>
         <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
                   @change="lastNameValidator"
                   v-model="selectedLastName"
-                  placeholder="last_name" :options="lastNames"
+                  placeholder="last_name"
+                  :options="lastNames"
                   optionLabel="name"></Dropdown>
       </div>
       <div class="map_container">
@@ -30,16 +33,18 @@
         <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
                   @change="fullNameValidator"
                   v-model="selectedFullName"
-                  placeholder="(select)" :options="fullNames"
-                  optionLabel="name"></Dropdown>
+                  placeholder="(select)"
+                  :options="fullNames"
+                  optionLabel="name"/>
       </div>
       <div class="map_container">
         <div class="map_container_title">Email</div>
         <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
                   @change="emailValidator"
-                  v-model="selectedEmail" placeholder="email"
+                  v-model="selectedEmail"
+                  placeholder="email"
                   :options="emails"
-                  optionLabel="name"></Dropdown>
+                  optionLabel="name"/>
       </div>
       <div class="map_container">
         <div class="map_container_title">Phone number</div>
@@ -48,7 +53,7 @@
                   v-model="selectedPhoneNumber"
                   placeholder="phone"
                   :options="phoneNumbers"
-                  optionLabel="name"></Dropdown>
+                  optionLabel="name"/>
       </div>
       <div class="map_container">
         <div class="map_container_title">Country</div>
@@ -61,57 +66,70 @@
         <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
                   @change="countryValidator"
                   v-model="selectedCountry"
-                  placeholder="country" :options="countries"
-                  optionLabel="name"></Dropdown>
+                  placeholder="country"
+                  :options="countries"
+                  optionLabel="name"/>
       </div>
       <div class="sub_map_container">
         <div class="field-checkbox">
           <label for="binary">set empty to</label>
         </div>
         <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
-                  v-model="selectedCountryFromList" placeholder="GB UK"
+                  v-model="selectedCountryFromList"
+                  placeholder="GB UK"
                   :options="countriesList"
-                  optionLabel="name"></Dropdown>
+                  optionLabel="name"/>
       </div>
       <div class="sub_map_container">
         <div>
-          <RadioButton id="all_to" value="set_all_to" v-model="checkedCountry"/>
-          <label class="sub_map_container_divider" for="all_to">Set all to</label>
+          <RadioButton id="all_to"
+                       value="set_all_to"
+                       v-model="checkedCountry"/>
+          <label class="sub_map_container_divider"
+                 for="all_to">Set all to</label>
         </div>
         <Dropdown :class="[ darkModeSwitch ? 'map_container_dropdown_dark' : 'map_container_dropdown']"
-                  v-model="selectedCountryFromList" placeholder="(choose)"
+                  v-model="selectedCountryFromList"
+                  placeholder="(choose)"
                   :options="countriesList"
-                  optionLabel="name"></Dropdown>
+                  optionLabel="name"/>
       </div>
       <div class="map_container">
         <div class="map_container_title">Reg date</div>
 
         <div>
-          <RadioButton id="all_to" value="load" v-model="checkedRegDate"/>
-          <label class="sub_map_container_divider" for="all_to">Set all to</label>
+          <RadioButton id="all_to"
+                       value="load"
+                       v-model="checkedRegDate"/>
+          <label class="sub_map_container_divider"
+                 for="all_to">Set all to</label>
         </div>
 
         <span class="p-input-icon-right">
           <InputMask inputmode="decimal"
                      :class="[ darkModeSwitch ? 'input_mask_dark' : 'input_mask']"
-                     mask="99/99/9999" v-model="registrationDate"
+                     mask="99/99/9999"
+                     v-model="registrationDate"
                      placeholder="  /  /    "
-                     slotChar="mm/dd/yyyy"></InputMask>
+                     slotChar="mm/dd/yyyy"/>
         <i class="pi pi-calendar"></i>
         </span>
       </div>
       <div class="sub_map_container">
 
         <div>
-          <RadioButton id="load" value="set_all_to" v-model="checkedRegDate"/>
-          <label class="radio_label_divider " for="load">Load</label>
+          <RadioButton id="load"
+                       value="set_all_to"
+                       v-model="checkedRegDate"/>
+          <label class="radio_label_divider"
+                 for="load">Load</label>
         </div>
 
         <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
                   v-model="selectedRegDate"
                   placeholder="reg"
                   :options="regGateList"
-                  optionLabel="name"></Dropdown>
+                  optionLabel="name"/>
       </div>
       <div class="map_container">
         <div class="field-checkbox">
@@ -120,9 +138,10 @@
         <span class="p-input-icon-right">
                   <InputMask inputmode="decimal"
                              :class="[ darkModeSwitch ? 'input_mask_dark' : 'input_mask']"
-                             mask="99/99/9999" v-model="emptyDateSetter"
+                             mask="99/99/9999"
+                             v-model="emptyDateSetter"
                              placeholder="  /  /    "
-                             slotChar="mm/dd/yyyy"></InputMask>
+                             slotChar="mm/dd/yyyy"/>
         <i class="pi pi-calendar"></i>
         </span>
       </div>
@@ -132,18 +151,20 @@
                   v-model="selectedDeposit"
                   placeholder="ftd"
                   :options="deposits"
-                  optionLabel="name"></Dropdown>
+                  optionLabel="name"/>
       </div>
       <div class="bottom_section_container">
-        <div>What to do with the rest of the fields found in the source file? (You shouldn't include them if they
-          contain
-          sensitive data)
+        <div>What to do with the rest of the fields
+          found in the source file? (You shouldn't include them if they
+          contain sensitive data)
         </div>
         <div class="options_container">
           <button class="btn_left">Don't include</button>
           <button class="btn_right">Include</button>
         </div>
-        <div>Other fields will be imported, stored and buyers will be able to see them after purchase these leads.
+        <div>Other fields will be imported,
+          stored and buyers will be able to see them after
+          purchase these leads.
         </div>
       </div>
     </main>

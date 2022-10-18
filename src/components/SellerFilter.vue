@@ -6,7 +6,9 @@
     <main>
       <div> Who you want to buy leads from?</div>
       <div class="button-container">
-        <button class="button_left" v-model="checked" @click="checked = !checked">Any seller</button>
+        <button class="button_left"
+                v-model="checked"
+                @click="checked = !checked">Any seller</button>
         <button class="button_middle">Choose</button>
         <button class="button_right">Exclude</button>
       </div>

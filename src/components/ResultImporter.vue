@@ -7,7 +7,8 @@
       <div>List: {{ listName }}</div>
       <hr class="name_divider">
       <div>File: {{ fileName }}</div>
-      <div class="description">Estimation of how loaded leads are unique across all your leads. Numbers are valid on:
+      <div class="description">Estimation of how loaded
+        leads are unique across all your leads. Numbers are valid on:
         {{ this.todayDate }}
       </div>
       <div class="description_divider">Lead loading results</div>
@@ -19,34 +20,39 @@
                 :key="col.field"
                 :headerStyle="darkModeSwitch ? {'background': '#494C57'} : {}"
                 :bodyStyle=" darkModeSwitch ? {'color': 'white','background': '#32343A' } : {}"
-        ></Column>
+        />
       </DataTable>
       <hr class="hidden">
       <div class="description_divider">Duplicates</div>
       <section class="description">
-        <div>Some of leads are found in your previously imported lists. Among them:</div>
+        <div>Some of leads are found in
+          your previously imported lists. Among them:
+        </div>
         <div class="details_container">
           <div>24</div>
           <div>Full duplicates (email+phone)</div>
         </div>
         <div class="map_container">
           <Button style="font-size: 12px;"
-                  label="Remove from the list"></Button>
+                  label="Remove from the list"/>
           <Button style="font-size: 12px;"
-                  label="Remove from  other lists"></Button>
+                  label="Remove from  other lists"/>
         </div>
         <div class="details_container">
           <div>105</div>
           <div>Partial duplicates (email or phone)</div>
         </div>
         <div class="map_container">
-          <Button style="font-size: 12px;" label="Remove from the list"></Button>
-          <Button style="font-size: 12px;" label="Remove from  other lists"></Button>
+          <Button style="font-size: 12px;"
+                  label="Remove from the list"/>
+          <Button style="font-size: 12px;"
+                  label="Remove from  other lists"/>
         </div>
       </section>
 
       <div class="description_divider">Public statistics</div>
-      <div class="description">Numbers are valid at the time of loading on {{ this.todayDate }}</div>
+      <div class="description">Numbers are valid
+        at the time of loading on {{ this.todayDate }}</div>
       <div class="description_divider">Leads age</div>
       <DataTable :value="publicResults"
                  responsiveLayout="scroll">
@@ -56,7 +62,8 @@
                 :key="col.field"
                 :headerStyle="darkModeSwitch ? {'background': '#494C57'} : {}"
                 :bodyStyle=" darkModeSwitch ? {'color': 'white','background': '#32343A' } : {}"
-        ></Column>
+        />
+        <
       </DataTable>
       <hr class="hidden">
       <div class="description_divider">Uniqueness</div>

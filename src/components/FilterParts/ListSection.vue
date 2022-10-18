@@ -2,11 +2,14 @@
   <section class="container">
     <div class="container_top">
       <span class="container_title">#192 MegaSeller</span>
-      <ToggleButton v-model="checked" onLabel="Include" offLabel="Exclude"></ToggleButton>
+      <ToggleButton v-model="checked"
+                    onLabel="Include"
+                    offLabel="Exclude"/>
     </div>
     <div class="container_bottom">
       <span>Rating: ++++-</span>
-      <span>#1829 CFD May 2022 depositors + deposit date + sales comments</span>
+      <span>#1829 CFD May 2022 depositors
+        + deposit date + sales comments</span>
       <span>Funnel: Unknown</span>
       <span>include Upload date: 2022-09-16: 12:10</span>
       <span>Sold (fully or partially)7 times</span>
