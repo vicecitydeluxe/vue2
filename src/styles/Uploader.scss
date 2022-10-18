@@ -29,6 +29,18 @@
   background: #282828;
 }
 
+.paginator_container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.p-button-text{
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  color: #2563EB;
+}
+
 
 
 
