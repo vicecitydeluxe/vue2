@@ -37,7 +37,7 @@
                 :options="funnels"
                 optionLabel="name"></Dropdown>
     </main>
-<!--        <button @click="sendList">SENDDDDD</button>-->
+<!--    <button @click="$router.push({name: 'uploader'})">Test</button>-->
   </div>
 </template>
 

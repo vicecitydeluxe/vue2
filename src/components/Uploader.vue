@@ -36,7 +36,7 @@
               :bodyStyle=" darkModeSwitch ? {'color': 'white','background': '#32343A' } : {}"
       ></Column>
     </DataTable>
-    <!--    <button @click="$router.push({name: 'mapper'})"></button>-->
+    <!--    <button @click="$router.push({name: 'mapper'})">Test</button>-->
   </div>
 </template>
 
@@ -107,11 +107,16 @@ export default {
           }
       ).then((result) => {
         return new Promise((resolve) => {
-          Vue.prototype.$parsedObject = Papa.unparse(Object.assign({
+          Vue.prototype.$parsedHeaders = Papa.unparse(Object.assign({
             'fields': Object.keys(result.data[0]),
-            // 'data': result.data.map((el) => Object.values(el))
-          }))
-          resolve(Vue.prototype.$parsedObject)
+          }), {})
+          Vue.prototype.$parsedFullObject = Papa.unparse(Object.assign({
+            'fields': Object.keys(result.data[0]),
+            'data': result.data.map((el) => Object.values(el))
+          }), {
+            skipEmptyLines: 'greedy',
+          })
+          resolve(Vue.prototype.$parsedHeaders)
         })
       }).then(result => {
         const download = function (result) {

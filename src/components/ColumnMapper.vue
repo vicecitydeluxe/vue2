@@ -153,6 +153,7 @@
 <script>
 import tgMixin from "@/mixins/tgMixin";
 import {mapGetters} from 'vuex'
+import Vue from "vue";
 
 const globalTelegram = window.Telegram.WebApp
 
@@ -237,40 +238,40 @@ export default {
   },
   methods: {
     firstNameValidator() {
-      let splittedObject = this.$parsedObject.split(',')
+      let splittedObject = this.$parsedHeaders.split(',')
       splittedObject[0] = this.selectedFirstName.name
-      this.$parsedObject = splittedObject.join()
-      console.log(this.$parsedObject)
+      this.$parsedHeaders = splittedObject.join()
+      console.log(this.$parsedHeaders)
     },
     lastNameValidator() {
-      let splittedObject = this.$parsedObject.split(',')
+      let splittedObject = this.$parsedHeaders.split(',')
       splittedObject[1] = this.selectedLastName.name
-      this.$parsedObject = splittedObject.join()
-      console.log(this.$parsedObject)
+      this.$parsedHeaders = splittedObject.join()
+      console.log(this.$parsedHeaders)
     },
     fullNameValidator() {
-      let splittedObject = this.$parsedObject.split(',')
+      let splittedObject = this.$parsedHeaders.split(',')
       splittedObject[2] = this.selectedFullName.name
-      this.$parsedObject = splittedObject.join()
-      console.log(this.$parsedObject)
+      this.$parsedHeaders = splittedObject.join()
+      console.log(this.$parsedHeaders)
     },
     emailValidator() {
-      let splittedObject = this.$parsedObject.split(',')
+      let splittedObject = this.$parsedHeaders.split(',')
       splittedObject[3] = this.selectedEmail.name
-      this.$parsedObject = splittedObject.join()
-      console.log(this.$parsedObject)
+      this.$parsedHeaders = splittedObject.join()
+      console.log(this.$parsedHeaders)
     },
     phoneNumberValidator() {
-      let splittedObject = this.$parsedObject.split(',')
+      let splittedObject = this.$parsedHeaders.split(',')
       splittedObject[4] = this.selectedPhoneNumber.name
-      this.$parsedObject = splittedObject.join()
-      console.log(this.$parsedObject)
+      this.$parsedHeaders = splittedObject.join()
+      console.log(this.$parsedHeaders)
     },
     countryValidator() {
-      let splittedObject = this.$parsedObject.split(',')
+      let splittedObject = this.$parsedHeaders.split(',')
       splittedObject[5] = this.selectedCountry.name
-      this.$parsedObject = splittedObject.join()
-      console.log(this.$parsedObject)
+      this.$parsedHeaders = splittedObject.join()
+      console.log(this.$parsedHeaders)
     },
     redirectCb() {
       this.$router.push({name: 'uploader'})
@@ -312,8 +313,10 @@ export default {
     },
   },
   mounted() {
-    // uncomment to see init variation of the $parsedObject
-    // console.log(this.$parsedObject.split(','))
+    // uncomment to see init variation of the $parsedHeaders
+    // console.log(Vue.prototype.$parsedHeaders)
+    // console.log(Vue.prototype.$parsedFullObject)
+    // console.log(this.$parsedHeaders.split(','))
     globalTelegram.MainButton.onClick(this.actionCb)
     globalTelegram.BackButton.show().onClick(this.redirectCb)
   },
