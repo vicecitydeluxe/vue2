@@ -39,17 +39,16 @@
     <!--    <button @click="$router.push({name: 'mapper'})">Test</button>-->
     <div v-if="parsed" class="paginator_container">
       <Button class="p-button-text"
-              label="Show next >"
-              @click="paginationForward"
-              v-if="currentPage !== lastPageProp"
-      />
-      <Button class="p-button-text"
               label="< Show previous"
               @click="paginationBackward"
               v-if="currentPage !== 1"
       />
+      <Button class="p-button-text"
+              label="Show next >"
+              @click="paginationForward"
+              v-if="currentPage !== lastPageProp"
+      />
     </div>
-
   </div>
 </template>
 
