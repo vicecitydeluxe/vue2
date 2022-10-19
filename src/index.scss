@@ -272,12 +272,6 @@ input[type="number"]::-webkit-inner-spin-button {
   }
 }
 
-//TODO try to change calendar styles
-.pi-calendar:before {
-  content: "\e927";
-  color: #6486FF;
-}
-
 .p-dropdown {
   .p-dropdown-label.p-placeholder {
 
@@ -287,12 +281,10 @@ input[type="number"]::-webkit-inner-spin-button {
   }
 }
 
-//TODO watcher on all changes
+
 .p-dropdown-panel {
   .p-dropdown-items {
     .p-dropdown-item {
-      //background: #282828;
-      //color: red;
 
       &_dark {
         background: #282828;
@@ -302,11 +294,9 @@ input[type="number"]::-webkit-inner-spin-button {
   }
 }
 
-//TODO watcher on all changes
+
 .p-dropdown {
   .p-inputtext {
-    //background: #282828;
-    //color: red;
 
     &_dark {
       background: #282828;
@@ -315,12 +305,9 @@ input[type="number"]::-webkit-inner-spin-button {
   }
 }
 
-//TODO watcher on all changes
 .p-dropdown-panel {
   .p-dropdown-items {
     .p-dropdown-item.p-highlight {
-      //color: blue;
-      //background: #32343A;
 
       &_dark {
         color: white;
@@ -343,13 +330,24 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 //** Other components global styles
-.p-radiobutton .p-radiobutton-box .p-radiobutton-icon {
-  background-color: #2563eb;
+.p-radiobutton {
+  .p-radiobutton-box {
+
+    &_dark {
+      border: 2px solid #2563EB;
+      background: #282828;
+    }
+    .p-radiobutton-icon {
+      background-color: #2563eb;
+    }
+  }
 }
 
-.p-radiobutton .p-radiobutton-box.p-highlight {
-  border-color: #2563eb;
-}
+.p-radiobutton {
+  .p-radiobutton-box.p-highlight {
+    border-color: #2563eb;
+  }
+  }
 
 .p-datatable .p-datatable-thead > tr > th {
   background: #E7E7F3;

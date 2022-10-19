@@ -17,7 +17,9 @@
                   v-model="selectedFirstName"
                   placeholder="name"
                   :options="firstNames"
-                  optionLabel="name"/>
+                  optionLabel="name"
+                  @before-show="toggleDarkDropdown"
+        />
       </div>
       <div class="map_container">
         <div class="map_container_title">Last name</div>
@@ -26,7 +28,9 @@
                   v-model="selectedLastName"
                   placeholder="last_name"
                   :options="lastNames"
-                  optionLabel="name"></Dropdown>
+                  optionLabel="name"
+                  @before-show="toggleDarkDropdown"
+        />
       </div>
       <div class="map_container">
         <div class="map_container_title">Full name</div>
@@ -35,7 +39,9 @@
                   v-model="selectedFullName"
                   placeholder="(select)"
                   :options="fullNames"
-                  optionLabel="name"/>
+                  optionLabel="name"
+                  @before-show="toggleDarkDropdown"
+        />
       </div>
       <div class="map_container">
         <div class="map_container_title">Email</div>
@@ -44,7 +50,9 @@
                   v-model="selectedEmail"
                   placeholder="email"
                   :options="emails"
-                  optionLabel="name"/>
+                  optionLabel="name"
+                  @before-show="toggleDarkDropdown"
+        />
       </div>
       <div class="map_container">
         <div class="map_container_title">Phone number</div>
@@ -53,13 +61,19 @@
                   v-model="selectedPhoneNumber"
                   placeholder="phone"
                   :options="phoneNumbers"
-                  optionLabel="name"/>
+                  optionLabel="name"
+                  @before-show="toggleDarkDropdown"
+        />
       </div>
       <div class="map_container">
         <div class="map_container_title">Country</div>
 
         <div>
-          <RadioButton id="load" value="load" v-model="checkedCountry"/>
+          <RadioButton id="load"
+                       value="load"
+                       v-model="checkedCountry"
+                       @click="toggleDarkDropdown"
+          />
           <label class="sub_map_container_divider" for="load">Load</label>
         </div>
 
@@ -68,7 +82,9 @@
                   v-model="selectedCountry"
                   placeholder="country"
                   :options="countries"
-                  optionLabel="name"/>
+                  optionLabel="name"
+                  @before-show="toggleDarkDropdown"
+        />
       </div>
       <div class="sub_map_container">
         <div class="field-checkbox">
@@ -78,13 +94,17 @@
                   v-model="selectedCountryFromList"
                   placeholder="GB UK"
                   :options="countriesList"
-                  optionLabel="name"/>
+                  optionLabel="name"
+                  @before-show="toggleDarkDropdown"
+        />
       </div>
       <div class="sub_map_container">
         <div>
           <RadioButton id="all_to"
                        value="set_all_to"
-                       v-model="checkedCountry"/>
+                       v-model="checkedCountry"
+                       @click="toggleDarkDropdown"
+          />
           <label class="sub_map_container_divider"
                  for="all_to">Set all to</label>
         </div>
@@ -92,7 +112,9 @@
                   v-model="selectedCountryFromList"
                   placeholder="(choose)"
                   :options="countriesList"
-                  optionLabel="name"/>
+                  optionLabel="name"
+                  @before-show="toggleDarkDropdown"
+        />
       </div>
       <div class="map_container">
         <div class="map_container_title">Reg date</div>
@@ -100,7 +122,9 @@
         <div>
           <RadioButton id="all_to"
                        value="load"
-                       v-model="checkedRegDate"/>
+                       v-model="checkedRegDate"
+                       @click="toggleDarkDropdown"
+          />
           <label class="sub_map_container_divider"
                  for="all_to">Set all to</label>
         </div>
@@ -120,7 +144,9 @@
         <div>
           <RadioButton id="load"
                        value="set_all_to"
-                       v-model="checkedRegDate"/>
+                       v-model="checkedRegDate"
+                       @click="toggleDarkDropdown"
+          />
           <label class="radio_label_divider"
                  for="load">Load</label>
         </div>
@@ -129,7 +155,9 @@
                   v-model="selectedRegDate"
                   placeholder="reg"
                   :options="regGateList"
-                  optionLabel="name"/>
+                  optionLabel="name"
+                  @before-show="toggleDarkDropdown"
+        />
       </div>
       <div class="map_container">
         <div class="field-checkbox">
@@ -141,7 +169,8 @@
                              mask="99/99/9999"
                              v-model="emptyDateSetter"
                              placeholder="  /  /    "
-                             slotChar="mm/dd/yyyy"/>
+                             slotChar="mm/dd/yyyy"
+                  />
         <i class="pi pi-calendar"></i>
         </span>
       </div>
@@ -151,7 +180,9 @@
                   v-model="selectedDeposit"
                   placeholder="ftd"
                   :options="deposits"
-                  optionLabel="name"/>
+                  optionLabel="name"
+                  @before-show="toggleDarkDropdown"
+        />
       </div>
       <div class="bottom_section_container">
         <div>What to do with the rest of the fields
@@ -183,6 +214,7 @@ export default {
   mixins: [tgMixin],
   data() {
     return {
+      darkDropdown: 0,
       selectedFirstName: null,
       selectedLastName: null,
       selectedFullName: null,
@@ -258,6 +290,9 @@ export default {
     }
   },
   methods: {
+    toggleDarkDropdown() {
+      this.darkDropdown++
+    },
     firstNameValidator() {
       let splittedObject = this.$parsedHeaders.split(',')
       splittedObject[0] = this.selectedFirstName.name
@@ -304,8 +339,34 @@ export default {
   computed: {
     ...mapGetters(['listName', "fileName"]),
   },
-  //TODO create mixin to change styles on every data prop change
   watch: {
+    darkDropdown: {
+      handler() {
+        if (this.darkDropdown && this.darkModeSwitch) {
+          setTimeout(() => {
+            document.querySelectorAll('.p-placeholder').forEach(e => e.classList.add('p-placeholder_dark'))
+            document.querySelectorAll('.pi-chevron-down').forEach(e => e.classList.add('pi-chevron-down_dark'))
+            document.querySelectorAll('.p-dropdown-item').forEach(e => e.classList.add('p-dropdown-item_dark'))
+            document.querySelectorAll('.p-inputtext').forEach(e => e.classList.add('p-inputtext_dark'))
+            document.querySelectorAll('.p-highlight').forEach(e => e.classList.add('p-highlight_dark'))
+            document.querySelectorAll('.p-radiobutton-box').forEach(e => e.classList.add('p-radiobutton-box_dark'))
+          }, 0)
+        }
+      }, deep: true
+    },
+    $data: {
+      handler() {
+        if (this.darkModeSwitch) {
+          setTimeout(() => {
+            document.querySelectorAll('.p-placeholder').forEach(e => e.classList.add('p-placeholder_dark'))
+            document.querySelectorAll('.pi-chevron-down').forEach(e => e.classList.add('pi-chevron-down_dark'))
+            document.querySelectorAll('.p-dropdown-item').forEach(e => e.classList.add('p-dropdown-item_dark'))
+            document.querySelectorAll('.p-inputtext').forEach(e => e.classList.add('p-inputtext_dark'))
+            document.querySelectorAll('.p-highlight').forEach(e => e.classList.add('p-highlight_dark'))
+          }, 0)
+        }
+      }, deep: true
+    },
     checkedCountry: {
       handler(newValue) {
         if (newValue) {
@@ -323,13 +384,13 @@ export default {
           document.querySelectorAll('.p-dropdown-item').forEach(e => e.classList.add('p-dropdown-item_dark'))
           document.querySelectorAll('.p-inputtext').forEach(e => e.classList.add('p-inputtext_dark'))
           document.querySelectorAll('.p-highlight').forEach(e => e.classList.add('p-highlight_dark'))
-
-
+          document.querySelectorAll('.pi-calendar').forEach(e => e.classList.add('pi-calendar_dark'))
           document.querySelectorAll('.bottom_section_container').forEach(e => e.classList.add('bottom_section_container_dark'))
           document.querySelectorAll('.description').forEach(e => e.classList.add('description_dark'))
           document.querySelectorAll('.map_container_title').forEach(e => e.classList.add('map_container_title_dark'))
           document.querySelectorAll('.btn_left').forEach(e => e.classList.add('btn_left_dark'))
           document.querySelectorAll('.btn_right').forEach(e => e.classList.add('btn_right_dark'))
+          document.querySelectorAll('.p-radiobutton-box').forEach(e => e.classList.add('p-radiobutton-box_dark'))
         }
         if (!newValue) {
           document.querySelectorAll('.p-placeholder').forEach(e => e.classList.remove('p-placeholder_dark'))
@@ -337,12 +398,13 @@ export default {
           document.querySelectorAll('.p-dropdown-item').forEach(e => e.classList.remove('p-dropdown-item_dark'))
           document.querySelectorAll('.p-inputtext').forEach(e => e.classList.remove('p-inputtext_dark'))
           document.querySelectorAll('.p-highlight').forEach(e => e.classList.remove('p-highlight_dark'))
-
+          document.querySelectorAll('.pi-calendar').forEach(e => e.classList.remove('pi-calendar_dark'))
           document.querySelectorAll('.bottom_section_container_dark').forEach(e => e.classList.remove('bottom_section_container_dark'))
           document.querySelectorAll('.description_dark').forEach(e => e.classList.remove('description_dark'))
           document.querySelectorAll('.map_container_title_dark').forEach(e => e.classList.remove('map_container_title_dark'))
           document.querySelectorAll('.btn_left_dark').forEach(e => e.classList.remove('btn_left_dark'))
           document.querySelectorAll('.btn_right').forEach(e => e.classList.remove('btn_right_dark'))
+          document.querySelectorAll('.p-radiobutton-box').forEach(e => e.classList.remove('p-radiobutton-box_dark'))
         }
       },
     },

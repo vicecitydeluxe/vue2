@@ -103,7 +103,7 @@
   top: 24px;
   border: 1px solid #CED4DA;
   border-radius: 7px;
-  color: #2563EB;
+
   &_dark {
     width: 166px;
     position: static;
@@ -111,11 +111,11 @@
     top: 24px;
     border: 1px solid #CED4DA;
     border-radius: 7px;
-    color: #2563EB;
+    color: white;
     background: #282828;
 
     &::placeholder {
-      color: #2563EB;
+      color: white;
       opacity: 1; /* Firefox */
     }
   }
@@ -274,11 +274,16 @@
 
 .dropdown_dark {
   background: #282828;
-  border: 1px solid #CED4DA;
+  border: 1.7px solid #CED4DA;
   width: 166px;
   left: 0;
   border-radius: 7px;
 }
 
+.pi-calendar {
 
-//TODO: fix radio-buttons and dropdown switch logic
+  &_dark {
+    content: "\e927";
+    color: white !important;
+  }
+}
