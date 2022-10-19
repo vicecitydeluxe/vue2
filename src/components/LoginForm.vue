@@ -65,6 +65,7 @@ export default {
         })
         .catch((err) => {
           console.log(`ERR: ${err}`)
+          this.showComponent = true
         })
   },
   methods: {
