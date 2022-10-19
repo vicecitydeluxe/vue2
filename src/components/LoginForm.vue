@@ -61,7 +61,7 @@ export default {
             this.$router.push({name: 'layout'})
           } else if ((res.data.status === 400 && res.data.error === 'NOT_REGISTERED') || res.data.error === 'NOT_STARTED') {
             this.showComponent = true
-          }
+          } else this.showComponent = true
         })
         .catch((err) => {
           console.log(`ERR: ${err}`)
