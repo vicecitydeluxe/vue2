@@ -5,6 +5,7 @@ const state = {
     listName: 'CM DE May 2022 depositors',
     fileName: 'Default.csv',
     balanceAmount: '0',
+    allLists: [],
 }
 const getters = {
     name() {
@@ -18,25 +19,12 @@ const getters = {
     },
     balanceAmount() {
         return state.balanceAmount
+    },
+    allLists() {
+        return state.allLists
     }
 }
 const actions = {
-
-    SEND_DOCUMENT(_, payload) {
-        return new Promise((resolve, reject) => {
-            $axios({
-                url: `https://leads-api.genesis.pm/document`,
-                method: "POST",
-                data: payload,
-            }).then(res => {
-                // console.log(res.data)
-                resolve(res)
-            }).catch(err => {
-                console.log(err)
-                reject(err)
-            })
-        })
-    },
 
     SEND_NAME(_, payload) {
         return new Promise((resolve, reject) => {
@@ -69,12 +57,43 @@ const actions = {
         })
     },
 
+    GET_ALL_NAMES(_) {
+        return new Promise((resolve, reject) => {
+            $axios({
+                url: `https://leads-api.genesis.pm/users/all`,
+                method: "GET",
+            }).then(res => {
+                console.log(res.data)
+                resolve(res)
+            }).catch(err => {
+                console.log(err)
+                reject(err)
+            })
+        })
+    },
+
     SEND_BALANCE(_, payload) {
         return new Promise((resolve, reject) => {
             $axios({
                 url: `https://leads-api.genesis.pm/deposit`,
                 method: "POST",
                 data: {amount: payload, currency: 'BTC'}
+            }).then(res => {
+                // console.log(res.data)
+                resolve(res)
+            }).catch(err => {
+                console.log(err)
+                reject(err)
+            })
+        })
+    },
+
+    SEND_DOCUMENT(_, payload) {
+        return new Promise((resolve, reject) => {
+            $axios({
+                url: `https://leads-api.genesis.pm/document`,
+                method: "POST",
+                data: payload,
             }).then(res => {
                 // console.log(res.data)
                 resolve(res)
@@ -116,6 +135,21 @@ const actions = {
         })
     },
 
+    GET_ALL_LISTS(_) {
+        return new Promise((resolve, reject) => {
+            $axios({
+                url: `https://leads-api.genesis.pm/lists/all`,
+                method: "GET",
+            }).then(res => {
+                this.commit('setAllLists', res.data.data)
+                resolve(res)
+            }).catch(err => {
+                console.log(err)
+                reject(err)
+            })
+        })
+    },
+
 }
 
 const mutations = {
@@ -130,6 +164,9 @@ const mutations = {
     },
     setBalanceAmount(ctx, data) {
         state.balanceAmount = data
+    },
+    setAllLists(ctx, data) {
+        state.allLists = data
     }
 }
 

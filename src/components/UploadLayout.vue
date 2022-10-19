@@ -41,12 +41,14 @@
                 :options="funnels"
                 optionLabel="name"/>
     </main>
-    <!--    <button @click="$router.push({name: 'uploader'})">Test</button>-->
+<!--        <button @click="sendList">Test</button>-->
+    <Toast position="bottom-center"/>
   </div>
 </template>
 
 <script>
 import tgMixin from "@/mixins/tgMixin";
+import {mapGetters} from 'vuex'
 
 const globalTelegram = window.Telegram.WebApp
 
@@ -74,14 +76,25 @@ export default {
     }
   },
   methods: {
+    getaAllLists() {
+      this.$store.dispatch('GET_ALL_LISTS').then(() => {
+
+        const lastListAdded = this.allLists[this.allLists.length - 1]
+        this.listName = lastListAdded.name
+        this.listDescription = lastListAdded.filename
+        this.$toast.add({
+          severity: 'info',
+          summary: 'Notification',
+          detail: 'Last session list name was restored!',
+          life: 2500
+        });
+      })
+    },
     redirectCb() {
       this.$router.push({name: 'layout'})
     },
     actionCb() {
-      if (this.$route.path === '/upload-layout') {
-        this.sendList()
-        this.$router.push({name: 'uploader'})
-      }
+      if (this.$route.path === '/upload-layout') this.sendList()
     },
     updateListName() {
       this.$store.commit('setListName', this.listName)
@@ -95,13 +108,21 @@ export default {
         type: 'Unknown'
       }
       this.$store.dispatch('SEND_LIST', obj)
-          .then(() => {
-            // console.log(res)
+          .then((res) => {
+            if (res.data.error === 'ALREADY_EXISTED_LIST_NAME') {
+              this.$toast.add({
+                severity: 'info',
+                summary: 'Notification',
+                detail: 'This name is already exists, try another one!',
+                life: 2500
+              });
+            } else this.$router.push({name: 'uploader'})
           })
           .catch((err) => console.log(err))
-    }
+    },
   },
   computed: {
+    ...mapGetters(['allLists']),
     //validation including spaces !
     validListName() {
       return /[0-9a-zA-Z_ ]{5,}/.test(this.listName)
@@ -203,6 +224,9 @@ export default {
       },
       deep: true
     },
+  },
+  beforeMount() {
+    this.getaAllLists()
   },
   mounted() {
     globalTelegram.expand()

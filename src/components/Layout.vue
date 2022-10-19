@@ -63,6 +63,7 @@
               class="p-button-lg"
               @click="$router.push({name: 'buy'})"/>
     </main>
+<!--    <button @click="getAllNAmes">Test</button>-->
   </div>
 </template>
 
@@ -81,6 +82,9 @@ export default {
       globalTelegram.showAlert('This feature would be added soon')
       this.hapticError()
     },
+    getAllNAmes() {
+      this.$store.dispatch('GET_ALL_NAMES')
+    }
   },
   computed: {
     ...mapGetters(['name', 'balanceAmount']),
