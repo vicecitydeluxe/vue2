@@ -23,7 +23,8 @@
       <h6>Please check if the record seem correct.
         If not, try to go back,
         change parameters and then re-upload or check
-        your source-file is not damaged.</h6>
+        your source-file is not damaged.
+      </h6>
     </div>
 
     <DataTable v-if="parsed"
@@ -112,50 +113,33 @@ export default {
 
           },
         })
-      })
-          //     .then(() => {
-          //       return new Promise((resolve) => {
-          //         Papa.parse(event.files[0], {
-          //           header: true,
-          //           worker: true,
-          //           skipEmptyLines: true,
-          //           delimitersToGuess: [',', '\t', '|', ';', ' ', '/', ':', Papa.RECORD_SEP, Papa.UNIT_SEP],
-          //           complete: result => {
-          //             resolve(result)
-          //             this.parsedDataLength = result.data.length
-          //             // console.log(result)
-          //           },
-          //         })
-          //       })
-          //     }
-          // )
-          .then((result) => {
-            return new Promise((resolve) => {
-              Vue.prototype.$parsedHeaders = Papa.unparse(Object.assign({
-                'fields': Object.keys(result.data[0]),
-              }), {})
-              Vue.prototype.$parsedFullObject = Papa.unparse(Object.assign({
-                'fields': Object.keys(result.data[0]),
-                'data': result.data.map((el) => Object.values(el))
-              }), {
-                skipEmptyLines: 'greedy',
-              })
-              resolve(Vue.prototype.$parsedHeaders)
-            })
-          }).then(result => {
-            const download = function (result) {
-              const blob = new Blob([result], {type: 'text/csv'});
-              const url = window.URL.createObjectURL(blob)
-              const a = document.createElement('a')
-              a.setAttribute('href', url)
-              a.setAttribute('download', 'parsed.csv');
-              // uncomment next line to download file
-              // a.click()
-            }
-            //disable timeout to download instantly
-            setTimeout(() => download(result), 3000)
-            // console.log(res)
+      }).then((result) => {
+        return new Promise((resolve) => {
+          Vue.prototype.$parsedHeaders = Papa.unparse(Object.assign({
+            'fields': Object.keys(result.data[0]),
+          }), {})
+          Vue.prototype.$parsedFullObject = Papa.unparse(Object.assign({
+            'fields': Object.keys(result.data[0]),
+            'data': result.data.map((el) => Object.values(el))
+          }), {
+            skipEmptyLines: 'greedy',
           })
+          resolve(Vue.prototype.$parsedHeaders)
+        })
+      }).then(result => {
+        const download = function (result) {
+          const blob = new Blob([result], {type: 'text/csv'});
+          const url = window.URL.createObjectURL(blob)
+          const a = document.createElement('a')
+          a.setAttribute('href', url)
+          a.setAttribute('download', 'parsed.csv');
+          // uncomment next line to download file
+          // a.click()
+        }
+        //disable timeout to download instantly
+        setTimeout(() => download(result), 3000)
+        // console.log(res)
+      })
     },
     updateFileName() {
       this.$store.commit('setFileName', this.fileName)

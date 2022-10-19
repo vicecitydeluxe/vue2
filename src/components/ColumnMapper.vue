@@ -205,7 +205,6 @@
 <script>
 import tgMixin from "@/mixins/tgMixin";
 import {mapGetters} from 'vuex'
-import Vue from "vue";
 
 const globalTelegram = window.Telegram.WebApp
 
