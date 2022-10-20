@@ -30,30 +30,38 @@
     <div class="input_container" v-if="showQR">
       <p class="input_container_section">
         <label for="paymentAddress">Payment Address: </label>
-        <InputText readonly="readonly"
-                   id="paymentAddress"
-                   v-model="paymentAddress"
-                   style="width: auto; margin-bottom: 0;"/>
-        <Button @click="copy(paymentAddress)"
-                class="p-button"
-                icon="pi pi-copy"/>
+        <InputText
+            readonly="readonly"
+            id="paymentAddress"
+            v-model="paymentAddress"
+            style="width: auto; margin-bottom: 0;"
+        />
+        <Button
+            @click="copy(paymentAddress)"
+            class="p-button"
+            icon="pi pi-copy"
+        />
       </p>
       <p class="input_container_section">
         <label for="paymentAmount">Payment Amount: </label>
-        <InputText readonly="readonly"
-                   id="paymentAmount"
-                   v-model="paymentAmount"
-                   style="width: auto;
-                    margin-bottom: 0;"/>
-        <Button @click="copy(paymentAmount)"
-                class="p-button"
-                icon="pi pi-copy"/>
+        <InputText
+            readonly="readonly"
+            id="paymentAmount"
+            v-model="paymentAmount"
+            style="width: auto; margin-bottom: 0;"
+        />
+        <Button
+            @click="copy(paymentAmount)"
+            class="p-button"
+            icon="pi pi-copy"
+        />
       </p>
       <qrcode-vue
           v-if="showQR"
           :value="value"
           :size="size"
-          level="H"></qrcode-vue>
+          level="H">
+      </qrcode-vue>
       <Toast position="bottom-center"/>
     </div>
     <!--    <button @click="updateBalanceAmount">Test</button>-->
@@ -85,7 +93,12 @@ export default {
   methods: {
     copy(text) {
       navigator.clipboard.writeText(text);
-      this.$toast.add({severity: 'info', summary: 'Notification', detail: 'Value copied to clipboard!', life: 1500});
+      this.$toast.add({
+        severity: 'info',
+        summary: 'Notification',
+        detail: 'Value copied to clipboard!',
+        life: 1500
+      });
     },
     updateBalanceAmount() {
       this.$store.dispatch('SEND_BALANCE', this.amount)

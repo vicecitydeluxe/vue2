@@ -2,9 +2,11 @@
   <section class="container">
     <div class="container_top">
       <span class="container_title">#192 MegaSeller</span>
-      <ToggleButton v-model="checked"
-                    onLabel="Include"
-                    offLabel="Exclude"/>
+      <ToggleButton
+          v-model="checked"
+          onLabel="Include"
+          offLabel="Exclude"
+      />
     </div>
     <div class="container_bottom">
       <span>Rating: ++++-</span>
@@ -12,7 +14,6 @@
       <span>You bought5: 1 list, 1670 leads</span>
     </div>
   </section>
-
 </template>
 
 <script>
@@ -41,11 +42,15 @@ export default {
     },
   },
   created() {
-    globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
+    globalTelegram.colorScheme === "light"
+        ? this.darkModeSwitch = false
+        : this.darkModeSwitch = true;
   },
   mounted() {
     globalTelegram.onEvent('themeChanged', () => {
-      globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
+      globalTelegram.colorScheme === "light"
+          ? this.darkModeSwitch = false
+          : this.darkModeSwitch = true;
     })
   }
 }

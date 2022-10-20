@@ -17,53 +17,71 @@
       </div>
     </header>
     <main class="layout">
-      <Button icon="pi pi-download"
-              label="Withdrawal"
-              iconPos="top"
-              class="p-button-lg"
-              @click="showPopupAlert"/>
-      <Button icon="pi pi-copy"
-              label="Transactions"
-              iconPos="top"
-              class="p-button-lg"
-              @click="showPopupAlert"/>
-      <Button icon="pi pi-wallet"
-              label="Topup"
-              iconPos="top"
-              class="p-button-lg"
-              @click="$router.push({name:'balance'})"/>
-      <Button icon="pi pi-list"
-              label="My deals"
-              iconPos="top"
-              class="p-button-lg"
-              @click="$router.push({name: 'lists'})"/>
-      <Button icon="pi pi-users"
-              label="My lists"
-              iconPos="top"
-              class="p-button-lg"
-              @click="$router.push({name: 'uploadLayout'})"/>
-      <Button icon="pi pi-database"
-              label="Sell leads"
-              iconPos="top"
-              class="p-button-lg"
-              @click="$router.push({name: 'results'})"/>
-      <Button icon="pi pi-briefcase"
-              label="My deals"
-              iconPos="top"
-              class="p-button-lg"
-              @click="$router.push({name: 'sellers'})"/>
-      <Button icon="pi pi-globe"
-              label="Marketplace"
-              iconPos="top"
-              class="p-button-lg"
-              @click="$router.push({name: 'finder'})"/>
-      <Button icon="pi pi-shopping-cart"
-              label="Buy leads"
-              iconPos="top"
-              class="p-button-lg"
-              @click="$router.push({name: 'buy'})"/>
+      <Button
+          icon="pi pi-download"
+          label="Withdrawal"
+          iconPos="top"
+          class="p-button-lg"
+          @click="showPopupAlert"
+      />
+      <Button
+          icon="pi pi-copy"
+          label="Transactions"
+          iconPos="top"
+          class="p-button-lg"
+          @click="showPopupAlert"
+      />
+      <Button
+          icon="pi pi-wallet"
+          label="Topup"
+          iconPos="top"
+          class="p-button-lg"
+          @click="$router.push({name:'balance'})"
+      />
+      <Button
+          icon="pi pi-list"
+          label="My deals"
+          iconPos="top"
+          class="p-button-lg"
+          @click="$router.push({name: 'lists'})"
+      />
+      <Button
+          icon="pi pi-users"
+          label="My lists"
+          iconPos="top"
+          class="p-button-lg"
+          @click="$router.push({name: 'uploadLayout'})"
+      />
+      <Button
+          icon="pi pi-database"
+          label="Sell leads"
+          iconPos="top"
+          class="p-button-lg"
+          @click="$router.push({name: 'results'})"
+      />
+      <Button
+          icon="pi pi-briefcase"
+          label="My deals"
+          iconPos="top"
+          class="p-button-lg"
+          @click="$router.push({name: 'sellers'})"
+      />
+      <Button
+          icon="pi pi-globe"
+          label="Marketplace"
+          iconPos="top"
+          class="p-button-lg"
+          @click="$router.push({name: 'finder'})"
+      />
+      <Button
+          icon="pi pi-shopping-cart"
+          label="Buy leads"
+          iconPos="top"
+          class="p-button-lg"
+          @click="$router.push({name: 'buy'})"
+      />
     </main>
-<!--    <button @click="getAllNAmes">Test</button>-->
+    <!--    <button @click="getAllNAmes">Test</button>-->
   </div>
 </template>
 

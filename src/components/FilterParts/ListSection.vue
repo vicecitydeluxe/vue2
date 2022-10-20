@@ -31,11 +31,15 @@ export default {
     }
   },
   created() {
-    globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
+    globalTelegram.colorScheme === "light"
+        ? this.darkModeSwitch = false
+        : this.darkModeSwitch = true;
   },
   mounted() {
     globalTelegram.onEvent('themeChanged', () => {
-      globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
+      globalTelegram.colorScheme === "light"
+          ? this.darkModeSwitch = false
+          : this.darkModeSwitch = true;
     })
   },
   watch: {

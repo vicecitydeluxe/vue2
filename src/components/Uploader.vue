@@ -27,28 +27,33 @@
       </h6>
     </div>
 
-    <DataTable v-if="parsed"
-               :value="slicedArray"
-               responsiveLayout="scroll">
-      <Column v-for="col of columns"
-              :field="col.field"
-              :header="col.header"
-              :key="col.id"
-              :headerStyle="darkModeSwitch ? {'background': '#494C57'} : {}"
-              :bodyStyle=" darkModeSwitch ? {'color': 'white','background': '#32343A' } : {}"
+    <DataTable
+        v-if="parsed"
+        :value="slicedArray"
+        responsiveLayout="scroll"
+    >
+      <Column
+          v-for="col of columns"
+          :field="col.field"
+          :header="col.header"
+          :key="col.id"
+          :headerStyle="darkModeSwitch ? {'background': '#494C57'} : {}"
+          :bodyStyle=" darkModeSwitch ? {'color': 'white','background': '#32343A' } : {}"
       />
     </DataTable>
     <!--    <button @click="$router.push({name: 'mapper'})">Test</button>-->
     <div v-if="parsed" class="paginator_container">
-      <Button class="p-button-text"
-              label="< Show previous"
-              @click="paginationBackward"
-              v-if="currentPage !== 1"
+      <Button
+          class="p-button-text"
+          label="< Show previous"
+          @click="paginationBackward"
+          v-if="currentPage !== 1"
       />
-      <Button class="p-button-text"
-              label="Show next >"
-              @click="paginationForward"
-              v-if="currentPage !== lastPageProp"
+      <Button
+          class="p-button-text"
+          label="Show next >"
+          @click="paginationForward"
+          v-if="currentPage !== lastPageProp"
       />
     </div>
   </div>
@@ -159,7 +164,9 @@ export default {
       return Math.ceil(this.parsedDataLength / this.itemsPerPage)
     },
     toProp() {
-      return this.currentPage * this.itemsPerPage < this.parsedDataLength ? this.currentPage * this.itemsPerPage : this.parsedDataLength
+      return this.currentPage * this.itemsPerPage < this.parsedDataLength
+          ? this.currentPage * this.itemsPerPage
+          : this.parsedDataLength
     },
   },
   watch: {

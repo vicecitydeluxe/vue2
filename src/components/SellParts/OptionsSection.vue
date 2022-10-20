@@ -22,11 +22,15 @@ export default {
     }
   },
   created() {
-    globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
+    globalTelegram.colorScheme === "light"
+        ? this.darkModeSwitch = false
+        : this.darkModeSwitch = true;
   },
   mounted() {
     globalTelegram.onEvent('themeChanged', () => {
-      globalTelegram.colorScheme === "light" ? this.darkModeSwitch = false : this.darkModeSwitch = true;
+      globalTelegram.colorScheme === "light"
+          ? this.darkModeSwitch = false
+          : this.darkModeSwitch = true;
     })
   },
   watch: {
@@ -50,6 +54,7 @@ export default {
   border-radius: 7px;
   margin-bottom: 25px;
   margin-top: 15px;
+
   &_dark {
     padding: 15px;
     color: white;

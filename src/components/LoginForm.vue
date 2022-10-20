@@ -6,10 +6,11 @@
         <form class="p-fluid">
           <div class="p-field">
             <div class="p-float-label">
-              <InputText id="name"
-                         v-model="userInfo.username"
-                         @keyup="updateUsername"
-                         :class="[validInput ? 'p-inputtext ' : 'p-invalid']"
+              <InputText
+                  id="name"
+                  v-model="userInfo.username"
+                  @keyup="updateUsername"
+                  :class="[validInput ? 'p-inputtext ' : 'p-invalid']"
               />
               <label for="name">You may choose alternative
                 username*</label>
@@ -17,11 +18,13 @@
             <small v-if="!validInput"
                    class="p-error">Min 5 characters required</small>
           </div>
-          <Button :disabled='!isDisabledButton || !respondSuccess'
-                  @click="setUserName"
-                  type="button"
-                  label="Register"
-                  class="p-mt-2"/>
+          <Button
+              :disabled='!isDisabledButton || !respondSuccess'
+              @click="setUserName"
+              type="button"
+              label="Register"
+              class="p-mt-2"
+          />
         </form>
       </div>
     </div>

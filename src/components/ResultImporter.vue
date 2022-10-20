@@ -12,14 +12,16 @@
         {{ this.todayDate }}
       </div>
       <div class="description_divider">Lead loading results</div>
-      <DataTable :value="privateResults"
-                 responsiveLayout="scroll">
-        <Column v-for="col of privateColumns"
-                :field="col.field"
-                :header="col.header"
-                :key="col.field"
-                :headerStyle="darkModeSwitch ? {'background': '#494C57'} : {}"
-                :bodyStyle=" darkModeSwitch ? {'color': 'white','background': '#32343A' } : {}"
+      <DataTable
+          :value="privateResults"
+          responsiveLayout="scroll">
+        <Column
+            v-for="col of privateColumns"
+            :field="col.field"
+            :header="col.header"
+            :key="col.field"
+            :headerStyle="darkModeSwitch ? {'background': '#494C57'} : {}"
+            :bodyStyle=" darkModeSwitch ? {'color': 'white','background': '#32343A' } : {}"
         />
       </DataTable>
       <hr class="hidden">
@@ -52,30 +54,34 @@
 
       <div class="description_divider">Public statistics</div>
       <div class="description">Numbers are valid
-        at the time of loading on {{ this.todayDate }}</div>
+        at the time of loading on {{ this.todayDate }}
+      </div>
       <div class="description_divider">Leads age</div>
-      <DataTable :value="publicResults"
-                 responsiveLayout="scroll">
-        <Column v-for="col of publicColumns"
-                :field="col.field"
-                :header="col.header"
-                :key="col.field"
-                :headerStyle="darkModeSwitch ? {'background': '#494C57'} : {}"
-                :bodyStyle=" darkModeSwitch ? {'color': 'white','background': '#32343A' } : {}"
+      <DataTable
+          :value="publicResults"
+          responsiveLayout="scroll">
+        <Column
+            v-for="col of publicColumns"
+            :field="col.field"
+            :header="col.header"
+            :key="col.field"
+            :headerStyle="darkModeSwitch ? {'background': '#494C57'} : {}"
+            :bodyStyle=" darkModeSwitch ? {'color': 'white','background': '#32343A' } : {}"
         />
-        <
       </DataTable>
       <hr class="hidden">
       <div class="description_divider">Uniqueness</div>
-      <DataTable :value="uniqueResults"
-                 responsiveLayout="scroll">
-        <Column v-for="col of uniqueColumns"
-                :field="col.field"
-                :header="col.header"
-                :key="col.field"
-                :headerStyle="darkModeSwitch ? {'background': '#494C57'} : {}"
-                :bodyStyle=" darkModeSwitch ? {'color': 'white','background': '#32343A' } : {}"
-        ></Column>
+      <DataTable
+          :value="uniqueResults"
+          responsiveLayout="scroll">
+        <Column
+            v-for="col of uniqueColumns"
+            :field="col.field"
+            :header="col.header"
+            :key="col.field"
+            :headerStyle="darkModeSwitch ? {'background': '#494C57'} : {}"
+            :bodyStyle=" darkModeSwitch ? {'color': 'white','background': '#32343A' } : {}"
+        />
       </DataTable>
     </main>
   </div>

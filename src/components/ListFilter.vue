@@ -8,8 +8,9 @@
       <div class="button-container">
         <button class="button_left"
                 v-model="checked"
-                @click="checked
-                 = !checked">Any seller</button>
+                @click="checked = !checked"
+        >Any seller
+        </button>
         <button class="button_middle">Choose</button>
         <button class="button_right">Exclude</button>
       </div>
@@ -21,6 +22,7 @@
 
 <script>
 import tgMixin from "@/mixins/tgMixin";
+
 const globalTelegram = window.Telegram.WebApp
 
 export default {

@@ -12,57 +12,62 @@
       </div>
       <div class="map_container">
         <div class="map_container_title">First name</div>
-        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
-                  @change="firstNameValidator"
-                  v-model="selectedFirstName"
-                  placeholder="name"
-                  :options="firstNames"
-                  optionLabel="name"
-                  @before-show="toggleDarkDropdown"
+        <Dropdown
+            :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
+            @change="firstNameValidator"
+            v-model="selectedFirstName"
+            placeholder="name"
+            :options="firstNames"
+            optionLabel="name"
+            @before-show="toggleDarkDropdown"
         />
       </div>
       <div class="map_container">
         <div class="map_container_title">Last name</div>
-        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
-                  @change="lastNameValidator"
-                  v-model="selectedLastName"
-                  placeholder="last_name"
-                  :options="lastNames"
-                  optionLabel="name"
-                  @before-show="toggleDarkDropdown"
+        <Dropdown
+            :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
+            @change="lastNameValidator"
+            v-model="selectedLastName"
+            placeholder="last_name"
+            :options="lastNames"
+            optionLabel="name"
+            @before-show="toggleDarkDropdown"
         />
       </div>
       <div class="map_container">
         <div class="map_container_title">Full name</div>
-        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
-                  @change="fullNameValidator"
-                  v-model="selectedFullName"
-                  placeholder="(select)"
-                  :options="fullNames"
-                  optionLabel="name"
-                  @before-show="toggleDarkDropdown"
+        <Dropdown
+            :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
+            @change="fullNameValidator"
+            v-model="selectedFullName"
+            placeholder="(select)"
+            :options="fullNames"
+            optionLabel="name"
+            @before-show="toggleDarkDropdown"
         />
       </div>
       <div class="map_container">
         <div class="map_container_title">Email</div>
-        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
-                  @change="emailValidator"
-                  v-model="selectedEmail"
-                  placeholder="email"
-                  :options="emails"
-                  optionLabel="name"
-                  @before-show="toggleDarkDropdown"
+        <Dropdown
+            :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
+            @change="emailValidator"
+            v-model="selectedEmail"
+            placeholder="email"
+            :options="emails"
+            optionLabel="name"
+            @before-show="toggleDarkDropdown"
         />
       </div>
       <div class="map_container">
         <div class="map_container_title">Phone number</div>
-        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
-                  @change="phoneNumberValidator"
-                  v-model="selectedPhoneNumber"
-                  placeholder="phone"
-                  :options="phoneNumbers"
-                  optionLabel="name"
-                  @before-show="toggleDarkDropdown"
+        <Dropdown
+            :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
+            @change="phoneNumberValidator"
+            v-model="selectedPhoneNumber"
+            placeholder="phone"
+            :options="phoneNumbers"
+            optionLabel="name"
+            @before-show="toggleDarkDropdown"
         />
       </div>
       <div class="map_container">
@@ -77,86 +82,94 @@
           <label class="sub_map_container_divider" for="load">Load</label>
         </div>
 
-        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
-                  @change="countryValidator"
-                  v-model="selectedCountry"
-                  placeholder="country"
-                  :options="countries"
-                  optionLabel="name"
-                  @before-show="toggleDarkDropdown"
+        <Dropdown
+            :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
+            @change="countryValidator"
+            v-model="selectedCountry"
+            placeholder="country"
+            :options="countries"
+            optionLabel="name"
+            @before-show="toggleDarkDropdown"
         />
       </div>
       <div class="sub_map_container">
         <div class="field-checkbox">
           <label for="binary">set empty to</label>
         </div>
-        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
-                  v-model="selectedCountryFromList"
-                  placeholder="GB UK"
-                  :options="countriesList"
-                  optionLabel="name"
-                  @before-show="toggleDarkDropdown"
+        <Dropdown
+            :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
+            v-model="selectedCountryFromList"
+            placeholder="GB UK"
+            :options="countriesList"
+            optionLabel="name"
+            @before-show="toggleDarkDropdown"
         />
       </div>
       <div class="sub_map_container">
         <div>
-          <RadioButton id="all_to"
-                       value="set_all_to"
-                       v-model="checkedCountry"
-                       @click="toggleDarkDropdown"
+          <RadioButton
+              id="all_to"
+              value="set_all_to"
+              v-model="checkedCountry"
+              @click="toggleDarkDropdown"
           />
           <label class="sub_map_container_divider"
                  for="all_to">Set all to</label>
         </div>
-        <Dropdown :class="[ darkModeSwitch ? 'map_container_dropdown_dark' : 'map_container_dropdown']"
-                  v-model="selectedCountryFromList"
-                  placeholder="(choose)"
-                  :options="countriesList"
-                  optionLabel="name"
-                  @before-show="toggleDarkDropdown"
+        <Dropdown
+            :class="[ darkModeSwitch ? 'map_container_dropdown_dark' : 'map_container_dropdown']"
+            v-model="selectedCountryFromList"
+            placeholder="(choose)"
+            :options="countriesList"
+            optionLabel="name"
+            @before-show="toggleDarkDropdown"
         />
       </div>
       <div class="map_container">
         <div class="map_container_title">Reg date</div>
 
         <div>
-          <RadioButton id="all_to"
-                       value="load"
-                       v-model="checkedRegDate"
-                       @click="toggleDarkDropdown"
+          <RadioButton
+              id="all_to"
+              value="load"
+              v-model="checkedRegDate"
+              @click="toggleDarkDropdown"
           />
           <label class="sub_map_container_divider"
                  for="all_to">Set all to</label>
         </div>
 
         <span class="p-input-icon-right">
-          <InputMask inputmode="decimal"
-                     :class="[ darkModeSwitch ? 'input_mask_dark' : 'input_mask']"
-                     mask="99/99/9999"
-                     v-model="registrationDate"
-                     placeholder="  /  /    "
-                     slotChar="mm/dd/yyyy"/>
+          <InputMask
+              inputmode="decimal"
+              :class="[ darkModeSwitch ? 'input_mask_dark' : 'input_mask']"
+              mask="99/99/9999"
+              v-model="registrationDate"
+              placeholder="  /  /    "
+              slotChar="mm/dd/yyyy"/>
         <i class="pi pi-calendar"></i>
         </span>
       </div>
       <div class="sub_map_container">
 
         <div>
-          <RadioButton id="load"
-                       value="set_all_to"
-                       v-model="checkedRegDate"
-                       @click="toggleDarkDropdown"
+          <RadioButton
+              id="load"
+              value="set_all_to"
+              v-model="checkedRegDate"
+              @click="toggleDarkDropdown"
           />
           <label class="radio_label_divider"
                  for="load">Load</label>
         </div>
 
-        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
-                  v-model="selectedRegDate"
-                  placeholder="reg"
-                  :options="regGateList"
-                  optionLabel="name"
-                  @before-show="toggleDarkDropdown"
+        <Dropdown
+            :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
+            v-model="selectedRegDate"
+            placeholder="reg"
+            :options="regGateList"
+            optionLabel="name"
+            @before-show="toggleDarkDropdown"
         />
       </div>
       <div class="map_container">
@@ -164,24 +177,26 @@
           <label for="binary">set empty or broken to</label>
         </div>
         <span class="p-input-icon-right">
-                  <InputMask inputmode="decimal"
-                             :class="[ darkModeSwitch ? 'input_mask_dark' : 'input_mask']"
-                             mask="99/99/9999"
-                             v-model="emptyDateSetter"
-                             placeholder="  /  /    "
-                             slotChar="mm/dd/yyyy"
+                  <InputMask
+                      inputmode="decimal"
+                      :class="[ darkModeSwitch ? 'input_mask_dark' : 'input_mask']"
+                      mask="99/99/9999"
+                      v-model="emptyDateSetter"
+                      placeholder="  /  /    "
+                      slotChar="mm/dd/yyyy"
                   />
         <i class="pi pi-calendar"></i>
         </span>
       </div>
       <div class="map_container">
         <div class="map_container_title">Deposit/sales date</div>
-        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
-                  v-model="selectedDeposit"
-                  placeholder="ftd"
-                  :options="deposits"
-                  optionLabel="name"
-                  @before-show="toggleDarkDropdown"
+        <Dropdown
+            :class="[ darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown']"
+            v-model="selectedDeposit"
+            placeholder="ftd"
+            :options="deposits"
+            optionLabel="name"
+            @before-show="toggleDarkDropdown"
         />
       </div>
       <div class="bottom_section_container">
