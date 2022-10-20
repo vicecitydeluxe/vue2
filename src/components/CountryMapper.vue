@@ -8,23 +8,31 @@
       <hr class="name_divider">
       <div class="section_divider">File: {{ fileName }}</div>
       <div class="description">Unknown countries have been found.
-        Map them.</div>
+        Map them.
+      </div>
       <div class="map_container"><h5>IRLA</h5>
-        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'dropdown']"
-                  v-model="selectedCountry"
-                  placeholder="Ireland"
-                  :options="countries"
-                  optionLabel="name"/>
+        <Dropdown
+            :class="[ darkModeSwitch ? 'dropdown_dark' : 'dropdown']"
+            v-model="selectedCountry"
+            placeholder="Ireland"
+            :options="countries"
+            optionLabel="name"
+            @before-show="toggleDarkDropdown"
+        />
       </div>
       <div class="map_container"><h5>UK</h5>
-        <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : 'dropdown']"
-                  v-model="selectedCountry"
-                  placeholder="GB"
-                  :options="countries"
-                  optionLabel="name"/>
+        <Dropdown
+            :class="[ darkModeSwitch ? 'dropdown_dark' : 'dropdown']"
+            v-model="selectedCountry"
+            placeholder="GB"
+            :options="countries"
+            optionLabel="name"
+            @before-show="toggleDarkDropdown"
+        />
       </div>
       <div class="description">This is the final step
-        which will load leads to the DB.</div>
+        which will load leads to the DB.
+      </div>
     </main>
   </div>
 </template>
@@ -40,6 +48,7 @@ export default {
   mixins: [tgMixin],
   data() {
     return {
+      darkDropdown: 0,
       selectedCountry: null,
       countries: [
         {name: 'Ireland'},
@@ -48,6 +57,9 @@ export default {
     }
   },
   methods: {
+    toggleDarkDropdown() {
+      this.darkDropdown++
+    },
     redirectCb() {
       this.$router.push({name: 'mapper'})
     },
@@ -59,6 +71,32 @@ export default {
     ...mapGetters(['listName', "fileName"]),
   },
   watch: {
+    darkDropdown: {
+      handler() {
+        if (this.darkDropdown && this.darkModeSwitch) {
+          setTimeout(() => {
+            document.querySelectorAll('.p-placeholder').forEach(e => e.classList.add('p-placeholder_dark'))
+            document.querySelectorAll('.pi-chevron-down').forEach(e => e.classList.add('pi-chevron-down_dark'))
+            document.querySelectorAll('.p-dropdown-item').forEach(e => e.classList.add('p-dropdown-item_dark'))
+            document.querySelectorAll('.p-inputtext').forEach(e => e.classList.add('p-inputtext_dark'))
+            document.querySelectorAll('.p-highlight').forEach(e => e.classList.add('p-highlight_dark'))
+          }, 0)
+        }
+      }, deep: true
+    },
+    $data: {
+      handler() {
+        if (this.darkModeSwitch) {
+          setTimeout(() => {
+            document.querySelectorAll('.p-placeholder').forEach(e => e.classList.add('p-placeholder_dark'))
+            document.querySelectorAll('.pi-chevron-down').forEach(e => e.classList.add('pi-chevron-down_dark'))
+            document.querySelectorAll('.p-dropdown-item').forEach(e => e.classList.add('p-dropdown-item_dark'))
+            document.querySelectorAll('.p-inputtext').forEach(e => e.classList.add('p-inputtext_dark'))
+            document.querySelectorAll('.p-highlight').forEach(e => e.classList.add('p-highlight_dark'))
+          }, 0)
+        }
+      }, deep: true
+    },
     selectedCountry: {
       handler(newValue) {
         if (newValue) {
@@ -71,9 +109,19 @@ export default {
     darkModeSwitch: {
       handler(newValue) {
         if (newValue) {
+          document.querySelectorAll('.p-placeholder').forEach(e => e.classList.add('p-placeholder_dark'))
+          document.querySelectorAll('.pi-chevron-down').forEach(e => e.classList.add('pi-chevron-down_dark'))
+          document.querySelectorAll('.p-dropdown-item').forEach(e => e.classList.add('p-dropdown-item_dark'))
+          document.querySelectorAll('.p-inputtext').forEach(e => e.classList.add('p-inputtext_dark'))
+          document.querySelectorAll('.p-highlight').forEach(e => e.classList.add('p-highlight_dark'))
           document.querySelectorAll('.description').forEach(e => e.classList.add('description_dark'))
         }
         if (!newValue) {
+          document.querySelectorAll('.p-placeholder').forEach(e => e.classList.remove('p-placeholder_dark'))
+          document.querySelectorAll('.pi-chevron-down').forEach(e => e.classList.remove('pi-chevron-down_dark'))
+          document.querySelectorAll('.p-dropdown-item').forEach(e => e.classList.remove('p-dropdown-item_dark'))
+          document.querySelectorAll('.p-inputtext').forEach(e => e.classList.remove('p-inputtext_dark'))
+          document.querySelectorAll('.p-highlight').forEach(e => e.classList.remove('p-highlight_dark'))
           document.querySelectorAll('.description_dark').forEach(e => e.classList.remove('description_dark'))
         }
       },

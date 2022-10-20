@@ -210,7 +210,6 @@ export default {
           document.querySelectorAll('.p-placeholder').forEach(e => e.classList.add('p-placeholder_dark'))
           document.querySelectorAll('.pi-chevron-down').forEach(e => e.classList.add('pi-chevron-down_dark'))
           document.querySelectorAll('.p-dropdown-item').forEach(e => e.classList.add('p-dropdown-item_dark'))
-
           document.querySelectorAll('.p-highlight').forEach(e => e.classList.add('p-highlight_dark'))
           document.querySelectorAll('.p-fluid').forEach(e => e.classList.add('p-fluid-dark'))
           document.querySelectorAll('.p-inputtext').forEach(e => e.classList.add('p-inputtext-dark'))
