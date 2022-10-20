@@ -69,7 +69,7 @@
     height: 38px;
     color: white;
     background: #494C57;
-    border-bottom: 1px solid #DEE2E6;
+    border-bottom: 1px solid #4B4B4B;
     border-radius: 7px 7px 0 0;
   }
 
@@ -166,7 +166,7 @@
     height: 38px;
     background: #494C57;
     color: white;
-    border-bottom: 1px solid #DEE2E6;
+    border-bottom: 1px solid #4B4B4B;
     border-radius: 7px 7px 0 0;
   }
 }
@@ -180,13 +180,13 @@
 }
 
 .input {
-  width: 50%;
+  width: 40%;
   height: 38px;
   border: 1px solid #CED4DA;
   border-radius: 7px;
 
   &_dark {
-    width: 50%;
+    width: 40%;
     height: 38px;
     border: 1px solid #CED4DA;
     border-radius: 7px;
@@ -416,4 +416,5 @@
   background: #282828;
   color: white;
 }
+
 //TODO fix styles (border-color, limit section, radio-buttons, dropdown)
