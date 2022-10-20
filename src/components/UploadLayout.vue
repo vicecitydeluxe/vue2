@@ -5,28 +5,35 @@
     </header>
     <main>
       <h6>List name (visible to you)</h6>
-      <InputText enterkeyhint="enter"
-                 @keyup="updateListName"
-                 :class="[validListName ? 'p-input_text ' : 'p-invalid']"
-                 type="text"
-                 v-model="listName"/>
+      <InputText
+          enterkeyhint="enter"
+          @keyup="updateListName"
+          :class="[validListName ? 'p-input_text ' : 'p-invalid']"
+          type="text"
+          v-model="listName"
+      />
       <small v-if="!validListName"
              class="p-error">Min 5 characters required</small>
 
       <h6>List description (visible to buyers)</h6>
-      <InputText enterkeyhint="enter"
-                 :class="[validListDescription ? 'p-input_text ' : 'p-invalid']"
-                 type="text"
-                 v-model="listDescription"/>
+      <InputText
+          enterkeyhint="enter"
+          :class="[validListDescription ? 'p-input_text ' : 'p-invalid']"
+          type="text"
+          v-model="listDescription"
+      />
       <small v-if="!validListDescription"
              class="p-error">Min 5 characters required</small>
 
       <h6>Vertical</h6>
-      <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : '']"
-                v-model="selectedCrypto"
-                placeholder="Select a crypto"
-                :options="cryptoPairs"
-                optionLabel="name"/>
+      <Dropdown
+          :disabled="!respondSuccess"
+          :class="[ darkModeSwitch ? 'dropdown_dark' : '']"
+          v-model="selectedCrypto"
+          placeholder="Select a crypto"
+          :options="cryptoPairs"
+          optionLabel="name"
+      />
       <h6>Type</h6>
       <div class="button_container">
         <button class="btn_left">Registrations</button>
@@ -35,26 +42,30 @@
       </div>
 
       <h6>Funnel type</h6>
-      <Dropdown :class="[ darkModeSwitch ? 'dropdown_dark' : '']"
-                v-model="selectedFunnel"
-                placeholder="Unknown"
-                :options="funnels"
-                optionLabel="name"/>
+      <Dropdown
+          :disabled="!respondSuccess"
+          :class="[ darkModeSwitch ? 'dropdown_dark' : '']"
+          v-model="selectedFunnel"
+          placeholder="Unknown"
+          :options="funnels"
+          optionLabel="name"
+      />
     </main>
-<!--        <button @click="sendList">Test</button>-->
+    <!--    <button @click="sendList">Test</button>-->
     <Toast position="bottom-center"/>
   </div>
 </template>
 
 <script>
 import tgMixin from "@/mixins/tgMixin";
+import toastWarn from "@/mixins/toastWarn";
 import {mapGetters} from 'vuex'
 
 const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "UploadLayout",
-  mixins: [tgMixin],
+  mixins: [tgMixin, toastWarn],
   data() {
     return {
       listName: 'CM DE May 2022 depositors',
@@ -77,18 +88,29 @@ export default {
   },
   methods: {
     getaAllLists() {
-      this.$store.dispatch('GET_ALL_LISTS').then(() => {
-
-        const lastListAdded = this.allLists[this.allLists.length - 1]
-        this.listName = lastListAdded.name
-        this.listDescription = lastListAdded.filename
-        this.$toast.add({
-          severity: 'info',
-          summary: 'Notification',
-          detail: 'Last session list name was restored!',
-          life: 2500
-        });
-      })
+      this.$store.dispatch('GET_ALL_LISTS')
+          .then((res) => {
+            if (res.data.error === 'NOT_FOUND' || res.data.error === 'FORBIDDEN') {
+              console.log(res.data.error)
+              setTimeout(() => {
+                this.showWarnToast()
+              }, 2000)
+            } else {
+              this.respondSuccess = true
+              const lastListAdded = this.allLists[this.allLists.length - 1]
+              this.listName = lastListAdded.name
+              this.listDescription = lastListAdded.filename
+              this.$toast.add({
+                severity: 'info',
+                summary: 'Notification',
+                detail: 'Last session list name was restored!',
+                life: 2500
+              });
+            }
+          })
+          .catch((err) => {
+            console.log(err)
+          })
     },
     redirectCb() {
       this.$router.push({name: 'layout'})
@@ -118,7 +140,13 @@ export default {
               });
             } else this.$router.push({name: 'uploader'})
           })
-          .catch((err) => console.log(err))
+          .catch((err) => {
+            this.showWarnToast()
+            setTimeout(() => {
+              this.$router.push({name: 'layout'})
+            }, 3000)
+            console.log(err)
+          })
     },
   },
   computed: {

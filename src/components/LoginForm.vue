@@ -17,7 +17,7 @@
             <small v-if="!validInput"
                    class="p-error">Min 5 characters required</small>
           </div>
-          <Button :disabled='!isDisabledButton'
+          <Button :disabled='!isDisabledButton || !respondSuccess'
                   @click="setUserName"
                   type="button"
                   label="Register"
@@ -25,17 +25,19 @@
         </form>
       </div>
     </div>
+    <Toast position="bottom-center"/>
   </div>
 </template>
 
 <script>
 import tgMixin from "@/mixins/tgMixin";
+import toastWarn from "@/mixins/toastWarn";
 
 const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "LoginForm",
-  mixins: [tgMixin],
+  mixins: [tgMixin, toastWarn],
   data() {
     return {
       showComponent: false,
@@ -58,14 +60,18 @@ export default {
     this.$store.dispatch('CHECK_NAME')
         .then((res) => {
           if (res.data.status === 200 || res.data?.error === 'ALREADY_REGISTERED') {
+            this.respondSuccess = true
             this.$router.push({name: 'layout'})
           } else if ((res.data.status === 400 && res.data.error === 'NOT_REGISTERED') || res.data.error === 'NOT_STARTED') {
+            this.respondSuccess = true
             this.showComponent = true
-          } else this.showComponent = true
+          } else {
+            this.showComponent = true
+          }
         })
         .catch((err) => {
-          console.log(`ERR: ${err}`)
           this.showComponent = true
+          console.log(`ERR: ${err}`)
         })
   },
   methods: {
