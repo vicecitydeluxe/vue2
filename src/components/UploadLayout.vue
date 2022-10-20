@@ -33,6 +33,7 @@
           placeholder="Select a crypto"
           :options="cryptoPairs"
           optionLabel="name"
+          @before-show="toggleDarkDropdown"
       />
       <h6>Type</h6>
       <div class="button_container">
@@ -49,6 +50,7 @@
           placeholder="Unknown"
           :options="funnels"
           optionLabel="name"
+          @before-show="toggleDarkDropdown"
       />
     </main>
     <!--    <button @click="sendList">Test</button>-->
@@ -68,6 +70,7 @@ export default {
   mixins: [tgMixin, toastWarn],
   data() {
     return {
+      darkDropdown: 0,
       listName: 'CM DE May 2022 depositors',
       listDescription: 'CFD May 2022 depositors',
       selectedCrypto: null,
@@ -87,6 +90,9 @@ export default {
     }
   },
   methods: {
+    toggleDarkDropdown() {
+      this.darkDropdown++
+    },
     getaAllLists() {
       this.$store.dispatch('GET_ALL_LISTS')
           .then((res) => {
@@ -163,6 +169,32 @@ export default {
     },
   },
   watch: {
+    darkDropdown: {
+      handler() {
+        if (this.darkDropdown && this.darkModeSwitch) {
+          setTimeout(() => {
+            document.querySelectorAll('.p-placeholder').forEach(e => e.classList.add('p-placeholder_dark'))
+            document.querySelectorAll('.pi-chevron-down').forEach(e => e.classList.add('pi-chevron-down_dark'))
+            document.querySelectorAll('.p-dropdown-item').forEach(e => e.classList.add('p-dropdown-item_dark'))
+            document.querySelectorAll('.p-inputtext').forEach(e => e.classList.add('p-inputtext_dark'))
+            document.querySelectorAll('.p-highlight').forEach(e => e.classList.add('p-highlight_dark'))
+          }, 0)
+        }
+      }, deep: true
+    },
+    $data: {
+      handler() {
+        if (this.darkModeSwitch) {
+          setTimeout(() => {
+            document.querySelectorAll('.p-placeholder').forEach(e => e.classList.add('p-placeholder_dark'))
+            document.querySelectorAll('.pi-chevron-down').forEach(e => e.classList.add('pi-chevron-down_dark'))
+            document.querySelectorAll('.p-dropdown-item').forEach(e => e.classList.add('p-dropdown-item_dark'))
+            document.querySelectorAll('.p-inputtext').forEach(e => e.classList.add('p-inputtext_dark'))
+            document.querySelectorAll('.p-highlight').forEach(e => e.classList.add('p-highlight_dark'))
+          }, 0)
+        }
+      }, deep: true
+    },
     validUploadButton: {
       handler(newValue, oldValue) {
         if (newValue) {
@@ -175,6 +207,11 @@ export default {
     darkModeSwitch: {
       handler(newValue) {
         if (newValue) {
+          document.querySelectorAll('.p-placeholder').forEach(e => e.classList.add('p-placeholder_dark'))
+          document.querySelectorAll('.pi-chevron-down').forEach(e => e.classList.add('pi-chevron-down_dark'))
+          document.querySelectorAll('.p-dropdown-item').forEach(e => e.classList.add('p-dropdown-item_dark'))
+
+          document.querySelectorAll('.p-highlight').forEach(e => e.classList.add('p-highlight_dark'))
           document.querySelectorAll('.p-fluid').forEach(e => e.classList.add('p-fluid-dark'))
           document.querySelectorAll('.p-inputtext').forEach(e => e.classList.add('p-inputtext-dark'))
           document.querySelectorAll('.p-filled').forEach(e => e.classList.add('p-filled-dark'))
@@ -186,6 +223,11 @@ export default {
           document.querySelectorAll('.btn_right').forEach(e => e.classList.add('btn_right_dark'))
         }
         if (!newValue) {
+          document.querySelectorAll('.p-placeholder').forEach(e => e.classList.remove('p-placeholder_dark'))
+          document.querySelectorAll('.pi-chevron-down').forEach(e => e.classList.remove('pi-chevron-down_dark'))
+          document.querySelectorAll('.p-dropdown-item').forEach(e => e.classList.remove('p-dropdown-item_dark'))
+          document.querySelectorAll('.p-highlight').forEach(e => e.classList.remove('p-highlight_dark'))
+          document.querySelectorAll('.p-inputtext').forEach(e => e.classList.remove('p-inputtext_dark'))
           document.querySelectorAll('.p-fluid-dark').forEach(e => e.classList.remove('p-fluid-dark'))
           document.querySelectorAll('.p-inputtext-dark').forEach(e => e.classList.remove('p-inputtext-dark'))
           document.querySelectorAll('.p-filled-dark').forEach(e => e.classList.remove('p-filled-dark'))
