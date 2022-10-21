@@ -6,6 +6,6 @@ const $axios = axios.create({
     // baseURL: '',
 });
 
-$axios.defaults.headers.common['authorization'] = JSON.stringify(globalTelegram.initDataUnsafe);
+$axios.defaults.headers.common['authorization'] = JSON.stringify(encodeURIComponent(JSON.stringify(globalTelegram.initDataUnsafe)));
 
 export default $axios
