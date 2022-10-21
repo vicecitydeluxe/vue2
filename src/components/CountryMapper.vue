@@ -117,12 +117,11 @@ export default {
           document.querySelectorAll('.description').forEach(e => e.classList.add('description_dark'))
         }
         if (!newValue) {
-          document.querySelectorAll('.p-placeholder').forEach(e => e.classList.remove('p-placeholder_dark'))
-          document.querySelectorAll('.pi-chevron-down').forEach(e => e.classList.remove('pi-chevron-down_dark'))
-          document.querySelectorAll('.p-dropdown-item').forEach(e => e.classList.remove('p-dropdown-item_dark'))
-          document.querySelectorAll('.p-inputtext').forEach(e => e.classList.remove('p-inputtext_dark'))
-          document.querySelectorAll('.p-highlight').forEach(e => e.classList.remove('p-highlight_dark'))
-          document.querySelectorAll('.description_dark').forEach(e => e.classList.remove('description_dark'))
+          const darkStylesSelectors = ['p-placeholder_dark', 'pi-chevron-down_dark',
+            'p-dropdown-item_dark', 'p-inputtext_dark',
+            'p-highlight_dark', 'description_dark']
+          document.querySelectorAll('[class*="_dark"]')
+              .forEach(e => e.classList.remove(...darkStylesSelectors))
         }
       },
     },

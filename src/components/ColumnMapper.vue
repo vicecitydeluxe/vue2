@@ -407,18 +407,13 @@ export default {
           document.querySelectorAll('.p-radiobutton-box').forEach(e => e.classList.add('p-radiobutton-box_dark'))
         }
         if (!newValue) {
-          document.querySelectorAll('.p-placeholder').forEach(e => e.classList.remove('p-placeholder_dark'))
-          document.querySelectorAll('.pi-chevron-down').forEach(e => e.classList.remove('pi-chevron-down_dark'))
-          document.querySelectorAll('.p-dropdown-item').forEach(e => e.classList.remove('p-dropdown-item_dark'))
-          document.querySelectorAll('.p-inputtext').forEach(e => e.classList.remove('p-inputtext_dark'))
-          document.querySelectorAll('.p-highlight').forEach(e => e.classList.remove('p-highlight_dark'))
-          document.querySelectorAll('.pi-calendar').forEach(e => e.classList.remove('pi-calendar_dark'))
-          document.querySelectorAll('.bottom_section_container_dark').forEach(e => e.classList.remove('bottom_section_container_dark'))
-          document.querySelectorAll('.description_dark').forEach(e => e.classList.remove('description_dark'))
-          document.querySelectorAll('.map_container_title_dark').forEach(e => e.classList.remove('map_container_title_dark'))
-          document.querySelectorAll('.btn_left_dark').forEach(e => e.classList.remove('btn_left_dark'))
-          document.querySelectorAll('.btn_right').forEach(e => e.classList.remove('btn_right_dark'))
-          document.querySelectorAll('.p-radiobutton-box').forEach(e => e.classList.remove('p-radiobutton-box_dark'))
+          const darkStylesSelectors = ['p-placeholder_dark', 'pi-chevron-down_dark',
+            'p-dropdown-item_dark', 'p-inputtext_dark', 'p-highlight_dark',
+            'pi-calendar_dark', 'bottom_section_container_dark', 'description_dark',
+            'map_container_title_dark', 'btn_left_dark',
+            'btn_right_dark', 'p-radiobutton-box_dark']
+          document.querySelectorAll('[class*="_dark"]')
+              .forEach(e => e.classList.remove(...darkStylesSelectors))
         }
       },
     },

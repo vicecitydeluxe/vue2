@@ -108,14 +108,12 @@ export default {
           document.querySelectorAll('.p-component').forEach(e => e.classList.add('p-component-dark'))
         }
         if (!newValue) {
-          document.querySelectorAll('.p-fluid-dark').forEach(e => e.classList.remove('p-fluid-dark'))
-          document.querySelectorAll('.p-inputtext-dark').forEach(e => e.classList.remove('p-inputtext-dark'))
-          document.querySelectorAll('.p-float-label-dark').forEach(e => e.classList.remove('p-float-label-dark'))
-          document.querySelectorAll('.p-filled-dark').forEach(e => e.classList.remove('p-filled-dark'))
-          document.querySelectorAll('.p-inputwrapper-focus-dark').forEach(e => e.classList.remove('p-inputwrapper-focus-dark'))
-          document.querySelectorAll('.p-inputwrapper-filled-dark').forEach(e => e.classList.remove('p-inputwrapper-filled-dark'))
-          document.querySelectorAll('.p-button-dark').forEach(e => e.classList.remove('p-button-dark'))
-          document.querySelectorAll('.p-component-dark').forEach(e => e.classList.remove('p-component-dark'))
+          const darkStylesSelectors = ['p-fluid-dark', 'p-inputtext-dark',
+            'p-float-label-dark', 'p-filled-dark',
+            'p-inputwrapper-focus-dark', 'p-inputwrapper-filled-dark',
+            'p-button-dark', 'p-component-dark']
+          document.querySelectorAll('[class*="-dark"]')
+              .forEach(e => e.classList.remove(...darkStylesSelectors))
         }
       },
     },
