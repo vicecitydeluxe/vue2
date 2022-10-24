@@ -468,6 +468,67 @@ input[type="number"]::-webkit-inner-spin-button {
   }
 }
 
+//** Calendar Dark Styles
+.p-calendar {
+  &_dark {
+    background: #282828;
+    border: 1px solid #CED4DA;
+  }
+}
+
+.p-calendar-w-btn {
+  .p-datepicker-trigger.p-button span {
+    color: #2563EB;
+  }
+
+  .p-inputtext {
+
+    &_dark {
+      color: white;
+    }
+  }
+}
+
+
+.p-datepicker {
+
+  &_dark {
+    table th > span {
+      color: white;
+    }
+
+    &:not(.p-datepicker-inline) {
+      background: #4B4B4B;
+      color: white;
+    }
+  }
+}
+
+.p-datepicker:not(.p-datepicker-inline) {
+  .p-datepicker-header {
+
+    &_dark {
+      color: white;
+      background: #282828;
+    }
+  }
+}
+
+.p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-year,
+.p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-month {
+  &_dark {
+    color: white;
+  }
+}
+
+.p-datepicker .p-datepicker-header .p-datepicker-prev,
+.p-datepicker .p-datepicker-header .p-datepicker-next {
+
+  &_dark {
+    color: white;
+  }
+}
+
 //** Other components global styles
 .p-radiobutton {
   .p-radiobutton-box {
@@ -476,6 +537,7 @@ input[type="number"]::-webkit-inner-spin-button {
       border: 2px solid #2563EB;
       background: #282828;
     }
+
     .p-radiobutton-icon {
       background-color: #2563eb;
     }
