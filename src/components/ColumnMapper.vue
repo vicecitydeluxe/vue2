@@ -138,17 +138,12 @@
           <label class="sub_map_container_divider"
                  for="all_to">Set all to</label>
         </div>
-
-        <span class="p-input-icon-right">
-          <InputMask
-              inputmode="decimal"
-              :class="[ darkModeSwitch ? 'input_mask_dark' : 'input_mask']"
-              mask="99/99/9999"
-              v-model="registrationDate"
-              placeholder="  /  /    "
-              slotChar="mm/dd/yyyy"/>
-        <i class="pi pi-calendar"></i>
-        </span>
+        <Calendar
+            id="icon"
+            v-model="registrationDate"
+            :showIcon="true"
+            :touchUI="true"
+        />
       </div>
       <div class="sub_map_container">
 
@@ -176,17 +171,12 @@
         <div class="field-checkbox">
           <label for="binary">set empty or broken to</label>
         </div>
-        <span class="p-input-icon-right">
-                  <InputMask
-                      inputmode="decimal"
-                      :class="[ darkModeSwitch ? 'input_mask_dark' : 'input_mask']"
-                      mask="99/99/9999"
-                      v-model="emptyDateSetter"
-                      placeholder="  /  /    "
-                      slotChar="mm/dd/yyyy"
-                  />
-        <i class="pi pi-calendar"></i>
-        </span>
+        <Calendar
+            id="icon"
+            v-model="brokenDate"
+            :showIcon="true"
+            :touchUI="true"
+        />
       </div>
       <div class="map_container">
         <div class="map_container_title">Deposit/sales date</div>
@@ -205,14 +195,23 @@
           contain sensitive data)
         </div>
         <div class="options_container">
-          <button class="btn_left">Don't include</button>
-          <button class="btn_right">Include</button>
+          <button
+              class="btn_left"
+              @click="includeExtra = false"
+          >Don't include
+          </button>
+          <button
+              class="btn_right"
+              @click="includeExtra = true"
+          >Include
+          </button>
         </div>
         <div>Other fields will be imported,
           stored and buyers will be able to see them after
           purchase these leads.
         </div>
       </div>
+      <Toast position="bottom-center"/>
     </main>
   </div>
 </template>
@@ -229,6 +228,7 @@ export default {
   data() {
     return {
       darkDropdown: 0,
+      includeExtra: null,
       selectedFirstName: null,
       selectedLastName: null,
       selectedFullName: null,
@@ -241,6 +241,7 @@ export default {
       checkedCountry: '',
       checkedRegDate: '',
       registrationDate: null,
+      brokenDate: null,
       emptyDateSetter: null,
       firstNames: [
         {name: 'firstname'},
@@ -348,10 +349,33 @@ export default {
     },
     actionCb() {
       if (this.$route.path === '/mapper') this.$router.push({name: 'country'})
-    }
+    },
+    showIncludedToast() {
+      this.$toast.add({
+        severity: 'info',
+        summary: 'Info message',
+        detail: ' Rest of the fields will be included!',
+        life: 2000
+      });
+    },
+    showWarnToast() {
+      this.$toast.add({
+        severity: 'warn',
+        summary: 'Info message',
+        detail: ' Rest of the fields will not be included!',
+        life: 2000
+      });
+    },
   },
   computed: {
     ...mapGetters(['listName', "fileName"]),
+    requiredFieldsFilled() {
+      if (this.selectedFirstName && this.selectedLastName
+          && this.selectedEmail && this.selectedPhoneNumber
+          && this.selectedCountry && this.selectedRegDate) {
+        return true
+      }
+    }
   },
   watch: {
     darkDropdown: {
@@ -381,13 +405,13 @@ export default {
         }
       }, deep: true
     },
-    checkedCountry: {
+    requiredFieldsFilled: {
       handler(newValue) {
         if (newValue) {
           globalTelegram.MainButton.setText('Next')
           globalTelegram.MainButton.color = '#16a34a'
           globalTelegram.MainButton.show()
-        }
+        } else globalTelegram.MainButton.hide()
       },
     },
     darkModeSwitch: {
@@ -417,6 +441,13 @@ export default {
         }
       },
     },
+    includeExtra: {
+      handler(newValue) {
+        if (newValue) {
+          this.showIncludedToast()
+        } else this.showWarnToast()
+      }
+    },
   },
   mounted() {
     // uncomment to see init variation of the $parsedHeaders
@@ -425,6 +456,7 @@ export default {
     // console.log(this.$parsedHeaders.split(','))
     globalTelegram.MainButton.onClick(this.actionCb)
     globalTelegram.BackButton.show().onClick(this.redirectCb)
+
   },
   beforeDestroy() {
     globalTelegram.MainButton.hide().offClick(this.actionCb)
