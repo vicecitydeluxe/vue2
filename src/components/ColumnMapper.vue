@@ -159,6 +159,7 @@
             v-model="registrationDate"
             :showIcon="true"
             :touchUI="true"
+            @hide="darkCalendar++"
         />
       </div>
       <div class="sub_map_container">
@@ -194,6 +195,7 @@
             v-model="brokenDate"
             :showIcon="true"
             :touchUI="true"
+            @hide="darkCalendar++"
         />
       </div>
       <div class="map_container">
