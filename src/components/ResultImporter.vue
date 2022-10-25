@@ -79,8 +79,12 @@
             :field="col.field"
             :header="col.header"
             :key="col.field"
-            :headerStyle="darkModeSwitch ? {'background': '#494C57'} : {}"
-            :bodyStyle=" darkModeSwitch ? {'color': 'white','background': '#32343A' } : {}"
+            :headerStyle="darkModeSwitch
+            ? {'background': '#494C57'}
+            : {}"
+            :bodyStyle=" darkModeSwitch
+            ? {'color': 'white','background': '#32343A' }
+            : {}"
         />
       </DataTable>
     </main>

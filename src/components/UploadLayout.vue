@@ -8,7 +8,9 @@
       <InputText
           enterkeyhint="enter"
           @keyup="updateListName"
-          :class="[validListName ? 'p-input_text ' : 'p-invalid']"
+          :class="[validListName
+          ? 'p-input_text '
+          : 'p-invalid']"
           type="text"
           v-model="listName"
       />
@@ -18,7 +20,9 @@
       <h6>List description (visible to buyers)</h6>
       <InputText
           enterkeyhint="enter"
-          :class="[validListDescription ? 'p-input_text ' : 'p-invalid']"
+          :class="[validListDescription
+          ? 'p-input_text '
+          : 'p-invalid']"
           type="text"
           v-model="listDescription"
       />
@@ -28,7 +32,9 @@
       <h6>Vertical</h6>
       <Dropdown
           :disabled="!respondSuccess"
-          :class="[ darkModeSwitch ? 'dropdown_dark' : '']"
+          :class="[ darkModeSwitch
+          ? 'dropdown_dark'
+          : '']"
           v-model="selectedCrypto"
           placeholder="Select a crypto"
           :options="cryptoPairs"
@@ -45,7 +51,9 @@
       <h6>Funnel type</h6>
       <Dropdown
           :disabled="!respondSuccess"
-          :class="[ darkModeSwitch ? 'dropdown_dark' : '']"
+          :class="[ darkModeSwitch
+          ? 'dropdown_dark'
+          : '']"
           v-model="selectedFunnel"
           placeholder="Unknown"
           :options="funnels"

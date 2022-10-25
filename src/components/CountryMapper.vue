@@ -12,7 +12,9 @@
       </div>
       <div class="map_container"><h5>IRLA</h5>
         <Dropdown
-            :class="[ darkModeSwitch ? 'dropdown_dark' : 'dropdown']"
+            :class="[ darkModeSwitch
+            ? 'dropdown_dark'
+            : 'dropdown']"
             v-model="selectedCountry"
             placeholder="Ireland"
             :options="countries"
@@ -22,7 +24,9 @@
       </div>
       <div class="map_container"><h5>UK</h5>
         <Dropdown
-            :class="[ darkModeSwitch ? 'dropdown_dark' : 'dropdown']"
+            :class="[ darkModeSwitch
+            ? 'dropdown_dark'
+            : 'dropdown']"
             v-model="selectedCountry"
             placeholder="GB"
             :options="countries"

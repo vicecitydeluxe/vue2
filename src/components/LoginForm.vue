@@ -10,7 +10,9 @@
                   id="name"
                   v-model="userInfo.username"
                   @keyup="updateUsername"
-                  :class="[validInput ? 'p-inputtext ' : 'p-invalid']"
+                  :class="[validInput
+                  ? 'p-inputtext '
+                  : 'p-invalid']"
               />
               <label for="name">You may choose alternative
                 username*</label>

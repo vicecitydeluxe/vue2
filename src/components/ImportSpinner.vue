@@ -14,7 +14,10 @@
           style="width:50px;
            height:50px;"
           strokeWidth="8"
-          :fill="[ darkModeSwitch ? '#32343A' : '#EEEEEE' ]"/>
+          :fill="[ darkModeSwitch
+          ? '#32343A'
+          : '#EEEEEE' ]"
+      />
     </main>
   </div>
 </template>

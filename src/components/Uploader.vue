@@ -37,8 +37,12 @@
           :field="col.field"
           :header="col.header"
           :key="col.id"
-          :headerStyle="darkModeSwitch ? {'background': '#494C57'} : {}"
-          :bodyStyle=" darkModeSwitch ? {'color': 'white','background': '#32343A' } : {}"
+          :headerStyle="darkModeSwitch
+          ? {'background': '#494C57'}
+          : {}"
+          :bodyStyle=" darkModeSwitch
+          ? {'color': 'white','background': '#32343A' }
+          : {}"
       />
     </DataTable>
     <!--    <button @click="$router.push({name: 'mapper'})">Test</button>-->
