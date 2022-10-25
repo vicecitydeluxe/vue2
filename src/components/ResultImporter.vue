@@ -20,8 +20,12 @@
             :field="col.field"
             :header="col.header"
             :key="col.field"
-            :headerStyle="darkModeSwitch ? {'background': '#494C57'} : {}"
-            :bodyStyle=" darkModeSwitch ? {'color': 'white','background': '#32343A' } : {}"
+            :headerStyle="darkModeSwitch
+            ? {'background': '#494C57'}
+            : {}"
+            :bodyStyle=" darkModeSwitch
+            ? {'color': 'white','background': '#32343A' }
+            : {}"
         />
       </DataTable>
       <hr class="hidden">
@@ -65,8 +69,12 @@
             :field="col.field"
             :header="col.header"
             :key="col.field"
-            :headerStyle="darkModeSwitch ? {'background': '#494C57'} : {}"
-            :bodyStyle=" darkModeSwitch ? {'color': 'white','background': '#32343A' } : {}"
+            :headerStyle="darkModeSwitch
+            ? {'background': '#494C57'}
+            : {}"
+            :bodyStyle=" darkModeSwitch
+            ? {'color': 'white','background': '#32343A' }
+            : {}"
         />
       </DataTable>
       <hr class="hidden">
@@ -111,7 +119,7 @@ export default {
       }),
       privateColumns: [
         {field: 'description', header: 'Stat'},
-        {field: 'value', header: 'hash'},
+        {field: 'value', header: '#'},
       ],
       privateResults: [
         {description: 'Records in source file', value: '1500'},
@@ -124,7 +132,7 @@ export default {
       ],
       publicColumns: [
         {field: 'description', header: "Leads' age"},
-        {field: 'value', header: 'hash'},
+        {field: 'value', header: '#'},
       ],
       publicResults: [
         {description: 'Less 24 hours', value: '15'},
@@ -137,7 +145,7 @@ export default {
       ],
       uniqueColumns: [
         {field: 'description', header: "Across marketplace"},
-        {field: 'value', header: 'hash'},
+        {field: 'value', header: '#'},
       ],
       uniqueResults: [
         {description: 'Fully unique leads', value: '150'},
@@ -155,7 +163,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['listName', 'fileName'])
+    ...mapGetters(['listName', 'fileName', 'parsedListLength'])
   },
   watch: {
     darkModeSwitch: {
@@ -176,6 +184,7 @@ export default {
     },
   },
   mounted() {
+    this.privateResults[0].value = this.parsedListLength
     if (this.darkModeSwitch) {
       setTimeout(() => {
         document.querySelectorAll('.p-column-title')
