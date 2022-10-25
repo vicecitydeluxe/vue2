@@ -45,7 +45,7 @@
           : {}"
       />
     </DataTable>
-<!--        <button @click="$router.push({name: 'results'})">Test</button>-->
+<!--    <button @click="$router.push({name: 'mapper'})">Test</button>-->
     <div v-if="parsed" class="paginator_container">
       <Button
           class="p-button-text"
@@ -118,6 +118,7 @@ export default {
             this.parsedData = result
             this.parsedDataLength = result.data.length
             this.$store.commit('setParsedListLength', this.parsedDataLength)
+            this.$store.commit('setParsedFields', result.meta.fields)
             if (result.meta.delimiter === '\t') this.parsedData.meta.delimiter = 'Tab'
             if (result.meta.delimiter === ' ') this.parsedData.meta.delimiter = 'Space'
 

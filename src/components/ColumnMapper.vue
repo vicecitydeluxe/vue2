@@ -16,9 +16,9 @@
             :class="[ darkModeSwitch
             ? 'dropdown_dark'
             : 'map_container_dropdown']"
-            @change="firstNameValidator"
+            @change="firstNameReplacer"
             v-model="selectedFirstName"
-            placeholder="name"
+            :value="selectedFirstName"
             :options="firstNames"
             optionLabel="name"
             @before-show="toggleDarkDropdown"
@@ -30,9 +30,9 @@
             :class="[ darkModeSwitch
             ? 'dropdown_dark'
             : 'map_container_dropdown']"
-            @change="lastNameValidator"
+            @change="lastNameReplacer"
             v-model="selectedLastName"
-            placeholder="last_name"
+            :value="selectedLastName"
             :options="lastNames"
             optionLabel="name"
             @before-show="toggleDarkDropdown"
@@ -44,9 +44,9 @@
             :class="[ darkModeSwitch
             ? 'dropdown_dark'
             : 'map_container_dropdown']"
-            @change="fullNameValidator"
+            @change="fullNameReplacer"
             v-model="selectedFullName"
-            placeholder="(select)"
+            :value="selectedFullName"
             :options="fullNames"
             optionLabel="name"
             @before-show="toggleDarkDropdown"
@@ -58,9 +58,9 @@
             :class="[ darkModeSwitch
             ? 'dropdown_dark'
             : 'map_container_dropdown']"
-            @change="emailValidator"
+            @change="emailReplacer"
             v-model="selectedEmail"
-            placeholder="email"
+            :value="selectedEmail"
             :options="emails"
             optionLabel="name"
             @before-show="toggleDarkDropdown"
@@ -72,9 +72,9 @@
             :class="[ darkModeSwitch
             ? 'dropdown_dark'
             : 'map_container_dropdown']"
-            @change="phoneNumberValidator"
+            @change="phoneNumberReplacer"
             v-model="selectedPhoneNumber"
-            placeholder="phone"
+            :value="selectedPhoneNumber"
             :options="phoneNumbers"
             optionLabel="name"
             @before-show="toggleDarkDropdown"
@@ -96,9 +96,9 @@
             :class="[ darkModeSwitch
             ? 'dropdown_dark'
             : 'map_container_dropdown']"
-            @change="countryValidator"
+            @change="countryReplacer"
             v-model="selectedCountry"
-            placeholder="country"
+            :value="selectedCountry"
             :options="countries"
             optionLabel="name"
             @before-show="toggleDarkDropdown"
@@ -180,7 +180,7 @@
             ? 'dropdown_dark'
             : 'map_container_dropdown']"
             v-model="selectedRegDate"
-            placeholder="reg"
+            :value="selectedRegDate"
             :options="regGateList"
             optionLabel="name"
             @before-show="toggleDarkDropdown"
@@ -205,7 +205,7 @@
             ? 'dropdown_dark'
             : 'map_container_dropdown']"
             v-model="selectedDeposit"
-            placeholder="ftd"
+            :value="selectedDeposit"
             :options="deposits"
             optionLabel="name"
             @before-show="toggleDarkDropdown"
@@ -239,7 +239,11 @@
 </template>
 
 <script>
+// noinspection ES6UnusedImports
+import Vue from 'vue'
+
 import tgMixin from "@/mixins/tgMixin";
+import parsedListsCheckers from "@/mixins/parsedListsCheckers";
 import {mapGetters} from 'vuex'
 
 const globalTelegram = window.Telegram.WebApp
@@ -247,85 +251,12 @@ const calendars = document.getElementsByClassName('p-calendar')
 
 export default {
   name: "Mapper",
-  mixins: [tgMixin],
+  mixins: [tgMixin, parsedListsCheckers],
   data() {
     return {
       darkCalendar: 0,
       darkDropdown: 0,
       includeExtra: null,
-      selectedFirstName: null,
-      selectedLastName: null,
-      selectedFullName: null,
-      selectedEmail: null,
-      selectedPhoneNumber: null,
-      selectedCountry: null,
-      selectedCountryFromList: null,
-      selectedRegDate: null,
-      selectedDeposit: null,
-      checkedCountry: '',
-      checkedRegDate: '',
-      registrationDate: null,
-      brokenDate: null,
-      emptyDateSetter: null,
-      firstNames: [
-        {name: 'firstname'},
-        {name: 'fname'},
-        {name: 'first_name'},
-      ],
-      lastNames: [
-        {name: 'lastname'},
-        {name: 'last'},
-        {name: 'last name'},
-        {name: 'lname'},
-      ],
-      fullNames: [
-        {name: 'fullname'},
-        {name: 'full_name'},
-      ],
-      emails: [
-        {name: 'email'},
-        {name: 'mail'},
-        {name: 'e-mail'},
-      ],
-      phoneNumbers: [
-        {name: 'phone'},
-        {name: 'mobile phone'},
-        {name: 'phone number'},
-        {name: 'mobile'},
-        {name: 'main number'},
-        {name: 'main phone'},
-        {name: 'phone_number'},
-        {name: 'mobile_phone'},
-      ],
-      countries: [
-        {name: 'country'},
-        {name: 'countryid'},
-        {name: 'geo'},
-        {name: 'country_id'},
-        {name: 'country code'},
-      ],
-      regGateList: [
-        {name: 'regdate'},
-        {name: 'reg date'},
-        {name: 'reg_date'},
-        {name: 'registration_date'},
-        {name: 'registered'},
-        {name: 'registered_at'},
-      ],
-      deposits: [
-        {name: 'deposited'},
-        {name: 'deposit date'},
-        {name: 'deposit_date'},
-        {name: 'ftd date'},
-        {name: 'ftd_date'},
-        {name: 'ftd'},
-      ],
-      countriesList: [
-        {name: 'GB'},
-        {name: 'RU'},
-        {name: 'USA'},
-        {name: 'UA'},
-      ],
     }
   },
   methods: {
@@ -334,42 +265,6 @@ export default {
     },
     toggleDarkDropdown() {
       this.darkDropdown++
-    },
-    firstNameValidator() {
-      let splittedObject = this.$parsedHeaders.split(',')
-      splittedObject[0] = this.selectedFirstName.name
-      this.$parsedHeaders = splittedObject.join()
-      console.log(this.$parsedHeaders)
-    },
-    lastNameValidator() {
-      let splittedObject = this.$parsedHeaders.split(',')
-      splittedObject[1] = this.selectedLastName.name
-      this.$parsedHeaders = splittedObject.join()
-      console.log(this.$parsedHeaders)
-    },
-    fullNameValidator() {
-      let splittedObject = this.$parsedHeaders.split(',')
-      splittedObject[2] = this.selectedFullName.name
-      this.$parsedHeaders = splittedObject.join()
-      console.log(this.$parsedHeaders)
-    },
-    emailValidator() {
-      let splittedObject = this.$parsedHeaders.split(',')
-      splittedObject[3] = this.selectedEmail.name
-      this.$parsedHeaders = splittedObject.join()
-      console.log(this.$parsedHeaders)
-    },
-    phoneNumberValidator() {
-      let splittedObject = this.$parsedHeaders.split(',')
-      splittedObject[4] = this.selectedPhoneNumber.name
-      this.$parsedHeaders = splittedObject.join()
-      console.log(this.$parsedHeaders)
-    },
-    countryValidator() {
-      let splittedObject = this.$parsedHeaders.split(',')
-      splittedObject[5] = this.selectedCountry.name
-      this.$parsedHeaders = splittedObject.join()
-      console.log(this.$parsedHeaders)
     },
     redirectCb() {
       this.$router.push({name: 'uploader'})
@@ -395,7 +290,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['listName', "fileName"]),
+    ...mapGetters(['listName', "fileName", "parsedFields"]),
     requiredFieldsFilled() {
       if (this.selectedFirstName && this.selectedLastName
           && this.selectedEmail && this.selectedPhoneNumber
@@ -504,6 +399,7 @@ export default {
     },
   },
   mounted() {
+    this.multipleCheckerCaller()
     // uncomment to see init variation of the $parsedHeaders
     // console.log(Vue.prototype.$parsedHeaders)
     // console.log(Vue.prototype.$parsedFullObject)

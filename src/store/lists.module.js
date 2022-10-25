@@ -4,7 +4,8 @@ const state = {
     listName: 'CM DE May 2022 depositors',
     fileName: 'Default.csv',
     allLists: [],
-    parsedListLength: 0
+    parsedListLength: 0,
+    parsedFields: []
 }
 const getters = {
     listName() {
@@ -18,6 +19,9 @@ const getters = {
     },
     parsedListLength() {
         return state.parsedListLength
+    },
+    parsedFields() {
+        return state.parsedFields
     }
 }
 const actions = {
@@ -83,6 +87,9 @@ const mutations = {
     },
     setParsedListLength(ctx, data) {
         state.parsedListLength = data
+    },
+    setParsedFields(ctx, data) {
+        state.parsedFields = data
     }
 }
 
