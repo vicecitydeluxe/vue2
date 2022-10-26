@@ -33,10 +33,14 @@
 
 .map_container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 15px 0 15px 0;
-  gap: 3px;
+  flex-direction: column;
+
+  &_divider {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 0 15px 0;
+  }
 }
 
 .dropdown {
@@ -52,6 +56,6 @@
     left: 0;
     border: 1px solid #CED4DA;
     border-radius: 7px;
-
   }
 }
+

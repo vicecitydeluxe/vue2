@@ -116,6 +116,7 @@ export default {
             resolve(result)
             this.parsed = true
             this.parsedData = result
+            Vue.prototype.$fullObject = result
             this.parsedDataLength = result.data.length
             this.$store.commit('setParsedListLength', this.parsedDataLength)
             this.$store.commit('setParsedFields', result.meta.fields)

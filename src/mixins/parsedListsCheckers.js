@@ -51,7 +51,7 @@ export default {
                 {name: 'countryid'},
                 {name: 'geo'},
                 {name: 'country_id'},
-                {name: 'country code'},
+                {name: 'country_code'},
             ],
             regGateList: [
                 {name: 'regdate'},

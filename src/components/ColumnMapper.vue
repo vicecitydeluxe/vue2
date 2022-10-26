@@ -1,6 +1,7 @@
 <template>
   <div class="header">
     <header class="header_section">
+<!--      <button @click="$router.push({name:'country'})">MOVE</button>-->
       <h3>COLUMN MAPPING</h3>
     </header>
     <main>
@@ -402,6 +403,7 @@ export default {
     this.multipleCheckerCaller()
     // uncomment to see init variation of the $parsedHeaders
     // console.log(Vue.prototype.$parsedHeaders)
+    // console.log(Vue.prototype.$fullObject.data)
     // console.log(Vue.prototype.$parsedFullObject)
     // console.log(this.$parsedHeaders.split(','))
     globalTelegram.MainButton.onClick(this.actionCb)

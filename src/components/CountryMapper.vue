@@ -10,29 +10,22 @@
       <div class="description">Unknown countries have been found.
         Map them.
       </div>
-      <div class="map_container"><h5>IRLA</h5>
-        <Dropdown
-            :class="[ darkModeSwitch
+      <div class="map_container">
+        <h5 class="map_container_divider"
+            v-for="(country, index) in countriesToMap"
+            :key="index"
+        >{{ country }}
+          <Dropdown
+              :class="[ darkModeSwitch
             ? 'dropdown_dark'
             : 'dropdown']"
-            v-model="selectedCountry"
-            placeholder="Ireland"
-            :options="countries"
-            optionLabel="name"
-            @before-show="toggleDarkDropdown"
-        />
-      </div>
-      <div class="map_container"><h5>UK</h5>
-        <Dropdown
-            :class="[ darkModeSwitch
-            ? 'dropdown_dark'
-            : 'dropdown']"
-            v-model="selectedCountry"
-            placeholder="GB"
-            :options="countries"
-            optionLabel="name"
-            @before-show="toggleDarkDropdown"
-        />
+              v-model="selectedCountry"
+              placeholder="Ireland"
+              :options="countries"
+              optionLabel="name"
+              @before-show="toggleDarkDropdown"
+          />
+        </h5>
       </div>
       <div class="description">This is the final step
         which will load leads to the DB.
@@ -42,8 +35,11 @@
 </template>
 
 <script>
+// noinspection ES6UnusedImports
+import Vue from 'vue'
 import {mapGetters} from 'vuex'
 import tgMixin from "@/mixins/tgMixin";
+import ISO3166 from '@/assets/ISO3166.json'
 
 const globalTelegram = window.Telegram.WebApp
 
@@ -53,6 +49,8 @@ export default {
   data() {
     return {
       darkDropdown: 0,
+      countriesDictionary: ISO3166,
+      countriesToMap: [],
       selectedCountry: null,
       countries: [
         {name: 'Ireland'},
@@ -61,6 +59,26 @@ export default {
     }
   },
   methods: {
+    wrongCountryFinder() {
+      const alphaList = this.countriesDictionary.map((el) => {
+        return el.alpha
+      })
+      const betaList = this.countriesDictionary.map((el) => {
+        return el.beta
+      })
+      const arrayDictionary = alphaList.concat(...betaList)
+
+      // console.log(arrayDictionary)
+      const wrong = Vue.prototype.$fullObject.data.filter((el) => {
+        if (!arrayDictionary.includes(el.country || el.countryid || el.geo || el.country_id || country_code)) {
+          return el
+        }
+      })
+      this.countriesToMap = wrong.map((el) => {
+        return el.country || el.countryid || el.geo || el.country_id || country_code
+      })
+      // console.log(wrongArray)
+    },
     toggleDarkDropdown() {
       this.darkDropdown++
     },
@@ -131,6 +149,10 @@ export default {
     },
   },
   mounted() {
+    this.wrongCountryFinder()
+    // uncomment to see init variation of the $parsedHeaders
+    // console.log(Vue.prototype.$parsedHeaders)
+    console.log(Vue.prototype.$fullObject.data)
     globalTelegram.MainButton.onClick(this.actionCb)
     globalTelegram.BackButton.show().onClick(this.redirectCb)
   },
