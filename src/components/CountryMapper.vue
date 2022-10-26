@@ -19,10 +19,10 @@
               :class="[ darkModeSwitch
             ? 'dropdown_dark'
             : 'dropdown']"
-              v-model="selectedCountry"
-              placeholder="Ireland"
+              v-model="selectedCountry[index]"
+              placeholder="Choose сode"
               :options="countries"
-              optionLabel="name"
+              :filter="true"
               @before-show="toggleDarkDropdown"
           />
         </h5>
@@ -51,31 +51,24 @@ export default {
       darkDropdown: 0,
       countriesDictionary: ISO3166,
       countriesToMap: [],
-      selectedCountry: null,
-      countries: [
-        {name: 'Ireland'},
-        {name: 'AnotherGreatCountry'},
-      ],
+      selectedCountry: [],
+      countries: [],
     }
   },
   methods: {
     wrongCountryFinder() {
-      const alphaList = this.countriesDictionary.map((el) => {
-        return el.alpha
-      })
-      const betaList = this.countriesDictionary.map((el) => {
-        return el.beta
-      })
-      const arrayDictionary = alphaList.concat(...betaList)
-
+      const arrayDictionary = this.countriesDictionary.map((el) => {
+        return [el.alpha, el.beta]
+      }).flat()
+      this.countries = arrayDictionary
       // console.log(arrayDictionary)
       const wrong = Vue.prototype.$fullObject.data.filter((el) => {
-        if (!arrayDictionary.includes(el.country || el.countryid || el.geo || el.country_id || country_code)) {
+        if (!arrayDictionary.includes(el[this.chosenCountry])) {
           return el
         }
       })
       this.countriesToMap = wrong.map((el) => {
-        return el.country || el.countryid || el.geo || el.country_id || country_code
+        return el[this.chosenCountry]
       })
       // console.log(wrongArray)
     },
@@ -90,7 +83,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['listName', "fileName"]),
+    ...mapGetters(['listName', "fileName", "chosenCountry"]),
   },
   watch: {
     darkDropdown: {
@@ -152,7 +145,7 @@ export default {
     this.wrongCountryFinder()
     // uncomment to see init variation of the $parsedHeaders
     // console.log(Vue.prototype.$parsedHeaders)
-    console.log(Vue.prototype.$fullObject.data)
+    // console.log(Vue.prototype.$fullObject.data)
     globalTelegram.MainButton.onClick(this.actionCb)
     globalTelegram.BackButton.show().onClick(this.redirectCb)
   },

@@ -1,7 +1,6 @@
 <template>
   <div class="header">
     <header class="header_section">
-<!--      <button @click="$router.push({name:'country'})">MOVE</button>-->
       <h3>COLUMN MAPPING</h3>
     </header>
     <main>

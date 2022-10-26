@@ -5,7 +5,8 @@ const state = {
     fileName: 'Default.csv',
     allLists: [],
     parsedListLength: 0,
-    parsedFields: []
+    parsedFields: [],
+    chosenCountry: null
 }
 const getters = {
     listName() {
@@ -22,6 +23,9 @@ const getters = {
     },
     parsedFields() {
         return state.parsedFields
+    },
+    chosenCountry() {
+        return state.chosenCountry
     }
 }
 const actions = {
@@ -90,6 +94,9 @@ const mutations = {
     },
     setParsedFields(ctx, data) {
         state.parsedFields = data
+    },
+    setChosenCountry(ctx, data) {
+        state.chosenCountry = data
     }
 }
 

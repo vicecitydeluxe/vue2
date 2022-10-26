@@ -1,3 +1,7 @@
+// noinspection ES6UnusedImports
+import Vue from 'vue'
+import {mapGetters} from "vuex";
+
 export default {
     data() {
         return {
@@ -107,6 +111,8 @@ export default {
             let arrayDictionary = this.countries.map((el) => el.name)
             let result = this.parsedFields.filter(i => arrayDictionary.includes(i));
             this.selectedCountry = {name: result[0]}
+
+            this.$store.commit('setChosenCountry', this.selectedCountry.name)
         },
         registrationDateChecker() {
             let arrayDictionary = this.regGateList.map((el) => el.name)
@@ -180,7 +186,16 @@ export default {
             const replacedArr = splitObject.map((i) => arrayDictionary.includes(i)
                 ? replacer
                 : i)
-            console.log(replacedArr.join())
+            // console.log(replacedArr.join())
+            Vue.prototype.$fullObject.data.forEach(el => {
+                el[this.selectedCountry.name] = el[this.chosenCountry]
+                delete el[this.chosenCountry]
+            })
+            // TODO replace old key in this.$store.commit('setParsedFields', this.selectedCountry.name)
+            this.$store.commit('setChosenCountry', this.selectedCountry.name)
         },
+    },
+    computed: {
+        ...mapGetters(["chosenCountry"]),
     },
 }

@@ -19,6 +19,8 @@ export default {
         : this.darkModeSwitch = true;
   },
   mounted() {
+    // comment next line to show Telegram and other warnings
+    console.warn = () => {}
     globalTelegram.onEvent('themeChanged', () => {
       globalTelegram.colorScheme === "light"
           ? this.darkModeSwitch = false

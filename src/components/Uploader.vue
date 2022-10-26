@@ -45,7 +45,6 @@
           : {}"
       />
     </DataTable>
-<!--    <button @click="$router.push({name: 'mapper'})">Test</button>-->
     <div v-if="parsed" class="paginator_container">
       <Button
           class="p-button-text"
