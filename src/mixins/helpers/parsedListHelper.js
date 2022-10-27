@@ -82,6 +82,9 @@ export default {
         }
     },
     methods: {
+        /**
+         * Each checker pre-selects dropdown value in ColumnMapper.vue
+         */
         firstNameChecker() {
             const arrayDictionary = this.firstNames.map((el) => el.name)
             const result = this.parsedFields.filter(i => arrayDictionary.includes(i));
@@ -124,6 +127,10 @@ export default {
             let result = this.parsedFields.filter(i => arrayDictionary.includes(i));
             this.selectedDeposit = {name: result[0]}
         },
+        /**
+         * multipleCheckerCaller() invokes
+         * all checkers in ColumnMapper.vue mounted-hook
+         */
         multipleCheckerCaller() {
             this.firstNameChecker()
             this.lastNameChecker()
@@ -134,6 +141,11 @@ export default {
             this.registrationDateChecker()
             this.depositChecker()
         },
+        /**
+         * Replacers recompile $parsedHeaders
+         * each time dropdown value change
+         * assigning this value in right order
+         */
         firstNameReplacer() {
             const splitObject = this.$parsedHeaders.split(',')
             const replacer = this.selectedFirstName?.name

@@ -64,7 +64,7 @@
 
 <script>
 import Vue from 'vue'
-import tgMixin from "@/mixins/tgMixin";
+import tgMixin from "@/mixins/telegram/tgMixin";
 import {mapGetters} from 'vuex'
 import Papa from 'papaparse'
 

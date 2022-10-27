@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import tgMixin from "@/mixins/tgMixin";
+import tgMixin from "@/mixins/telegram/tgMixin";
 
 const globalTelegram = window.Telegram.WebApp;
 

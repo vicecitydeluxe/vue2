@@ -67,8 +67,8 @@
 </template>
 
 <script>
-import tgMixin from "@/mixins/tgMixin";
-import toastWarn from "@/mixins/toastWarn";
+import tgMixin from "@/mixins/telegram/tgMixin";
+import toastWarn from "@/mixins/helpers/toastWarn";
 import {mapGetters} from 'vuex'
 
 const globalTelegram = window.Telegram.WebApp

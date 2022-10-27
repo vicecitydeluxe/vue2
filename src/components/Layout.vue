@@ -86,8 +86,8 @@
 </template>
 
 <script>
-import tgMixin from "@/mixins/tgMixin";
-import tgHapticFeedback from "@/mixins/tgHapticFeedback";
+import tgMixin from "@/mixins/telegram/tgMixin";
+import tgHapticFeedback from "@/mixins/telegram/tgHapticFeedback";
 import {mapGetters} from 'vuex'
 
 const globalTelegram = window.Telegram.WebApp

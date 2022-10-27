@@ -35,8 +35,8 @@
 </template>
 
 <script>
-import tgMixin from "@/mixins/tgMixin";
-import toastWarn from "@/mixins/toastWarn";
+import tgMixin from "@/mixins/telegram/tgMixin";
+import toastWarn from "@/mixins/helpers/toastWarn";
 
 const globalTelegram = window.Telegram.WebApp
 

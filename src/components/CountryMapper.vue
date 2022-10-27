@@ -38,7 +38,7 @@
 // noinspection ES6UnusedImports
 import Vue from 'vue'
 import {mapGetters} from 'vuex'
-import tgMixin from "@/mixins/tgMixin";
+import tgMixin from "@/mixins/telegram/tgMixin";
 import ISO3166 from '@/assets/ISO3166.json'
 
 const globalTelegram = window.Telegram.WebApp
@@ -51,19 +51,29 @@ export default {
       darkDropdown: 0,
       countriesDictionary: ISO3166,
       countriesToMap: [],
-      countriesIndex: [],
+      countryIndexes: [],
       selectedCountry: [],
       countries: [],
     }
   },
   methods: {
+    /**
+     * wrongCountryFinder() creates an array
+     * with all country-codes first.
+     * Then it iterates through
+     * $fullObject and stores [index]
+     * and [elements] if country-code
+     * wasn't recognized/
+     */
     wrongCountryFinder() {
       const arrayDictionary = this.countriesDictionary.map((el) => {
         return [el.alpha, el.beta]
       }).flat()
       this.countries = arrayDictionary
-      const wrong = Vue.prototype.$fullObject.data.filter((el) => {
+
+      const wrong = Vue.prototype.$fullObject.data.filter((el, i) => {
         if (!arrayDictionary.includes(el[this.chosenCountry])) {
+          this.countryIndexes.push(i)
           return el
         }
       })
@@ -114,12 +124,20 @@ export default {
     selectedCountry: {
       handler(newValue) {
         if (newValue) {
+          /**
+           * handler iterates through
+           * $fullObject's elements each time.
+           * It replaces each element by following schema:
+           * ...$fullObject[index_of_element][dynamic_key]
+           * redefines to selectedCountry[index]
+           */
           Vue.prototype.$fullObject.data.forEach((el, i) => {
-            if (!this.countriesIndex[i] || !this.selectedCountry[i]) return
-            Vue.prototype.$fullObject.data[this.countriesIndex[i]][this.chosenCountry] = this.selectedCountry[i]
+            if (!this.countryIndexes[i] || !this.selectedCountry[i]) return
+            Vue.prototype.$fullObject.data[this.countryIndexes[i]][this.chosenCountry] = this.selectedCountry[i]
           })
+
           //uncomment next line to see mutation of $fullObject
-          // console.log(Vue.prototype.$fullObject.data)
+          console.log(Vue.prototype.$fullObject.data)
           globalTelegram.MainButton.setText('Create leads')
           globalTelegram.MainButton.color = '#16a34a'
           globalTelegram.MainButton.show()

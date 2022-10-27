@@ -242,16 +242,17 @@
 // noinspection ES6UnusedImports
 import Vue from 'vue'
 
-import tgMixin from "@/mixins/tgMixin";
-import parsedListsCheckers from "@/mixins/parsedListsCheckers";
+import tgMixin from "@/mixins/telegram/tgMixin";
+import parsedListHelper from "@/mixins/helpers/parsedListHelper";
 import {mapGetters} from 'vuex'
 
 const globalTelegram = window.Telegram.WebApp
 const calendars = document.getElementsByClassName('p-calendar')
 
+// noinspection JSUnusedGlobalSymbols
 export default {
   name: "Mapper",
-  mixins: [tgMixin, parsedListsCheckers],
+  mixins: [tgMixin, parsedListHelper],
   data() {
     return {
       darkCalendar: 0,
@@ -359,7 +360,6 @@ export default {
           document.querySelectorAll('.p-datepicker-next').forEach(e => e.classList.add('p-datepicker-next_dark'))
           document.querySelectorAll('.p-datepicker-prev').forEach(e => e.classList.add('p-datepicker-prev_dark'))
           document.querySelectorAll('.p-datepicker-trigger').forEach(e => e.classList.add('p-datepicker-trigger_dark'))
-
         }
         if (!newValue) {
           const darkStylesSelectors = ['p-placeholder_dark', 'pi-chevron-down_dark',
