@@ -186,16 +186,30 @@ export default {
             const replacedArr = splitObject.map((i) => arrayDictionary.includes(i)
                 ? replacer
                 : i)
-            // console.log(replacedArr.join())
+            console.log(replacedArr.join())
+            /**
+             * After each change of dropdown option,
+             * we mutate our global non-reactive
+             * variable and change global state
+             * parsedFields array & chosenCountry
+             * (previous "old" state-accessor)
+             */
             Vue.prototype.$fullObject.data.forEach(el => {
                 el[this.selectedCountry.name] = el[this.chosenCountry]
                 delete el[this.chosenCountry]
             })
-            // TODO replace old key in this.$store.commit('setParsedFields', this.selectedCountry.name)
+            const oldChosenCountry = this.chosenCountry
+            const newChosenCountry = this.selectedCountry.name
+            const newParsedFields = this.parsedFields
+            newParsedFields.forEach((el, index) => {
+                if (el === oldChosenCountry) newParsedFields
+                    .splice(index, 1, newChosenCountry)
+            })
             this.$store.commit('setChosenCountry', this.selectedCountry.name)
+            this.$store.commit('setParsedFields', newParsedFields)
         },
     },
     computed: {
-        ...mapGetters(["chosenCountry"]),
+        ...mapGetters(['chosenCountry', 'parsedFields']),
     },
 }

@@ -61,7 +61,6 @@ export default {
         return [el.alpha, el.beta]
       }).flat()
       this.countries = arrayDictionary
-      // console.log(arrayDictionary)
       const wrong = Vue.prototype.$fullObject.data.filter((el) => {
         if (!arrayDictionary.includes(el[this.chosenCountry])) {
           return el
@@ -70,7 +69,6 @@ export default {
       this.countriesToMap = wrong.map((el) => {
         return el[this.chosenCountry]
       })
-      // console.log(wrongArray)
     },
     toggleDarkDropdown() {
       this.darkDropdown++
