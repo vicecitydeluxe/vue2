@@ -83,15 +83,17 @@ export default {
       }).flat()
       this.countries = arrayDictionary
 
-      const wrong = Vue.prototype.$fullObject.data.filter((el, i) => {
+      const wrong = Vue.prototype?.$fullObject?.data.filter((el, i) => {
         if (!arrayDictionary.includes(el[this.chosenCountry])) {
           this.countryIndexes.push(i)
           return el
         }
       })
-      this.countriesToMap = wrong.map((el) => {
-        return el[this.chosenCountry]
-      })
+      if (!!wrong) {
+        this.countriesToMap = wrong.map((el) => {
+          return el[this.chosenCountry]
+        })
+      } else return
     },
     toggleDarkDropdown() {
       this.darkDropdown++
@@ -105,6 +107,9 @@ export default {
   },
   computed: {
     ...mapGetters(['listName', "fileName", "chosenCountry"]),
+    allCountriesMapped() {
+      return !!this.countriesToMap.length < 1
+    }
   },
   watch: {
     darkDropdown: {
@@ -180,6 +185,13 @@ export default {
             'p-dropdown-filter-icon_dark']
           document.querySelectorAll('[class*="_dark"]')
               .forEach(e => e.classList.remove(...darkStylesSelectors))
+        }
+      },
+    },
+    allCountriesMapped: {
+      handler(newValue) {
+        if (newValue) {
+          globalTelegram.BackButton.show()
         }
       },
     },
