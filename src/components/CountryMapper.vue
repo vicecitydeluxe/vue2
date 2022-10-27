@@ -7,8 +7,10 @@
       <div>List: {{ listName }}</div>
       <hr class="name_divider">
       <div class="section_divider">File: {{ fileName }}</div>
-      <div class="description">Unknown countries have been found.
-        Map them.
+      <div
+          v-if="countriesToMap.length > 1"
+          class="description"
+      >Unknown countries have been found. Map them.
       </div>
       <div class="map_container">
         <h5 class="map_container_divider"
@@ -29,8 +31,16 @@
           />
         </h5>
       </div>
-      <div class="description">This is the final step
+      <div
+          v-if="countriesToMap.length > 1"
+          class="description"
+      >This is the final step
         which will load leads to the DB.
+      </div>
+      <div
+          v-if="countriesToMap.length < 1"
+          class="description"
+      >All fields are already mapped!
       </div>
     </main>
   </div>

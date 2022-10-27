@@ -293,11 +293,9 @@ export default {
   computed: {
     ...mapGetters(['listName', "fileName", "parsedFields"]),
     requiredFieldsFilled() {
-      if (this.selectedFirstName && this.selectedLastName
-          && this.selectedEmail && this.selectedPhoneNumber
-          && this.selectedCountry && this.selectedRegDate) {
-        return true
-      }
+      return !!(this.selectedFirstName?.name && this.selectedLastName?.name
+          && this.selectedEmail?.name && this.selectedPhoneNumber?.name
+          && this.selectedCountry?.name && this.selectedRegDate?.name);
     }
   },
   watch: {
