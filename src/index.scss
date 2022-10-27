@@ -17,7 +17,9 @@ body {
   margin-bottom: 50px;
 }
 
-// ** Body Dark Styles
+/**
+ Body Dark Styles
+ */
 body.dark {
   background: #282828;
   color: #ffffff;
@@ -27,7 +29,9 @@ body.light {
   background: rgb(255, 255, 255);
 }
 
-//Body Dark Styles **
+/**
+  Global styles
+ */
 
 h1, h2, h3, h4, h5, h6 {
   margin: 1.5rem 0 1rem 0;
@@ -129,7 +133,9 @@ input[type="number"]::-webkit-inner-spin-button {
   font-size: 100%;
 }
 
-//** LoginForm Dark Styles
+/**
+ LoginForm Dark Styles
+ */
 .p-inputtext-dark {
   width: 100%;
   font-size: 1rem;
@@ -220,7 +226,9 @@ input[type="number"]::-webkit-inner-spin-button {
   }
 }
 
-//**Layout Dark Styles
+/**
+ Layout Dark Styles
+ */
 .p-button-lg-dark {
   font-size: 14px;
   padding: 0.8925rem 1.25rem;
@@ -236,7 +244,9 @@ input[type="number"]::-webkit-inner-spin-button {
   }
 }
 
-//**Top Up Dark Styles
+/**
+ Top Up Dark Styles
+ */
 .p-inputtext-dark {
   font-size: 100%;
   width: 100%;
@@ -264,7 +274,9 @@ input[type="number"]::-webkit-inner-spin-button {
   }
 }
 
-// ** Dropdown Dark Styles
+/**
+ Dropdown Dark Styles
+ */
 .pi-chevron-down {
 
   &_dark {
@@ -281,7 +293,6 @@ input[type="number"]::-webkit-inner-spin-button {
   }
 }
 
-
 .p-dropdown-panel {
   .p-dropdown-items {
     .p-dropdown-item {
@@ -293,7 +304,6 @@ input[type="number"]::-webkit-inner-spin-button {
     }
   }
 }
-
 
 .p-dropdown {
   .p-inputtext {
@@ -307,6 +317,15 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .p-dropdown-panel {
   .p-dropdown-items {
+
+    .p-dropdown-empty-message {
+
+      &_dark {
+        color: white;
+        background: #282828;
+      }
+    }
+
     .p-dropdown-item.p-highlight {
 
       &_dark {
@@ -317,19 +336,40 @@ input[type="number"]::-webkit-inner-spin-button {
   }
 }
 
-//** Data Table Dark Style
+.p-dropdown-panel {
+  .p-dropdown-header {
+    &_dark {
+      color: white;
+      background: #000000;
+    }
+
+    .p-dropdown-filter-icon {
+      &_dark {
+        color: white;
+      }
+    }
+  }
+}
+
+/**
+ Data Table Dark Style
+ */
 .p-column-title-dark {
   color: white;
   font-weight: bold;
 }
 
 
-//** SelectButton Dark Styles **
+/**
+ SelectButton Dark Styles **
+ */
 .p-buttonset .p-button {
   width: 33%;
 }
 
-//** AccordionTab LeadsSeller Dark Styles
+/**
+ AccordionTab LeadsSeller Dark Styles
+ */
 .p-accordion {
   background: #F8F9FA;
   border: 1.7px solid #DEE2E6;
@@ -468,7 +508,9 @@ input[type="number"]::-webkit-inner-spin-button {
   }
 }
 
-//** Calendar Dark Styles
+/**
+ Calendar Dark Styles
+ */
 .p-calendar {
   &_dark {
     background: #282828;
@@ -529,7 +571,9 @@ input[type="number"]::-webkit-inner-spin-button {
   }
 }
 
-//** Other components global styles
+/**
+ Other components global styles
+ */
 .p-radiobutton {
   .p-radiobutton-box {
 
