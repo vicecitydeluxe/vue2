@@ -51,6 +51,7 @@ export default {
       darkDropdown: 0,
       countriesDictionary: ISO3166,
       countriesToMap: [],
+      countriesIndex: [],
       selectedCountry: [],
       countries: [],
     }
@@ -113,6 +114,12 @@ export default {
     selectedCountry: {
       handler(newValue) {
         if (newValue) {
+          Vue.prototype.$fullObject.data.forEach((el, i) => {
+            if (!this.countriesIndex[i] || !this.selectedCountry[i]) return
+            Vue.prototype.$fullObject.data[this.countriesIndex[i]][this.chosenCountry] = this.selectedCountry[i]
+          })
+          //uncomment next line to see mutation of $fullObject
+          // console.log(Vue.prototype.$fullObject.data)
           globalTelegram.MainButton.setText('Create leads')
           globalTelegram.MainButton.color = '#16a34a'
           globalTelegram.MainButton.show()

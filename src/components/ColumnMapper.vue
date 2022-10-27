@@ -403,7 +403,6 @@ export default {
     // uncomment to see init variation of the $parsedHeaders
     // console.log(Vue.prototype.$parsedHeaders)
     // console.log(Vue.prototype.$fullObject.data)
-    // console.log(Vue.prototype.$parsedFullObject)
     // console.log(this.$parsedHeaders.split(','))
     globalTelegram.MainButton.onClick(this.actionCb)
     globalTelegram.BackButton.show().onClick(this.redirectCb)
