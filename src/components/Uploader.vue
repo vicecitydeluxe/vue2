@@ -18,7 +18,10 @@
 
     <div v-if="parsed">
       <h4>DATA PREVIEW: {{ fileName }}</h4>
-      <div class="parsed_data"> {{ parsedDataLength }} record(s) found</div>
+      <div
+          class="parsed_data"
+      > {{ parsedSkippedEmptyLines }} record(s) found
+      </div>
       <h5>Delimiter: "{{ parsedData.meta.delimiter }}"</h5>
       <h6>Please check if the record seem correct.
         If not, try to go back,
@@ -81,6 +84,7 @@ export default {
       fileName: '',
       delimiter: '',
       parsedDataLength: '',
+      parsedSkippedEmptyLines: '',
       itemsPerPage: 5,
       currentPage: 1,
     }
@@ -100,28 +104,50 @@ export default {
     },
     sendFile(event) {
       this.fileName = event.files[0].name
-      this.updateFileName()
+      this.$store.commit('setFileName', this.fileName)
       const bodyFormData = new FormData();
       bodyFormData.append('document', event.files[0]);
       this.$store.dispatch('SEND_DOCUMENT', bodyFormData)
-
+      /**
+       *Papa.parse() takes 2 params:
+       * file amd config object.
+       * Use skipEmptyLines: 'greedy'
+       * to skip all empty lines.
+       * This variant below does not skip
+       * empty fields and gets
+       * ALL parsed fields.
+       */
+      Papa.parse(event.files[0], {
+        header: true,
+        skipEmptyLines: false,
+        delimitersToGuess: [',', '\t', '|', ';', ' ', '/', ':',
+          Papa.RECORD_SEP, Papa.UNIT_SEP],
+        complete: result => {
+          this.parsedDataLength = result.data.length
+        },
+      })
+      /**
+       *Papa.parse can also recompile
+       * file in .then() block
+       * with the same parameters.
+       */
       return new Promise((resolve) => {
         Papa.parse(event.files[0], {
           header: true,
           worker: true,
-          skipEmptyLines: true,
-          delimitersToGuess: [',', '\t', '|', ';', ' ', '/', ':', Papa.RECORD_SEP, Papa.UNIT_SEP],
+          skipEmptyLines: 'greedy',
+          delimitersToGuess: [',', '\t', '|', ';', ' ', '/', ':',
+            Papa.RECORD_SEP, Papa.UNIT_SEP],
           complete: result => {
             resolve(result)
             this.parsed = true
             this.parsedData = result
             Vue.prototype.$fullObject = result
-            this.parsedDataLength = result.data.length
-            this.$store.commit('setParsedListLength', this.parsedDataLength)
+            this.parsedSkippedEmptyLines = result.data.length
+            this.$store.commit('setParsedListLength', this.parsedSkippedEmptyLines)
             this.$store.commit('setParsedFields', result.meta.fields)
             if (result.meta.delimiter === '\t') this.parsedData.meta.delimiter = 'Tab'
             if (result.meta.delimiter === ' ') this.parsedData.meta.delimiter = 'Space'
-
           },
         })
       }).then((result) => {
@@ -138,6 +164,12 @@ export default {
           resolve(Vue.prototype.$parsedHeaders)
         })
       }).then(result => {
+        /**
+         * we can download the
+         * @param result
+         * if we need to, to make it
+         * uncomment .click() func.
+         */
         const download = function (result) {
           const blob = new Blob([result], {type: 'text/csv'});
           const url = window.URL.createObjectURL(blob)
@@ -151,9 +183,6 @@ export default {
         setTimeout(() => download(result), 3000)
         // console.log(res)
       })
-    },
-    updateFileName() {
-      this.$store.commit('setFileName', this.fileName)
     }
   },
   computed: {
@@ -167,12 +196,12 @@ export default {
       return ((this.currentPage - 1) * this.itemsPerPage)
     },
     lastPageProp() {
-      return Math.ceil(this.parsedDataLength / this.itemsPerPage)
+      return Math.ceil(this.parsedSkippedEmptyLines / this.itemsPerPage)
     },
     toProp() {
-      return this.currentPage * this.itemsPerPage < this.parsedDataLength
+      return this.currentPage * this.itemsPerPage < this.parsedSkippedEmptyLines
           ? this.currentPage * this.itemsPerPage
-          : this.parsedDataLength
+          : this.parsedSkippedEmptyLines
     },
   },
   watch: {
