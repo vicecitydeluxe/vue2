@@ -258,9 +258,19 @@ export default {
       darkCalendar: 0,
       darkDropdown: 0,
       includeExtra: null,
+      requiredFieldsDictionary: [],
     }
   },
   methods: {
+    globalReducer() {
+      Vue.prototype.$reducedObject = JSON.parse(JSON.stringify(Vue.prototype.$fullObject.data))
+      Vue.prototype.$reducedObject.filter(obj => {
+        for (const key of Object.keys(obj)) {
+          if (!this.requiredFieldsDictionary.includes(key)) delete obj[key];
+        }
+      })
+      console.log(Vue.prototype.$reducedObject)
+    },
     toggleDarkCalendar() {
       this.darkCalendar++
     },
@@ -289,6 +299,12 @@ export default {
         life: 2000
       });
     },
+    dictionaryCreator() {
+      this.requiredFieldsDictionary = Object.values(this.$data)
+          .flat()
+          .map((el) => el?.name)
+          .filter((el) => !!el)
+    }
   },
   computed: {
     ...mapGetters(['listName', "fileName", "parsedFields"]),
@@ -377,7 +393,10 @@ export default {
       handler(newValue) {
         if (newValue) {
           this.showIncludedToast()
-        } else this.showWarnToast()
+        } else {
+          this.globalReducer()
+          this.showWarnToast()
+        }
       }
     },
     darkCalendar: {
@@ -398,6 +417,7 @@ export default {
   },
   mounted() {
     this.multipleCheckerCaller()
+    this.dictionaryCreator()
     // uncomment to see init variation of the $parsedHeaders
     // console.log(Vue.prototype.$parsedHeaders)
     // console.log(Vue.prototype.$fullObject.data)
