@@ -104,9 +104,10 @@
 import Vue from 'vue'
 import {mapGetters} from 'vuex'
 import tgMixin from "@/mixins/telegram/tgMixin";
+import {parsePhoneNumber, ParseError} from 'libphonenumber-js'
+import {parsePhoneNumberFromString as parseMax} from 'libphonenumber-js/max'
 
 const globalTelegram = window.Telegram.WebApp
-const lib = window.libphonenumber
 
 export default {
   name: "ResultImporter",
@@ -165,18 +166,29 @@ export default {
       if (this.$route.path === '/result-importer') this.$router.push({name: 'layout'})
     },
     phoneInvalidCounter() {
-      Vue.prototype?.$fullObject?.data.map((el, i) => {
-        let element = Vue.prototype?.$fullObject?.data[i][this.chosenPhone]
+      if (this.chosenPhone) {
+        Vue.prototype?.$fullObject?.data.map((el, i) => {
+          let element = Vue.prototype?.$fullObject?.data[i][this.chosenPhone]
 
-        if (lib.parsePhoneNumber(element).isValid()) {
+          try {
+            parsePhoneNumber(element).isValid()
+          } catch (error) {
+            if (error instanceof ParseError) {
+              this.$store.commit('pushInvalidPhone', element)
+              this.privateResults[5].value = this.invalidPhone.length
+              // console.log(error.message)
+              return
+            } else throw error
+          }
 
-          this.$store.commit('pushValidPhone', element)
-
-        } else if (!lib.parsePhoneNumber(element).isValid()) {
-          this.$store.commit('pushInvalidPhone', element)
-          this.privateResults[5].value = this.invalidPhone.length
-        }
-      })
+          if (parseMax(element).isValid()) {
+            this.$store.commit('pushValidPhone', element)
+          } else {
+            this.$store.commit('pushInvalidPhone', element)
+            this.privateResults[5].value = this.invalidPhone.length
+          }
+        })
+      }
     }
   },
   computed: {
