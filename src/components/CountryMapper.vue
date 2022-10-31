@@ -66,9 +66,32 @@ export default {
       countryIndexes: [],
       selectedCountry: [],
       countries: [],
+      countryPossibleKeys: [
+        'country',
+        'countryid',
+        'geo',
+        'country_id',
+        'country_code',
+      ],
+      countryKeyChecker: false
     }
   },
   methods: {
+    /**
+     * Checker function toggles
+     * countryKeyChecker property
+     * if there's no country key
+     */
+    countryKeyCheckerFn() {
+      Vue.prototype?.$fullObject?.data.filter(obj => {
+        for (const key of Object.keys(obj)) {
+          if (this.countryPossibleKeys.includes(key)) {
+            this.countryKeyChecker = true
+            return
+          }
+        }
+      })
+    },
     /**
      * wrongCountryFinder() creates an array
      * with all country-codes first.
@@ -78,22 +101,26 @@ export default {
      * wasn't recognized/
      */
     wrongCountryFinder() {
-      const arrayDictionary = this.countriesDictionary.map((el) => {
-        return [el.alpha, el.beta]
-      }).flat()
-      this.countries = arrayDictionary
+      this.countryKeyCheckerFn()
 
-      const wrong = Vue.prototype?.$fullObject?.data.filter((el, i) => {
-        if (!arrayDictionary.includes(el[this.chosenCountry])) {
-          this.countryIndexes.push(i)
-          return el
-        }
-      })
+      if (this.countryKeyChecker) {
+        const arrayDictionary = this.countriesDictionary.map((el) => {
+          return [el.alpha, el.beta]
+        }).flat()
+        this.countries = arrayDictionary
 
-      if (!!wrong) {
-        this.countriesToMap = wrong.map((el) => {
-          return el[this.chosenCountry]
+        const wrong = Vue.prototype?.$fullObject?.data.filter((el, i) => {
+          if (!arrayDictionary.includes(el[this.chosenCountry])) {
+            this.countryIndexes.push(i)
+            return el
+          }
         })
+
+        if (!!wrong) {
+          this.countriesToMap = wrong.map((el) => {
+            return el[this.chosenCountry]
+          })
+        } else return
       } else return
     },
     toggleDarkDropdown() {
