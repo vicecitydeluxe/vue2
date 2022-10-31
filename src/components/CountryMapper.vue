@@ -89,6 +89,7 @@ export default {
           return el
         }
       })
+
       if (!!wrong) {
         this.countriesToMap = wrong.map((el) => {
           return el[this.chosenCountry]
@@ -157,7 +158,7 @@ export default {
           })
 
           //uncomment next line to see mutation of $fullObject
-          console.log(Vue.prototype.$fullObject.data)
+          console.log(Vue.prototype?.$fullObject?.data)
           globalTelegram.MainButton.setText('Create leads')
           globalTelegram.MainButton.color = '#16a34a'
           globalTelegram.MainButton.show()
@@ -199,9 +200,9 @@ export default {
   mounted() {
     this.wrongCountryFinder()
     // uncomment to see init variation of the $parsedHeaders
-    // console.log(Vue.prototype.$parsedHeaders)
-    // console.log(Vue.prototype.$fullObject.data)
-    // console.log(Vue.prototype.$reducedObject)
+    // console.log(Vue.prototype?.$parsedHeaders)
+    // console.log(Vue.prototype?.$fullObject?.data)
+    // console.log(Vue.prototype?.$reducedObject)
     globalTelegram.MainButton.onClick(this.actionCb)
     globalTelegram.BackButton.show().onClick(this.redirectCb)
   },

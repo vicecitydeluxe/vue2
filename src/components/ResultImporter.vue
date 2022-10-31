@@ -100,10 +100,13 @@
 </template>
 
 <script>
+// noinspection ES6UnusedImports
+import Vue from 'vue'
 import {mapGetters} from 'vuex'
 import tgMixin from "@/mixins/telegram/tgMixin";
 
 const globalTelegram = window.Telegram.WebApp
+const lib = window.libphonenumber
 
 export default {
   name: "ResultImporter",
@@ -160,10 +163,26 @@ export default {
     },
     actionCb() {
       if (this.$route.path === '/result-importer') this.$router.push({name: 'layout'})
+    },
+    phoneInvalidCounter() {
+      Vue.prototype?.$fullObject?.data.map((el, i) => {
+        let element = Vue.prototype?.$fullObject?.data[i][this.chosenPhone]
+
+        if (lib.parsePhoneNumber(element).isValid()) {
+
+          this.$store.commit('pushValidPhone', element)
+
+        } else if (!lib.parsePhoneNumber(element).isValid()) {
+          this.$store.commit('pushInvalidPhone', element)
+          this.privateResults[5].value = this.invalidPhone.length
+        }
+      })
     }
   },
   computed: {
-    ...mapGetters(['listName', 'fileName', 'parsedListLength'])
+    ...mapGetters(['listName', 'fileName',
+      'parsedListLength', "chosenPhone", "invalidPhone",
+      'invalidEmail', "invalidName"])
   },
   watch: {
     darkModeSwitch: {
@@ -185,6 +204,9 @@ export default {
   },
   mounted() {
     this.privateResults[0].value = this.parsedListLength
+    this.phoneInvalidCounter()
+    console.log(Vue.prototype?.$fullObject?.data)
+
     if (this.darkModeSwitch) {
       setTimeout(() => {
         document.querySelectorAll('.p-column-title')
@@ -199,6 +221,11 @@ export default {
   beforeDestroy() {
     globalTelegram.MainButton.offClick(this.actionCb)
     globalTelegram.BackButton.hide().offClick(this.redirectCb)
+    /**
+     * Clear global arrays before leave to prevent stacking results
+     */
+    this.$store.commit('eraseValidPhone')
+    this.$store.commit('eraseInvalidPhone')
   },
 }
 </script>

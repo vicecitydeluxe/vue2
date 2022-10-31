@@ -109,6 +109,9 @@ export default {
             let arrayDictionary = this.phoneNumbers.map((el) => el.name)
             let result = this.parsedFields.filter(i => arrayDictionary.includes(i));
             this.selectedPhoneNumber = {name: result[0]}
+
+            this.$store.commit('setChosenPhone', this.selectedPhoneNumber.name)
+
         },
         countryChecker() {
             let arrayDictionary = this.countries.map((el) => el.name)
@@ -190,6 +193,24 @@ export default {
                 ? replacer
                 : i)
             console.log(replacedArr.join())
+            /**
+             * Please refer to
+             * countryReplacer() method
+             * annotation to know details
+             */
+            Vue.prototype.$fullObject.data.forEach(el => {
+                el[this.selectedPhoneNumber.name] = el[this.chosenPhone]
+                delete el[this.chosenPhone]
+            })
+            const oldChosenPhone = this.chosenPhone
+            const newChosenPhone = this.selectedPhoneNumber.name
+            const newParsedFields = this.parsedFields
+            newParsedFields.forEach((el, index) => {
+                if (el === oldChosenPhone) newParsedFields
+                    .splice(index, 1, newChosenPhone)
+            })
+            this.$store.commit('setChosenPhone', this.selectedPhoneNumber.name)
+            this.$store.commit('setParsedFields', newParsedFields)
         },
         countryReplacer() {
             const splitObject = this.$parsedHeaders.split(',')
@@ -219,9 +240,11 @@ export default {
             })
             this.$store.commit('setChosenCountry', this.selectedCountry.name)
             this.$store.commit('setParsedFields', newParsedFields)
+            console.log(Vue.prototype?.$fullObject?.data)
+
         },
     },
     computed: {
-        ...mapGetters(['chosenCountry', 'parsedFields']),
+        ...mapGetters(['chosenCountry', 'parsedFields', "chosenPhone"]),
     },
 }

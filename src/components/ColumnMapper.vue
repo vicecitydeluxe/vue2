@@ -269,7 +269,7 @@ export default {
           if (!this.requiredFieldsDictionary.includes(key)) delete obj[key];
         }
       })
-      console.log(Vue.prototype.$reducedObject)
+      console.log(Vue.prototype?.$reducedObject)
     },
     toggleDarkCalendar() {
       this.darkCalendar++
@@ -419,8 +419,8 @@ export default {
     this.multipleCheckerCaller()
     this.dictionaryCreator()
     // uncomment to see init variation of the $parsedHeaders
-    // console.log(Vue.prototype.$parsedHeaders)
-    // console.log(Vue.prototype.$fullObject.data)
+    // console.log(Vue.prototype?.$parsedHeaders)
+    // console.log(Vue.prototype?.$fullObject?.data)
     // console.log(this.$parsedHeaders.split(','))
     globalTelegram.MainButton.onClick(this.actionCb)
     globalTelegram.BackButton.show().onClick(this.redirectCb)
