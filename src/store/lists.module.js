@@ -6,10 +6,16 @@ const state = {
     allLists: [],
     parsedListLength: 0,
     parsedFields: [],
-    chosenCountry: null,
-    chosenPhone: null,
+    chosenFirstName: null,
+    chosenLastName: null,
+    chosenFullName: null,
     chosenEmail: null,
+    chosenPhone: null,
+    chosenCountry: null,
+    chosenRegDate: null,
+    chosenDeposit: null,
 }
+
 const getters = {
     listName() {
         return state.listName
@@ -26,16 +32,32 @@ const getters = {
     parsedFields() {
         return state.parsedFields
     },
-    chosenCountry() {
-        return state.chosenCountry
+    chosenFirstName() {
+        return state.chosenFirstName
+    },
+    chosenLastName() {
+        return state.chosenLastName
+    },
+    chosenFullName() {
+        return state.chosenFullName
+    },
+    chosenEmail() {
+        return state.chosenEmail
     },
     chosenPhone() {
         return state.chosenPhone
     },
-    chosenEmail() {
-        return state.chosenEmail
+    chosenCountry() {
+        return state.chosenCountry
+    },
+    chosenRegDate() {
+        return state.chosenRegDate
+    },
+    chosenDeposit() {
+        return state.chosenDeposit
     }
 }
+
 const actions = {
 
     SEND_DOCUMENT(_, payload) {
@@ -103,14 +125,29 @@ const mutations = {
     setParsedFields(ctx, data) {
         state.parsedFields = data
     },
-    setChosenCountry(ctx, data) {
-        state.chosenCountry = data
+    setChosenFirstName(ctx, data) {
+        state.chosenFirstName = data
+    },
+    setChosenLastName(ctx, data) {
+        state.chosenLastName = data
+    },
+    setChosenFullName(ctx, data) {
+        state.chosenFullName = data
+    },
+    setChosenEmail(ctx, data) {
+        state.chosenEmail = data
     },
     setChosenPhone(ctx, data) {
         state.chosenPhone = data
     },
-    setChosenEmail(ctx, data) {
-        state.chosenEmail = data
+    setChosenCountry(ctx, data) {
+        state.chosenCountry = data
+    },
+    setChosenRegDate(ctx, data) {
+        state.chosenRegDate = data
+    },
+    setChosenDeposit(ctx, data) {
+        state.chosenDeposit = data
     }
 }
 

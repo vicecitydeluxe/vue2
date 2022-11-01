@@ -57,7 +57,7 @@ export default {
                 {name: 'country_id'},
                 {name: 'country_code'},
             ],
-            regGateList: [
+            regDateList: [
                 {name: 'regdate'},
                 {name: 'reg date'},
                 {name: 'reg_date'},
@@ -89,16 +89,23 @@ export default {
             const arrayDictionary = this.firstNames.map((el) => el.name)
             const result = this.parsedFields.filter(i => arrayDictionary.includes(i));
             this.selectedFirstName = {name: result[0]}
+
+            this.$store.commit('setChosenFirstName', this.selectedFirstName.name)
+
         },
         lastNameChecker() {
             let arrayDictionary = this.lastNames.map((el) => el.name)
             let result = this.parsedFields.filter(i => arrayDictionary.includes(i));
             this.selectedLastName = {name: result[0]}
+
+            this.$store.commit('setChosenLastName', this.selectedLastName.name)
         },
         fullNameChecker() {
             let arrayDictionary = this.fullNames.map((el) => el.name)
             let result = this.parsedFields.filter(i => arrayDictionary.includes(i));
             this.selectedFullName = {name: result[0]}
+
+            this.$store.commit('setChosenFullName', this.selectedFullName.name)
         },
         emailChecker() {
             let arrayDictionary = this.emails.map((el) => el.name)
@@ -113,7 +120,6 @@ export default {
             this.selectedPhoneNumber = {name: result[0]}
 
             this.$store.commit('setChosenPhone', this.selectedPhoneNumber.name)
-
         },
         countryChecker() {
             let arrayDictionary = this.countries.map((el) => el.name)
@@ -123,14 +129,18 @@ export default {
             this.$store.commit('setChosenCountry', this.selectedCountry.name)
         },
         registrationDateChecker() {
-            let arrayDictionary = this.regGateList.map((el) => el.name)
+            let arrayDictionary = this.regDateList.map((el) => el.name)
             let result = this.parsedFields.filter(i => arrayDictionary.includes(i));
             this.selectedRegDate = {name: result[0]}
+
+            this.$store.commit('setChosenRegDate', this.selectedRegDate.name)
         },
         depositChecker() {
             let arrayDictionary = this.deposits.map((el) => el.name)
             let result = this.parsedFields.filter(i => arrayDictionary.includes(i));
             this.selectedDeposit = {name: result[0]}
+
+            this.$store.commit('setChosenDeposit', this.selectedDeposit.name)
         },
         /**
          * multipleCheckerCaller() invokes
@@ -159,6 +169,22 @@ export default {
                 ? replacer
                 : i)
             console.log(replacedArr.join())
+            /**
+             * Please see countryReplacer() method annotation
+             */
+            Vue.prototype.$fullObject.data.forEach(el => {
+                el[this.selectedFirstName.name] = el[this.chosenFirstName]
+                delete el[this.chosenFirstName]
+            })
+            const oldChosenFirstName = this.chosenFirstName
+            const newChosenFirstName = this.selectedFirstName.name
+            const newParsedFields = this.parsedFields
+            newParsedFields.forEach((el, index) => {
+                if (el === oldChosenFirstName) newParsedFields
+                    .splice(index, 1, newChosenFirstName)
+            })
+            this.$store.commit('setChosenFirstName', this.selectedFirstName.name)
+            this.$store.commit('setParsedFields', newParsedFields)
         },
         lastNameReplacer() {
             const splitObject = this.$parsedHeaders.split(',')
@@ -168,6 +194,22 @@ export default {
                 ? replacer
                 : i)
             console.log(replacedArr.join())
+            /**
+             * Please see countryReplacer() method annotation
+             */
+            Vue.prototype.$fullObject.data.forEach(el => {
+                el[this.selectedLastName.name] = el[this.chosenLastName]
+                delete el[this.chosenLastName]
+            })
+            const oldChosenLastName = this.chosenLastName
+            const newChosenLastName = this.selectedLastName.name
+            const newParsedFields = this.parsedFields
+            newParsedFields.forEach((el, index) => {
+                if (el === oldChosenLastName) newParsedFields
+                    .splice(index, 1, newChosenLastName)
+            })
+            this.$store.commit('setChosenLastName', this.selectedLastName.name)
+            this.$store.commit('setParsedFields', newParsedFields)
         },
         fullNameReplacer() {
             const splitObject = this.$parsedHeaders.split(',')
@@ -177,6 +219,22 @@ export default {
                 ? replacer
                 : i)
             console.log(replacedArr.join())
+            /**
+             * Please see countryReplacer() method annotation
+             */
+            Vue.prototype.$fullObject.data.forEach(el => {
+                el[this.selectedFullName.name] = el[this.chosenFullName]
+                delete el[this.chosenFullName]
+            })
+            const oldChosenFullName = this.chosenFullName
+            const newChosenFullName = this.selectedFullName.name
+            const newParsedFields = this.parsedFields
+            newParsedFields.forEach((el, index) => {
+                if (el === oldChosenFullName) newParsedFields
+                    .splice(index, 1, newChosenFullName)
+            })
+            this.$store.commit('setChosenFullName', this.selectedFullName.name)
+            this.$store.commit('setParsedFields', newParsedFields)
         },
         emailReplacer() {
             const splitObject = this.$parsedHeaders.split(',')
@@ -261,11 +319,67 @@ export default {
             console.log(Vue.prototype?.$fullObject?.data)
 
         },
+        registrationDateReplacer() {
+            const splitObject = this.$parsedHeaders.split(',')
+            const replacer = this.selectedRegDate?.name
+            const arrayDictionary = this.regDateList.map((el) => el.name)
+            const replacedArr = splitObject.map((i) => arrayDictionary.includes(i)
+                ? replacer
+                : i)
+            console.log(replacedArr.join())
+            /**
+             * Please see countryReplacer() method annotation
+             */
+            Vue.prototype.$fullObject.data.forEach(el => {
+                el[this.selectedRegDate.name] = el[this.chosenRegDate]
+                delete el[this.chosenRegDate]
+            })
+            const oldChosenRegDate = this.chosenRegDate
+            const newChosenRegDate = this.selectedRegDate.name
+            const newParsedFields = this.parsedFields
+            newParsedFields.forEach((el, index) => {
+                if (el === oldChosenRegDate) newParsedFields
+                    .splice(index, 1, newChosenRegDate)
+            })
+            this.$store.commit('setChosenRegDate', this.selectedRegDate.name)
+            this.$store.commit('setParsedFields', newParsedFields)
+        },
+        depositReplacer() {
+            const splitObject = this.$parsedHeaders.split(',')
+            const replacer = this.selectedDeposit?.name
+            const arrayDictionary = this.deposits.map((el) => el.name)
+            const replacedArr = splitObject.map((i) => arrayDictionary.includes(i)
+                ? replacer
+                : i)
+            console.log(replacedArr.join())
+            /**
+             * Please see countryReplacer() method annotation
+             */
+            Vue.prototype.$fullObject.data.forEach(el => {
+                el[this.selectedDeposit.name] = el[this.chosenDeposit]
+                delete el[this.chosenDeposit]
+            })
+            const oldChosenDeposit = this.chosenDeposit
+            const newChosenDeposit = this.selectedDeposit.name
+            const newParsedFields = this.parsedFields
+            newParsedFields.forEach((el, index) => {
+                if (el === oldChosenDeposit) newParsedFields
+                    .splice(index, 1, newChosenDeposit)
+            })
+            this.$store.commit('setChosenDeposit', this.selectedDeposit.name)
+            this.$store.commit('setParsedFields', newParsedFields)
+        },
     },
     computed: {
         ...mapGetters(['parsedFields',
-            'chosenCountry',
+            "chosenFirstName",
+            "chosenLastName",
+            "chosenFullName",
+            "chosenEmail",
             "chosenPhone",
-            "chosenEmail"]),
+            'chosenCountry',
+            "chosenRegDate",
+            "chosenDeposit",
+        ]),
     },
 }

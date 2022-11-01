@@ -179,9 +179,10 @@
             :class="[ darkModeSwitch
             ? 'dropdown_dark'
             : 'map_container_dropdown']"
+            @change="registrationDateReplacer"
             v-model="selectedRegDate"
             :value="selectedRegDate"
-            :options="regGateList"
+            :options="regDateList"
             optionLabel="name"
             @before-show="toggleDarkDropdown"
         />
@@ -204,6 +205,7 @@
             :class="[ darkModeSwitch
             ? 'dropdown_dark'
             : 'map_container_dropdown']"
+            @change="depositReplacer"
             v-model="selectedDeposit"
             :value="selectedDeposit"
             :options="deposits"
@@ -310,8 +312,13 @@ export default {
     ...mapGetters(['listName', "fileName", "parsedFields"]),
     requiredFieldsFilled() {
       return !!(this.selectedFirstName?.name && this.selectedLastName?.name
-          && this.selectedEmail?.name && this.selectedPhoneNumber?.name
-          && this.selectedCountry?.name && this.selectedRegDate?.name);
+              && this.selectedEmail?.name && this.selectedPhoneNumber?.name
+              && this.selectedCountry?.name && this.selectedRegDate?.name
+              && this.selectedDeposit?.name) ||
+          !!(this.selectedFullName?.name && this.selectedEmail?.name
+              && this.selectedPhoneNumber?.name
+              && this.selectedCountry?.name && this.selectedRegDate?.name
+              && this.selectedDeposit?.name);
     }
   },
   watch: {
