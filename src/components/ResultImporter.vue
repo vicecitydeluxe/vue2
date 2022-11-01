@@ -166,6 +166,76 @@ export default {
     actionCb() {
       if (this.$route.path === '/result-importer') this.$router.push({name: 'layout'})
     },
+    firsNameInvalidCounter() {
+      if (this.chosenFirstName) {
+        this.privateResults[6].value = this.invalidFirstName.length
+        Vue.prototype?.$fullObject?.data.map((el, i) => {
+          let element = Vue.prototype?.$fullObject?.data[i][this.chosenFirstName]
+
+          if (element) {
+            this.$store.commit('pushValidFirstName', element)
+          } else if (!element) {
+            this.invalidParsedLinesIndexes.push(i)
+            this.$store.commit('pushInvalidFirstName', element)
+            this.privateResults[6].value = this.invalidFirstName.length
+          }
+        })
+      }
+    },
+    lastNameInvalidCounter() {
+      if (this.chosenLastName) {
+        this.privateResults[6].value = this.invalidLastName.length
+        Vue.prototype?.$fullObject?.data.map((el, i) => {
+          let element = Vue.prototype?.$fullObject?.data[i][this.chosenLastName]
+
+          if (element) {
+            this.$store.commit('pushValidLastName', element)
+          } else if (!element) {
+            //TODO add missing elems to array
+            if (this.invalidParsedLinesIndexes.includes(i)) {
+              console.log(`already exist ${i}`)
+            }
+            this.invalidParsedLinesIndexes.push(i)
+            this.$store.commit('pushInvalidLastName', element)
+            this.privateResults[6].value = this.invalidLastName.length
+          }
+        })
+      }
+    },
+    fullNameInvalidCounter() {
+      if (this.chosenFullName) {
+        this.privateResults[6].value = this.invalidFullName.length
+        Vue.prototype?.$fullObject?.data.map((el, i) => {
+          let element = Vue.prototype?.$fullObject?.data[i][this.chosenFullName]
+
+          if (element) {
+            this.$store.commit('pushValidFullName', element)
+          } else if (!element) {
+            this.invalidParsedLinesIndexes.push(i)
+            this.$store.commit('pushInvalidFullName', element)
+            this.privateResults[6].value = this.invalidFullName.length
+          }
+        })
+      }
+    },
+    emailInvalidCounter() {
+      this.privateResults[4].value = this.invalidEmail.length
+
+      if (this.chosenEmail) {
+        Vue.prototype?.$fullObject?.data.map((el, i) => {
+          let element = Vue.prototype?.$fullObject?.data[i][this.chosenEmail]
+          const regex = new RegExp(/^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/g)
+
+          if (regex.test(element)) {
+            this.$store.commit('pushValidEmail', element)
+          } else {
+            this.invalidParsedLinesIndexes.push(i)
+            this.$store.commit('pushInvalidEmail', element)
+            this.privateResults[4].value = this.invalidEmail.length
+          }
+        })
+      }
+    },
     phoneInvalidCounter() {
       this.privateResults[5].value = this.invalidPhone.length
 
@@ -195,29 +265,13 @@ export default {
         })
       }
     },
-    emailInvalidCounter() {
-      this.privateResults[4].value = this.invalidEmail.length
-
-      if (this.chosenEmail) {
-        Vue.prototype?.$fullObject?.data.map((el, i) => {
-          let element = Vue.prototype?.$fullObject?.data[i][this.chosenEmail]
-          const regex = new RegExp(/^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/g)
-
-          if (regex.test(element)) {
-            this.$store.commit('pushValidEmail', element)
-          } else {
-            this.invalidParsedLinesIndexes.push(i)
-            this.$store.commit('pushInvalidEmail', element)
-            this.privateResults[4].value = this.invalidEmail.length
-          }
-        })
-      }
-    },
   },
   computed: {
-    ...mapGetters(['listName', 'fileName',
-      'parsedListLength', "chosenPhone", "invalidPhone",
-      'invalidEmail', "invalidName", "chosenEmail"]),
+    ...mapGetters(['listName', 'fileName', 'parsedListLength',
+      "chosenFirstName", "chosenLastName", "chosenFullName",
+      "chosenEmail", "chosenPhone",
+      "invalidPhone", 'invalidEmail', "invalidFirstName",
+      "invalidLastName", "invalidFullName"]),
   },
   watch: {
     darkModeSwitch: {
@@ -248,9 +302,16 @@ export default {
   },
   mounted() {
     this.privateResults[0].value = this.parsedListLength
-    this.phoneInvalidCounter()
+    //TODO global invoker function and remove all logic to mixin
     this.emailInvalidCounter()
-    console.log(Vue.prototype?.$fullObject?.data)
+    this.phoneInvalidCounter()
+    this.firsNameInvalidCounter()
+    this.lastNameInvalidCounter()
+    this.fullNameInvalidCounter()
+    /**
+     * uncomment next line to see invalid lines after parsing
+     */
+    // console.log(Vue.prototype?.$fullObject?.data)
 
     if (this.darkModeSwitch) {
       setTimeout(() => {
@@ -269,6 +330,13 @@ export default {
     /**
      * Clear global arrays before leave to prevent stacking results
      */
+    //TODO global invoker needed
+    this.$store.commit('eraseValidFirstName')
+    this.$store.commit('eraseInvalidFirstName')
+    this.$store.commit('eraseValidLastName')
+    this.$store.commit('eraseInvalidLastName')
+    this.$store.commit('eraseValidFullName')
+    this.$store.commit('eraseInvalidFullName')
     this.$store.commit('eraseValidPhone')
     this.$store.commit('eraseInvalidPhone')
     this.$store.commit('eraseValidEmail')
