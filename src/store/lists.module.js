@@ -7,7 +7,8 @@ const state = {
     parsedListLength: 0,
     parsedFields: [],
     chosenCountry: null,
-    chosenPhone: null
+    chosenPhone: null,
+    chosenEmail: null,
 }
 const getters = {
     listName() {
@@ -30,6 +31,9 @@ const getters = {
     },
     chosenPhone() {
         return state.chosenPhone
+    },
+    chosenEmail() {
+        return state.chosenEmail
     }
 }
 const actions = {
@@ -104,6 +108,9 @@ const mutations = {
     },
     setChosenPhone(ctx, data) {
         state.chosenPhone = data
+    },
+    setChosenEmail(ctx, data) {
+        state.chosenEmail = data
     }
 }
 

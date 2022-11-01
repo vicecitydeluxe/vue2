@@ -189,12 +189,27 @@ export default {
           }
         })
       }
+    },
+    emailInvalidCounter() {
+      if (this.chosenEmail) {
+        Vue.prototype?.$fullObject?.data.map((el, i) => {
+          let element = Vue.prototype?.$fullObject?.data[i][this.chosenEmail]
+          const regex = new RegExp(/^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/g)
+
+          if (regex.test(element)) {
+            this.$store.commit('pushValidEmail', element)
+          } else {
+            this.$store.commit('pushInvalidEmail', element)
+            this.privateResults[4].value = this.invalidEmail.length
+          }
+        })
+      }
     }
   },
   computed: {
     ...mapGetters(['listName', 'fileName',
       'parsedListLength', "chosenPhone", "invalidPhone",
-      'invalidEmail', "invalidName"])
+      'invalidEmail', "invalidName", "chosenEmail"])
   },
   watch: {
     darkModeSwitch: {
@@ -217,6 +232,7 @@ export default {
   mounted() {
     this.privateResults[0].value = this.parsedListLength
     this.phoneInvalidCounter()
+    this.emailInvalidCounter()
     console.log(Vue.prototype?.$fullObject?.data)
 
     if (this.darkModeSwitch) {
@@ -238,6 +254,8 @@ export default {
      */
     this.$store.commit('eraseValidPhone')
     this.$store.commit('eraseInvalidPhone')
+    this.$store.commit('eraseValidEmail')
+    this.$store.commit('eraseInvalidEmail')
   },
 }
 </script>
