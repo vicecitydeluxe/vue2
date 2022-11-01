@@ -156,6 +156,7 @@ export default {
         {description: 'Partially unique leads', value: '550'},
         {description: 'Duplicate leads', value: '800'},
       ],
+      invalidParsedLinesIndexes: []
     }
   },
   methods: {
@@ -166,6 +167,8 @@ export default {
       if (this.$route.path === '/result-importer') this.$router.push({name: 'layout'})
     },
     phoneInvalidCounter() {
+      this.privateResults[5].value = this.invalidPhone.length
+
       if (this.chosenPhone) {
         Vue.prototype?.$fullObject?.data.map((el, i) => {
           let element = Vue.prototype?.$fullObject?.data[i][this.chosenPhone]
@@ -174,6 +177,7 @@ export default {
             parsePhoneNumber(element).isValid()
           } catch (error) {
             if (error instanceof ParseError) {
+              this.invalidParsedLinesIndexes.push(i)
               this.$store.commit('pushInvalidPhone', element)
               this.privateResults[5].value = this.invalidPhone.length
               // console.log(error.message)
@@ -184,6 +188,7 @@ export default {
           if (parseMax(element).isValid()) {
             this.$store.commit('pushValidPhone', element)
           } else {
+            this.invalidParsedLinesIndexes.push(i)
             this.$store.commit('pushInvalidPhone', element)
             this.privateResults[5].value = this.invalidPhone.length
           }
@@ -191,6 +196,8 @@ export default {
       }
     },
     emailInvalidCounter() {
+      this.privateResults[4].value = this.invalidEmail.length
+
       if (this.chosenEmail) {
         Vue.prototype?.$fullObject?.data.map((el, i) => {
           let element = Vue.prototype?.$fullObject?.data[i][this.chosenEmail]
@@ -199,17 +206,18 @@ export default {
           if (regex.test(element)) {
             this.$store.commit('pushValidEmail', element)
           } else {
+            this.invalidParsedLinesIndexes.push(i)
             this.$store.commit('pushInvalidEmail', element)
             this.privateResults[4].value = this.invalidEmail.length
           }
         })
       }
-    }
+    },
   },
   computed: {
     ...mapGetters(['listName', 'fileName',
       'parsedListLength', "chosenPhone", "invalidPhone",
-      'invalidEmail', "invalidName", "chosenEmail"])
+      'invalidEmail', "invalidName", "chosenEmail"]),
   },
   watch: {
     darkModeSwitch: {
@@ -226,6 +234,15 @@ export default {
           document.querySelectorAll('.description_dark').forEach(e => e.classList.remove('description_dark'))
           document.querySelectorAll('.description_divider').forEach(e => e.classList.remove('description_divider_dark'))
         }
+      },
+    },
+    invalidParsedLinesIndexes: {
+      handler(newValue) {
+        const fullData = JSON.parse(JSON.stringify(Vue.prototype?.$fullObject?.data))
+        const mappedData = fullData.map((el, i) => {
+          if (newValue.includes(i)) return el
+        })
+        Vue.prototype.$invalidObject = mappedData.filter(Boolean)
       },
     },
   },

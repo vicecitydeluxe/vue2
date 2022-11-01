@@ -226,7 +226,13 @@ export default {
   },
   mounted() {
     this.wrongCountryFinder()
-    // uncomment to see init variation of the $parsedHeaders
+    /**
+     * uncomment next line to see invalid lines after parsing
+     */
+    // console.log(Vue.prototype?.$invalidObject)
+    /**
+     * uncomment to see init variation of the $parsedHeaders
+     */
     // console.log(Vue.prototype?.$parsedHeaders)
     // console.log(Vue.prototype?.$fullObject?.data)
     // console.log(Vue.prototype?.$reducedObject)
@@ -236,6 +242,7 @@ export default {
   beforeDestroy() {
     globalTelegram.MainButton.hide().offClick(this.actionCb)
     globalTelegram.BackButton.hide().offClick(this.redirectCb)
+    Vue.prototype.$invalidObject = []
   },
 }
 </script>
