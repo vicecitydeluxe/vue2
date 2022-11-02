@@ -28,6 +28,12 @@
             : {}"
         />
       </DataTable>
+      <Button
+          style="margin-top: 10px;"
+          label="Download wrong results"
+          @click="downloadInvalidLeads"
+          v-if="invalidFieldsChecker"
+      />
       <hr class="hidden">
       <div class="description_divider">Duplicates</div>
       <section class="description">
@@ -102,6 +108,7 @@
 <script>
 // noinspection ES6UnusedImports
 import Vue from 'vue'
+import Papa from "papaparse";
 import tgMixin from "@/mixins/telegram/tgMixin";
 import resultImporterHelper from "@/mixins/helpers/resultImporterHelper";
 
@@ -122,6 +129,30 @@ export default {
     actionCb() {
       if (this.$route.path === '/result-importer') this.$router.push({name: 'layout'})
     },
+    downloadInvalidLeads() {
+      return new Promise((resolve) => {
+        Vue.prototype.$parsedDocument = Papa.unparse(Object.assign({
+          'fields': Object.keys(Vue.prototype?.$invalidObject[0]),
+          'data': Vue.prototype?.$invalidObject.map((el) => Object.values(el))
+        }))
+        resolve(Vue.prototype.$parsedDocument)
+      }).then(result => {
+        const download = function (result) {
+          const blob = new Blob([result], {type: 'text/csv'});
+          const url = window.URL.createObjectURL(blob)
+          const a = document.createElement('a')
+          a.setAttribute('href', url)
+          a.setAttribute('download', 'invalid_leads.csv');
+          a.click()
+        }
+        download(result)
+      })
+    }
+  },
+  computed: {
+    invalidFieldsChecker() {
+      return this.invalidParsedLinesIndexes?.length > 1;
+    }
   },
   watch: {
     darkModeSwitch: {
