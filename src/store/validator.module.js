@@ -50,6 +50,21 @@ const getters = {
 
 }
 
+const actions = {
+    eraseInvoker({commit}) {
+        commit('eraseValidFirstName')
+        commit('eraseInvalidFirstName')
+        commit('eraseValidLastName')
+        commit('eraseInvalidLastName')
+        commit('eraseValidFullName')
+        commit('eraseInvalidFullName')
+        commit('eraseValidPhone')
+        commit('eraseInvalidPhone')
+        commit('eraseValidEmail')
+        commit('eraseInvalidEmail')
+    }
+}
+
 // noinspection JSUnusedLocalSymbols
 const mutations = {
     pushValidFirstName(ctx, data) {
@@ -94,25 +109,27 @@ const mutations = {
         state.invalidFullName = []
     },
 
-
     pushValidEmail(ctx, data) {
         state.validEmail.push(data)
     },
     eraseValidEmail(ctx) {
         state.validEmail = []
     },
+
     pushInvalidEmail(ctx, data) {
         state.invalidEmail.push(data)
     },
     eraseInvalidEmail(ctx) {
         state.invalidEmail = []
     },
+
     pushValidPhone(ctx, data) {
         state.validPhone.push(data)
     },
     eraseValidPhone(ctx) {
         state.validPhone = []
     },
+
     pushInvalidPhone(ctx, data) {
         state.invalidPhone.push(data)
     },
@@ -121,4 +138,4 @@ const mutations = {
     },
 }
 
-export default {state, getters, mutations}
+export default {state, getters, actions, mutations}

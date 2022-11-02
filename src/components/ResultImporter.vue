@@ -102,60 +102,16 @@
 <script>
 // noinspection ES6UnusedImports
 import Vue from 'vue'
-import {mapGetters} from 'vuex'
 import tgMixin from "@/mixins/telegram/tgMixin";
-import {parsePhoneNumber, ParseError} from 'libphonenumber-js'
-import {parsePhoneNumberFromString as parseMax} from 'libphonenumber-js/max'
+import resultImporterHelper from "@/mixins/helpers/resultImporterHelper";
 
 const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "ResultImporter",
-  mixins: [tgMixin],
+  mixins: [tgMixin, resultImporterHelper],
   data() {
     return {
-      todayDate: new Date().toLocaleDateString("ru-RU", {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      }),
-      privateColumns: [
-        {field: 'description', header: 'Stat'},
-        {field: 'value', header: '#'},
-      ],
-      privateResults: [
-        {description: 'Records in source file', value: '1500'},
-        {description: 'Fully valid leads (imported) view', value: '1200'},
-        {description: 'Cannot parse line view lines', value: '90'},
-        {description: 'Invalid leads view', value: ''},
-        {description: '-missing or invalid email', value: '50'},
-        {description: '-missing or invalid number', value: '60'},
-        {description: '-missing name/lastname/fullname', value: '20'},
-      ],
-      publicColumns: [
-        {field: 'description', header: "Leads' age"},
-        {field: 'value', header: '#'},
-      ],
-      publicResults: [
-        {description: 'Less 24 hours', value: '15'},
-        {description: 'Less than a week', value: '30'},
-        {description: 'less than a month', value: '40'},
-        {description: 'Over a month', value: '100'},
-        {description: 'Up to 3 months', value: '150'},
-        {description: 'more than 3 months', value: '760'},
-        {description: 'Unknown', value: '15'},
-      ],
-      uniqueColumns: [
-        {field: 'description', header: "Across marketplace"},
-        {field: 'value', header: '#'},
-      ],
-      uniqueResults: [
-        {description: 'Fully unique leads', value: '150'},
-        {description: 'Partially unique leads', value: '550'},
-        {description: 'Duplicate leads', value: '800'},
-      ],
       invalidParsedLinesIndexes: []
     }
   },
@@ -166,112 +122,6 @@ export default {
     actionCb() {
       if (this.$route.path === '/result-importer') this.$router.push({name: 'layout'})
     },
-    firsNameInvalidCounter() {
-      if (this.chosenFirstName) {
-        this.privateResults[6].value = this.invalidFirstName.length
-        Vue.prototype?.$fullObject?.data.map((el, i) => {
-          let element = Vue.prototype?.$fullObject?.data[i][this.chosenFirstName]
-
-          if (element) {
-            this.$store.commit('pushValidFirstName', element)
-          } else if (!element) {
-            this.invalidParsedLinesIndexes.push(i)
-            this.$store.commit('pushInvalidFirstName', element)
-            this.privateResults[6].value = this.invalidFirstName.length
-          }
-        })
-      }
-    },
-    lastNameInvalidCounter() {
-      if (this.chosenLastName) {
-        this.privateResults[6].value = this.invalidLastName.length
-        Vue.prototype?.$fullObject?.data.map((el, i) => {
-          let element = Vue.prototype?.$fullObject?.data[i][this.chosenLastName]
-
-          if (element) {
-            this.$store.commit('pushValidLastName', element)
-          } else if (!element) {
-            //TODO add missing elems to array
-            if (this.invalidParsedLinesIndexes.includes(i)) {
-              console.log(`already exist ${i}`)
-            }
-            this.invalidParsedLinesIndexes.push(i)
-            this.$store.commit('pushInvalidLastName', element)
-            this.privateResults[6].value = this.invalidLastName.length
-          }
-        })
-      }
-    },
-    fullNameInvalidCounter() {
-      if (this.chosenFullName) {
-        this.privateResults[6].value = this.invalidFullName.length
-        Vue.prototype?.$fullObject?.data.map((el, i) => {
-          let element = Vue.prototype?.$fullObject?.data[i][this.chosenFullName]
-
-          if (element) {
-            this.$store.commit('pushValidFullName', element)
-          } else if (!element) {
-            this.invalidParsedLinesIndexes.push(i)
-            this.$store.commit('pushInvalidFullName', element)
-            this.privateResults[6].value = this.invalidFullName.length
-          }
-        })
-      }
-    },
-    emailInvalidCounter() {
-      this.privateResults[4].value = this.invalidEmail.length
-
-      if (this.chosenEmail) {
-        Vue.prototype?.$fullObject?.data.map((el, i) => {
-          let element = Vue.prototype?.$fullObject?.data[i][this.chosenEmail]
-          const regex = new RegExp(/^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/g)
-
-          if (regex.test(element)) {
-            this.$store.commit('pushValidEmail', element)
-          } else {
-            this.invalidParsedLinesIndexes.push(i)
-            this.$store.commit('pushInvalidEmail', element)
-            this.privateResults[4].value = this.invalidEmail.length
-          }
-        })
-      }
-    },
-    phoneInvalidCounter() {
-      this.privateResults[5].value = this.invalidPhone.length
-
-      if (this.chosenPhone) {
-        Vue.prototype?.$fullObject?.data.map((el, i) => {
-          let element = Vue.prototype?.$fullObject?.data[i][this.chosenPhone]
-
-          try {
-            parsePhoneNumber(element).isValid()
-          } catch (error) {
-            if (error instanceof ParseError) {
-              this.invalidParsedLinesIndexes.push(i)
-              this.$store.commit('pushInvalidPhone', element)
-              this.privateResults[5].value = this.invalidPhone.length
-              // console.log(error.message)
-              return
-            } else throw error
-          }
-
-          if (parseMax(element).isValid()) {
-            this.$store.commit('pushValidPhone', element)
-          } else {
-            this.invalidParsedLinesIndexes.push(i)
-            this.$store.commit('pushInvalidPhone', element)
-            this.privateResults[5].value = this.invalidPhone.length
-          }
-        })
-      }
-    },
-  },
-  computed: {
-    ...mapGetters(['listName', 'fileName', 'parsedListLength',
-      "chosenFirstName", "chosenLastName", "chosenFullName",
-      "chosenEmail", "chosenPhone",
-      "invalidPhone", 'invalidEmail', "invalidFirstName",
-      "invalidLastName", "invalidFullName"]),
   },
   watch: {
     darkModeSwitch: {
@@ -292,22 +142,27 @@ export default {
     },
     invalidParsedLinesIndexes: {
       handler(newValue) {
+        /**
+         * Invalid leads in $invalidObject (lines)
+         */
         const fullData = JSON.parse(JSON.stringify(Vue.prototype?.$fullObject?.data))
         const mappedData = fullData.map((el, i) => {
           if (newValue.includes(i)) return el
         })
         Vue.prototype.$invalidObject = mappedData.filter(Boolean)
+        /**
+         * Valid leads in $fullObject
+         */
+        Vue.prototype.$fullObject.data = Vue.prototype?.$fullObject?.data.filter((el, i) => {
+          if (!newValue.includes(i)) return el
+        })
+        console.log(Vue.prototype?.$fullObject?.data)
       },
     },
   },
   mounted() {
     this.privateResults[0].value = this.parsedListLength
-    //TODO global invoker function and remove all logic to mixin
-    this.emailInvalidCounter()
-    this.phoneInvalidCounter()
-    this.firsNameInvalidCounter()
-    this.lastNameInvalidCounter()
-    this.fullNameInvalidCounter()
+    this.countersInvoker()
     /**
      * uncomment next line to see invalid lines after parsing
      */
@@ -325,22 +180,17 @@ export default {
     globalTelegram.BackButton.show().onClick(this.redirectCb)
   },
   beforeDestroy() {
+    /**
+     * uncomment logs to see 2 different objects
+     */
+    // console.log(Vue.prototype?.$fullObject?.data)
+    // console.log(Vue.prototype?.$invalidObject)
     globalTelegram.MainButton.offClick(this.actionCb)
     globalTelegram.BackButton.hide().offClick(this.redirectCb)
     /**
      * Clear global arrays before leave to prevent stacking results
      */
-    //TODO global invoker needed
-    this.$store.commit('eraseValidFirstName')
-    this.$store.commit('eraseInvalidFirstName')
-    this.$store.commit('eraseValidLastName')
-    this.$store.commit('eraseInvalidLastName')
-    this.$store.commit('eraseValidFullName')
-    this.$store.commit('eraseInvalidFullName')
-    this.$store.commit('eraseValidPhone')
-    this.$store.commit('eraseInvalidPhone')
-    this.$store.commit('eraseValidEmail')
-    this.$store.commit('eraseInvalidEmail')
+    this.$store.dispatch('eraseInvoker')
   },
 }
 </script>

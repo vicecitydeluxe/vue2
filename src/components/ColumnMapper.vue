@@ -243,9 +243,8 @@
 <script>
 // noinspection ES6UnusedImports
 import Vue from 'vue'
-
 import tgMixin from "@/mixins/telegram/tgMixin";
-import parsedListHelper from "@/mixins/helpers/parsedListHelper";
+import columnMapperHelper from "@/mixins/helpers/columnMapperHelper";
 import {mapGetters} from 'vuex'
 
 const globalTelegram = window.Telegram.WebApp
@@ -254,7 +253,7 @@ const calendars = document.getElementsByClassName('p-calendar')
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: "Mapper",
-  mixins: [tgMixin, parsedListHelper],
+  mixins: [tgMixin, columnMapperHelper],
   data() {
     return {
       darkCalendar: 0,
