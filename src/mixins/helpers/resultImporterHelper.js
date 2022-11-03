@@ -20,8 +20,8 @@ export default {
             ],
             privateResults: [
                 {description: 'Records in source file', value: '1500'},
-                {description: 'Fully valid leads (imported) view', value: '1200'},
-                {description: 'Cannot parse line view lines', value: '90'},
+                {description: 'Fully valid leads (imported) view', value: ''},
+                {description: 'Cannot parse line view lines', value: ''},
                 {description: 'Invalid leads view', value: ''},
                 {description: '-missing or invalid email', value: '50'},
                 {description: '-missing or invalid number', value: '60'},
@@ -166,8 +166,13 @@ export default {
     },
     computed: {
         ...mapGetters(['listName', 'fileName', 'parsedListLength',
+
+            "vertical", 'funnelType', 'validLeadsAmount', 'uploadDate',
+            'listStatusBeforeUpload',
+
             "chosenFirstName", "chosenLastName", "chosenFullName",
             "chosenEmail", "chosenPhone",
+
             "invalidPhone", 'invalidEmail', "invalidFirstName",
             "invalidLastName", "invalidFullName"]),
         ...mapActions((['eraseInvoker']))

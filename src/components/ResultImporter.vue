@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <header class="header_section">
-      <h3>{{ listName }}</h3>
+      <h3># {{ listName }}</h3>
     </header>
     <main>
       <div>List: {{ listName }}</div>
@@ -138,6 +138,47 @@ export default {
     }
   },
   methods: {
+    // TODO use results in mounted hook to re-select fields when redirected from Telegram
+    sendUploadStatus() {
+      /**
+       * Values below taken from getters in mixin-helper
+       */
+      const obj = {
+        name: this.listName,
+        filename: this.filename,
+        vertical: this.vertical,
+        funnel_type: this.funnelType,
+        type: 'Unknown',
+        valid_leads_amount: Vue.prototype?.$fullObject?.data?.length,
+        upload_date: this.todayDate,
+        status: this.listStatusBeforeUpload
+      }
+      this.$store.dispatch('SEND_UPLOAD_STATUS', obj)
+          .then((res) => {
+            this.sendStatistics()
+            // console.log(res)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+    },
+    sendStatistics() {
+      const obj = {
+        full_records: this.parsedListLength,
+        valid_leads: this.privateResults[1]?.value,
+        unable_to_parse: this.privateResults[2]?.value,
+        invalid_emails: this.privateResults[4]?.value,
+        invalid_phones: this.privateResults[5]?.value,
+        invalid_names: this.privateResults[6]?.value,
+      }
+      this.$store.dispatch('SEND_STATS', obj)
+          .then((res) => {
+            // console.log(res)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+    },
     redirectCb() {
       this.$router.push({name: 'country'})
     },
@@ -286,6 +327,7 @@ export default {
         Vue.prototype.$fullObject.data = Vue.prototype?.$fullObject?.data.filter((el, i) => {
           if (!newValue.includes(i)) return el
         })
+        this.privateResults[1].value = Vue.prototype.$fullObject.data.length
         // console.log(Vue.prototype?.$fullObject?.data)
       },
     },
@@ -294,11 +336,13 @@ export default {
         Vue.prototype.$fullObject.data = Vue.prototype?.$fullObject?.data.filter((el, i) => {
           if (!newValue.includes(i)) return el
         })
+        this.privateResults[1].value = Vue.prototype.$fullObject.data.length
         // console.log(Vue.prototype?.$fullObject?.data)
       },
     },
   },
   mounted() {
+    // this.$store.dispatch('GET_STATS')
     this.privateResults[0].value = this.parsedListLength
     this.countersInvoker()
     /**

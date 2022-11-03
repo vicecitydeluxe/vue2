@@ -1,5 +1,8 @@
 <template>
   <div class="header">
+    <Button
+        @click="actionCb"
+    >TESTY</Button>
     <header class="header_section">
       <h3>NEW LIST</h3>
     </header>
@@ -39,6 +42,7 @@
           placeholder="Select a crypto"
           :options="cryptoPairs"
           optionLabel="name"
+          @change="updateVertical"
           @before-show="toggleDarkDropdown"
       />
       <h6>Type</h6>
@@ -58,6 +62,7 @@
           placeholder="Unknown"
           :options="funnels"
           optionLabel="name"
+          @change="updateFunnels"
           @before-show="toggleDarkDropdown"
       />
     </main>
@@ -113,7 +118,9 @@ export default {
               this.respondSuccess = true
               const lastListAdded = this.allLists[this.allLists.length - 1]
               this.listName = lastListAdded.name
+              this.updateListName()
               this.listDescription = lastListAdded.filename
+              this.$store.commit('setFileName', this.listDescription)
               this.$toast.add({
                 severity: 'info',
                 summary: 'Notification',
@@ -134,6 +141,12 @@ export default {
     },
     updateListName() {
       this.$store.commit('setListName', this.listName)
+    },
+    updateFunnels() {
+      this.$store.commit('setFunnelType', this.selectedFunnel.name)
+    },
+    updateVertical() {
+      this.$store.commit('setVertical', this.selectedCrypto.name)
     },
     sendList() {
       const obj = {

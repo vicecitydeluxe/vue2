@@ -3,6 +3,11 @@ import $axios from '../api/index'
 const state = {
     listName: 'CM DE May 2022 depositors',
     fileName: 'Default.csv',
+    vertical: '',
+    funnelType: '',
+    validLeadsAmount: 0,
+    uploadDate: 0,
+    listStatusBeforeUpload: 'Hidden',
     allLists: [],
     parsedListLength: 0,
     parsedFields: [],
@@ -22,6 +27,21 @@ const getters = {
     },
     fileName() {
         return state.fileName
+    },
+    vertical() {
+        return state.vertical
+    },
+    funnelType() {
+        return state.funnelType
+    },
+    validLeadsAmount() {
+        return state.validLeadsAmount
+    },
+    uploadDate() {
+        return state.uploadDate
+    },
+    listStatusBeforeUpload() {
+        return state.listStatusBeforeUpload
     },
     allLists() {
         return state.allLists
@@ -107,6 +127,52 @@ const actions = {
         })
     },
 
+    SEND_UPLOAD_STATUS(_, payload) {
+        return new Promise((resolve, reject) => {
+            $axios({
+                url: `https://leads-api.genesis.pm/status`,
+                method: "POST",
+                data: payload
+            }).then(res => {
+                console.log(res.data)
+                resolve(res)
+            }).catch(err => {
+                console.log(err)
+                reject(err)
+            })
+        })
+    },
+
+    SEND_STATS(_, payload) {
+        return new Promise((resolve, reject) => {
+            $axios({
+                url: `https://leads-api.genesis.pm/stats`,
+                method: "POST",
+                data: payload
+            }).then(res => {
+                console.log(res.data)
+                resolve(res)
+            }).catch(err => {
+                console.log(err)
+                reject(err)
+            })
+        })
+    },
+
+    GET_STATS(_) {
+        return new Promise((resolve, reject) => {
+            $axios({
+                url: `https://leads-api.genesis.pm/stats`,
+                method: "GET",
+            }).then(res => {
+                console.log(res.data)
+                resolve(res)
+            }).catch(err => {
+                console.log(err)
+                reject(err)
+            })
+        })
+    },
 }
 
 const mutations = {
@@ -115,6 +181,21 @@ const mutations = {
     },
     setFileName(ctx, data) {
         state.fileName = data
+    },
+    setVertical(ctx, data) {
+        state.vertical = data
+    },
+    setFunnelType(ctx, data) {
+        state.funnelType = data
+    },
+    setValidLeadsAmount(ctx, data) {
+        state.validLeadsAmount = data
+    },
+    setUploadDate(ctx, data) {
+        state.uploadDate = data
+    },
+    setListStatusBeforeUpload(ctx, data) {
+        state.listStatusBeforeUpload = data
     },
     setAllLists(ctx, data) {
         state.allLists = data
