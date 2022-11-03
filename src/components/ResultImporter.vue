@@ -14,7 +14,8 @@
       <div class="description_divider">Lead loading results</div>
       <DataTable
           :value="privateResults"
-          responsiveLayout="scroll">
+          responsiveLayout="scroll"
+      >
         <Column
             v-for="col of privateColumns"
             :field="col.field"
@@ -45,23 +46,34 @@
           <div>Full duplicates (email+phone)</div>
         </div>
         <div class="map_container">
-          <Button style="font-size: 12px;"
-                  label="Remove from the list"/>
-          <Button style="font-size: 12px;"
-                  label="Remove from  other lists"/>
+          <Button
+              style="font-size: 12px;"
+              label="Remove from the list"
+              @click="getFullDuplicates"
+              :disabled="duplicatesButtonDisabler"
+          />
+          <Button
+              style="font-size: 12px;"
+              label="Remove from  other lists"
+          />
         </div>
         <div class="details_container">
           <div>105</div>
           <div>Partial duplicates (email or phone)</div>
         </div>
         <div class="map_container">
-          <Button style="font-size: 12px;"
-                  label="Remove from the list"/>
-          <Button style="font-size: 12px;"
-                  label="Remove from  other lists"/>
+          <Button
+              style="font-size: 12px;"
+              label="Remove from the list"
+              @click="getPartialDuplicates"
+              :disabled="duplicatesButtonDisabler"
+          />
+          <Button
+              style="font-size: 12px;"
+              label="Remove from  other lists"
+          />
         </div>
       </section>
-
       <div class="description_divider">Public statistics</div>
       <div class="description">Numbers are valid
         at the time of loading on {{ this.todayDate }}
@@ -102,6 +114,7 @@
         />
       </DataTable>
     </main>
+    <Toast position="bottom-center"/>
   </div>
 </template>
 
@@ -119,7 +132,9 @@ export default {
   mixins: [tgMixin, resultImporterHelper],
   data() {
     return {
-      invalidParsedLinesIndexes: []
+      invalidParsedLinesIndexes: [],
+      fullDuplicatesIndexes: [],
+      partialDuplicatesIndexes: [],
     }
   },
   methods: {
@@ -128,6 +143,44 @@ export default {
     },
     actionCb() {
       if (this.$route.path === '/result-importer') this.$router.push({name: 'layout'})
+    },
+    getFullDuplicates() {
+      const helpMap = new Map();
+      Vue.prototype.$fullDuplicates = [];
+
+      Vue.prototype.$fullObject.data.map((element, index) => {
+        if (helpMap.has(element[this.chosenEmail])) {
+          const existingElement = helpMap.get(element[this.chosenEmail]);
+
+          if (element[this.chosenPhone] === existingElement) {
+            Vue.prototype.$fullDuplicates.push(element);
+            this.fullDuplicatesIndexes.push(index)
+          }
+        } else {
+          helpMap.set(element[this.chosenEmail], element[this.chosenPhone]);
+        }
+      });
+      this.showFullInfoToast()
+      // console.log(Vue.prototype.$fullDuplicates)
+    },
+    getPartialDuplicates() {
+      const helpMap = new Map();
+      Vue.prototype.$partialDuplicates = []
+
+      Vue.prototype.$fullObject.data.map((element, index) => {
+        if (helpMap.has(element[this.chosenEmail])) {
+          const existingElement = helpMap.get(element[this.chosenEmail]);
+
+          if (element[this.chosenPhone] !== existingElement) {
+            Vue.prototype.$partialDuplicates.push(element);
+            this.partialDuplicatesIndexes.push(index)
+          }
+        } else {
+          helpMap.set(element[this.chosenEmail], element[this.chosenPhone]);
+        }
+      });
+      this.showPartialInfoToast()
+      // console.log(Vue.prototype.$partialDuplicates)
     },
     downloadInvalidLeads() {
       return new Promise((resolve) => {
@@ -147,12 +200,50 @@ export default {
         }
         download(result)
       })
-    }
+    },
+    showFullInfoToast() {
+      if (this.fullDuplicatesIndexes.length > 0) {
+        this.$toast.add({
+          severity: 'info',
+          summary: 'Info message',
+          detail: 'Full duplicates was removed from the list!',
+          life: 2000
+        });
+      } else {
+        this.$toast.add({
+          severity: 'info',
+          summary: 'Info message',
+          detail: 'No duplicates in the list!',
+          life: 2000
+        });
+      }
+    },
+    showPartialInfoToast() {
+      if (this.partialDuplicatesIndexes.length > 0) {
+        this.$toast.add({
+          severity: 'info',
+          summary: 'Info message',
+          detail: 'Partial duplicates was removed from the list!!',
+          life: 2000
+        });
+      } else {
+        this.$toast.add({
+          severity: 'info',
+          summary: 'Info message',
+          detail: 'No duplicates in the list!',
+          life: 2000
+        });
+      }
+    },
   },
   computed: {
     invalidFieldsChecker() {
       return this.invalidParsedLinesIndexes?.length > 1;
-    }
+    },
+    duplicatesButtonDisabler() {
+      return this.partialDuplicatesIndexes.length > 0
+          || this.fullDuplicatesIndexes.length > 0;
+    },
   },
   watch: {
     darkModeSwitch: {
@@ -187,7 +278,23 @@ export default {
         Vue.prototype.$fullObject.data = Vue.prototype?.$fullObject?.data.filter((el, i) => {
           if (!newValue.includes(i)) return el
         })
-        console.log(Vue.prototype?.$fullObject?.data)
+        // console.log(Vue.prototype?.$fullObject?.data)
+      },
+    },
+    fullDuplicatesIndexes: {
+      handler(newValue) {
+        Vue.prototype.$fullObject.data = Vue.prototype?.$fullObject?.data.filter((el, i) => {
+          if (!newValue.includes(i)) return el
+        })
+        // console.log(Vue.prototype?.$fullObject?.data)
+      },
+    },
+    partialDuplicatesIndexes: {
+      handler(newValue) {
+        Vue.prototype.$fullObject.data = Vue.prototype?.$fullObject?.data.filter((el, i) => {
+          if (!newValue.includes(i)) return el
+        })
+        // console.log(Vue.prototype?.$fullObject?.data)
       },
     },
   },
