@@ -44,15 +44,15 @@
           your previously imported lists. Among them:
         </div>
         <div class="details_container">
-          <div>24</div>
+          <div>{{ fullDuplicatesIndexes.length }}</div>
           <div>Full duplicates (email+phone)</div>
         </div>
         <div class="map_container">
           <Button
               style="font-size: 12px;"
               label="Remove from the list"
-              @click="getFullDuplicates"
-              :disabled="duplicatesButtonDisabler"
+              @click="removeFullDuplicates"
+              :disabled="!duplicatesButtonDisabler"
           />
           <Button
               style="font-size: 12px;"
@@ -60,15 +60,15 @@
           />
         </div>
         <div class="details_container">
-          <div>105</div>
+          <div>{{ partialDuplicatesIndexes.length }}</div>
           <div>Partial duplicates (email or phone)</div>
         </div>
         <div class="map_container">
           <Button
               style="font-size: 12px;"
               label="Remove from the list"
-              @click="getPartialDuplicates"
-              :disabled="duplicatesButtonDisabler"
+              @click="removePartialDuplicates"
+              :disabled="!duplicatesButtonDisabler"
           />
           <Button
               style="font-size: 12px;"
@@ -141,7 +141,19 @@ export default {
   },
   methods: {
     sendParsedList() {
-      let obj = Vue.prototype?.$fullObject.data
+      let obj = []
+
+      if (!!Vue.prototype?.$fullDuplciatesRemoved?.length) {
+        console.log(1)
+        obj = Vue.prototype?.$fullDuplciatesRemoved
+      } else if (!!Vue.prototype?.$partialDuplicatesRemoved?.length) {
+        console.log(2)
+        obj = Vue.prototype?.$partialDuplicatesRemoved
+      } else if (!!Vue.prototype?.$fullObject?.data) {
+        console.log(3)
+        obj = Vue.prototype?.$fullObject?.data
+      }
+
       this.$store.dispatch('SEND_PARSED_LEADS',
           {name: this.listNameLocal, file_name: this.fileNameLocal, object: obj})
           .then((res) => {
@@ -167,6 +179,7 @@ export default {
       }
       this.$store.dispatch('SEND_UPLOAD_STATUS', obj)
           .then((res) => {
+            this.sendStatistics()
             // console.log(res)
           })
           .catch((err) => {
@@ -196,7 +209,16 @@ export default {
       this.$router.push({name: 'country'})
     },
     actionCb() {
-      if (this.$route.path === '/result-importer') this.$router.push({name: 'layout'})
+      if (this.$route.path === '/result-importer') {
+        this.sendParsedList()
+        this.sendUploadStatus()
+        this.$router.push({name: 'layout'})
+      }
+    },
+    backCb() {
+      if (this.$route.path === '/result-importer') {
+        this.$router.push({name: 'layout'})
+      }
     },
     getFullDuplicates() {
       const helpMap = new Map();
@@ -214,7 +236,6 @@ export default {
           helpMap.set(element[this.chosenEmail], element[this.chosenPhone]);
         }
       });
-      this.showFullInfoToast()
       // console.log(Vue.prototype.$fullDuplicates)
     },
     getPartialDuplicates() {
@@ -233,8 +254,23 @@ export default {
           helpMap.set(element[this.chosenEmail], element[this.chosenPhone]);
         }
       });
+    },
+    removeFullDuplicates() {
+      Vue.prototype.$fullDuplciatesRemoved = Vue.prototype?.$fullObject?.data.filter((el, i) => {
+        if (!this.fullDuplicatesIndexes.includes(i)) return el
+      })
+      this.privateResults[1].value = Vue.prototype.$fullObject.data.length
+
+      this.fullDuplicatesIndexes = []
+      this.showFullInfoToast()
+    },
+    removePartialDuplicates() {
+      Vue.prototype.$partialDuplicatesRemoved = Vue.prototype?.$fullObject?.data.filter((el, i) => {
+        if (!this.partialDuplicatesIndexes.includes(i)) return el
+      })
+      this.privateResults[1].value = Vue.prototype.$fullObject.data.length
+      this.partialDuplicatesIndexes = []
       this.showPartialInfoToast()
-      // console.log(Vue.prototype.$partialDuplicates)
     },
     downloadInvalidLeads() {
       return new Promise((resolve) => {
@@ -263,7 +299,7 @@ export default {
     },
     duplicatesButtonDisabler() {
       return this.partialDuplicatesIndexes.length > 0
-          || this.fullDuplicatesIndexes.length > 0;
+          && this.fullDuplicatesIndexes.length > 0;
     },
   },
   watch: {
@@ -302,28 +338,12 @@ export default {
         // console.log(Vue.prototype?.$fullObject?.data)
       },
     },
-    fullDuplicatesIndexes: {
-      handler(newValue) {
-        Vue.prototype.$fullObject.data = Vue.prototype?.$fullObject?.data.filter((el, i) => {
-          if (!newValue.includes(i)) return el
-        })
-        this.privateResults[1].value = Vue.prototype.$fullObject.data.length
-        // console.log(Vue.prototype?.$fullObject?.data)
-      },
-    },
-    partialDuplicatesIndexes: {
-      handler(newValue) {
-        Vue.prototype.$fullObject.data = Vue.prototype?.$fullObject?.data.filter((el, i) => {
-          if (!newValue.includes(i)) return el
-        })
-        this.privateResults[1].value = Vue.prototype.$fullObject.data.length
-        // console.log(Vue.prototype?.$fullObject?.data)
-      },
-    },
   },
   created() {
     this.listNameLocal = this.listName
     this.fileNameLocal = this.fileName
+    this.getFullDuplicates()
+    this.getPartialDuplicates()
   },
   mounted() {
     if (this.parsedListLength > 0) this.privateResults[0].value = this.parsedListLength
@@ -360,34 +380,39 @@ export default {
             });
           })
     }
-    /**
-     * uncomment next line to see invalid lines after parsing
-     */
-    // console.log(Vue.prototype?.$fullObject?.data)
-
     if (this.darkModeSwitch) {
       setTimeout(() => {
         document.querySelectorAll('.p-column-title')
             .forEach(e => e.classList.replace('p-column-title', 'p-column-title-dark'))
       }, 0)
     }
-    globalTelegram.MainButton.setText('Import results')
-    globalTelegram.MainButton.color = '#16a34a'
-    globalTelegram.MainButton.show().onClick(this.actionCb)
-    globalTelegram.BackButton.show().onClick(this.redirectCb)
+
+    if (!Vue.prototype?.$fullObject?.data) {
+      globalTelegram.MainButton.setText('Go back to layout section')
+      globalTelegram.MainButton.color = '#e50fda'
+      globalTelegram.MainButton.show().onClick(this.backCb)
+    } else {
+      globalTelegram.MainButton.setText('Import results')
+      globalTelegram.MainButton.color = '#16a34a'
+      globalTelegram.MainButton.show().onClick(this.actionCb)
+      globalTelegram.BackButton.show().onClick(this.redirectCb)
+    }
   },
   beforeDestroy() {
-    /**
-     * uncomment logs to see 2 different objects
-     */
-    // console.log(Vue.prototype?.$fullObject?.data)
-    // console.log(Vue.prototype?.$invalidObject)
     globalTelegram.MainButton.offClick(this.actionCb)
     globalTelegram.BackButton.hide().offClick(this.redirectCb)
+    if (!Vue.prototype?.$fullObject?.data) {
+      globalTelegram.MainButton.offClick(this.backCb)
+    }
     /**
-     * Clear global arrays before leave to prevent stacking results
+     * Clear global and generated arrays
+     * before leave to prevent stacking results
+     * and errors in "if" statements
      */
     this.$store.dispatch('eraseInvoker')
+    Vue.prototype.$fullDuplciatesRemoved = []
+    Vue.prototype.$partialDuplicatesRemoved = []
+
   },
 }
 </script>
