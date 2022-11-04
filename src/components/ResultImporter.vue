@@ -52,7 +52,7 @@
               style="font-size: 12px;"
               label="Remove from the list"
               @click="removeFullDuplicates"
-              :disabled="!duplicatesButtonDisabler"
+              :disabled="!fullButtonDisabler"
           />
           <Button
               style="font-size: 12px;"
@@ -68,7 +68,7 @@
               style="font-size: 12px;"
               label="Remove from the list"
               @click="removePartialDuplicates"
-              :disabled="!duplicatesButtonDisabler"
+              :disabled="!partialButtonDisabler"
           />
           <Button
               style="font-size: 12px;"
@@ -144,20 +144,17 @@ export default {
       let obj = []
 
       if (!!Vue.prototype?.$fullDuplciatesRemoved?.length) {
-        console.log(1)
         obj = Vue.prototype?.$fullDuplciatesRemoved
       } else if (!!Vue.prototype?.$partialDuplicatesRemoved?.length) {
-        console.log(2)
         obj = Vue.prototype?.$partialDuplicatesRemoved
       } else if (!!Vue.prototype?.$fullObject?.data) {
-        console.log(3)
         obj = Vue.prototype?.$fullObject?.data
       }
 
       this.$store.dispatch('SEND_PARSED_LEADS',
           {name: this.listNameLocal, file_name: this.fileNameLocal, object: obj})
           .then((res) => {
-            console.log(res.data)
+            // console.log(res.data)
           })
           .catch((err) => {
             console.log(err)
@@ -297,9 +294,11 @@ export default {
     invalidFieldsChecker() {
       return this.invalidParsedLinesIndexes?.length > 1;
     },
-    duplicatesButtonDisabler() {
+    fullButtonDisabler() {
+      return this.fullDuplicatesIndexes.length > 0;
+    },
+    partialButtonDisabler() {
       return this.partialDuplicatesIndexes.length > 0
-          && this.fullDuplicatesIndexes.length > 0;
     },
   },
   watch: {
