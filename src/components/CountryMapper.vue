@@ -135,9 +135,13 @@ export default {
   },
   computed: {
     ...mapGetters(['listName', "fileName", "chosenCountry"]),
+    allCountriesInitiallyMapped() {
+      return !!this.countriesToMap.length < 1 && this.selectedCountry.length < 1
+    },
     allCountriesMapped() {
-      return !!this.countriesToMap.length < 1
-    }
+      return (this.countriesToMap.length === this.selectedCountry.length)
+          && !this.selectedCountry.includes(undefined);
+    },
   },
   watch: {
     darkDropdown: {
@@ -183,12 +187,8 @@ export default {
             if (!this.countryIndexes[i] || !this.selectedCountry[i]) return
             Vue.prototype.$fullObject.data[this.countryIndexes[i]][this.chosenCountry] = this.selectedCountry[i]
           })
-
           //uncomment next line to see mutation of $fullObject
-          console.log(Vue.prototype?.$fullObject?.data)
-          globalTelegram.MainButton.setText('Create leads')
-          globalTelegram.MainButton.color = '#16a34a'
-          globalTelegram.MainButton.show()
+          // console.log(Vue.prototype?.$fullObject?.data)
         }
       },
     },
@@ -219,13 +219,17 @@ export default {
     allCountriesMapped: {
       handler(newValue) {
         if (newValue) {
-          globalTelegram.BackButton.show()
+          globalTelegram.MainButton.show()
         }
       },
     },
   },
   mounted() {
     this.wrongCountryFinder()
+    if (!!this.allCountriesInitiallyMapped) {
+      globalTelegram.MainButton.show()
+      globalTelegram.BackButton.show()
+    }
     /**
      * uncomment next line to see invalid lines after parsing
      */
@@ -236,6 +240,8 @@ export default {
     // console.log(Vue.prototype?.$parsedHeaders)
     // console.log(Vue.prototype?.$fullObject?.data)
     // console.log(Vue.prototype?.$reducedObject)
+    globalTelegram.MainButton.setText('Create leads')
+    globalTelegram.MainButton.color = '#16a34a'
     globalTelegram.MainButton.onClick(this.actionCb)
     globalTelegram.BackButton.show().onClick(this.redirectCb)
   },
