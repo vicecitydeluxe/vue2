@@ -49,6 +49,9 @@ export default {
                 {description: 'Partially unique leads', value: '550'},
                 {description: 'Duplicate leads', value: '800'},
             ],
+            invalidParsedLinesIndexes: [],
+            fullDuplicatesIndexes: [],
+            partialDuplicatesIndexes: [],
         }
     },
     methods: {
@@ -162,7 +165,41 @@ export default {
             this.firsNameInvalidCounter()
             this.lastNameInvalidCounter()
             this.fullNameInvalidCounter()
-        }
+        },
+        showFullInfoToast() {
+            if (this.fullDuplicatesIndexes.length > 0) {
+                this.$toast.add({
+                    severity: 'info',
+                    summary: 'Info message',
+                    detail: 'Full duplicates was removed from the list!',
+                    life: 2000
+                });
+            } else {
+                this.$toast.add({
+                    severity: 'info',
+                    summary: 'Info message',
+                    detail: 'No duplicates in the list!',
+                    life: 2000
+                });
+            }
+        },
+        showPartialInfoToast() {
+            if (this.partialDuplicatesIndexes.length > 0) {
+                this.$toast.add({
+                    severity: 'info',
+                    summary: 'Info message',
+                    detail: 'Partial duplicates was removed from the list!!',
+                    life: 2000
+                });
+            } else {
+                this.$toast.add({
+                    severity: 'info',
+                    summary: 'Info message',
+                    detail: 'No duplicates in the list!',
+                    life: 2000
+                });
+            }
+        },
     },
     computed: {
         ...mapGetters(['listName', 'fileName', 'parsedListLength',

@@ -135,9 +135,6 @@ export default {
   mixins: [tgMixin, resultImporterHelper],
   data() {
     return {
-      invalidParsedLinesIndexes: [],
-      fullDuplicatesIndexes: [],
-      partialDuplicatesIndexes: [],
       listNameLocal: '',
       fileNameLocal: ''
     }
@@ -258,40 +255,7 @@ export default {
         download(result)
       })
     },
-    showFullInfoToast() {
-      if (this.fullDuplicatesIndexes.length > 0) {
-        this.$toast.add({
-          severity: 'info',
-          summary: 'Info message',
-          detail: 'Full duplicates was removed from the list!',
-          life: 2000
-        });
-      } else {
-        this.$toast.add({
-          severity: 'info',
-          summary: 'Info message',
-          detail: 'No duplicates in the list!',
-          life: 2000
-        });
-      }
-    },
-    showPartialInfoToast() {
-      if (this.partialDuplicatesIndexes.length > 0) {
-        this.$toast.add({
-          severity: 'info',
-          summary: 'Info message',
-          detail: 'Partial duplicates was removed from the list!!',
-          life: 2000
-        });
-      } else {
-        this.$toast.add({
-          severity: 'info',
-          summary: 'Info message',
-          detail: 'No duplicates in the list!',
-          life: 2000
-        });
-      }
-    },
+
   },
   computed: {
     invalidFieldsChecker() {
