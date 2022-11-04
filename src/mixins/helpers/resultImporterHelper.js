@@ -19,13 +19,13 @@ export default {
                 {field: 'value', header: '#'},
             ],
             privateResults: [
-                {description: 'Records in source file', value: '1500'},
+                {description: 'Records in source file', value: ''},
                 {description: 'Fully valid leads (imported) view', value: ''},
                 {description: 'Cannot parse line view lines', value: ''},
-                {description: 'Invalid leads view', value: ''},
-                {description: '-missing or invalid email', value: '50'},
-                {description: '-missing or invalid number', value: '60'},
-                {description: '-missing name/lastname/fullname', value: '20'},
+                {description: 'Invalid leads view'},
+                {description: '-missing or invalid email', value: ''},
+                {description: '-missing or invalid number', value: ''},
+                {description: '-missing name/lastname/fullname', value: ''},
             ],
             publicColumns: [
                 {field: 'description', header: "Leads' age"},

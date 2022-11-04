@@ -1,12 +1,14 @@
 <template>
   <div class="header">
+    <!--    <Button @click="sendStatistics">Testyyyyy</Button>-->
+    <!--    <Button @click="sendParsedList">LIST SENDER</Button>-->
     <header class="header_section">
-      <h3># {{ listName }}</h3>
+      <h3># {{ this.listNameLocal }}</h3>
     </header>
     <main>
-      <div>List: {{ listName }}</div>
+      <div>List: {{ this.listNameLocal }}</div>
       <hr class="name_divider">
-      <div>File: {{ fileName }}</div>
+      <div>File: {{ this.fileNameLocal }}</div>
       <div class="description">Estimation of how loaded
         leads are unique across all your leads. Numbers are valid on:
         {{ this.todayDate }}
@@ -115,6 +117,7 @@
       </DataTable>
     </main>
     <Toast position="bottom-center"/>
+    <Toast group="key" position="center"/>
   </div>
 </template>
 
@@ -135,10 +138,22 @@ export default {
       invalidParsedLinesIndexes: [],
       fullDuplicatesIndexes: [],
       partialDuplicatesIndexes: [],
+      listNameLocal: '',
+      fileNameLocal: ''
     }
   },
   methods: {
-    // TODO use results in mounted hook to re-select fields when redirected from Telegram
+    sendParsedList() {
+      let obj = Vue.prototype?.$fullObject.data
+      this.$store.dispatch('SEND_PARSED_LEADS',
+          {name: this.listNameLocal, file_name: this.fileNameLocal, object: obj})
+          .then((res) => {
+            console.log(res.data)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+    },
     sendUploadStatus() {
       /**
        * Values below taken from getters in mixin-helper
@@ -155,7 +170,6 @@ export default {
       }
       this.$store.dispatch('SEND_UPLOAD_STATUS', obj)
           .then((res) => {
-            this.sendStatistics()
             // console.log(res)
           })
           .catch((err) => {
@@ -164,6 +178,8 @@ export default {
     },
     sendStatistics() {
       const obj = {
+        name: this.listName,
+        file_name: this.fileName,
         full_records: this.parsedListLength,
         valid_leads: this.privateResults[1]?.value,
         unable_to_parse: this.privateResults[2]?.value,
@@ -189,7 +205,7 @@ export default {
       const helpMap = new Map();
       Vue.prototype.$fullDuplicates = [];
 
-      Vue.prototype.$fullObject.data.map((element, index) => {
+      Vue.prototype?.$fullObject?.data.map((element, index) => {
         if (helpMap.has(element[this.chosenEmail])) {
           const existingElement = helpMap.get(element[this.chosenEmail]);
 
@@ -208,7 +224,7 @@ export default {
       const helpMap = new Map();
       Vue.prototype.$partialDuplicates = []
 
-      Vue.prototype.$fullObject.data.map((element, index) => {
+      Vue.prototype?.$fullObject?.data.map((element, index) => {
         if (helpMap.has(element[this.chosenEmail])) {
           const existingElement = helpMap.get(element[this.chosenEmail]);
 
@@ -341,10 +357,45 @@ export default {
       },
     },
   },
+  created() {
+    this.listNameLocal = this.listName
+    this.fileNameLocal = this.fileName
+  },
   mounted() {
-    // this.$store.dispatch('GET_STATS')
-    this.privateResults[0].value = this.parsedListLength
-    this.countersInvoker()
+    if (this.parsedListLength > 0) this.privateResults[0].value = this.parsedListLength
+
+    if (!!Vue.prototype?.$fullObject?.data) {
+      this.countersInvoker()
+    } else {
+      this.$store.dispatch('GET_STATS')
+          .then((res) => {
+            let obj = res.data.data[res.data.data.length - 1]
+            this.listNameLocal = obj?.name || 'Unknown_list'
+            this.fileNameLocal = obj?.fileName || 'Unknown_file'
+            this.privateResults[0].value = obj?.fullRecords || ''
+            this.privateResults[1].value = obj?.validLeads || ''
+            this.privateResults[2].value = obj?.unableToParse || ''
+            this.privateResults[4].value = obj?.invalidEmails || ''
+            this.privateResults[5].value = obj?.invalidPhones || ''
+            this.privateResults[6].value = obj?.invalidNames || ''
+            this.$toast.add({
+              group: 'key',
+              severity: 'info',
+              summary: 'Info message',
+              detail: 'Last added file stats retrived',
+              life: 2000
+            });
+          })
+          .catch((err) => {
+            console.log(err)
+            this.$toast.add({
+              severity: 'warn',
+              summary: 'Warn message',
+              detail: 'Server error, please try again later',
+              life: 2000
+            });
+          })
+    }
     /**
      * uncomment next line to see invalid lines after parsing
      */

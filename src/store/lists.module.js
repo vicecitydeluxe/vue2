@@ -173,6 +173,23 @@ const actions = {
             })
         })
     },
+
+    SEND_PARSED_LEADS(_, payload) {
+        return new Promise((resolve, reject) => {
+            $axios({
+                url: `https://leads-api.genesis.pm/parsed/obj`,
+                method: "POST",
+                data: payload
+            }).then(res => {
+                // console.log(res.data)
+                resolve(res)
+            }).catch(err => {
+                console.log(err)
+                reject(err)
+            })
+        })
+    },
+
 }
 
 const mutations = {
