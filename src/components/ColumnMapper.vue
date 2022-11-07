@@ -213,7 +213,10 @@
             @before-show="toggleDarkDropdown"
         />
       </div>
-      <div class="bottom_section_container">
+      <div
+          class="bottom_section_container"
+          v-if="this.extraFieldsFlag"
+      >
         <div>What to do with the rest of the fields
           found in the source file? (You shouldn't include them if they
           contain sensitive data)
@@ -260,17 +263,37 @@ export default {
       darkDropdown: 0,
       includeExtra: null,
       requiredFieldsDictionary: [],
+      extraFieldsFlag: false,
     }
   },
   methods: {
+    extraFieldsChecker() {
+      if (!!Vue.prototype?.$fullObject?.data) {
+        Vue.prototype?.$fullObject?.data.filter(obj => {
+          for (const key of Object.keys(obj)) {
+            if (!this.requiredFieldsDictionary.includes(key)) {
+              this.extraFieldsFlag = true
+              return
+            }
+          }
+        })
+      }
+    },
+    /**
+     * $reducedObject non-reactive helper-object to remove all extra
+     * non-required fields.
+     * Assigned to $fullObject. data
+     * if user has chosen option to delete all extra fields
+     */
     globalReducer() {
-      Vue.prototype.$reducedObject = JSON.parse(JSON.stringify(Vue.prototype.$fullObject.data))
-      Vue.prototype.$reducedObject.filter(obj => {
-        for (const key of Object.keys(obj)) {
-          if (!this.requiredFieldsDictionary.includes(key)) delete obj[key];
-        }
-      })
-      console.log(Vue.prototype?.$reducedObject)
+      if (!Vue.prototype?.$reducedObject) {
+        Vue.prototype.$reducedObject = JSON.parse(JSON.stringify(Vue.prototype.$fullObject.data))
+        Vue.prototype?.$reducedObject.filter(obj => {
+          for (const key of Object.keys(obj)) {
+            if (!this.requiredFieldsDictionary.includes(key)) delete obj[key];
+          }
+        })
+      }
     },
     toggleDarkCalendar() {
       this.darkCalendar++
@@ -397,7 +420,7 @@ export default {
     },
     includeExtra: {
       handler(newValue) {
-        if (newValue) {
+        if (newValue && this.extraFieldsFlag) {
           this.showIncludedToast()
         } else {
           this.globalReducer()
@@ -423,11 +446,9 @@ export default {
   },
   mounted() {
     this.multipleCheckerCaller()
+    //TODO hardcoded value
     this.dictionaryCreator()
-    // uncomment to see init variation of the $parsedHeaders
-    // console.log(Vue.prototype?.$parsedHeaders)
-    // console.log(Vue.prototype?.$fullObject?.data)
-    // console.log(this.$parsedHeaders.split(','))
+    this.extraFieldsChecker()
     globalTelegram.MainButton.onClick(this.actionCb)
     globalTelegram.BackButton.show().onClick(this.redirectCb)
 
@@ -437,6 +458,9 @@ export default {
 
   },
   beforeDestroy() {
+    if (!this.includeExtra && !!Vue.prototype?.$fullObject?.data && !!Vue.prototype?.$reducedObject) {
+      Vue.prototype.$fullObject.data = Vue.prototype?.$reducedObject
+    }
     globalTelegram.MainButton.hide().offClick(this.actionCb)
     globalTelegram.BackButton.hide().offClick(this.redirectCb)
   },

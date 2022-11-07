@@ -142,9 +142,13 @@ export default {
   methods: {
     sendParsedList() {
       let obj = []
-
-      if (!!Vue.prototype?.$fullDuplciatesRemoved?.length) {
-        obj = Vue.prototype?.$fullDuplciatesRemoved
+      /**
+       * $fullDuplicatesRemoved or $partialDuplicatesRemoved
+       * non-reactive helper-objects
+       * if any of them exist would send as a payload later
+       */
+      if (!!Vue.prototype?.$fullDuplicatesRemoved?.length) {
+        obj = Vue.prototype?.$fullDuplicatesRemoved
       } else if (!!Vue.prototype?.$partialDuplicatesRemoved?.length) {
         obj = Vue.prototype?.$partialDuplicatesRemoved
       } else if (!!Vue.prototype?.$fullObject?.data) {
@@ -153,7 +157,7 @@ export default {
 
       this.$store.dispatch('SEND_PARSED_LEADS',
           {name: this.listNameLocal, file_name: this.fileNameLocal, object: obj})
-          .then((res) => {
+          .then(() => {
             // console.log(res.data)
           })
           .catch((err) => {
@@ -175,7 +179,7 @@ export default {
         status: this.listStatusBeforeUpload
       }
       this.$store.dispatch('SEND_UPLOAD_STATUS', obj)
-          .then((res) => {
+          .then(() => {
             this.sendStatistics()
             // console.log(res)
           })
@@ -195,7 +199,7 @@ export default {
         invalid_names: this.privateResults[6]?.value,
       }
       this.$store.dispatch('SEND_STATS', obj)
-          .then((res) => {
+          .then(() => {
             // console.log(res)
           })
           .catch((err) => {
@@ -220,40 +224,46 @@ export default {
     getFullDuplicates() {
       const helpMap = new Map();
       Vue.prototype.$fullDuplicates = [];
+      if (!!Vue.prototype?.$fullObject?.data) {
+        Vue.prototype?.$fullObject?.data.map((element, index) => {
+          if (helpMap.has(element[this.chosenEmail])) {
+            const existingElement = helpMap.get(element[this.chosenEmail]);
 
-      Vue.prototype?.$fullObject?.data.map((element, index) => {
-        if (helpMap.has(element[this.chosenEmail])) {
-          const existingElement = helpMap.get(element[this.chosenEmail]);
-
-          if (element[this.chosenPhone] === existingElement) {
-            Vue.prototype.$fullDuplicates.push(element);
-            this.fullDuplicatesIndexes.push(index)
+            if (element[this.chosenPhone] === existingElement) {
+              Vue.prototype.$fullDuplicates.push(element);
+              this.fullDuplicatesIndexes.push(index)
+            }
+          } else {
+            helpMap.set(element[this.chosenEmail], element[this.chosenPhone]);
           }
-        } else {
-          helpMap.set(element[this.chosenEmail], element[this.chosenPhone]);
-        }
-      });
-      // console.log(Vue.prototype.$fullDuplicates)
+        });
+      }
     },
     getPartialDuplicates() {
       const helpMap = new Map();
+      /**
+       * $partialDuplicates & $fullDuplicatesRemoved
+       * are helper array to store
+       * lines to remove later if needed
+       */
       Vue.prototype.$partialDuplicates = []
+      if (!!Vue.prototype?.$fullObject?.data) {
+        Vue.prototype?.$fullObject?.data.map((element, index) => {
+          if (helpMap.has(element[this.chosenEmail])) {
+            const existingElement = helpMap.get(element[this.chosenEmail]);
 
-      Vue.prototype?.$fullObject?.data.map((element, index) => {
-        if (helpMap.has(element[this.chosenEmail])) {
-          const existingElement = helpMap.get(element[this.chosenEmail]);
-
-          if (element[this.chosenPhone] !== existingElement) {
-            Vue.prototype.$partialDuplicates.push(element);
-            this.partialDuplicatesIndexes.push(index)
+            if (element[this.chosenPhone] !== existingElement) {
+              Vue.prototype.$partialDuplicates.push(element);
+              this.partialDuplicatesIndexes.push(index)
+            }
+          } else {
+            helpMap.set(element[this.chosenEmail], element[this.chosenPhone]);
           }
-        } else {
-          helpMap.set(element[this.chosenEmail], element[this.chosenPhone]);
-        }
-      });
+        });
+      }
     },
     removeFullDuplicates() {
-      Vue.prototype.$fullDuplciatesRemoved = Vue.prototype?.$fullObject?.data.filter((el, i) => {
+      Vue.prototype.$fullDuplicatesRemoved = Vue.prototype?.$fullObject?.data.filter((el, i) => {
         if (!this.fullDuplicatesIndexes.includes(i)) return el
       })
       this.privateResults[1].value = Vue.prototype.$fullObject.data.length
@@ -271,6 +281,10 @@ export default {
     },
     downloadInvalidLeads() {
       return new Promise((resolve) => {
+        /**
+         * $parsedDocument non-reactive helper-object to create a file
+         * user could download and see wrong lines
+         */
         Vue.prototype.$parsedDocument = Papa.unparse(Object.assign({
           'fields': Object.keys(Vue.prototype?.$invalidObject[0]),
           'data': Vue.prototype?.$invalidObject.map((el) => Object.values(el))
@@ -409,9 +423,8 @@ export default {
      * and errors in "if" statements
      */
     this.$store.dispatch('eraseInvoker')
-    Vue.prototype.$fullDuplciatesRemoved = []
+    Vue.prototype.$fullDuplicatesRemoved = []
     Vue.prototype.$partialDuplicatesRemoved = []
-
   },
 }
 </script>

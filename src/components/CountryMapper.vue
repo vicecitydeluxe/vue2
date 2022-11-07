@@ -51,21 +51,19 @@
 import Vue from 'vue'
 import {mapGetters} from 'vuex'
 import tgMixin from "@/mixins/telegram/tgMixin";
-import ISO3166 from '@/assets/ISO3166.json'
+import countryMapperHelper from "@/mixins/helpers/countryMapperHelper";
 
 const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "CountryMapper",
-  mixins: [tgMixin],
+  mixins: [tgMixin, countryMapperHelper],
   data() {
     return {
       darkDropdown: 0,
-      countriesDictionary: ISO3166,
       countriesToMap: [],
       countryIndexes: [],
       selectedCountry: [],
-      countries: [],
       countryPossibleKeys: [
         'country',
         'countryid',
@@ -83,14 +81,16 @@ export default {
      * if there's no country key
      */
     countryKeyCheckerFn() {
-      Vue.prototype?.$fullObject?.data.filter(obj => {
-        for (const key of Object.keys(obj)) {
-          if (this.countryPossibleKeys.includes(key)) {
-            this.countryKeyChecker = true
-            return
+      if (!!Vue.prototype?.$fullObject?.data) {
+        Vue.prototype?.$fullObject?.data.filter(obj => {
+          for (const key of Object.keys(obj)) {
+            if (this.countryPossibleKeys.includes(key)) {
+              this.countryKeyChecker = true
+              return
+            }
           }
-        }
-      })
+        })
+      }
     },
     /**
      * wrongCountryFinder() creates an array
@@ -104,13 +104,8 @@ export default {
       this.countryKeyCheckerFn()
 
       if (this.countryKeyChecker) {
-        const arrayDictionary = this.countriesDictionary.map((el) => {
-          return [el.alpha, el.beta]
-        }).flat()
-        this.countries = arrayDictionary
-
         const wrong = Vue.prototype?.$fullObject?.data.filter((el, i) => {
-          if (!arrayDictionary.includes(el[this.chosenCountry])) {
+          if (!this.countries.includes(el[this.chosenCountry])) {
             this.countryIndexes.push(i)
             return el
           }
@@ -230,16 +225,7 @@ export default {
       globalTelegram.MainButton.show()
       globalTelegram.BackButton.show()
     }
-    /**
-     * uncomment next line to see invalid lines after parsing
-     */
     // console.log(Vue.prototype?.$invalidObject)
-    /**
-     * uncomment to see init variation of the $parsedHeaders
-     */
-    // console.log(Vue.prototype?.$parsedHeaders)
-    // console.log(Vue.prototype?.$fullObject?.data)
-    // console.log(Vue.prototype?.$reducedObject)
     globalTelegram.MainButton.setText('Create leads')
     globalTelegram.MainButton.color = '#16a34a'
     globalTelegram.MainButton.onClick(this.actionCb)

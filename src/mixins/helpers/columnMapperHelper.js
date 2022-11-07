@@ -162,13 +162,17 @@ export default {
          * assigning this value in right order
          */
         firstNameReplacer() {
-            const splitObject = this.$parsedHeaders.split(',')
-            const replacer = this.selectedFirstName?.name
-            const arrayDictionary = this.firstNames.map((el) => el.name)
-            const replacedArr = splitObject.map((i) => arrayDictionary.includes(i)
-                ? replacer
-                : i)
-            console.log(replacedArr.join())
+            /**
+             * copy logic to each dropdown if you
+             * want to test $parsedHeaders
+             */
+            // const splitObject = this.$parsedHeaders.split(',')
+            // const replacer = this.selectedFirstName?.name
+            // const arrayDictionary = this.firstNames.map((el) => el.name)
+            // const replacedArr = splitObject.map((i) => arrayDictionary.includes(i)
+            //     ? replacer
+            //     : i)
+            // console.log(replacedArr.join())
             /**
              * Please see countryReplacer() method annotation
              */
@@ -187,13 +191,6 @@ export default {
             this.$store.commit('setParsedFields', newParsedFields)
         },
         lastNameReplacer() {
-            const splitObject = this.$parsedHeaders.split(',')
-            const replacer = this.selectedLastName?.name
-            const arrayDictionary = this.lastNames.map((el) => el.name)
-            const replacedArr = splitObject.map((i) => arrayDictionary.includes(i)
-                ? replacer
-                : i)
-            console.log(replacedArr.join())
             /**
              * Please see countryReplacer() method annotation
              */
@@ -212,13 +209,6 @@ export default {
             this.$store.commit('setParsedFields', newParsedFields)
         },
         fullNameReplacer() {
-            const splitObject = this.$parsedHeaders.split(',')
-            const replacer = this.selectedFullName?.name
-            const arrayDictionary = this.fullNames.map((el) => el.name)
-            const replacedArr = splitObject.map((i) => arrayDictionary.includes(i)
-                ? replacer
-                : i)
-            console.log(replacedArr.join())
             /**
              * Please see countryReplacer() method annotation
              */
@@ -237,13 +227,6 @@ export default {
             this.$store.commit('setParsedFields', newParsedFields)
         },
         emailReplacer() {
-            const splitObject = this.$parsedHeaders.split(',')
-            const replacer = this.selectedEmail?.name
-            const arrayDictionary = this.emails.map((el) => el.name)
-            const replacedArr = splitObject.map((i) => arrayDictionary.includes(i)
-                ? replacer
-                : i)
-            console.log(replacedArr.join())
             /**
              * Please see countryReplacer() method annotation
              */
@@ -262,13 +245,6 @@ export default {
             this.$store.commit('setParsedFields', newParsedFields)
         },
         phoneNumberReplacer() {
-            const splitObject = this.$parsedHeaders.split(',')
-            const replacer = this.selectedPhoneNumber?.name
-            const arrayDictionary = this.phoneNumbers.map((el) => el.name)
-            const replacedArr = splitObject.map((i) => arrayDictionary.includes(i)
-                ? replacer
-                : i)
-            console.log(replacedArr.join())
             /**
              * Please refer to
              * countryReplacer() method
@@ -289,13 +265,6 @@ export default {
             this.$store.commit('setParsedFields', newParsedFields)
         },
         countryReplacer() {
-            const splitObject = this.$parsedHeaders.split(',')
-            const replacer = this.selectedCountry?.name
-            const arrayDictionary = this.countries.map((el) => el.name)
-            const replacedArr = splitObject.map((i) => arrayDictionary.includes(i)
-                ? replacer
-                : i)
-            console.log(replacedArr.join())
             /**
              * After each change of dropdown option,
              * we mutate our global non-reactive
@@ -320,13 +289,6 @@ export default {
 
         },
         registrationDateReplacer() {
-            const splitObject = this.$parsedHeaders.split(',')
-            const replacer = this.selectedRegDate?.name
-            const arrayDictionary = this.regDateList.map((el) => el.name)
-            const replacedArr = splitObject.map((i) => arrayDictionary.includes(i)
-                ? replacer
-                : i)
-            console.log(replacedArr.join())
             /**
              * Please see countryReplacer() method annotation
              */
@@ -345,13 +307,6 @@ export default {
             this.$store.commit('setParsedFields', newParsedFields)
         },
         depositReplacer() {
-            const splitObject = this.$parsedHeaders.split(',')
-            const replacer = this.selectedDeposit?.name
-            const arrayDictionary = this.deposits.map((el) => el.name)
-            const replacedArr = splitObject.map((i) => arrayDictionary.includes(i)
-                ? replacer
-                : i)
-            console.log(replacedArr.join())
             /**
              * Please see countryReplacer() method annotation
              */
