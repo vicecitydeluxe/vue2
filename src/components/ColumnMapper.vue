@@ -82,16 +82,6 @@
       </div>
       <div class="map_container">
         <div class="map_container_title">Country</div>
-
-        <div>
-          <RadioButton id="load"
-                       value="load"
-                       v-model="checkedCountry"
-                       @click="toggleDarkDropdown"
-          />
-          <label class="sub_map_container_divider" for="load">Load</label>
-        </div>
-
         <Dropdown
             :class="[ darkModeSwitch
             ? 'dropdown_dark'
@@ -99,22 +89,7 @@
             @change="countryReplacer"
             v-model="selectedCountry"
             :value="selectedCountry"
-            :options="countries"
-            optionLabel="name"
-            @before-show="toggleDarkDropdown"
-        />
-      </div>
-      <div class="sub_map_container">
-        <div class="field-checkbox">
-          <label for="binary">set empty to</label>
-        </div>
-        <Dropdown
-            :class="[ darkModeSwitch
-            ? 'dropdown_dark'
-            : 'map_container_dropdown']"
-            v-model="selectedCountryFromList"
-            placeholder="GB UK"
-            :options="countriesList"
+            :options="countriesHeaders"
             optionLabel="name"
             @before-show="toggleDarkDropdown"
         />
@@ -122,8 +97,29 @@
       <div class="sub_map_container">
         <div>
           <RadioButton
+              :disabled="countryCheckboxDisabler"
+              id="empty"
+              value="empty"
+              v-model="checkedCountry"
+              @click="toggleDarkDropdown"
+          />
+          <label class="sub_map_container_divider" for="empty">Set empty to</label>
+        </div>
+        <Dropdown
+            :class="[ darkModeSwitch
+            ? 'dropdown_dark'
+            : 'map_container_dropdown']"
+            v-model="selectedCountryFromList"
+            placeholder="(choose)"
+            :options="countries"
+            @before-show="toggleDarkDropdown"
+        />
+      </div>
+      <div class="sub_map_container">
+        <div>
+          <RadioButton
               id="all_to"
-              value="set_all_to"
+              value="all_to"
               v-model="checkedCountry"
               @click="toggleDarkDropdown"
           />
@@ -136,45 +132,12 @@
             : 'map_container_dropdown']"
             v-model="selectedCountryFromList"
             placeholder="(choose)"
-            :options="countriesList"
-            optionLabel="name"
+            :options="countries"
             @before-show="toggleDarkDropdown"
         />
       </div>
       <div class="map_container">
         <div class="map_container_title">Reg date</div>
-
-        <div>
-          <RadioButton
-              id="all_to"
-              value="load"
-              v-model="checkedRegDate"
-              @click="toggleDarkDropdown"
-          />
-          <label class="sub_map_container_divider"
-                 for="all_to">Set all to</label>
-        </div>
-        <Calendar
-            id="icon"
-            v-model="registrationDate"
-            :showIcon="true"
-            :touchUI="true"
-            @hide="darkCalendar++"
-        />
-      </div>
-      <div class="sub_map_container">
-
-        <div>
-          <RadioButton
-              id="load"
-              value="set_all_to"
-              v-model="checkedRegDate"
-              @click="toggleDarkDropdown"
-          />
-          <label class="radio_label_divider"
-                 for="load">Load</label>
-        </div>
-
         <Dropdown
             :class="[ darkModeSwitch
             ? 'dropdown_dark'
@@ -187,13 +150,40 @@
             @before-show="toggleDarkDropdown"
         />
       </div>
-      <div class="map_container">
-        <div class="field-checkbox">
-          <label for="binary">set empty or broken to</label>
+      <div class="sub_map_container">
+        <div>
+          <RadioButton
+              :disabled="regDateCheckboxDisabler"
+              id="empty"
+              value="empty"
+              v-model="checkedRegDate"
+              @click="toggleDarkDropdown"
+          />
+          <label class="radio_label_divider"
+                 for="empty">Set empty to</label>
         </div>
         <Calendar
             id="icon"
-            v-model="brokenDate"
+            v-model="registrationDate"
+            :showIcon="true"
+            :touchUI="true"
+            @hide="darkCalendar++"
+        />
+      </div>
+      <div class="map_container">
+        <div>
+          <RadioButton
+              id="all_to"
+              value="all_to"
+              v-model="checkedRegDate"
+              @click="toggleDarkDropdown"
+          />
+          <label class="sub_map_container_divider"
+                 for="all_to">Set all to</label>
+        </div>
+        <Calendar
+            id="icon"
+            v-model="registrationDate"
             :showIcon="true"
             :touchUI="true"
             @hide="darkCalendar++"
@@ -248,6 +238,7 @@
 import Vue from 'vue'
 import tgMixin from "@/mixins/telegram/tgMixin";
 import columnMapperHelper from "@/mixins/helpers/columnMapperHelper";
+import countryMapperHelper from "@/mixins/helpers/countryMapperHelper";
 import {mapGetters} from 'vuex'
 
 const globalTelegram = window.Telegram.WebApp
@@ -256,7 +247,7 @@ const calendars = document.getElementsByClassName('p-calendar')
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: "Mapper",
-  mixins: [tgMixin, columnMapperHelper],
+  mixins: [tgMixin, columnMapperHelper, countryMapperHelper],
   data() {
     return {
       darkCalendar: 0,
@@ -264,9 +255,29 @@ export default {
       includeExtra: null,
       requiredFieldsDictionary: [],
       extraFieldsFlag: false,
+      emptyCountryValueFlag: false,
+      emptyRegDateValueFlag: false,
+      countryCheckboxDisabler: false,
+      regDateCheckboxDisabler: false,
     }
   },
   methods: {
+    countryValueChecker() {
+      Vue.prototype.$fullObject.data.filter((el) => {
+        if (!el[this.chosenCountry] && !!el?.[this.chosenCountry]) {
+          this.emptyCountryValueFlag = true
+          return
+        }
+      })
+    },
+    regDateValueChecker() {
+      Vue.prototype.$fullObject.data.filter((el) => {
+        if (!el[this.chosenRegDate] && !!el?.[this.chosenRegDate]) {
+          this.emptyRegDateValueFlag = true
+          return
+        }
+      })
+    },
     extraFieldsChecker() {
       if (!!Vue.prototype?.$fullObject?.data) {
         Vue.prototype?.$fullObject?.data.filter(obj => {
@@ -344,6 +355,59 @@ export default {
     }
   },
   watch: {
+    checkedCountry: {
+      handler(newValue) {
+        if (newValue === 'empty' && this.selectedCountryFromList) {
+          Vue.prototype.$fullObject.data.forEach((el) => {
+            if (!el[this.chosenCountry]) el[this.chosenCountry] = this.selectedCountryFromList
+          })
+        } else if (newValue === 'all_to' && this.selectedCountryFromList) {
+          Vue.prototype.$fullObject.data.forEach((el) => {
+            el[this.chosenCountry] = this.selectedCountryFromList
+          })
+          this.countryCheckboxDisabler = true
+        } else if (newValue === 'empty' || newValue === 'all_to') {
+          this.$toast.add({
+            severity: 'warn',
+            summary: 'Warn message',
+            detail: 'Choose country from the list to procced!',
+            life: 2000
+          });
+        }
+      },
+    },
+    checkedRegDate: {
+      handler(newValue) {
+        if (newValue === 'empty' && this.registrationDate) {
+          Vue.prototype.$fullObject.data.forEach((el) => {
+            if (!el[this.chosenRegDate]) el[this.chosenRegDate] = this.registrationDate
+          })
+        } else if (newValue === 'all_to' && this.registrationDate) {
+          Vue.prototype.$fullObject.data.forEach((el) => {
+            el[this.chosenRegDate] = this.registrationDate
+          })
+          this.regDateCheckboxDisabler = true
+        }
+      },
+    },
+    selectedCountryFromList: {
+      handler() {
+        if (this.checkedCountry === 'empty') {
+          this.checkedCountry = ''
+        } else if (this.checkedCountry === 'all_to') {
+          this.checkedCountry = ''
+        }
+      },
+    },
+    registrationDate: {
+      handler() {
+        if (this.checkedRegDate === 'empty') {
+          this.checkedRegDate = ''
+        } else if (this.checkedRegDate === 'all_to') {
+          this.checkedRegDate = ''
+        }
+      },
+    },
     darkDropdown: {
       handler() {
         if (this.darkDropdown && this.darkModeSwitch) {
@@ -449,6 +513,9 @@ export default {
     //TODO hardcoded value
     this.dictionaryCreator()
     this.extraFieldsChecker()
+    this.countryValueChecker()
+    this.regDateValueChecker()
+
     globalTelegram.MainButton.onClick(this.actionCb)
     globalTelegram.BackButton.show().onClick(this.redirectCb)
 

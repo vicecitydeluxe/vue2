@@ -16,8 +16,7 @@ export default {
             selectedDeposit: null,
             checkedCountry: '',
             checkedRegDate: '',
-            registrationDate: null,
-            brokenDate: null,
+            registrationDate: new Date(),
             emptyDateSetter: null,
             firstNames: [
                 {name: 'name'},
@@ -50,7 +49,7 @@ export default {
                 {name: 'phone_number'},
                 {name: 'mobile_phone'},
             ],
-            countries: [
+            countriesHeaders: [
                 {name: 'country'},
                 {name: 'countryid'},
                 {name: 'geo'},
@@ -73,12 +72,7 @@ export default {
                 {name: 'ftd_date'},
                 {name: 'ftd'},
             ],
-            countriesList: [
-                {name: 'GB'},
-                {name: 'RU'},
-                {name: 'USA'},
-                {name: 'UA'},
-            ],
+
         }
     },
     methods: {
@@ -122,7 +116,7 @@ export default {
             this.$store.commit('setChosenPhone', this.selectedPhoneNumber.name)
         },
         countryChecker() {
-            let arrayDictionary = this.countries.map((el) => el.name)
+            let arrayDictionary = this.countriesHeaders.map((el) => el.name)
             let result = this.parsedFields.filter(i => arrayDictionary.includes(i));
             this.selectedCountry = {name: result[0]}
 
