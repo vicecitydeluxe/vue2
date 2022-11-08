@@ -1,8 +1,8 @@
 <template>
   <div class="header">
-    <Button
-        @click="actionCb"
-    >TESTY</Button>
+<!--    <Button-->
+<!--        @click="actionCb"-->
+<!--    >TESTY</Button>-->
     <header class="header_section">
       <h3>NEW LIST</h3>
     </header>

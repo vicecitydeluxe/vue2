@@ -127,6 +127,7 @@ import Vue from 'vue'
 import Papa from "papaparse";
 import tgMixin from "@/mixins/telegram/tgMixin";
 import resultImporterHelper from "@/mixins/helpers/resultImporterHelper";
+import moment from 'moment';
 
 const globalTelegram = window.Telegram.WebApp
 
@@ -136,10 +137,45 @@ export default {
   data() {
     return {
       listNameLocal: '',
-      fileNameLocal: ''
+      fileNameLocal: '',
+      betweenDay: [],
+      betweenWeek: [],
+      betweenMonth: [],
+      betweenOneTwoMonths: [],
+      betweenTwoThreeMonths: [],
+      overThreeMonths: [],
+      unknownDateFormat: [],
     }
   },
   methods: {
+    dateChecker() {
+      const u = undefined
+      const dayBefore = moment().subtract(1, 'd')
+      const weekBefore = moment().subtract(1, 'week')
+      const monthBefore = moment().subtract(1, 'month')
+      const twoMonthBefore = moment().subtract(2, 'month')
+      const threeMonthBefore = moment().subtract(3, 'month')
+      const year = moment().subtract(1, 'year')
+
+      Vue.prototype?.$fullObject?.data.map((el) => {
+        const elem = el[this.chosenRegDate]
+
+        if (!moment(elem).isValid()) this.unknownDateFormat.push(elem)
+        else if (moment(elem).isBetween(dayBefore, u)) {
+          this.betweenDay.push(elem)
+        } else if (moment(elem).isBetween(weekBefore, u)) {
+          this.betweenWeek.push(elem)
+        } else if (moment(elem).isBetween(monthBefore, weekBefore)) {
+          this.betweenMonth.push(elem)
+        } else if (moment(elem).isBetween(twoMonthBefore, monthBefore)) {
+          this.betweenOneTwoMonths.push(elem)
+        } else if (moment(elem).isBetween(threeMonthBefore, twoMonthBefore)) {
+          this.betweenTwoThreeMonths.push(elem)
+        } else if (moment(elem).isBetween(year, threeMonthBefore)) {
+          this.overThreeMonths.push(elem)
+        }
+      })
+    },
     sendParsedList() {
       let obj = []
       /**
@@ -365,6 +401,7 @@ export default {
     this.privateResults[1].value = Vue.prototype?.$fullObject?.data?.length
 
     if (!!Vue.prototype?.$fullObject?.data) {
+      this.dateChecker()
       this.countersInvoker()
       if (this.invalidParsedLinesIndexes.length === 0) {
         this.getFullDuplicates()

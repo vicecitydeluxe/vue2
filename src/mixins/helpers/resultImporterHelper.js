@@ -209,7 +209,7 @@ export default {
             'listStatusBeforeUpload',
 
             "chosenFirstName", "chosenLastName", "chosenFullName",
-            "chosenEmail", "chosenPhone",
+            "chosenEmail", "chosenPhone", 'chosenRegDate',
 
             "invalidPhone", 'invalidEmail', "invalidFirstName",
             "invalidLastName", "invalidFullName"]),
