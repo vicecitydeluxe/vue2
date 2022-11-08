@@ -263,20 +263,24 @@ export default {
   },
   methods: {
     countryValueChecker() {
-      Vue.prototype.$fullObject.data.filter((el) => {
-        if (!el[this.chosenCountry] && !!el?.[this.chosenCountry]) {
-          this.emptyCountryValueFlag = true
-          return
-        }
-      })
+      if (!!Vue.prototype?.$fullObject?.data) {
+        Vue.prototype.$fullObject.data.filter((el) => {
+          if (!el[this.chosenCountry] && !!el?.[this.chosenCountry]) {
+            this.emptyCountryValueFlag = true
+            return
+          }
+        })
+      }
     },
     regDateValueChecker() {
-      Vue.prototype.$fullObject.data.filter((el) => {
-        if (!el[this.chosenRegDate] && !!el?.[this.chosenRegDate]) {
-          this.emptyRegDateValueFlag = true
-          return
-        }
-      })
+      if (!!Vue.prototype?.$fullObject?.data) {
+        Vue.prototype.$fullObject.data.filter((el) => {
+          if (!el[this.chosenRegDate] && !!el?.[this.chosenRegDate]) {
+            this.emptyRegDateValueFlag = true
+            return
+          }
+        })
+      }
     },
     extraFieldsChecker() {
       if (!!Vue.prototype?.$fullObject?.data) {
@@ -343,15 +347,19 @@ export default {
   },
   computed: {
     ...mapGetters(['listName', "fileName", "parsedFields"]),
+    //TODO simplify as a loop
+    countryEmptyChecker() {
+      return Vue.prototype?.$fullObject?.data.filter((el) => !el[this.chosenCountry])
+    },
     requiredFieldsFilled() {
       return !!(this.selectedFirstName?.name && this.selectedLastName?.name
               && this.selectedEmail?.name && this.selectedPhoneNumber?.name
               && this.selectedCountry?.name && this.selectedRegDate?.name
-              && this.selectedDeposit?.name) ||
+              && this.selectedDeposit?.name && !this.countryEmptyChecker.length) ||
           !!(this.selectedFullName?.name && this.selectedEmail?.name
               && this.selectedPhoneNumber?.name
               && this.selectedCountry?.name && this.selectedRegDate?.name
-              && this.selectedDeposit?.name);
+              && this.selectedDeposit?.name && !this.countryEmptyChecker.length);
     }
   },
   watch: {
@@ -361,10 +369,12 @@ export default {
           Vue.prototype.$fullObject.data.forEach((el) => {
             if (!el[this.chosenCountry]) el[this.chosenCountry] = this.selectedCountryFromList
           })
+          // console.log(Vue.prototype.$fullObject.data)
         } else if (newValue === 'all_to' && this.selectedCountryFromList) {
           Vue.prototype.$fullObject.data.forEach((el) => {
             el[this.chosenCountry] = this.selectedCountryFromList
           })
+          // console.log(Vue.prototype.$fullObject.data)
           this.countryCheckboxDisabler = true
         } else if (newValue === 'empty' || newValue === 'all_to') {
           this.$toast.add({
@@ -382,10 +392,12 @@ export default {
           Vue.prototype.$fullObject.data.forEach((el) => {
             if (!el[this.chosenRegDate]) el[this.chosenRegDate] = this.registrationDate
           })
+          // console.log(Vue.prototype.$fullObject.data)
         } else if (newValue === 'all_to' && this.registrationDate) {
           Vue.prototype.$fullObject.data.forEach((el) => {
             el[this.chosenRegDate] = this.registrationDate
           })
+          // console.log(Vue.prototype.$fullObject.data)
           this.regDateCheckboxDisabler = true
         }
       },

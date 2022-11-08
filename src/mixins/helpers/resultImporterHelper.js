@@ -20,7 +20,7 @@ export default {
             ],
             privateResults: [
                 {description: 'Records in source file', value: ''},
-                {description: 'Fully valid leads (imported) view', value: ''},
+                {description: 'Fully valid leads (would be imported)', value: ''},
                 {description: 'Cannot parse line view lines', value: ''},
                 {description: 'Invalid leads view'},
                 {description: '-missing or invalid email', value: ''},
@@ -165,6 +165,7 @@ export default {
             this.firsNameInvalidCounter()
             this.lastNameInvalidCounter()
             this.fullNameInvalidCounter()
+            this.invalidParsedLinesIndexes = [...new Set(this.invalidParsedLinesIndexes)]
         },
         showFullInfoToast() {
             if (this.fullDuplicatesIndexes.length > 0) {

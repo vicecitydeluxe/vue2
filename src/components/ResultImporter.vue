@@ -266,8 +266,7 @@ export default {
       Vue.prototype.$fullDuplicatesRemoved = Vue.prototype?.$fullObject?.data.filter((el, i) => {
         if (!this.fullDuplicatesIndexes.includes(i)) return el
       })
-      this.privateResults[1].value = Vue.prototype.$fullObject.data.length
-
+      this.privateResults[1].value = Vue.prototype.$fullDuplicatesRemoved.length
       this.fullDuplicatesIndexes = []
       this.showFullInfoToast()
     },
@@ -275,7 +274,7 @@ export default {
       Vue.prototype.$partialDuplicatesRemoved = Vue.prototype?.$fullObject?.data.filter((el, i) => {
         if (!this.partialDuplicatesIndexes.includes(i)) return el
       })
-      this.privateResults[1].value = Vue.prototype.$fullObject.data.length
+      this.privateResults[1].value = Vue.prototype.$partialDuplicatesRemoved.length
       this.partialDuplicatesIndexes = []
       this.showPartialInfoToast()
     },
@@ -306,13 +305,13 @@ export default {
   },
   computed: {
     invalidFieldsChecker() {
-      return this.invalidParsedLinesIndexes?.length > 1;
+      return this.invalidParsedLinesIndexes?.length > 0;
     },
     fullButtonDisabler() {
-      return this.fullDuplicatesIndexes.length > 0;
+      return this.fullDuplicatesIndexes?.length > 0;
     },
     partialButtonDisabler() {
-      return this.partialDuplicatesIndexes.length > 0
+      return this.partialDuplicatesIndexes?.length > 0
     },
   },
   watch: {
@@ -348,21 +347,29 @@ export default {
         Vue.prototype.$fullObject.data = Vue.prototype?.$fullObject?.data.filter((el, i) => {
           if (!newValue.includes(i)) return el
         })
-        // console.log(Vue.prototype?.$fullObject?.data)
+        this.privateResults[1].value = Vue.prototype.$fullObject.data.length
+
+        if (this.invalidParsedLinesIndexes.length !== 0) {
+          this.getFullDuplicates()
+          this.getPartialDuplicates()
+        }
       },
     },
   },
   created() {
     this.listNameLocal = this.listName
     this.fileNameLocal = this.fileName
-    this.getFullDuplicates()
-    this.getPartialDuplicates()
   },
   mounted() {
     if (this.parsedListLength > 0) this.privateResults[0].value = this.parsedListLength
+    this.privateResults[1].value = Vue.prototype?.$fullObject?.data?.length
 
     if (!!Vue.prototype?.$fullObject?.data) {
       this.countersInvoker()
+      if (this.invalidParsedLinesIndexes.length === 0) {
+        this.getFullDuplicates()
+        this.getPartialDuplicates()
+      }
     } else {
       this.$store.dispatch('GET_STATS')
           .then((res) => {
