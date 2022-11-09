@@ -105,9 +105,10 @@ export default {
     sendFile(event) {
       this.fileName = event.files[0].name
       this.$store.commit('setFileName', this.fileName)
-      const bodyFormData = new FormData();
-      bodyFormData.append('document', event.files[0]);
-      this.$store.dispatch('SEND_DOCUMENT', bodyFormData)
+      // uncomment next lines to see uploading logic
+      // const bodyFormData = new FormData();
+      // bodyFormData.append('document', event.files[0]);
+      // this.$store.dispatch('SEND_DOCUMENT', bodyFormData)
       /**
        *Papa.parse() takes 2 params:
        * file amd config object.
