@@ -1,6 +1,5 @@
 <template>
   <div class="header">
-    <!--    <Button @click="sendStatistics">Testyyyyy</Button>-->
     <!--    <Button @click="sendParsedList">LIST SENDER</Button>-->
     <header class="header_section">
       <h3># {{ this.listNameLocal }}</h3>
@@ -190,87 +189,6 @@ export default {
       this.publicResults[6].value = this.futureDateErrors.length
       this.publicResults[7].value = this.unknownDateFormat.length
     },
-    sendParsedList() {
-      let obj = []
-      /**
-       * $fullDuplicatesRemoved or $partialDuplicatesRemoved
-       * non-reactive helper-objects
-       * if any of them exist would send as a payload later
-       */
-      if (!!Vue.prototype?.$fullDuplicatesRemoved?.length) {
-        obj = Vue.prototype?.$fullDuplicatesRemoved
-      } else if (!!Vue.prototype?.$partialDuplicatesRemoved?.length) {
-        obj = Vue.prototype?.$partialDuplicatesRemoved
-      } else if (!!Vue.prototype?.$fullObject?.data) {
-        obj = Vue.prototype?.$fullObject?.data
-      }
-
-      this.$store.dispatch('SEND_PARSED_LEADS',
-          {name: this.listNameLocal, file_name: this.fileNameLocal, object: obj})
-          .then(() => {
-            // console.log(res.data)
-          })
-          .catch((err) => {
-            console.log(err)
-          })
-    },
-    sendUploadStatus() {
-      /**
-       * Values below taken from getters in mixin-helper
-       */
-      const obj = {
-        name: this.listName,
-        filename: this.filename,
-        vertical: this.vertical,
-        funnel_type: this.funnelType,
-        type: 'Unknown',
-        valid_leads_amount: Vue.prototype?.$fullObject?.data?.length,
-        upload_date: this.todayDate,
-        status: this.listStatusBeforeUpload
-      }
-      this.$store.dispatch('SEND_UPLOAD_STATUS', obj)
-          .then(() => {
-            this.sendStatistics()
-            // console.log(res)
-          })
-          .catch((err) => {
-            console.log(err)
-          })
-    },
-    sendStatistics() {
-      const obj = {
-        name: this.listName,
-        file_name: this.fileName,
-        full_records: this.parsedListLength,
-        valid_leads: this.privateResults[1]?.value,
-        unable_to_parse: this.privateResults[2]?.value,
-        invalid_emails: this.privateResults[4]?.value,
-        invalid_phones: this.privateResults[5]?.value,
-        invalid_names: this.privateResults[6]?.value,
-      }
-      this.$store.dispatch('SEND_STATS', obj)
-          .then(() => {
-            // console.log(res)
-          })
-          .catch((err) => {
-            console.log(err)
-          })
-    },
-    redirectCb() {
-      this.$router.push({name: 'country'})
-    },
-    actionCb() {
-      if (this.$route.path === '/result-importer') {
-        this.sendParsedList()
-        this.sendUploadStatus()
-        this.$router.push({name: 'layout'})
-      }
-    },
-    backCb() {
-      if (this.$route.path === '/result-importer') {
-        this.$router.push({name: 'layout'})
-      }
-    },
     getFullDuplicates() {
       const helpMap = new Map();
       Vue.prototype.$fullDuplicates = [];
@@ -351,7 +269,87 @@ export default {
         download(result)
       })
     },
+    sendParsedList() {
+      let obj = []
+      /**
+       * $fullDuplicatesRemoved or $partialDuplicatesRemoved
+       * non-reactive helper-objects
+       * if any of them exist would send as a payload later
+       */
+      if (!!Vue.prototype?.$fullDuplicatesRemoved?.length) {
+        obj = Vue.prototype?.$fullDuplicatesRemoved
+      } else if (!!Vue.prototype?.$partialDuplicatesRemoved?.length) {
+        obj = Vue.prototype?.$partialDuplicatesRemoved
+      } else if (!!Vue.prototype?.$fullObject?.data) {
+        obj = Vue.prototype?.$fullObject?.data
+      }
 
+      this.$store.dispatch('SEND_PARSED_LEADS',
+          {name: this.listNameLocal, file_name: this.fileNameLocal, object: obj})
+          .then(() => {
+            // console.log(res.data)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+    },
+    sendStatistics() {
+      const obj = {
+        name: this.listName,
+        file_name: this.fileName,
+        full_records: this.parsedListLength,
+        valid_leads: this.privateResults[1]?.value,
+        unable_to_parse: this.privateResults[2]?.value,
+        invalid_emails: this.privateResults[4]?.value,
+        invalid_phones: this.privateResults[5]?.value,
+        invalid_names: this.privateResults[6]?.value,
+      }
+      this.$store.dispatch('SEND_STATS', obj)
+          .then(() => {
+            // console.log(res)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+    },
+    sendUploadStatus() {
+      /**
+       * Values below taken from getters in mixin-helper
+       */
+      const obj = {
+        name: this.listName,
+        filename: this.filename,
+        vertical: this.vertical,
+        funnel_type: this.funnelType,
+        type: 'Unknown',
+        valid_leads_amount: Vue.prototype?.$fullObject?.data?.length,
+        upload_date: this.todayDate,
+        status: this.listStatusBeforeUpload
+      }
+      this.$store.dispatch('SEND_UPLOAD_STATUS', obj)
+          .then(() => {
+            this.sendStatistics()
+            // console.log(res)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+    },
+    actionCb() {
+      if (this.$route.path === '/result-importer') {
+        this.sendParsedList()
+        this.sendUploadStatus()
+        this.$router.push({name: 'layout'})
+      }
+    },
+    redirectCb() {
+      this.$router.push({name: 'country'})
+    },
+    backCb() {
+      if (this.$route.path === '/result-importer') {
+        this.$router.push({name: 'layout'})
+      }
+    },
   },
   computed: {
     invalidFieldsChecker() {

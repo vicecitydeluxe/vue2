@@ -253,7 +253,6 @@ export default {
       darkCalendar: 0,
       darkDropdown: 0,
       includeExtra: null,
-      requiredFieldsDictionary: [],
       extraFieldsFlag: false,
       emptyCountryValueFlag: false,
       emptyRegDateValueFlag: false,
@@ -263,36 +262,30 @@ export default {
   },
   methods: {
     countryValueChecker() {
-      if (!!Vue.prototype?.$fullObject?.data) {
-        Vue.prototype.$fullObject.data.filter((el) => {
-          if (!el[this.chosenCountry] && !!el?.[this.chosenCountry]) {
-            this.emptyCountryValueFlag = true
-            return
-          }
-        })
-      }
+      Vue.prototype.$fullObject.data.filter((el) => {
+        if (!el[this.chosenCountry] && !!el?.[this.chosenCountry]) {
+          this.emptyCountryValueFlag = true
+          return
+        }
+      })
     },
     regDateValueChecker() {
-      if (!!Vue.prototype?.$fullObject?.data) {
-        Vue.prototype.$fullObject.data.filter((el) => {
-          if (!el[this.chosenRegDate] && !!el?.[this.chosenRegDate]) {
-            this.emptyRegDateValueFlag = true
-            return
-          }
-        })
-      }
+      Vue.prototype.$fullObject.data.filter((el) => {
+        if (!el[this.chosenRegDate] && !!el?.[this.chosenRegDate]) {
+          this.emptyRegDateValueFlag = true
+          return
+        }
+      })
     },
     extraFieldsChecker() {
-      if (!!Vue.prototype?.$fullObject?.data) {
-        Vue.prototype?.$fullObject?.data.filter(obj => {
-          for (const key of Object.keys(obj)) {
-            if (!this.requiredFieldsDictionary.includes(key)) {
-              this.extraFieldsFlag = true
-              return
-            }
+      Vue.prototype?.$fullObject?.data.filter(obj => {
+        for (const key of Object.keys(obj)) {
+          if (!this.requiredFieldsDictionary.includes(key)) {
+            this.extraFieldsFlag = true
+            return
           }
-        })
-      }
+        }
+      })
     },
     /**
      * $reducedObject non-reactive helper-object to remove all extra
@@ -338,28 +331,23 @@ export default {
         life: 2000
       });
     },
-    dictionaryCreator() {
-      this.requiredFieldsDictionary = Object.values(this.$data)
-          .flat()
-          .map((el) => el?.name)
-          .filter((el) => !!el)
-    }
   },
   computed: {
     ...mapGetters(['listName', "fileName", "parsedFields"]),
-    //TODO simplify as a loop
     countryEmptyChecker() {
-      return Vue.prototype?.$fullObject?.data.filter((el) => !el[this.chosenCountry])
+      for (let i = 0; i < Vue.prototype?.$fullObject?.data?.length; i++) {
+        return !Vue.prototype?.$fullObject?.data[i][this.chosenCountry];
+      }
     },
     requiredFieldsFilled() {
       return !!(this.selectedFirstName?.name && this.selectedLastName?.name
               && this.selectedEmail?.name && this.selectedPhoneNumber?.name
               && this.selectedCountry?.name && this.selectedRegDate?.name
-              && this.selectedDeposit?.name && !this.countryEmptyChecker.length) ||
+              && this.selectedDeposit?.name && !this.countryEmptyChecker) ||
           !!(this.selectedFullName?.name && this.selectedEmail?.name
               && this.selectedPhoneNumber?.name
               && this.selectedCountry?.name && this.selectedRegDate?.name
-              && this.selectedDeposit?.name && !this.countryEmptyChecker.length);
+              && this.selectedDeposit?.name && !this.countryEmptyChecker);
     }
   },
   watch: {
@@ -521,13 +509,12 @@ export default {
     },
   },
   mounted() {
-    this.multipleCheckerCaller()
-    //TODO hardcoded value
-    this.dictionaryCreator()
-    this.extraFieldsChecker()
-    this.countryValueChecker()
-    this.regDateValueChecker()
-
+    if (!!Vue.prototype?.$fullObject?.data) {
+      this.multipleCheckerCaller()
+      this.extraFieldsChecker()
+      this.countryValueChecker()
+      this.regDateValueChecker()
+    }
     globalTelegram.MainButton.onClick(this.actionCb)
     globalTelegram.BackButton.show().onClick(this.redirectCb)
 
