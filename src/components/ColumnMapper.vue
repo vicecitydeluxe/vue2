@@ -19,8 +19,7 @@
             @change="firstNameReplacer"
             v-model="selectedFirstName"
             :value="selectedFirstName"
-            :options="firstNames"
-            optionLabel="name"
+            :options="parsedFields"
             @before-show="toggleDarkDropdown"
         />
       </div>
@@ -33,8 +32,8 @@
             @change="lastNameReplacer"
             v-model="selectedLastName"
             :value="selectedLastName"
-            :options="lastNames"
-            optionLabel="name"
+            :options="parsedFields"
+
             @before-show="toggleDarkDropdown"
         />
       </div>
@@ -47,8 +46,8 @@
             @change="fullNameReplacer"
             v-model="selectedFullName"
             :value="selectedFullName"
-            :options="fullNames"
-            optionLabel="name"
+            :options="parsedFields"
+
             @before-show="toggleDarkDropdown"
         />
       </div>
@@ -61,8 +60,8 @@
             @change="emailReplacer"
             v-model="selectedEmail"
             :value="selectedEmail"
-            :options="emails"
-            optionLabel="name"
+            :options="parsedFields"
+
             @before-show="toggleDarkDropdown"
         />
       </div>
@@ -75,8 +74,8 @@
             @change="phoneNumberReplacer"
             v-model="selectedPhoneNumber"
             :value="selectedPhoneNumber"
-            :options="phoneNumbers"
-            optionLabel="name"
+            :options="parsedFields"
+
             @before-show="toggleDarkDropdown"
         />
       </div>
@@ -89,8 +88,8 @@
             @change="countryReplacer"
             v-model="selectedCountry"
             :value="selectedCountry"
-            :options="countriesHeaders"
-            optionLabel="name"
+            :options="parsedFields"
+
             @before-show="toggleDarkDropdown"
         />
       </div>
@@ -145,8 +144,8 @@
             @change="registrationDateReplacer"
             v-model="selectedRegDate"
             :value="selectedRegDate"
-            :options="regDateList"
-            optionLabel="name"
+            :options="parsedFields"
+
             @before-show="toggleDarkDropdown"
         />
       </div>
@@ -198,8 +197,8 @@
             @change="depositReplacer"
             v-model="selectedDeposit"
             :value="selectedDeposit"
-            :options="deposits"
-            optionLabel="name"
+            :options="parsedFields"
+
             @before-show="toggleDarkDropdown"
         />
       </div>
@@ -340,14 +339,14 @@ export default {
       }
     },
     requiredFieldsFilled() {
-      return !!(this.selectedFirstName?.name && this.selectedLastName?.name
-              && this.selectedEmail?.name && this.selectedPhoneNumber?.name
-              && this.selectedCountry?.name && this.selectedRegDate?.name
-              && this.selectedDeposit?.name && !this.countryEmptyChecker) ||
-          !!(this.selectedFullName?.name && this.selectedEmail?.name
-              && this.selectedPhoneNumber?.name
-              && this.selectedCountry?.name && this.selectedRegDate?.name
-              && this.selectedDeposit?.name && !this.countryEmptyChecker);
+      return !!(this.selectedFirstName && this.selectedLastName
+              && this.selectedEmail && this.selectedPhoneNumber
+              && this.selectedCountry && this.selectedRegDate
+              && this.selectedDeposit && !this.countryEmptyChecker) ||
+          !!(this.selectedFullName && this.selectedEmail
+              && this.selectedPhoneNumber
+              && this.selectedCountry && this.selectedRegDate
+              && this.selectedDeposit && !this.countryEmptyChecker);
     }
   },
   watch: {
@@ -515,6 +514,7 @@ export default {
       this.countryValueChecker()
       this.regDateValueChecker()
     }
+    console.log(Vue.prototype?.$fullObject?.data)
     globalTelegram.MainButton.onClick(this.actionCb)
     globalTelegram.BackButton.show().onClick(this.redirectCb)
 

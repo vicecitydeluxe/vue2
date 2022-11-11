@@ -105,7 +105,7 @@ export default {
 
       if (this.countryKeyChecker) {
         const wrong = Vue.prototype?.$fullObject?.data.filter((el, i) => {
-          if (!this.countries.includes(el[this.chosenCountry])) {
+          if (!this.countries.includes(el['country'])) {
             this.countryIndexes.push(i)
             return el
           }
@@ -113,7 +113,7 @@ export default {
 
         if (!!wrong) {
           this.countriesToMap = wrong.map((el) => {
-            return el[this.chosenCountry]
+            return el['country']
           })
         } else return
       } else return

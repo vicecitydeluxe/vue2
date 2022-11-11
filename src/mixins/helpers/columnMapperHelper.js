@@ -29,60 +29,59 @@ export default {
                 "regdate", "reg date", "reg_date", "registration_date", "registered", "registered_at",
                 "deposited", "deposit date", "deposit_date", "ftd date", "ftd_date", "ftd"],
             firstNames: [
-                {name: 'name'},
-                {name: 'firstname'},
-                {name: 'fname'},
-                {name: 'first_name'},
+                'name',
+                'firstname',
+                'fname',
+                'first_name',
             ],
             lastNames: [
-                {name: 'lastname'},
-                {name: 'last'},
-                {name: 'last name'},
-                {name: 'lname'},
+                'lastname',
+                'last',
+                'last name',
+                'lname',
             ],
             fullNames: [
-                {name: 'fullname'},
-                {name: 'full_name'},
+                'fullname',
+                'full_name',
             ],
             emails: [
-                {name: 'email'},
-                {name: 'mail'},
-                {name: 'e-mail'},
+                'email',
+                'mail',
+                'e-mail',
             ],
             phoneNumbers: [
-                {name: 'phone'},
-                {name: 'mobile phone'},
-                {name: 'phone number'},
-                {name: 'mobile'},
-                {name: 'main number'},
-                {name: 'main phone'},
-                {name: 'phone_number'},
-                {name: 'mobile_phone'},
+                'phone',
+                'mobile phone',
+                'phone number',
+                'mobile',
+                'main number',
+                'main phone',
+                'phone_number',
+                'mobile_phone',
             ],
             countriesHeaders: [
-                {name: 'country'},
-                {name: 'countryid'},
-                {name: 'geo'},
-                {name: 'country_id'},
-                {name: 'country_code'},
+                'country',
+                'countryid',
+                'geo',
+                'country_id',
+                'country_code',
             ],
             regDateList: [
-                {name: 'regdate'},
-                {name: 'reg date'},
-                {name: 'reg_date'},
-                {name: 'registration_date'},
-                {name: 'registered'},
-                {name: 'registered_at'},
+                'regdate',
+                'reg date',
+                'reg_date',
+                'registration_date',
+                'registered',
+                'registered_at',
             ],
             deposits: [
-                {name: 'deposited'},
-                {name: 'deposit date'},
-                {name: 'deposit_date'},
-                {name: 'ftd date'},
-                {name: 'ftd_date'},
-                {name: 'ftd'},
+                'deposited',
+                'deposit date',
+                'deposit_date',
+                'ftd date',
+                'ftd_date',
+                'ftd',
             ],
-
         }
     },
     methods: {
@@ -90,61 +89,79 @@ export default {
          * Each checker pre-selects dropdown value in ColumnMapper.vue
          */
         firstNameChecker() {
-            const arrayDictionary = this.firstNames.map((el) => el.name)
-            const result = this.parsedFields.filter(i => arrayDictionary.includes(i));
-            this.selectedFirstName = {name: result[0]}
+            let result = this.parsedFields.filter(i => this.firstNames.includes(i));
+            this.selectedFirstName = result[0]
+            this.$store.commit('setChosenFirstName', this.selectedFirstName)
 
-            this.$store.commit('setChosenFirstName', this.selectedFirstName.name)
-
+            Vue.prototype.$fullObject.data.forEach((element) => {
+                if (this.selectedFirstName === 'firstname') return
+                delete Object.assign(element, {firstname: element[this.selectedFirstName]})[this.selectedFirstName];
+            })
         },
         lastNameChecker() {
-            let arrayDictionary = this.lastNames.map((el) => el.name)
-            let result = this.parsedFields.filter(i => arrayDictionary.includes(i));
-            this.selectedLastName = {name: result[0]}
-
-            this.$store.commit('setChosenLastName', this.selectedLastName.name)
+            let result = this.parsedFields.filter(i => this.lastNames.includes(i));
+            this.selectedLastName = result[0]
+            this.$store.commit('setChosenLastName', this.selectedLastName)
+            Vue.prototype.$fullObject.data.forEach((element) => {
+                if (this.selectedLastName === 'lastname') return
+                delete Object.assign(element, {lastname: element[this.selectedLastName]})[this.selectedLastName];
+            })
         },
         fullNameChecker() {
-            let arrayDictionary = this.fullNames.map((el) => el.name)
-            let result = this.parsedFields.filter(i => arrayDictionary.includes(i));
-            this.selectedFullName = {name: result[0]}
-
-            this.$store.commit('setChosenFullName', this.selectedFullName.name)
+            let result = this.parsedFields.filter(i => this.fullNames.includes(i));
+            this.selectedFullName = result[0]
+            this.$store.commit('setChosenFullName', this.selectedFullName)
+            Vue.prototype.$fullObject.data.forEach((element) => {
+                if (this.selectedFullName === 'fullname') return
+                delete Object.assign(element, {fullname: element[this.selectedFullName]})[this.selectedFullName];
+            })
         },
         emailChecker() {
-            let arrayDictionary = this.emails.map((el) => el.name)
-            let result = this.parsedFields.filter(i => arrayDictionary.includes(i));
-            this.selectedEmail = {name: result[0]}
-
-            this.$store.commit('setChosenEmail', this.selectedEmail.name)
+            let result = this.parsedFields.filter(i => this.emails.includes(i));
+            this.selectedEmail = result[0]
+            this.$store.commit('setChosenEmail', this.selectedEmail)
+            Vue.prototype.$fullObject.data.forEach((element) => {
+                if (this.selectedEmail === 'email') return
+                delete Object.assign(element, {email: element[this.selectedEmail]})[this.selectedEmail];
+            })
         },
         phoneChecker() {
-            let arrayDictionary = this.phoneNumbers.map((el) => el.name)
-            let result = this.parsedFields.filter(i => arrayDictionary.includes(i));
-            this.selectedPhoneNumber = {name: result[0]}
+            let result = this.parsedFields.filter(i => this.phoneNumbers.includes(i));
+            this.selectedPhoneNumber = result[0]
 
-            this.$store.commit('setChosenPhone', this.selectedPhoneNumber.name)
+            this.$store.commit('setChosenPhone', this.selectedPhoneNumber)
+
+            Vue.prototype.$fullObject.data.forEach((element) => {
+                if (this.selectedPhoneNumber === 'phone') return
+                delete Object.assign(element, {phone: element[this.selectedPhoneNumber]})[this.selectedPhoneNumber];
+            })
         },
         countryChecker() {
-            let arrayDictionary = this.countriesHeaders.map((el) => el.name)
-            let result = this.parsedFields.filter(i => arrayDictionary.includes(i));
-            this.selectedCountry = {name: result[0]}
-
-            this.$store.commit('setChosenCountry', this.selectedCountry.name)
+            let result = this.parsedFields.filter(i => this.countriesHeaders.includes(i));
+            this.selectedCountry = result[0]
+            this.$store.commit('setChosenCountry', this.selectedCountry)
+            Vue.prototype.$fullObject.data.forEach((element) => {
+                if (this.selectedCountry === 'country') return
+                delete Object.assign(element, {country: element[this.selectedCountry]})[this.selectedCountry];
+            })
         },
         registrationDateChecker() {
-            let arrayDictionary = this.regDateList.map((el) => el.name)
-            let result = this.parsedFields.filter(i => arrayDictionary.includes(i));
-            this.selectedRegDate = {name: result[0]}
-
-            this.$store.commit('setChosenRegDate', this.selectedRegDate.name)
+            let result = this.parsedFields.filter(i => this.regDateList.includes(i));
+            this.selectedRegDate = result[0]
+            this.$store.commit('setChosenRegDate', this.selectedRegDate)
+            Vue.prototype.$fullObject.data.forEach((element) => {
+                if (this.selectedRegDate === 'regdate') return
+                delete Object.assign(element, {regdate: element[this.selectedRegDate]})[this.selectedRegDate];
+            })
         },
         depositChecker() {
-            let arrayDictionary = this.deposits.map((el) => el.name)
-            let result = this.parsedFields.filter(i => arrayDictionary.includes(i));
-            this.selectedDeposit = {name: result[0]}
-
-            this.$store.commit('setChosenDeposit', this.selectedDeposit.name)
+            let result = this.parsedFields.filter(i => this.deposits.includes(i));
+            this.selectedDeposit = result[0]
+            this.$store.commit('setChosenDeposit', this.selectedDeposit)
+            Vue.prototype.$fullObject.data.forEach((element) => {
+                if (this.selectedDeposit === 'deposit') return
+                delete Object.assign(element, {deposit: element[this.selectedDeposit]})[this.selectedDeposit];
+            })
         },
         /**
          * multipleCheckerCaller() invokes
@@ -166,167 +183,476 @@ export default {
          * assigning this value in right order
          */
         firstNameReplacer() {
-            /**
-             * copy logic to each dropdown if you
-             * want to test $parsedHeaders
-             */
-            // const splitObject = this.$parsedHeaders.split(',')
-            // const replacer = this.selectedFirstName?.name
-            // const arrayDictionary = this.firstNames.map((el) => el.name)
-            // const replacedArr = splitObject.map((i) => arrayDictionary.includes(i)
-            //     ? replacer
-            //     : i)
-            // console.log(replacedArr.join())
-            /**
-             * Please see countryReplacer() method annotation
-             */
-            Vue.prototype.$fullObject.data.forEach(el => {
-                el[this.selectedFirstName.name] = el[this.chosenFirstName]
-                delete el[this.chosenFirstName]
+            Vue.prototype.$fullObject.data.forEach(e => {
+                if (!this.firstNames.some(el => e.hasOwnProperty(el))) {
+                    if (this.selectedFirstName === 'firstname') return
+                    delete Object.assign(e, {firstname: e[this.selectedFirstName]})[this.selectedFirstName];
+                } else if (this.selectedFirstName === this.selectedLastName) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {firstname: e.lastname})['lastname'];
+                    delete Object.assign(e, {lastname: e.firstname})['firstname'];
+                    Object.assign(e, {firstname: o.firstname});
+                    this.selectedLastName = this.chosenFirstName
+                } else if (this.selectedFirstName === this.selectedFullName) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {firstname: e.fullname})['fullname'];
+                    delete Object.assign(e, {fullname: e.firstname})['firstname'];
+                    Object.assign(e, {firstname: o.firstname});
+                    this.selectedFullName = this.chosenFirstName
+                } else if (this.selectedFirstName === this.selectedEmail) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {firstname: e.email})['email'];
+                    delete Object.assign(e, {email: e.firstname})['firstname'];
+                    Object.assign(e, {firstname: o.firstname});
+                    this.selectedEmail = this.chosenFirstName
+                } else if (this.selectedFirstName === this.selectedPhoneNumber) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {firstname: e.phone})['phone'];
+                    delete Object.assign(e, {phone: e.firstname})['firstname'];
+                    Object.assign(e, {firstname: o.firstname});
+                    this.selectedPhoneNumber = this.chosenFirstName
+                } else if (this.selectedFirstName === this.selectedCountry) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {firstname: e.country})['country'];
+                    delete Object.assign(e, {country: e.firstname})['firstname'];
+                    Object.assign(e, {firstname: o.firstname});
+                    this.selectedCountry = this.chosenFirstName
+                } else if (this.selectedFirstName === this.selectedRegDate) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {firstname: e.regdate})['regdate'];
+                    delete Object.assign(e, {regdate: e.firstname})['firstname'];
+                    Object.assign(e, {firstname: o.firstname});
+                    this.selectedRegDate = this.chosenFirstName
+                } else if (this.selectedFirstName === this.selectedDeposit) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {firstname: e.deposit})['deposit'];
+                    delete Object.assign(e, {deposit: e.firstname})['firstname'];
+                    Object.assign(e, {firstname: o.firstname});
+                    this.selectedDeposit = this.chosenFirstName
+                }
             })
-            const oldChosenFirstName = this.chosenFirstName
-            const newChosenFirstName = this.selectedFirstName.name
-            const newParsedFields = this.parsedFields
-            newParsedFields.forEach((el, index) => {
-                if (el === oldChosenFirstName) newParsedFields
-                    .splice(index, 1, newChosenFirstName)
-            })
-            this.$store.commit('setChosenFirstName', this.selectedFirstName.name)
-            this.$store.commit('setParsedFields', newParsedFields)
+            this.$store.commit('setChosenFirstName', this.selectedFirstName)
+            console.log(Vue.prototype?.$fullObject?.data)
         },
         lastNameReplacer() {
-            /**
-             * Please see countryReplacer() method annotation
-             */
-            Vue.prototype.$fullObject.data.forEach(el => {
-                el[this.selectedLastName.name] = el[this.chosenLastName]
-                delete el[this.chosenLastName]
+            Vue.prototype.$fullObject.data.forEach(e => {
+                if (!this.lastNames.some(el => e.hasOwnProperty(el))) {
+                    if (this.selectedLastName === 'lastname') return
+                    delete Object.assign(e, {lastname: e[this.selectedLastName]})[this.selectedLastName];
+                } else if (this.selectedLastName === this.selectedFirstName) {
+                    //
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {lastname: e.firstname})['firstname'];
+                    delete Object.assign(e, {firstname: e.lastname})['lastname'];
+                    Object.assign(e, {lastname: o.lastname});
+                    this.selectedFirstName = this.chosenLastName
+                } else if (this.selectedLastName === this.selectedFullName) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {lastname: e.fullname})['fullname'];
+                    delete Object.assign(e, {fullname: e.lastname})['lastname'];
+                    Object.assign(e, {lastname: o.lastname});
+                    this.selectedFullName = this.chosenLastName
+                } else if (this.selectedLastName === this.selectedEmail) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {lastname: e.email})['email'];
+                    delete Object.assign(e, {email: e.lastname})['lastname'];
+                    Object.assign(e, {lastname: o.lastname});
+                    this.selectedEmail = this.chosenLastName
+                } else if (this.selectedLastName === this.selectedPhoneNumber) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {lastname: e.phone})['phone'];
+                    delete Object.assign(e, {phone: e.lastname})['lastname'];
+                    Object.assign(e, {lastname: o.lastname});
+                    this.selectedPhoneNumber = this.chosenLastName
+                } else if (this.selectedLastName === this.selectedCountry) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {lastname: e.country})['country'];
+                    delete Object.assign(e, {country: e.lastname})['lastname'];
+                    Object.assign(e, {lastname: o.lastname});
+                    this.selectedCountry = this.chosenLastName
+                } else if (this.selectedLastName === this.selectedRegDate) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {lastname: e.regdate})['regdate'];
+                    delete Object.assign(e, {regdate: e.lastname})['lastname'];
+                    Object.assign(e, {lastname: o.lastname});
+                    this.selectedRegDate = this.chosenLastName
+                } else if (this.selectedLastName === this.selectedDeposit) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {lastname: e.deposit})['deposit'];
+                    delete Object.assign(e, {deposit: e.lastname})['lastname'];
+                    Object.assign(e, {lastname: o.lastname});
+                    this.selectedDeposit = this.chosenLastName
+                }
             })
-            const oldChosenLastName = this.chosenLastName
-            const newChosenLastName = this.selectedLastName.name
-            const newParsedFields = this.parsedFields
-            newParsedFields.forEach((el, index) => {
-                if (el === oldChosenLastName) newParsedFields
-                    .splice(index, 1, newChosenLastName)
-            })
-            this.$store.commit('setChosenLastName', this.selectedLastName.name)
-            this.$store.commit('setParsedFields', newParsedFields)
+            this.$store.commit('setChosenLastName', this.selectedLastName)
+            console.log(Vue.prototype?.$fullObject?.data)
         },
         fullNameReplacer() {
-            /**
-             * Please see countryReplacer() method annotation
-             */
-            Vue.prototype.$fullObject.data.forEach(el => {
-                el[this.selectedFullName.name] = el[this.chosenFullName]
-                delete el[this.chosenFullName]
+            Vue.prototype.$fullObject.data.forEach(e => {
+                if (!this.fullNames.some(el => e.hasOwnProperty(el))) {
+                    if (this.selectedFullName === 'fullname') return
+                    delete Object.assign(e, {fullname: e[this.selectedFullName]})[this.selectedFullName];
+                } else if (this.selectedFullName === this.selectedFirstName) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {fullname: e.firstname})['firstname'];
+                    delete Object.assign(e, {firstname: e.fullname})['fullname'];
+                    Object.assign(e, {fullname: o.fullname});
+                    this.selectedFirstName = this.chosenFullName
+                } else if (this.selectedFullName === this.selectedLastName) {
+                    //
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {fullname: e.lastname})['lastname'];
+                    delete Object.assign(e, {lastname: e.fullname})['fullname'];
+                    Object.assign(e, {fullname: o.fullname});
+                    this.selectedLastName = this.chosenFullName
+                } else if (this.selectedFullName === this.selectedEmail) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {fullname: e.email})['email'];
+                    delete Object.assign(e, {email: e.fullname})['fullname'];
+                    Object.assign(e, {fullname: o.fullname});
+                    this.selectedEmail = this.chosenFullName
+                } else if (this.selectedFullName === this.selectedPhoneNumber) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {fullname: e.phone})['phone'];
+                    delete Object.assign(e, {phone: e.fullname})['fullname'];
+                    Object.assign(e, {fullname: o.fullname});
+                    this.selectedPhoneNumber = this.chosenFullName
+                } else if (this.selectedFullName === this.selectedCountry) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {fullname: e.country})['country'];
+                    delete Object.assign(e, {country: e.fullname})['fullname'];
+                    Object.assign(e, {fullname: o.fullname});
+                    this.selectedCountry = this.chosenFullName
+                } else if (this.selectedFullName === this.selectedRegDate) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {fullname: e.regdate})['regdate'];
+                    delete Object.assign(e, {regdate: e.fullname})['fullname'];
+                    Object.assign(e, {fullname: o.fullname});
+                    this.selectedRegDate = this.chosenFullName
+                } else if (this.selectedFullName === this.selectedDeposit) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {fullname: e.deposit})['deposit'];
+                    delete Object.assign(e, {deposit: e.fullname})['fullname'];
+                    Object.assign(e, {fullname: o.fullname});
+                    this.selectedDeposit = this.chosenFullName
+                }
             })
-            const oldChosenFullName = this.chosenFullName
-            const newChosenFullName = this.selectedFullName.name
-            const newParsedFields = this.parsedFields
-            newParsedFields.forEach((el, index) => {
-                if (el === oldChosenFullName) newParsedFields
-                    .splice(index, 1, newChosenFullName)
-            })
-            this.$store.commit('setChosenFullName', this.selectedFullName.name)
-            this.$store.commit('setParsedFields', newParsedFields)
+            this.$store.commit('setChosenFullName', this.selectedFullName)
+            console.log(Vue.prototype?.$fullObject?.data)
         },
         emailReplacer() {
-            /**
-             * Please see countryReplacer() method annotation
-             */
-            Vue.prototype.$fullObject.data.forEach(el => {
-                el[this.selectedEmail.name] = el[this.chosenEmail]
-                delete el[this.chosenEmail]
+            Vue.prototype.$fullObject.data.forEach(e => {
+                if (!this.emails.some(el => e.hasOwnProperty(el))) {
+                    if (this.selectedEmail === 'email') return
+                    delete Object.assign(e, {email: e[this.selectedEmail]})[this.selectedEmail];
+                } else if (this.selectedEmail === this.selectedFirstName) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {email: e.firstname})['firstname'];
+                    delete Object.assign(e, {firstname: e.email})['email'];
+                    Object.assign(e, {email: o.email});
+                    this.selectedFirstName = this.chosenEmail
+                } else if (this.selectedEmail === this.selectedLastName) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {email: e.lastname})['lastname'];
+                    delete Object.assign(e, {lastname: e.email})['email'];
+                    Object.assign(e, {email: o.email});
+                    this.selectedLastName = this.chosenEmail
+                } else if (this.selectedEmail === this.selectedFullName) {
+                    //
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {email: e.fullname})['fullname'];
+                    delete Object.assign(e, {fullname: e.email})['email'];
+                    Object.assign(e, {email: o.email});
+                    this.selectedFullName = this.chosenEmail
+                } else if (this.selectedEmail === this.selectedPhoneNumber) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {email: e.phone})['phone'];
+                    delete Object.assign(e, {phone: e.email})['email'];
+                    Object.assign(e, {email: o.email});
+                    this.selectedPhoneNumber = this.chosenEmail
+                } else if (this.selectedEmail === this.selectedCountry) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {email: e.country})['country'];
+                    delete Object.assign(e, {country: e.email})['email'];
+                    Object.assign(e, {email: o.email});
+                    this.selectedCountry = this.chosenEmail
+                } else if (this.selectedEmail === this.selectedRegDate) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {email: e.regdate})['regdate'];
+                    delete Object.assign(e, {regdate: e.email})['email'];
+                    Object.assign(e, {email: o.email});
+                    this.selectedRegDate = this.chosenEmail
+                } else if (this.selectedEmail === this.selectedDeposit) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {email: e.deposit})['deposit'];
+                    delete Object.assign(e, {deposit: e.email})['email'];
+                    Object.assign(e, {email: o.email});
+                    this.selectedDeposit = this.chosenEmail
+                }
             })
-            const oldChosenEmail = this.chosenEmail
-            const newChosenEmail = this.selectedEmail.name
-            const newParsedFields = this.parsedFields
-            newParsedFields.forEach((el, index) => {
-                if (el === oldChosenEmail) newParsedFields
-                    .splice(index, 1, newChosenEmail)
-            })
-            this.$store.commit('setChosenEmail', this.selectedEmail.name)
-            this.$store.commit('setParsedFields', newParsedFields)
+            this.$store.commit('setChosenEmail', this.selectedEmail)
+            console.log(Vue.prototype?.$fullObject?.data)
         },
         phoneNumberReplacer() {
-            /**
-             * Please refer to
-             * countryReplacer() method
-             * annotation to know details
-             */
-            Vue.prototype.$fullObject.data.forEach(el => {
-                el[this.selectedPhoneNumber.name] = el[this.chosenPhone]
-                delete el[this.chosenPhone]
+            Vue.prototype.$fullObject.data.forEach(e => {
+                if (!this.phoneNumbers.some(el => e.hasOwnProperty(el))) {
+                    if (this.selectedPhoneNumber === 'phone') return
+                    delete Object.assign(e, {phone: e[this.selectedPhoneNumber]})[this.selectedPhoneNumber];
+                } else if (this.selectedPhoneNumber === this.selectedFirstName) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {phone: e.firstname})['firstname'];
+                    delete Object.assign(e, {firstname: e.phone})['phone'];
+                    Object.assign(e, {phone: o.phone});
+                    this.selectedFirstName = this.chosenPhone
+                } else if (this.selectedPhoneNumber === this.selectedLastName) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {phone: e.lastname})['lastname'];
+                    delete Object.assign(e, {lastname: e.phone})['phone'];
+                    Object.assign(e, {phone: o.phone});
+                    this.selectedLastName = this.chosenPhone
+                } else if (this.selectedPhoneNumber === this.selectedFullName) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {phone: e.fullname})['fullname'];
+                    delete Object.assign(e, {fullname: e.phone})['phone'];
+                    Object.assign(e, {phone: o.phone});
+                    this.selectedFullName = this.chosenPhone
+                } else if (this.selectedPhoneNumber === this.selectedEmail) {
+                    //
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {phone: e.email})['email'];
+                    delete Object.assign(e, {email: e.phone})['phone'];
+                    Object.assign(e, {phone: o.phone});
+                    this.selectedEmail = this.chosenPhone
+                } else if (this.selectedPhoneNumber === this.selectedCountry) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {phone: e.country})['country'];
+                    delete Object.assign(e, {country: e.phone})['phone'];
+                    Object.assign(e, {phone: o.phone});
+                    this.selectedCountry = this.chosenPhone
+                } else if (this.selectedPhoneNumber === this.selectedRegDate) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {phone: e.regdate})['regdate'];
+                    delete Object.assign(e, {regdate: e.phone})['phone'];
+                    Object.assign(e, {phone: o.phone});
+                    this.selectedRegDate = this.chosenPhone
+                } else if (this.selectedPhoneNumber === this.selectedDeposit) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {phone: e.deposit})['deposit'];
+                    delete Object.assign(e, {deposit: e.phone})['phone'];
+                    Object.assign(e, {phone: o.phone});
+                    this.selectedDeposit = this.chosenPhone
+                }
             })
-            const oldChosenPhone = this.chosenPhone
-            const newChosenPhone = this.selectedPhoneNumber.name
-            const newParsedFields = this.parsedFields
-            newParsedFields.forEach((el, index) => {
-                if (el === oldChosenPhone) newParsedFields
-                    .splice(index, 1, newChosenPhone)
-            })
-            this.$store.commit('setChosenPhone', this.selectedPhoneNumber.name)
-            this.$store.commit('setParsedFields', newParsedFields)
+            this.$store.commit('setChosenPhone', this.selectedPhoneNumber)
+            console.log(Vue.prototype?.$fullObject?.data)
         },
         countryReplacer() {
-            /**
-             * After each change of dropdown option,
-             * we mutate our global non-reactive
-             * variable and change global state
-             * parsedFields array & chosenCountry
-             * (previous "old" state-accessor)
-             */
-            Vue.prototype.$fullObject.data.forEach(el => {
-                el[this.selectedCountry.name] = el[this.chosenCountry]
-                delete el[this.chosenCountry]
-            })
-            const oldChosenCountry = this.chosenCountry
-            const newChosenCountry = this.selectedCountry.name
-            const newParsedFields = this.parsedFields
-            newParsedFields.forEach((el, index) => {
-                if (el === oldChosenCountry) newParsedFields
-                    .splice(index, 1, newChosenCountry)
-            })
-            this.$store.commit('setChosenCountry', this.selectedCountry.name)
-            this.$store.commit('setParsedFields', newParsedFields)
-            console.log(Vue.prototype?.$fullObject?.data)
+            Vue.prototype.$fullObject.data.forEach(e => {
+                if (!this.countriesHeaders.some(el => e.hasOwnProperty(el))) {
+                    if (this.selectedCountry === 'country') return
+                    delete Object.assign(e, {country: e[this.selectedCountry]})[this.selectedCountry];
+                } else if (this.selectedCountry === this.selectedFirstName) {
 
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {country: e.firstname})['firstname'];
+                    delete Object.assign(e, {firstname: e.country})['country'];
+                    Object.assign(e, {country: o.country});
+                    this.selectedFirstName = this.chosenCountry
+                } else if (this.selectedCountry === this.selectedLastName) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {country: e.lastname})['lastname'];
+                    delete Object.assign(e, {lastname: e.country})['country'];
+                    Object.assign(e, {country: o.country});
+                    this.selectedLastName = this.chosenCountry
+                } else if (this.selectedCountry === this.selectedFullName) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {country: e.fullname})['fullname'];
+                    delete Object.assign(e, {fullname: e.country})['country'];
+                    Object.assign(e, {country: o.country});
+                    this.selectedFullName = this.chosenCountry
+                } else if (this.selectedCountry === this.selectedEmail) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {country: e.email})['email'];
+                    delete Object.assign(e, {email: e.country})['country'];
+                    Object.assign(e, {country: o.country});
+                    this.selectedEmail = this.chosenCountry
+                } else if (this.selectedCountry === this.selectedPhoneNumber) {
+                    //
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {country: e.phone})['phone'];
+                    delete Object.assign(e, {phone: e.country})['country'];
+                    Object.assign(e, {country: o.country});
+                    this.selectedPhoneNumber = this.chosenCountry
+                } else if (this.selectedCountry === this.selectedRegDate) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {country: e.regdate})['regdate'];
+                    delete Object.assign(e, {regdate: e.country})['country'];
+                    Object.assign(e, {country: o.country});
+                    this.selectedRegDate = this.chosenCountry
+                } else if (this.selectedCountry === this.selectedDeposit) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {country: e.deposit})['deposit'];
+                    delete Object.assign(e, {deposit: e.country})['country'];
+                    Object.assign(e, {country: o.country});
+                    this.selectedDeposit = this.chosenCountry
+                }
+            })
+            this.$store.commit('setChosenCountry', this.selectedCountry)
+            console.log(Vue.prototype?.$fullObject?.data)
         },
         registrationDateReplacer() {
-            /**
-             * Please see countryReplacer() method annotation
-             */
-            Vue.prototype.$fullObject.data.forEach(el => {
-                el[this.selectedRegDate.name] = el[this.chosenRegDate]
-                delete el[this.chosenRegDate]
+            Vue.prototype.$fullObject.data.forEach(e => {
+                if (!this.regDateList.some(el => e.hasOwnProperty(el))) {
+                    if (this.selectedRegDate === 'regdate') return
+                    delete Object.assign(e, {regdate: e[this.selectedRegDate]})[this.selectedRegDate];
+                } else if (this.selectedRegDate === this.selectedFirstName) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {regdate: e.firstname})['firstname'];
+                    delete Object.assign(e, {firstname: e.regdate})['regdate'];
+                    Object.assign(e, {regdate: o.regdate});
+                    this.selectedFirstName = this.chosenRegDate
+                } else if (this.selectedRegDate === this.selectedLastName) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {regdate: e.lastname})['lastname'];
+                    delete Object.assign(e, {lastname: e.regdate})['regdate'];
+                    Object.assign(e, {regdate: o.regdate});
+                    this.selectedLastName = this.chosenRegDate
+                } else if (this.selectedRegDate === this.selectedFullName) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {regdate: e.fullname})['fullname'];
+                    delete Object.assign(e, {fullname: e.regdate})['regdate'];
+                    Object.assign(e, {regdate: o.regdate});
+                    this.selectedFullName = this.chosenRegDate
+                } else if (this.selectedRegDate === this.selectedEmail) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {regdate: e.email})['email'];
+                    delete Object.assign(e, {email: e.regdate})['regdate'];
+                    Object.assign(e, {regdate: o.regdate});
+                    this.selectedEmail = this.chosenRegDate
+                } else if (this.selectedRegDate === this.selectedPhoneNumber) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {regdate: e.phone})['phone'];
+                    delete Object.assign(e, {phone: e.regdate})['regdate'];
+                    Object.assign(e, {regdate: o.regdate});
+                    this.selectedPhoneNumber = this.chosenRegDate
+                } else if (this.selectedRegDate === this.selectedCountry) {
+                    //
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {regdate: e.country})['country'];
+                    delete Object.assign(e, {country: e.regdate})['regdate'];
+                    Object.assign(e, {regdate: o.regdate});
+                    this.selectedCountry = this.chosenRegDate
+                } else if (this.selectedRegDate === this.selectedDeposit) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {regdate: e.deposit})['deposit'];
+                    delete Object.assign(e, {deposit: e.regdate})['regdate'];
+                    Object.assign(e, {regdate: o.regdate});
+                    this.selectedDeposit = this.chosenRegDate
+                }
             })
-            const oldChosenRegDate = this.chosenRegDate
-            const newChosenRegDate = this.selectedRegDate.name
-            const newParsedFields = this.parsedFields
-            newParsedFields.forEach((el, index) => {
-                if (el === oldChosenRegDate) newParsedFields
-                    .splice(index, 1, newChosenRegDate)
-            })
-            this.$store.commit('setChosenRegDate', this.selectedRegDate.name)
-            this.$store.commit('setParsedFields', newParsedFields)
+            this.$store.commit('setChosenRegDate', this.selectedRegDate)
+            console.log(Vue.prototype?.$fullObject?.data)
         },
         depositReplacer() {
-            /**
-             * Please see countryReplacer() method annotation
-             */
-            Vue.prototype.$fullObject.data.forEach(el => {
-                el[this.selectedDeposit.name] = el[this.chosenDeposit]
-                delete el[this.chosenDeposit]
+            Vue.prototype.$fullObject.data.forEach(e => {
+                if (!this.deposits.some(el => e.hasOwnProperty(el))) {
+                    if (this.selectedDeposit === 'deposit') return
+                    delete Object.assign(e, {deposit: e[this.selectedDeposit]})[this.selectedDeposit];
+                } else if (this.selectedDeposit === this.selectedFirstName) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {deposit: e.firstname})['firstname'];
+                    delete Object.assign(e, {firstname: e.deposit})['deposit'];
+                    Object.assign(e, {deposit: o.deposit});
+                    this.selectedFirstName = this.chosenRegDate
+                } else if (this.selectedDeposit === this.selectedLastName) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {deposit: e.lastname})['lastname'];
+                    delete Object.assign(e, {lastname: e.deposit})['deposit'];
+                    Object.assign(e, {deposit: o.deposit});
+                    this.selectedLastName = this.chosenRegDate
+                } else if (this.selectedDeposit === this.selectedFullName) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {deposit: e.fullname})['fullname'];
+                    delete Object.assign(e, {fullname: e.deposit})['deposit'];
+                    Object.assign(e, {deposit: o.deposit});
+                    this.selectedFullName = this.chosenRegDate
+                } else if (this.selectedDeposit === this.selectedEmail) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {deposit: e.email})['email'];
+                    delete Object.assign(e, {email: e.deposit})['deposit'];
+                    Object.assign(e, {deposit: o.deposit});
+                    this.selectedEmail = this.chosenRegDate
+                } else if (this.selectedDeposit === this.selectedPhoneNumber) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {deposit: e.phone})['phone'];
+                    delete Object.assign(e, {phone: e.deposit})['deposit'];
+                    Object.assign(e, {deposit: o.deposit});
+                    this.selectedPhoneNumber = this.chosenRegDate
+                } else if (this.selectedDeposit === this.selectedCountry) {
+
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {deposit: e.country})['country'];
+                    delete Object.assign(e, {country: e.deposit})['deposit'];
+                    Object.assign(e, {deposit: o.deposit});
+                    this.selectedCountry = this.chosenRegDate
+                } else if (this.selectedDeposit === this.selectedRegDate) {
+                    //
+                    const o = JSON.parse(JSON.stringify(e))
+                    delete Object.assign(o, {deposit: e.regdate})['regdate'];
+                    delete Object.assign(e, {regdate: e.d})['deposit'];
+                    Object.assign(e, {deposit: o.deposit});
+                    this.selectedDeposit = this.chosenRegDate
+                }
             })
-            const oldChosenDeposit = this.chosenDeposit
-            const newChosenDeposit = this.selectedDeposit.name
-            const newParsedFields = this.parsedFields
-            newParsedFields.forEach((el, index) => {
-                if (el === oldChosenDeposit) newParsedFields
-                    .splice(index, 1, newChosenDeposit)
-            })
-            this.$store.commit('setChosenDeposit', this.selectedDeposit.name)
-            this.$store.commit('setParsedFields', newParsedFields)
+            this.$store.commit('setChosenDeposit', this.selectedDeposit)
+            console.log(Vue.prototype?.$fullObject?.data)
         },
     },
     computed: {
