@@ -19,6 +19,7 @@ const state = {
     chosenCountry: null,
     chosenRegDate: null,
     chosenDeposit: null,
+    visitedRouteFlag: 0
 }
 
 const getters = {
@@ -75,6 +76,9 @@ const getters = {
     },
     chosenDeposit() {
         return state.chosenDeposit
+    },
+    visitedRouteFlag() {
+        return state.visitedRouteFlag
     }
 }
 
@@ -246,6 +250,9 @@ const mutations = {
     },
     setChosenDeposit(ctx, data) {
         state.chosenDeposit = data
+    },
+    setVisitedRouteFlag(ctx, data) {
+        state.visitedRouteFlag = data
     }
 }
 

@@ -27,7 +27,7 @@ export default {
                 "phone_number", "mobile_phone",
                 "country", "countryid", "geo", "country_id", "country_code",
                 "regdate", "reg date", "reg_date", "registration_date", "registered", "registered_at",
-                "deposited", "deposit date", "deposit_date", "ftd date", "ftd_date", "ftd"],
+                'deposit', "deposited", "deposit date", "deposit_date", "ftd date", "ftd_date", "ftd"],
             firstNames: [
                 'name',
                 'firstname',
@@ -194,6 +194,7 @@ export default {
                     delete Object.assign(e, {lastname: e.firstname})['firstname'];
                     Object.assign(e, {firstname: o.firstname});
                     this.selectedLastName = this.chosenFirstName
+                    this.$store.commit('setChosenLastName', this.selectedLastName)
                 } else if (this.selectedFirstName === this.selectedFullName) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -201,6 +202,7 @@ export default {
                     delete Object.assign(e, {fullname: e.firstname})['firstname'];
                     Object.assign(e, {firstname: o.firstname});
                     this.selectedFullName = this.chosenFirstName
+                    this.$store.commit('setChosenFullName', this.selectedFullName)
                 } else if (this.selectedFirstName === this.selectedEmail) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -208,6 +210,7 @@ export default {
                     delete Object.assign(e, {email: e.firstname})['firstname'];
                     Object.assign(e, {firstname: o.firstname});
                     this.selectedEmail = this.chosenFirstName
+                    this.$store.commit('setChosenEmail', this.selectedEmail)
                 } else if (this.selectedFirstName === this.selectedPhoneNumber) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -215,6 +218,7 @@ export default {
                     delete Object.assign(e, {phone: e.firstname})['firstname'];
                     Object.assign(e, {firstname: o.firstname});
                     this.selectedPhoneNumber = this.chosenFirstName
+                    this.$store.commit('setChosenPhone', this.selectedPhoneNumber)
                 } else if (this.selectedFirstName === this.selectedCountry) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -222,6 +226,7 @@ export default {
                     delete Object.assign(e, {country: e.firstname})['firstname'];
                     Object.assign(e, {firstname: o.firstname});
                     this.selectedCountry = this.chosenFirstName
+                    this.$store.commit('setChosenCountry', this.selectedCountry)
                 } else if (this.selectedFirstName === this.selectedRegDate) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -229,6 +234,7 @@ export default {
                     delete Object.assign(e, {regdate: e.firstname})['firstname'];
                     Object.assign(e, {firstname: o.firstname});
                     this.selectedRegDate = this.chosenFirstName
+                    this.$store.commit('setChosenRegDate', this.selectedRegDate)
                 } else if (this.selectedFirstName === this.selectedDeposit) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -236,6 +242,7 @@ export default {
                     delete Object.assign(e, {deposit: e.firstname})['firstname'];
                     Object.assign(e, {firstname: o.firstname});
                     this.selectedDeposit = this.chosenFirstName
+                    this.$store.commit('setChosenDeposit', this.selectedDeposit)
                 }
             })
             this.$store.commit('setChosenFirstName', this.selectedFirstName)
@@ -253,6 +260,7 @@ export default {
                     delete Object.assign(e, {firstname: e.lastname})['lastname'];
                     Object.assign(e, {lastname: o.lastname});
                     this.selectedFirstName = this.chosenLastName
+                    this.$store.commit('setChosenFirstName', this.selectedFirstName)
                 } else if (this.selectedLastName === this.selectedFullName) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -260,6 +268,7 @@ export default {
                     delete Object.assign(e, {fullname: e.lastname})['lastname'];
                     Object.assign(e, {lastname: o.lastname});
                     this.selectedFullName = this.chosenLastName
+                    this.$store.commit('setChosenFullName', this.selectedFullName)
                 } else if (this.selectedLastName === this.selectedEmail) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -267,6 +276,7 @@ export default {
                     delete Object.assign(e, {email: e.lastname})['lastname'];
                     Object.assign(e, {lastname: o.lastname});
                     this.selectedEmail = this.chosenLastName
+                    this.$store.commit('setChosenEmail', this.selectedEmail)
                 } else if (this.selectedLastName === this.selectedPhoneNumber) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -274,6 +284,7 @@ export default {
                     delete Object.assign(e, {phone: e.lastname})['lastname'];
                     Object.assign(e, {lastname: o.lastname});
                     this.selectedPhoneNumber = this.chosenLastName
+                    this.$store.commit('setChosenPhone', this.selectedPhoneNumber)
                 } else if (this.selectedLastName === this.selectedCountry) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -281,6 +292,7 @@ export default {
                     delete Object.assign(e, {country: e.lastname})['lastname'];
                     Object.assign(e, {lastname: o.lastname});
                     this.selectedCountry = this.chosenLastName
+                    this.$store.commit('setChosenCountry', this.selectedCountry)
                 } else if (this.selectedLastName === this.selectedRegDate) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -288,6 +300,7 @@ export default {
                     delete Object.assign(e, {regdate: e.lastname})['lastname'];
                     Object.assign(e, {lastname: o.lastname});
                     this.selectedRegDate = this.chosenLastName
+                    this.$store.commit('setChosenRegDate', this.selectedRegDate)
                 } else if (this.selectedLastName === this.selectedDeposit) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -295,6 +308,7 @@ export default {
                     delete Object.assign(e, {deposit: e.lastname})['lastname'];
                     Object.assign(e, {lastname: o.lastname});
                     this.selectedDeposit = this.chosenLastName
+                    this.$store.commit('setChosenDeposit', this.selectedDeposit)
                 }
             })
             this.$store.commit('setChosenLastName', this.selectedLastName)
@@ -312,6 +326,7 @@ export default {
                     delete Object.assign(e, {firstname: e.fullname})['fullname'];
                     Object.assign(e, {fullname: o.fullname});
                     this.selectedFirstName = this.chosenFullName
+                    this.$store.commit('setChosenFirstName', this.selectedFirstName)
                 } else if (this.selectedFullName === this.selectedLastName) {
                     //
                     const o = JSON.parse(JSON.stringify(e))
@@ -319,6 +334,7 @@ export default {
                     delete Object.assign(e, {lastname: e.fullname})['fullname'];
                     Object.assign(e, {fullname: o.fullname});
                     this.selectedLastName = this.chosenFullName
+                    this.$store.commit('setChosenLastName', this.selectedLastName)
                 } else if (this.selectedFullName === this.selectedEmail) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -326,6 +342,7 @@ export default {
                     delete Object.assign(e, {email: e.fullname})['fullname'];
                     Object.assign(e, {fullname: o.fullname});
                     this.selectedEmail = this.chosenFullName
+                    this.$store.commit('setChosenEmail', this.selectedEmail)
                 } else if (this.selectedFullName === this.selectedPhoneNumber) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -333,6 +350,7 @@ export default {
                     delete Object.assign(e, {phone: e.fullname})['fullname'];
                     Object.assign(e, {fullname: o.fullname});
                     this.selectedPhoneNumber = this.chosenFullName
+                    this.$store.commit('setChosenPhone', this.selectedPhoneNumber)
                 } else if (this.selectedFullName === this.selectedCountry) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -340,6 +358,7 @@ export default {
                     delete Object.assign(e, {country: e.fullname})['fullname'];
                     Object.assign(e, {fullname: o.fullname});
                     this.selectedCountry = this.chosenFullName
+                    this.$store.commit('setChosenCountry', this.selectedCountry)
                 } else if (this.selectedFullName === this.selectedRegDate) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -347,6 +366,7 @@ export default {
                     delete Object.assign(e, {regdate: e.fullname})['fullname'];
                     Object.assign(e, {fullname: o.fullname});
                     this.selectedRegDate = this.chosenFullName
+                    this.$store.commit('setChosenRegDate', this.selectedRegDate)
                 } else if (this.selectedFullName === this.selectedDeposit) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -354,6 +374,7 @@ export default {
                     delete Object.assign(e, {deposit: e.fullname})['fullname'];
                     Object.assign(e, {fullname: o.fullname});
                     this.selectedDeposit = this.chosenFullName
+                    this.$store.commit('setChosenDeposit', this.selectedDeposit)
                 }
             })
             this.$store.commit('setChosenFullName', this.selectedFullName)
@@ -371,6 +392,7 @@ export default {
                     delete Object.assign(e, {firstname: e.email})['email'];
                     Object.assign(e, {email: o.email});
                     this.selectedFirstName = this.chosenEmail
+                    this.$store.commit('setChosenFirstName', this.selectedFirstName)
                 } else if (this.selectedEmail === this.selectedLastName) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -378,6 +400,7 @@ export default {
                     delete Object.assign(e, {lastname: e.email})['email'];
                     Object.assign(e, {email: o.email});
                     this.selectedLastName = this.chosenEmail
+                    this.$store.commit('setChosenLastName', this.selectedLastName)
                 } else if (this.selectedEmail === this.selectedFullName) {
                     //
                     const o = JSON.parse(JSON.stringify(e))
@@ -385,6 +408,7 @@ export default {
                     delete Object.assign(e, {fullname: e.email})['email'];
                     Object.assign(e, {email: o.email});
                     this.selectedFullName = this.chosenEmail
+                    this.$store.commit('setChosenFullName', this.selectedFullName)
                 } else if (this.selectedEmail === this.selectedPhoneNumber) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -392,6 +416,7 @@ export default {
                     delete Object.assign(e, {phone: e.email})['email'];
                     Object.assign(e, {email: o.email});
                     this.selectedPhoneNumber = this.chosenEmail
+                    this.$store.commit('setChosenPhone', this.selectedPhoneNumber)
                 } else if (this.selectedEmail === this.selectedCountry) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -399,6 +424,7 @@ export default {
                     delete Object.assign(e, {country: e.email})['email'];
                     Object.assign(e, {email: o.email});
                     this.selectedCountry = this.chosenEmail
+                    this.$store.commit('setChosenCountry', this.selectedCountry)
                 } else if (this.selectedEmail === this.selectedRegDate) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -406,6 +432,7 @@ export default {
                     delete Object.assign(e, {regdate: e.email})['email'];
                     Object.assign(e, {email: o.email});
                     this.selectedRegDate = this.chosenEmail
+                    this.$store.commit('setChosenRegDate', this.selectedRegDate)
                 } else if (this.selectedEmail === this.selectedDeposit) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -413,6 +440,7 @@ export default {
                     delete Object.assign(e, {deposit: e.email})['email'];
                     Object.assign(e, {email: o.email});
                     this.selectedDeposit = this.chosenEmail
+                    this.$store.commit('setChosenDeposit', this.selectedDeposit)
                 }
             })
             this.$store.commit('setChosenEmail', this.selectedEmail)
@@ -430,6 +458,7 @@ export default {
                     delete Object.assign(e, {firstname: e.phone})['phone'];
                     Object.assign(e, {phone: o.phone});
                     this.selectedFirstName = this.chosenPhone
+                    this.$store.commit('setChosenFirstName', this.selectedFirstName)
                 } else if (this.selectedPhoneNumber === this.selectedLastName) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -437,6 +466,7 @@ export default {
                     delete Object.assign(e, {lastname: e.phone})['phone'];
                     Object.assign(e, {phone: o.phone});
                     this.selectedLastName = this.chosenPhone
+                    this.$store.commit('setChosenLastName', this.selectedLastName)
                 } else if (this.selectedPhoneNumber === this.selectedFullName) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -444,6 +474,7 @@ export default {
                     delete Object.assign(e, {fullname: e.phone})['phone'];
                     Object.assign(e, {phone: o.phone});
                     this.selectedFullName = this.chosenPhone
+                    this.$store.commit('setChosenFullName', this.selectedFullName)
                 } else if (this.selectedPhoneNumber === this.selectedEmail) {
                     //
                     const o = JSON.parse(JSON.stringify(e))
@@ -451,6 +482,7 @@ export default {
                     delete Object.assign(e, {email: e.phone})['phone'];
                     Object.assign(e, {phone: o.phone});
                     this.selectedEmail = this.chosenPhone
+                    this.$store.commit('setChosenEmail', this.selectedEmail)
                 } else if (this.selectedPhoneNumber === this.selectedCountry) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -458,6 +490,7 @@ export default {
                     delete Object.assign(e, {country: e.phone})['phone'];
                     Object.assign(e, {phone: o.phone});
                     this.selectedCountry = this.chosenPhone
+                    this.$store.commit('setChosenCountry', this.selectedCountry)
                 } else if (this.selectedPhoneNumber === this.selectedRegDate) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -465,6 +498,7 @@ export default {
                     delete Object.assign(e, {regdate: e.phone})['phone'];
                     Object.assign(e, {phone: o.phone});
                     this.selectedRegDate = this.chosenPhone
+                    this.$store.commit('setChosenRegDate', this.selectedRegDate)
                 } else if (this.selectedPhoneNumber === this.selectedDeposit) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -472,6 +506,7 @@ export default {
                     delete Object.assign(e, {deposit: e.phone})['phone'];
                     Object.assign(e, {phone: o.phone});
                     this.selectedDeposit = this.chosenPhone
+                    this.$store.commit('setChosenDeposit', this.selectedDeposit)
                 }
             })
             this.$store.commit('setChosenPhone', this.selectedPhoneNumber)
@@ -489,6 +524,7 @@ export default {
                     delete Object.assign(e, {firstname: e.country})['country'];
                     Object.assign(e, {country: o.country});
                     this.selectedFirstName = this.chosenCountry
+                    this.$store.commit('setChosenFirstName', this.selectedFirstName)
                 } else if (this.selectedCountry === this.selectedLastName) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -496,6 +532,7 @@ export default {
                     delete Object.assign(e, {lastname: e.country})['country'];
                     Object.assign(e, {country: o.country});
                     this.selectedLastName = this.chosenCountry
+                    this.$store.commit('setChosenLastName', this.selectedLastName)
                 } else if (this.selectedCountry === this.selectedFullName) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -503,6 +540,7 @@ export default {
                     delete Object.assign(e, {fullname: e.country})['country'];
                     Object.assign(e, {country: o.country});
                     this.selectedFullName = this.chosenCountry
+                    this.$store.commit('setChosenFullName', this.selectedFullName)
                 } else if (this.selectedCountry === this.selectedEmail) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -510,6 +548,7 @@ export default {
                     delete Object.assign(e, {email: e.country})['country'];
                     Object.assign(e, {country: o.country});
                     this.selectedEmail = this.chosenCountry
+                    this.$store.commit('setChosenEmail', this.selectedEmail)
                 } else if (this.selectedCountry === this.selectedPhoneNumber) {
                     //
                     const o = JSON.parse(JSON.stringify(e))
@@ -517,6 +556,7 @@ export default {
                     delete Object.assign(e, {phone: e.country})['country'];
                     Object.assign(e, {country: o.country});
                     this.selectedPhoneNumber = this.chosenCountry
+                    this.$store.commit('setChosenPhone', this.selectedPhoneNumber)
                 } else if (this.selectedCountry === this.selectedRegDate) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -524,6 +564,7 @@ export default {
                     delete Object.assign(e, {regdate: e.country})['country'];
                     Object.assign(e, {country: o.country});
                     this.selectedRegDate = this.chosenCountry
+                    this.$store.commit('setChosenRegDate', this.selectedRegDate)
                 } else if (this.selectedCountry === this.selectedDeposit) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -531,6 +572,7 @@ export default {
                     delete Object.assign(e, {deposit: e.country})['country'];
                     Object.assign(e, {country: o.country});
                     this.selectedDeposit = this.chosenCountry
+                    this.$store.commit('setChosenDeposit', this.selectedDeposit)
                 }
             })
             this.$store.commit('setChosenCountry', this.selectedCountry)
@@ -548,6 +590,7 @@ export default {
                     delete Object.assign(e, {firstname: e.regdate})['regdate'];
                     Object.assign(e, {regdate: o.regdate});
                     this.selectedFirstName = this.chosenRegDate
+                    this.$store.commit('setChosenFirstName', this.selectedFirstName)
                 } else if (this.selectedRegDate === this.selectedLastName) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -555,6 +598,7 @@ export default {
                     delete Object.assign(e, {lastname: e.regdate})['regdate'];
                     Object.assign(e, {regdate: o.regdate});
                     this.selectedLastName = this.chosenRegDate
+                    this.$store.commit('setChosenLastName', this.selectedLastName)
                 } else if (this.selectedRegDate === this.selectedFullName) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -562,6 +606,7 @@ export default {
                     delete Object.assign(e, {fullname: e.regdate})['regdate'];
                     Object.assign(e, {regdate: o.regdate});
                     this.selectedFullName = this.chosenRegDate
+                    this.$store.commit('setChosenFullName', this.selectedFullName)
                 } else if (this.selectedRegDate === this.selectedEmail) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -569,6 +614,7 @@ export default {
                     delete Object.assign(e, {email: e.regdate})['regdate'];
                     Object.assign(e, {regdate: o.regdate});
                     this.selectedEmail = this.chosenRegDate
+                    this.$store.commit('setChosenEmail', this.selectedEmail)
                 } else if (this.selectedRegDate === this.selectedPhoneNumber) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -576,6 +622,7 @@ export default {
                     delete Object.assign(e, {phone: e.regdate})['regdate'];
                     Object.assign(e, {regdate: o.regdate});
                     this.selectedPhoneNumber = this.chosenRegDate
+                    this.$store.commit('setChosenPhone', this.selectedPhoneNumber)
                 } else if (this.selectedRegDate === this.selectedCountry) {
                     //
                     const o = JSON.parse(JSON.stringify(e))
@@ -583,6 +630,7 @@ export default {
                     delete Object.assign(e, {country: e.regdate})['regdate'];
                     Object.assign(e, {regdate: o.regdate});
                     this.selectedCountry = this.chosenRegDate
+                    this.$store.commit('setChosenCountry', this.selectedCountry)
                 } else if (this.selectedRegDate === this.selectedDeposit) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -590,6 +638,7 @@ export default {
                     delete Object.assign(e, {deposit: e.regdate})['regdate'];
                     Object.assign(e, {regdate: o.regdate});
                     this.selectedDeposit = this.chosenRegDate
+                    this.$store.commit('setChosenDeposit', this.selectedDeposit)
                 }
             })
             this.$store.commit('setChosenRegDate', this.selectedRegDate)
@@ -607,6 +656,7 @@ export default {
                     delete Object.assign(e, {firstname: e.deposit})['deposit'];
                     Object.assign(e, {deposit: o.deposit});
                     this.selectedFirstName = this.chosenRegDate
+                    this.$store.commit('setChosenFirstName', this.selectedFirstName)
                 } else if (this.selectedDeposit === this.selectedLastName) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -614,6 +664,7 @@ export default {
                     delete Object.assign(e, {lastname: e.deposit})['deposit'];
                     Object.assign(e, {deposit: o.deposit});
                     this.selectedLastName = this.chosenRegDate
+                    this.$store.commit('setChosenLastName', this.selectedLastName)
                 } else if (this.selectedDeposit === this.selectedFullName) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -621,6 +672,7 @@ export default {
                     delete Object.assign(e, {fullname: e.deposit})['deposit'];
                     Object.assign(e, {deposit: o.deposit});
                     this.selectedFullName = this.chosenRegDate
+                    this.$store.commit('setChosenFullName', this.selectedFullName)
                 } else if (this.selectedDeposit === this.selectedEmail) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -628,6 +680,7 @@ export default {
                     delete Object.assign(e, {email: e.deposit})['deposit'];
                     Object.assign(e, {deposit: o.deposit});
                     this.selectedEmail = this.chosenRegDate
+                    this.$store.commit('setChosenEmail', this.selectedEmail)
                 } else if (this.selectedDeposit === this.selectedPhoneNumber) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -635,6 +688,7 @@ export default {
                     delete Object.assign(e, {phone: e.deposit})['deposit'];
                     Object.assign(e, {deposit: o.deposit});
                     this.selectedPhoneNumber = this.chosenRegDate
+                    this.$store.commit('setChosenPhone', this.selectedPhoneNumber)
                 } else if (this.selectedDeposit === this.selectedCountry) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -642,6 +696,7 @@ export default {
                     delete Object.assign(e, {country: e.deposit})['deposit'];
                     Object.assign(e, {deposit: o.deposit});
                     this.selectedCountry = this.chosenRegDate
+                    this.$store.commit('setChosenCountry', this.selectedCountry)
                 } else if (this.selectedDeposit === this.selectedRegDate) {
                     //
                     const o = JSON.parse(JSON.stringify(e))
@@ -649,6 +704,7 @@ export default {
                     delete Object.assign(e, {regdate: e.d})['deposit'];
                     Object.assign(e, {deposit: o.deposit});
                     this.selectedDeposit = this.chosenRegDate
+                    this.$store.commit('setChosenDeposit', this.selectedDeposit)
                 }
             })
             this.$store.commit('setChosenDeposit', this.selectedDeposit)

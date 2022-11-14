@@ -258,6 +258,7 @@ export default {
   beforeDestroy() {
     globalTelegram.MainButton.hide().offClick(this.actionCb)
     globalTelegram.BackButton.hide().offClick(this.redirectCb)
+    this.$store.commit('setVisitedRouteFlag', 0)
   },
 }
 </script>

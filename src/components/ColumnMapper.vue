@@ -110,7 +110,8 @@
             : 'map_container_dropdown']"
             v-model="selectedCountryFromList"
             placeholder="(choose)"
-            :options="countries"
+            :filter="true"
+            :options="countriesFullTitles"
             @before-show="toggleDarkDropdown"
         />
       </div>
@@ -131,7 +132,8 @@
             : 'map_container_dropdown']"
             v-model="selectedCountryFromList"
             placeholder="(choose)"
-            :options="countries"
+            :filter="true"
+            :options="countriesFullTitles"
             @before-show="toggleDarkDropdown"
         />
       </div>
@@ -276,16 +278,6 @@ export default {
         }
       })
     },
-    extraFieldsChecker() {
-      Vue.prototype?.$fullObject?.data.filter(obj => {
-        for (const key of Object.keys(obj)) {
-          if (!this.requiredFieldsDictionary.includes(key)) {
-            this.extraFieldsFlag = true
-            return
-          }
-        }
-      })
-    },
     /**
      * $reducedObject non-reactive helper-object to remove all extra
      * non-required fields.
@@ -300,7 +292,18 @@ export default {
             if (!this.requiredFieldsDictionary.includes(key)) delete obj[key];
           }
         })
+        console.log(Vue.prototype.$reducedObject)
       }
+    },
+    stateReselect() {
+      this.selectedFirstName = this.chosenFirstName
+      this.selectedLastName = this.chosenLastName
+      this.selectedFullName = this.chosenFullName
+      this.selectedEmail = this.chosenEmail
+      this.selectedPhoneNumber = this.chosenPhone
+      this.selectedCountry = this.chosenCountry
+      this.selectedRegDate = this.chosenRegDate
+      this.selectedDeposit = this.chosenDeposit
     },
     toggleDarkCalendar() {
       this.darkCalendar++
@@ -332,7 +335,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['listName', "fileName", "parsedFields"]),
+    ...mapGetters(['listName', "fileName", "parsedFields", 'visitedRouteFlag']),
     countryEmptyChecker() {
       for (let i = 0; i < Vue.prototype?.$fullObject?.data?.length; i++) {
         return !Vue.prototype?.$fullObject?.data[i][this.chosenCountry];
@@ -437,6 +440,14 @@ export default {
     requiredFieldsFilled: {
       handler(newValue) {
         if (newValue) {
+          Vue.prototype?.$fullObject?.data.filter(obj => {
+            for (const key of Object.keys(obj)) {
+              if (!this.requiredFieldsDictionary.includes(key)) {
+                this.extraFieldsFlag = true
+                return
+              }
+            }
+          })
           globalTelegram.MainButton.setText('Next')
           globalTelegram.MainButton.color = '#16a34a'
           globalTelegram.MainButton.show()
@@ -508,9 +519,12 @@ export default {
     },
   },
   mounted() {
-    if (!!Vue.prototype?.$fullObject?.data) {
+    if (!!Vue.prototype?.$fullObject?.data && !this.visitedRouteFlag) {
       this.multipleCheckerCaller()
-      this.extraFieldsChecker()
+      this.countryValueChecker()
+      this.regDateValueChecker()
+    } else {
+      this.stateReselect()
       this.countryValueChecker()
       this.regDateValueChecker()
     }
@@ -529,6 +543,7 @@ export default {
     }
     globalTelegram.MainButton.hide().offClick(this.actionCb)
     globalTelegram.BackButton.hide().offClick(this.redirectCb)
+    this.$store.commit('setVisitedRouteFlag', 1)
   },
 }
 </script>

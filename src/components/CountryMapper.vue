@@ -23,7 +23,7 @@
             : 'dropdown']"
               v-model="selectedCountry[index]"
               placeholder="Choose сode"
-              :options="countries"
+              :options="countriesFullTitles"
               :filter="true"
               @change="toggleDarkDropdown"
               @before-show="toggleDarkDropdown"
@@ -180,7 +180,7 @@ export default {
            */
           Vue.prototype.$fullObject.data.forEach((el, i) => {
             if (!this.countryIndexes[i] || !this.selectedCountry[i]) return
-            Vue.prototype.$fullObject.data[this.countryIndexes[i]][this.chosenCountry] = this.selectedCountry[i]
+            Vue.prototype.$fullObject.data[this.countryIndexes[i]]['country'] = this.selectedCountry[i]
           })
           //uncomment next line to see mutation of $fullObject
           // console.log(Vue.prototype?.$fullObject?.data)
