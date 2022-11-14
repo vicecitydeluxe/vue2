@@ -61,7 +61,7 @@ export default {
                 this.privateResults[6].value = this.invalidFirstName.length
 
                 Vue.prototype?.$fullObject?.data.map((el, i) => {
-                    let element = Vue.prototype?.$fullObject?.data[i][this.chosenFirstName]
+                    let element = Vue.prototype?.$fullObject?.data[i]['firstname']
 
                     if (element) {
                         this.$store.commit('pushValidFirstName', element)
@@ -78,7 +78,7 @@ export default {
                 this.privateResults[6].value = this.invalidLastName.length
 
                 Vue.prototype?.$fullObject?.data.map((el, i) => {
-                    let element = Vue.prototype?.$fullObject?.data[i][this.chosenLastName]
+                    let element = Vue.prototype?.$fullObject?.data[i]['lastname']
 
                     if (element) {
                         this.$store.commit('pushValidLastName', element)
@@ -101,7 +101,7 @@ export default {
                 this.privateResults[6].value = this.invalidFullName.length
 
                 Vue.prototype?.$fullObject?.data.map((el, i) => {
-                    let element = Vue.prototype?.$fullObject?.data[i][this.chosenFullName]
+                    let element = Vue.prototype?.$fullObject?.data[i]['fullname']
 
                     if (element) {
                         this.$store.commit('pushValidFullName', element)
@@ -118,7 +118,7 @@ export default {
 
             if (this.chosenEmail) {
                 Vue.prototype?.$fullObject?.data.map((el, i) => {
-                    let element = Vue.prototype?.$fullObject?.data[i][this.chosenEmail]
+                    let element = Vue.prototype?.$fullObject?.data[i]['email']
                     const regex = new RegExp(/^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/g)
 
                     if (regex.test(element)) {
@@ -136,7 +136,7 @@ export default {
 
             if (this.chosenPhone) {
                 Vue.prototype?.$fullObject?.data.map((el, i) => {
-                    let element = Vue.prototype?.$fullObject?.data[i][this.chosenPhone]
+                    let element = Vue.prototype?.$fullObject?.data[i]['phone']
 
                     try {
                         parsePhoneNumber(element).isValid()

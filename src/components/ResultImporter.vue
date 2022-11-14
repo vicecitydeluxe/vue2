@@ -160,7 +160,7 @@ export default {
       const format = 'DD.MM.YYYY'
 
       Vue.prototype?.$fullObject?.data.map((el) => {
-        const elem = el[this.chosenRegDate]
+        const elem = el['regdate']
 
         if (!moment(elem, format).isValid()) {
           this.unknownDateFormat.push(elem)
@@ -194,15 +194,15 @@ export default {
       Vue.prototype.$fullDuplicates = [];
       if (!!Vue.prototype?.$fullObject?.data) {
         Vue.prototype?.$fullObject?.data.map((element, index) => {
-          if (helpMap.has(element[this.chosenEmail])) {
-            const existingElement = helpMap.get(element[this.chosenEmail]);
+          if (helpMap.has(element['email'])) {
+            const existingElement = helpMap.get(element['email']);
 
-            if (element[this.chosenPhone] === existingElement) {
+            if (element['phone'] === existingElement) {
               Vue.prototype.$fullDuplicates.push(element);
               this.fullDuplicatesIndexes.push(index)
             }
           } else {
-            helpMap.set(element[this.chosenEmail], element[this.chosenPhone]);
+            helpMap.set(element['email'], element['phone']);
           }
         });
       }
@@ -217,15 +217,15 @@ export default {
       Vue.prototype.$partialDuplicates = []
       if (!!Vue.prototype?.$fullObject?.data) {
         Vue.prototype?.$fullObject?.data.map((element, index) => {
-          if (helpMap.has(element[this.chosenEmail])) {
-            const existingElement = helpMap.get(element[this.chosenEmail]);
+          if (helpMap.has(element['email'])) {
+            const existingElement = helpMap.get(element['email']);
 
-            if (element[this.chosenPhone] !== existingElement) {
+            if (element['phone'] !== existingElement) {
               Vue.prototype.$partialDuplicates.push(element);
               this.partialDuplicatesIndexes.push(index)
             }
           } else {
-            helpMap.set(element[this.chosenEmail], element[this.chosenPhone]);
+            helpMap.set(element['email'], element['phone']);
           }
         });
       }
