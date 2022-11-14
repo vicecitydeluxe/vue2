@@ -187,6 +187,8 @@ export default {
                 if (!this.firstNames.some(el => e.hasOwnProperty(el))) {
                     if (this.selectedFirstName === 'firstname') return
                     delete Object.assign(e, {firstname: e[this.selectedFirstName]})[this.selectedFirstName];
+                } else if (this.selectedFirstName === this.chosenFirstName) {
+                    return
                 } else if (this.selectedFirstName === this.selectedLastName) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -244,6 +246,26 @@ export default {
                     this.selectedDeposit = this.chosenFirstName
                     this.$store.commit('setChosenDeposit', this.selectedDeposit)
                 }
+                // else if (!this.requiredFieldsDictionary.includes(this.selectedFirstName)) {
+                //     if (!Object.values(e).filter((el) => el).every((e, i, a) => a.indexOf(e) === i)) {
+                //         Object.assign(e, {firstname: e[this.selectedFirstName]})[this.selectedFirstName]
+                //     }
+                //
+                //     const o = JSON.parse(JSON.stringify(e))
+                //     // o[this.selectedFirstName] = o['firstname']
+                //     !o['firstname'] ? o[this.chosenFirstName] = o['firstname'] : o[this.selectedFirstName] = o['firstname']
+                //     Object.assign(e, {firstname: e[this.selectedFirstName]})[this.selectedFirstName]
+                //     Object.assign(e, {[this.selectedFirstName]: o[this.selectedFirstName]})[this.selectedFirstName]
+                //
+                // }
+
+                // else {
+                //     const o = JSON.parse(JSON.stringify(e))
+                //     o[this.chosenFirstName] = o['firstname']
+                //     Object.assign(e, {firstname: e[this.chosenFirstName]})[this.chosenFirstName]
+                //     Object.assign(e, {[this.chosenFirstName]: o[this.chosenFirstName]})[this.chosenFirstName]
+                //
+                // }
             })
             this.$store.commit('setChosenFirstName', this.selectedFirstName)
             console.log(Vue.prototype?.$fullObject?.data)
@@ -253,6 +275,8 @@ export default {
                 if (!this.lastNames.some(el => e.hasOwnProperty(el))) {
                     if (this.selectedLastName === 'lastname') return
                     delete Object.assign(e, {lastname: e[this.selectedLastName]})[this.selectedLastName];
+                } else if (this.selectedLastName === this.chosenLastName) {
+                    return
                 } else if (this.selectedLastName === this.selectedFirstName) {
                     //
                     const o = JSON.parse(JSON.stringify(e))
@@ -319,6 +343,8 @@ export default {
                 if (!this.fullNames.some(el => e.hasOwnProperty(el))) {
                     if (this.selectedFullName === 'fullname') return
                     delete Object.assign(e, {fullname: e[this.selectedFullName]})[this.selectedFullName];
+                } else if (this.selectedFullName === this.chosenFullName) {
+                    return
                 } else if (this.selectedFullName === this.selectedFirstName) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -385,6 +411,8 @@ export default {
                 if (!this.emails.some(el => e.hasOwnProperty(el))) {
                     if (this.selectedEmail === 'email') return
                     delete Object.assign(e, {email: e[this.selectedEmail]})[this.selectedEmail];
+                } else if (this.selectedEmail === this.chosenEmail) {
+                    return
                 } else if (this.selectedEmail === this.selectedFirstName) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -451,6 +479,8 @@ export default {
                 if (!this.phoneNumbers.some(el => e.hasOwnProperty(el))) {
                     if (this.selectedPhoneNumber === 'phone') return
                     delete Object.assign(e, {phone: e[this.selectedPhoneNumber]})[this.selectedPhoneNumber];
+                } else if (this.selectedPhoneNumber === this.chosenPhone) {
+                    return
                 } else if (this.selectedPhoneNumber === this.selectedFirstName) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -517,6 +547,8 @@ export default {
                 if (!this.countriesHeaders.some(el => e.hasOwnProperty(el))) {
                     if (this.selectedCountry === 'country') return
                     delete Object.assign(e, {country: e[this.selectedCountry]})[this.selectedCountry];
+                } else if (this.selectedCountry === this.chosenCountry) {
+                    return
                 } else if (this.selectedCountry === this.selectedFirstName) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -583,6 +615,8 @@ export default {
                 if (!this.regDateList.some(el => e.hasOwnProperty(el))) {
                     if (this.selectedRegDate === 'regdate') return
                     delete Object.assign(e, {regdate: e[this.selectedRegDate]})[this.selectedRegDate];
+                } else if (this.selectedRegDate === this.chosenRegDate) {
+                    return
                 } else if (this.selectedRegDate === this.selectedFirstName) {
 
                     const o = JSON.parse(JSON.stringify(e))
@@ -649,6 +683,8 @@ export default {
                 if (!this.deposits.some(el => e.hasOwnProperty(el))) {
                     if (this.selectedDeposit === 'deposit') return
                     delete Object.assign(e, {deposit: e[this.selectedDeposit]})[this.selectedDeposit];
+                } else if (this.selectedDeposit === this.chosenDeposit) {
+                    return
                 } else if (this.selectedDeposit === this.selectedFirstName) {
 
                     const o = JSON.parse(JSON.stringify(e))
