@@ -11,13 +11,13 @@ const state = {
     allLists: [],
     parsedListLength: 0,
     parsedFields: [],
-    chosenFirstName: null,
-    chosenLastName: null,
-    chosenFullName: null,
+    chosenFirstname: null,
+    chosenLastname: null,
+    chosenFullname: null,
     chosenEmail: null,
     chosenPhone: null,
     chosenCountry: null,
-    chosenRegDate: null,
+    chosenRegdate: null,
     chosenDeposit: null,
     visitedRouteFlag: 0
 }
@@ -53,14 +53,14 @@ const getters = {
     parsedFields() {
         return state.parsedFields
     },
-    chosenFirstName() {
-        return state.chosenFirstName
+    chosenFirstname() {
+        return state.chosenFirstname
     },
-    chosenLastName() {
-        return state.chosenLastName
+    chosenLastname() {
+        return state.chosenLastname
     },
-    chosenFullName() {
-        return state.chosenFullName
+    chosenFullname() {
+        return state.chosenFullname
     },
     chosenEmail() {
         return state.chosenEmail
@@ -71,8 +71,8 @@ const getters = {
     chosenCountry() {
         return state.chosenCountry
     },
-    chosenRegDate() {
-        return state.chosenRegDate
+    chosenRegdate() {
+        return state.chosenRegdate
     },
     chosenDeposit() {
         return state.chosenDeposit
@@ -227,14 +227,14 @@ const mutations = {
     setParsedFields(ctx, data) {
         state.parsedFields = data
     },
-    setChosenFirstName(ctx, data) {
-        state.chosenFirstName = data
+    setChosenFirstname(ctx, data) {
+        state.chosenFirstname = data
     },
-    setChosenLastName(ctx, data) {
-        state.chosenLastName = data
+    setChosenLastname(ctx, data) {
+        state.chosenLastname = data
     },
-    setChosenFullName(ctx, data) {
-        state.chosenFullName = data
+    setChosenFullname(ctx, data) {
+        state.chosenFullname = data
     },
     setChosenEmail(ctx, data) {
         state.chosenEmail = data
@@ -245,8 +245,8 @@ const mutations = {
     setChosenCountry(ctx, data) {
         state.chosenCountry = data
     },
-    setChosenRegDate(ctx, data) {
-        state.chosenRegDate = data
+    setChosenRegdate(ctx, data) {
+        state.chosenRegdate = data
     },
     setChosenDeposit(ctx, data) {
         state.chosenDeposit = data

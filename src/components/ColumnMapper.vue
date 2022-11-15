@@ -17,8 +17,8 @@
             ? 'dropdown_dark'
             : 'map_container_dropdown']"
             @change="firstNameReplacer"
-            v-model="selectedFirstName"
-            :value="selectedFirstName"
+            v-model="selectedFirstname"
+            :value="selectedFirstname"
             :options="parsedFields"
             @before-show="toggleDarkDropdown"
         />
@@ -30,8 +30,8 @@
             ? 'dropdown_dark'
             : 'map_container_dropdown']"
             @change="lastNameReplacer"
-            v-model="selectedLastName"
-            :value="selectedLastName"
+            v-model="selectedLastname"
+            :value="selectedLastname"
             :options="parsedFields"
 
             @before-show="toggleDarkDropdown"
@@ -44,8 +44,8 @@
             ? 'dropdown_dark'
             : 'map_container_dropdown']"
             @change="fullNameReplacer"
-            v-model="selectedFullName"
-            :value="selectedFullName"
+            v-model="selectedFullname"
+            :value="selectedFullname"
             :options="parsedFields"
 
             @before-show="toggleDarkDropdown"
@@ -72,8 +72,8 @@
             ? 'dropdown_dark'
             : 'map_container_dropdown']"
             @change="phoneNumberReplacer"
-            v-model="selectedPhoneNumber"
-            :value="selectedPhoneNumber"
+            v-model="selectedPhone"
+            :value="selectedPhone"
             :options="parsedFields"
 
             @before-show="toggleDarkDropdown"
@@ -144,8 +144,8 @@
             ? 'dropdown_dark'
             : 'map_container_dropdown']"
             @change="registrationDateReplacer"
-            v-model="selectedRegDate"
-            :value="selectedRegDate"
+            v-model="selectedRegdate"
+            :value="selectedRegdate"
             :options="parsedFields"
 
             @before-show="toggleDarkDropdown"
@@ -259,9 +259,59 @@ export default {
       emptyRegDateValueFlag: false,
       countryCheckboxDisabler: false,
       regDateCheckboxDisabler: false,
+      sortedParsedFields: [],
+      sortedDropdownIndexes: [],
+      results: []
     }
   },
   methods: {
+    startCheck() {
+      this.sortParsedFields()
+      this.sortedParsedFields.forEach((el, i) => {
+            // if (!el) return;
+
+            const cb = (num) => this.requiredFieldsDictionary[i + num].includes(el) ? this.requiredFieldsDictionary[i + num][0] : cb(num + 1)
+
+            const result = {
+              initialKey: el,
+              validKey: this.requiredFieldsDictionary[i].includes(el) ? this.requiredFieldsDictionary[i][0] : cb(1),
+              index: this.sortedDropdownIndexes[i]
+            };
+            Vue.prototype.$fullObject.data.forEach(element => {
+              if (result.initialKey !== result.validKey) {
+                Object.assign(element, {[result.validKey]: element[result.initialKey]})[result.initialKey];
+              }
+            })
+            if (result.validKey) {
+              this[`selected${result.validKey[0].toUpperCase() + result.validKey.slice(1)}`] = result.validKey
+              this.$store.commit(`setChosen${result.validKey[0].toUpperCase() + result.validKey.slice(1)}`, result.initialKey)
+            }
+            console.log(result)
+            this.results.push(result)
+
+          }
+      )
+    },
+    sortParsedFields() {
+      for (let i = 0; i < this.requiredFieldsDictionary.length; i++) {
+        this.parsedFields.filter(el => {
+          if (this.requiredFieldsDictionary[i].includes(el)) {
+            this.sortedParsedFields.push(el)
+            this.sortedDropdownIndexes.push(i)
+          }
+        })
+      }
+    },
+    //todo: when we'd use it?
+    // removeExtraFields() {
+    //   const keys = ["name", 'lastname', 'fullname', "email", "phone", "country", "regdate", 'deposit']
+    //         Vue.prototype.$fullObject.data.forEach(el => {
+    //     for (const dupeElement in el) {
+    //       if(!keys.includes(dupeElement)) delete el[dupeElement]
+    //     }
+    //   })
+    // },
+      //todo: need fields static
     countryValueChecker() {
       Vue.prototype.$fullObject.data.filter((el) => {
         if (!el[this.chosenCountry] && !!el?.[this.chosenCountry]) {
@@ -270,9 +320,10 @@ export default {
         }
       })
     },
+    //todo: need fields static
     regDateValueChecker() {
       Vue.prototype.$fullObject.data.filter((el) => {
-        if (!el[this.chosenRegDate] && !!el?.[this.chosenRegDate]) {
+        if (!el[this.chosenRegdate] && !!el?.[this.chosenRegdate]) {
           this.emptyRegDateValueFlag = true
           return
         }
@@ -286,23 +337,24 @@ export default {
      */
     globalReducer() {
       if (!Vue.prototype?.$reducedObject) {
+        const keys = ["firstname", 'lastname', 'fullname', "email", "phone", "country", "regdate", 'deposit']
         Vue.prototype.$reducedObject = JSON.parse(JSON.stringify(Vue.prototype.$fullObject.data))
-        Vue.prototype?.$reducedObject.filter(obj => {
-          for (const key of Object.keys(obj)) {
-            if (!this.requiredFieldsDictionary.includes(key)) delete obj[key];
+        Vue.prototype.$reducedObject.forEach(el => {
+          for (const dupeElement in el) {
+            if (!keys.includes(dupeElement)) delete el[dupeElement]
           }
         })
         console.log(Vue.prototype.$reducedObject)
       }
     },
     stateReselect() {
-      this.selectedFirstName = this.chosenFirstName
-      this.selectedLastName = this.chosenLastName
-      this.selectedFullName = this.chosenFullName
+      this.selectedFirstname = this.chosenFirstname
+      this.selectedLastname = this.chosenLastname
+      this.selectedFullname = this.chosenFullname
       this.selectedEmail = this.chosenEmail
-      this.selectedPhoneNumber = this.chosenPhone
+      this.selectedPhone = this.chosenPhone
       this.selectedCountry = this.chosenCountry
-      this.selectedRegDate = this.chosenRegDate
+      this.selectedRegdate = this.chosenRegdate
       this.selectedDeposit = this.chosenDeposit
     },
     toggleDarkCalendar() {
@@ -333,6 +385,7 @@ export default {
         life: 2000
       });
     },
+
   },
   computed: {
     ...mapGetters(['listName', "fileName", "parsedFields", 'visitedRouteFlag']),
@@ -342,13 +395,13 @@ export default {
       }
     },
     requiredFieldsFilled() {
-      return !!(this.selectedFirstName && this.selectedLastName
-              && this.selectedEmail && this.selectedPhoneNumber
-              && this.selectedCountry && this.selectedRegDate
+      return !!(this.selectedFirstname && this.selectedLastname
+              && this.selectedEmail && this.selectedPhone
+              && this.selectedCountry && this.selectedRegdate
               && this.selectedDeposit && !this.countryEmptyChecker) ||
-          !!(this.selectedFullName && this.selectedEmail
-              && this.selectedPhoneNumber
-              && this.selectedCountry && this.selectedRegDate
+          !!(this.selectedFullname && this.selectedEmail
+              && this.selectedPhone
+              && this.selectedCountry && this.selectedRegdate
               && this.selectedDeposit && !this.countryEmptyChecker);
     }
   },
@@ -370,22 +423,23 @@ export default {
           this.$toast.add({
             severity: 'warn',
             summary: 'Warn message',
-            detail: 'Choose country from the list to procced!',
+            detail: 'Choose country from the list to proceed!',
             life: 2000
           });
         }
       },
     },
+    //todo: need fields static
     checkedRegDate: {
       handler(newValue) {
         if (newValue === 'empty' && this.registrationDate) {
           Vue.prototype.$fullObject.data.forEach((el) => {
-            if (!el[this.chosenRegDate]) el[this.chosenRegDate] = this.registrationDate
+            if (!el[this.chosenRegdate]) el[this.chosenRegdate] = this.registrationDate
           })
           // console.log(Vue.prototype.$fullObject.data)
         } else if (newValue === 'all_to' && this.registrationDate) {
           Vue.prototype.$fullObject.data.forEach((el) => {
-            el[this.chosenRegDate] = this.registrationDate
+            el[this.chosenRegdate] = this.registrationDate
           })
           // console.log(Vue.prototype.$fullObject.data)
           this.regDateCheckboxDisabler = true
@@ -438,16 +492,17 @@ export default {
       }, deep: true
     },
     requiredFieldsFilled: {
+      //todo validate
       handler(newValue) {
         if (newValue) {
-          Vue.prototype?.$fullObject?.data.filter(obj => {
-            for (const key of Object.keys(obj)) {
-              if (!this.requiredFieldsDictionary.includes(key)) {
-                this.extraFieldsFlag = true
-                return
-              }
-            }
-          })
+          if (this.parsedFields.length !== this.sortedParsedFields.length) this.extraFieldsFlag = true
+          // Vue.prototype?.$fullObject?.data.filter(obj => {
+          //   for (const key of Object.keys(obj)) {
+          //     if (!this.requiredFieldsDictionary.includes(key)) {
+          //       this.extraFieldsFlag = true
+          //     }
+          //   }
+          // })
           globalTelegram.MainButton.setText('Next')
           globalTelegram.MainButton.color = '#16a34a'
           globalTelegram.MainButton.show()
@@ -520,14 +575,14 @@ export default {
   },
   mounted() {
     if (!!Vue.prototype?.$fullObject?.data && !this.visitedRouteFlag) {
-      this.multipleCheckerCaller()
-      this.countryValueChecker()
-      this.regDateValueChecker()
+      // this.multipleCheckerCaller()
+      this.startCheck()
+      this.stateReselect()
     } else {
       this.stateReselect()
-      this.countryValueChecker()
-      this.regDateValueChecker()
     }
+    this.countryValueChecker()
+    this.regDateValueChecker()
     console.log(Vue.prototype?.$fullObject?.data)
     globalTelegram.MainButton.onClick(this.actionCb)
     globalTelegram.BackButton.show().onClick(this.redirectCb)
@@ -538,6 +593,7 @@ export default {
 
   },
   beforeDestroy() {
+
     if (!this.includeExtra && !!Vue.prototype?.$fullObject?.data && !!Vue.prototype?.$reducedObject) {
       Vue.prototype.$fullObject.data = Vue.prototype?.$reducedObject
     }

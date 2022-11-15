@@ -57,7 +57,7 @@ export default {
     },
     methods: {
         firsNameInvalidCounter() {
-            if (this.chosenFirstName) {
+            if (this.chosenFirstname) {
                 this.privateResults[6].value = this.invalidFirstName.length
 
                 Vue.prototype?.$fullObject?.data.map((el, i) => {
@@ -74,7 +74,7 @@ export default {
             }
         },
         lastNameInvalidCounter() {
-            if (this.chosenLastName) {
+            if (this.chosenLastname) {
                 this.privateResults[6].value = this.invalidLastName.length
 
                 Vue.prototype?.$fullObject?.data.map((el, i) => {
@@ -97,7 +97,7 @@ export default {
             }
         },
         fullNameInvalidCounter() {
-            if (this.chosenFullName) {
+            if (this.chosenFullname) {
                 this.privateResults[6].value = this.invalidFullName.length
 
                 Vue.prototype?.$fullObject?.data.map((el, i) => {
@@ -209,8 +209,8 @@ export default {
             "vertical", 'funnelType', 'validLeadsAmount', 'uploadDate',
             'listStatusBeforeUpload',
 
-            "chosenFirstName", "chosenLastName", "chosenFullName",
-            "chosenEmail", "chosenPhone", 'chosenRegDate',
+            "chosenFirstname", "chosenLastname", "chosenFullname",
+            "chosenEmail", "chosenPhone", 'chosenRegdate',
 
             "invalidPhone", 'invalidEmail', "invalidFirstName",
             "invalidLastName", "invalidFullName"]),

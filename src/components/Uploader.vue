@@ -15,7 +15,7 @@
         mode="basic"
         accept=".csv, .xls, .xlsx"
     ></FileUpload>
-
+    <h5 v-if="emptyFile">Empty list, please retry!</h5>
     <div v-if="parsed">
       <h4>DATA PREVIEW: {{ fileName }}</h4>
       <div
@@ -81,6 +81,7 @@ export default {
       parsedData: '',
       columns: [],
       parsed: false,
+      emptyFile: false,
       fileName: '',
       delimiter: '',
       parsedDataLength: '',
@@ -140,62 +141,22 @@ export default {
           delimitersToGuess: [',', '\t', '|', ';', ' ', '/', ':',
             Papa.RECORD_SEP, Papa.UNIT_SEP],
           complete: result => {
-            resolve(result)
-            this.parsed = true
-            this.parsedData = result
-            /**
-             * $fullObject.data – main object we mutate
-             * Schema: [{header: value}, {header: value}...]
-             */
-            Vue.prototype.$fullObject = result
-            this.parsedSkippedEmptyLines = result.data.length
-            this.$store.commit('setParsedListLength', this.parsedSkippedEmptyLines)
-            this.$store.commit('setParsedFields', result.meta.fields)
-            if (result.meta.delimiter === '\t') this.parsedData.meta.delimiter = 'Tab'
-            if (result.meta.delimiter === ' ') this.parsedData.meta.delimiter = 'Space'
+            if (!result.data.length) this.emptyFile = true
+            else {
+              resolve(result)
+              this.emptyFile = false
+              this.parsed = true
+              this.parsedData = result
+              Vue.prototype.$fullObject = result
+              this.parsedSkippedEmptyLines = result.data.length
+              this.$store.commit('setParsedListLength', this.parsedSkippedEmptyLines)
+              this.$store.commit('setParsedFields', result.meta.fields)
+              if (result.meta.delimiter === '\t') this.parsedData.meta.delimiter = 'Tab'
+              if (result.meta.delimiter === ' ') this.parsedData.meta.delimiter = 'Space'
+            }
           },
         })
       })
-      /**
-       * uncomment next then() blocks
-       * if you want to test recompiling
-       * headers and download the result as a file
-       * $parsedHeaders - separated headers from $fullObject. data
-       */
-          // .then((result) => {
-          //   return new Promise((resolve) => {
-          //     Vue.prototype.$parsedHeaders = Papa.unparse(Object.assign({
-          //       'fields': Object.keys(result.data[0]),
-          //     }), {})
-          //     Vue.prototype.$parsedFullObject = Papa.unparse(Object.assign({
-          //       'fields': Object.keys(result.data[0]),
-          //       'data': result.data.map((el) => Object.values(el))
-          //     }), {
-          //       skipEmptyLines: 'greedy',
-          //     })
-          //     resolve(Vue.prototype.$parsedHeaders)
-          //   })
-          // })
-          // .then(result => {
-          //   /**
-          //    * we can download the
-          //    * @param result
-          //    * if we need to, to make it
-          //    * uncomment .click() func.
-          //    */
-          //   const download = function (result) {
-          //     const blob = new Blob([result], {type: 'text/csv'});
-          //     const url = window.URL.createObjectURL(blob)
-          //     const a = document.createElement('a')
-          //     a.setAttribute('href', url)
-          //     a.setAttribute('download', 'parsed.csv');
-          //     // uncomment next line to download file
-          //     // a.click()
-          //   }
-          //   //disable timeout to download instantly
-          //   setTimeout(() => download(result), 3000)
-          //   // console.log(res)
-          // })
     }
   },
   computed: {
