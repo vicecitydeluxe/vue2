@@ -37,8 +37,9 @@ export default {
     methods: {
         dropdownCb(index) {
             const i = this.requiredFieldsDictionary[index][0]
-            Vue.prototype.$fullObject.data.forEach(el => {
-                Object.assign(el, {[i]: el[this[`selected${i[0].toUpperCase() + i.slice(1)}`]]})
+
+            Vue.prototype.$fullObject.data.forEach((el, index) => {
+                Object.assign(el, {[i]: Vue.prototype.$dirtyObject[index][this[`selected${i[0].toUpperCase() + i.slice(1)}`]]})
             })
             this.$store.commit(`setChosen${i[0].toUpperCase() + i.slice(1)}`, this[`selected${i[0].toUpperCase() + i.slice(1)}`])
             console.log(Vue.prototype.$fullObject.data)
@@ -66,6 +67,7 @@ export default {
                     console.log(result)
                 }
             )
+            Vue.prototype.$dirtyObject = JSON.parse(JSON.stringify(Vue.prototype.$fullObject.data))
         },
         sortParsedFields() {
             for (let i = 0; i < this.requiredFieldsDictionary.length; i++) {
