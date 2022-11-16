@@ -148,6 +148,14 @@ export default {
     }
   },
   methods: {
+    removeExtraFields(arr) {
+      const keys = ["firstname", 'lastname', 'fullname', "email", "phone", "country", "regdate", 'deposit']
+      arr.forEach(el => {
+        for (const dupeElement in el) {
+          if (!keys.includes(dupeElement)) delete el[dupeElement]
+        }
+      })
+    },
     dateChecker() {
       const u = undefined
       const dayBefore = moment().subtract(1, 'd')
@@ -411,7 +419,8 @@ export default {
   mounted() {
     if (this.parsedListLength > 0) this.privateResults[0].value = this.parsedListLength
     this.privateResults[1].value = Vue.prototype?.$fullObject?.data?.length
-
+    this.removeExtraFields(Vue.prototype?.$fullObject?.data)
+    console.log(Vue.prototype?.$fullObject?.data)
     if (!!Vue.prototype?.$fullObject?.data) {
       this.dateChecker()
       this.countersInvoker()
