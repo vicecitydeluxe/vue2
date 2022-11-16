@@ -419,7 +419,7 @@ export default {
   mounted() {
     if (this.parsedListLength > 0) this.privateResults[0].value = this.parsedListLength
     this.privateResults[1].value = Vue.prototype?.$fullObject?.data?.length
-    this.removeExtraFields(Vue.prototype?.$fullObject?.data)
+    if (!!Vue.prototype?.$fullObject?.data) this.removeExtraFields(Vue.prototype?.$fullObject?.data)
     console.log(Vue.prototype?.$fullObject?.data)
     if (!!Vue.prototype?.$fullObject?.data) {
       this.dateChecker()

@@ -271,14 +271,14 @@ export default {
       })
     },
     countryValueChecker() {
-      Vue.prototype.$fullObject.data.filter((el) => {
+      Vue.prototype?.$fullObject?.data.filter((el) => {
         if (!el['country']) {
           this.emptyCountryValueFlag = true
         }
       })
     },
     regDateValueChecker() {
-      Vue.prototype.$fullObject.data.filter((el) => {
+      Vue.prototype?.$fullObject?.data.filter((el) => {
         if (!el['regdate']) {
           this.emptyRegDateValueFlag = true
         }
@@ -465,17 +465,9 @@ export default {
       }, deep: true
     },
     requiredFieldsFilled: {
-      //todo validate
       handler(newValue) {
         if (newValue) {
           if (this.parsedFields.length !== this.sortedParsedFields.length) this.extraFieldsFlag = true
-          // Vue.prototype?.$fullObject?.data.filter(obj => {
-          //   for (const key of Object.keys(obj)) {
-          //     if (!this.requiredFieldsDictionary.includes(key)) {
-          //       this.extraFieldsFlag = true
-          //     }
-          //   }
-          // })
           globalTelegram.MainButton.setText('Next')
           globalTelegram.MainButton.color = '#16a34a'
           globalTelegram.MainButton.show()
