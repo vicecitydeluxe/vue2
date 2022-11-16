@@ -34,11 +34,17 @@
   justify-content: space-between;
 }
 
-.p-button-text{
+.p-button-text {
   font-weight: 600;
   font-size: 14px;
   line-height: 17px;
   color: #2563EB;
+}
+
+.downloader {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
 }
 
 

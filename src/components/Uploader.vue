@@ -62,6 +62,21 @@
           v-if="currentPage !== lastPageProp"
       />
     </div>
+    <div
+        v-if="!parsed"
+        class="downloader"
+    >
+      <a
+          style="text-decoration: none"
+          :href='exampleFile'
+          download
+      >
+        <Button
+            icon="pi pi-download"
+            label="Download example"
+        />
+      </a>
+    </div>
   </div>
 </template>
 
@@ -70,6 +85,7 @@ import Vue from 'vue'
 import tgMixin from "@/mixins/telegram/tgMixin";
 import {mapGetters} from 'vuex'
 import Papa from 'papaparse'
+import e from '../assets/example.csv'
 
 const globalTelegram = window.Telegram.WebApp
 
@@ -88,6 +104,7 @@ export default {
       parsedSkippedEmptyLines: '',
       itemsPerPage: 5,
       currentPage: 1,
+      exampleFile: e
     }
   },
   methods: {
