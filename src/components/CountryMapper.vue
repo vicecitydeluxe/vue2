@@ -14,10 +14,12 @@
       </div>
       <div class="map_container">
         <h5 class="map_container_divider"
-            v-for="(country, index) in countriesToMap"
+            v-for="(country, index) in paginatedCountries"
+            v-if="country"
             :key="index"
         >{{ country }}
           <Dropdown
+              v-if="country"
               :class="[ darkModeSwitch
             ? 'dropdown_dark'
             : 'dropdown']"
@@ -30,6 +32,14 @@
               @filter="toggleDarkDropdown"
           />
         </h5>
+        <Paginator
+            v-if="countriesToMap.length > 5"
+            class="paginator"
+            :rows="5"
+            :pageLinkSize="4"
+            :totalRecords="countriesToMap.length"
+            @page="paginationMaker($event)"
+        />
       </div>
       <div
           v-if="countriesToMap.length > 1"
@@ -62,6 +72,7 @@ export default {
     return {
       darkDropdown: 0,
       countriesToMap: [],
+      paginatedCountries: [],
       countryIndexes: [],
       selectedCountry: [],
       countryPossibleKeys: [
@@ -71,10 +82,15 @@ export default {
         'country_id',
         'country_code',
       ],
-      countryKeyChecker: false
+      countryKeyChecker: false,
     }
   },
   methods: {
+    paginationMaker(event) {
+      this.paginatedCountries = new Array(this.countriesToMap.length).fill(undefined)
+      let arr = this.countriesToMap.slice(event.page * 5, event.page * 5 + 5)
+      this.paginatedCountries.splice(event.page * 5, event.page * 5 + 5, ...arr)
+    },
     /**
      * Checker function toggles
      * countryKeyChecker property
@@ -129,6 +145,9 @@ export default {
     }
   },
   computed: {
+    selectedCountryCreator() {
+      this.selectedCountry = new Array(this.countriesToMap.length).fill(undefined)
+    },
     ...mapGetters(['listName', "fileName", "chosenCountry"]),
     allCountriesInitiallyMapped() {
       return !!this.countriesToMap.length < 1 && this.selectedCountry.length < 1
@@ -170,22 +189,15 @@ export default {
     },
     selectedCountry: {
       handler(newValue) {
-        if (newValue) {
-          /**
-           * handler iterates through
-           * $fullObject's elements each time.
-           * It replaces each element by following schema:
-           * ...$fullObject[index_of_element][dynamic_key]
-           * redefines to selectedCountry[index]
-           */
+        if (newValue || newValue.length) {
           Vue.prototype.$fullObject.data.forEach((el, i) => {
-            if (!this.countryIndexes[i] || !this.selectedCountry[i]) return
+            if (!this.selectedCountry[i]) return
             Vue.prototype.$fullObject.data[this.countryIndexes[i]]['country'] = this.selectedCountry[i]
           })
           //uncomment next line to see mutation of $fullObject
-          // console.log(Vue.prototype?.$fullObject?.data)
+          console.log(Vue.prototype?.$fullObject?.data)
         }
-      },
+      }, deep: true
     },
     darkModeSwitch: {
       handler(newValue) {
@@ -219,8 +231,15 @@ export default {
       },
     },
   },
-  mounted() {
+  created() {
     this.wrongCountryFinder()
+    if (!!this.countriesToMap.length) {
+      let e = {}
+      e.page = 0
+      this.paginationMaker(e)
+    }
+  },
+  mounted() {
     if (!!this.allCountriesInitiallyMapped) {
       globalTelegram.MainButton.show()
       globalTelegram.BackButton.show()

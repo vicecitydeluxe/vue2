@@ -651,3 +651,10 @@ input[type="number"]::-webkit-inner-spin-button {
 .p-field-checkbox {
   margin-bottom: 15px;
 }
+
+.p-paginator .p-paginator-first,
+.p-paginator .p-paginator-prev,
+.p-paginator .p-paginator-next,
+.p-paginator .p-paginator-last {
+  min-width: 2.6rem;
+}

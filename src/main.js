@@ -22,6 +22,7 @@ import AccordionTab from 'primevue/accordiontab';
 import ToastService from 'primevue/toastservice';
 import Toast from 'primevue/toast';
 import Calendar from 'primevue/calendar';
+import Paginator from 'primevue/paginator';
 
 import 'primevue/resources/themes/md-light-indigo/theme.css'
 import 'primevue/resources/primevue.min.css'
@@ -44,7 +45,7 @@ Vue.component('Accordion', Accordion);
 Vue.component('AccordionTab', AccordionTab);
 Vue.component('Toast', Toast);
 Vue.component('Calendar', Calendar);
-
+Vue.component('Paginator', Paginator);
 
 Vue.use(PrimeVue);
 Vue.use(ToastService);
