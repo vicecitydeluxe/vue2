@@ -35,7 +35,7 @@ export default {
           document.querySelectorAll('.container_title').forEach(e => e.classList.add('container_title_dark'))
         }
         if (!newValue) {
-          document.querySelectorAll('.container_dark').forEach(e => e.classList.remove('description_dark'))
+          document.querySelectorAll('.container_dark').forEach(e => e.classList.remove('container_dark'))
           document.querySelectorAll('.container_title_dark').forEach(e => e.classList.remove('container_title_dark'))
         }
       },
