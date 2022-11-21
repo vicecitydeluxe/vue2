@@ -180,10 +180,10 @@ export default {
     ...mapGetters(['allLists']),
     //validation including spaces !
     validListName() {
-      return /[0-9a-zA-Z_ ]{5,}/.test(this.listName)
+      return /^.{5,}$/.test(this.listName)
     },
     validListDescription() {
-      return /[0-9a-zA-Z_ ]{5,}/.test(this.listDescription)
+      return /^.{5,}$/.test(this.listDescription)
     },
     validUploadButton() {
       return !!(this.validListName && this.validListDescription && this.selectedVertical && this.selectedFunnel);

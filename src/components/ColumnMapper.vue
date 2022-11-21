@@ -190,20 +190,6 @@
             @hide="darkCalendar++"
         />
       </div>
-      <div class="map_container">
-        <div class="map_container_title">Deposit/sales date</div>
-        <Dropdown
-            :class="[ darkModeSwitch
-            ? 'dropdown_dark'
-            : 'map_container_dropdown']"
-            @change="dropdownCb(7)"
-            v-model="selectedDeposit"
-            :value="selectedDeposit"
-            :options="parsedFields"
-
-            @before-show="toggleDarkDropdown"
-        />
-      </div>
       <div
           class="bottom_section_container"
           v-if="this.extraFieldsFlag"
@@ -258,11 +244,12 @@ export default {
       emptyRegDateValueFlag: false,
       countryCheckboxDisabler: false,
       regDateCheckboxDisabler: false,
+      prevRoute: ''
     }
   },
   methods: {
     removeExtraFields(arr) {
-      const keys = ["firstname", 'lastname', 'fullname', "email", "phone", "country", "regdate", 'deposit']
+      const keys = ["firstname", 'lastname', 'fullname', "email", "phone", "country", "regdate"]
       arr.forEach(el => {
         for (const dupeElement in el) {
           if (!keys.includes(dupeElement)) delete el[dupeElement]
@@ -330,11 +317,11 @@ export default {
       return !!(this.selectedFirstname && this.selectedLastname
               && this.selectedEmail && this.selectedPhone
               && this.selectedCountry && this.selectedRegdate
-              && this.selectedDeposit && !this.countryEmptyChecker) ||
+              && !this.countryEmptyChecker) ||
           !!(this.selectedFullname && this.selectedEmail
               && this.selectedPhone
               && this.selectedCountry && this.selectedRegdate
-              && this.selectedDeposit && !this.countryEmptyChecker);
+              && !this.countryEmptyChecker);
     }
   },
   watch: {
@@ -449,7 +436,7 @@ export default {
     requiredFieldsFilled: {
       handler(newValue) {
         if (newValue) {
-          if (this.parsedFields.length !== this.sortedParsedFields.length) this.extraFieldsFlag = true
+          if (this.parsedFields.length !== this.sortedParsedFields.length && this.prevRoute !== '/country-mapper') this.extraFieldsFlag = true
           globalTelegram.MainButton.setText('Next')
           globalTelegram.MainButton.color = '#16a34a'
           globalTelegram.MainButton.show()
@@ -514,6 +501,9 @@ export default {
         }
       }
     },
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => vm.$data.prevRoute = from.fullPath)
   },
   mounted() {
     !!Vue.prototype?.$fullObject?.data && !this.visitedRouteFlag

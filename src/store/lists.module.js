@@ -18,7 +18,6 @@ const state = {
     chosenPhone: null,
     chosenCountry: null,
     chosenRegdate: null,
-    chosenDeposit: null,
     visitedRouteFlag: 0
 }
 
@@ -73,9 +72,6 @@ const getters = {
     },
     chosenRegdate() {
         return state.chosenRegdate
-    },
-    chosenDeposit() {
-        return state.chosenDeposit
     },
     visitedRouteFlag() {
         return state.visitedRouteFlag
@@ -247,9 +243,6 @@ const mutations = {
     },
     setChosenRegdate(ctx, data) {
         state.chosenRegdate = data
-    },
-    setChosenDeposit(ctx, data) {
-        state.chosenDeposit = data
     },
     setVisitedRouteFlag(ctx, data) {
         state.visitedRouteFlag = data

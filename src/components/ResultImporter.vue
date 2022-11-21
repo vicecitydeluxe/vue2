@@ -149,7 +149,7 @@ export default {
   },
   methods: {
     removeExtraFields(arr) {
-      const keys = ["firstname", 'lastname', 'fullname', "email", "phone", "country", "regdate", 'deposit']
+      const keys = ["firstname", 'lastname', 'fullname', "email", "phone", "country", "regdate"]
       arr.forEach(el => {
         for (const dupeElement in el) {
           if (!keys.includes(dupeElement)) delete el[dupeElement]

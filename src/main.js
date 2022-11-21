@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import browserDetect from "vue-browser-detect-plugin";
 import PrimeVue from 'primevue/config';
 
 import InputText from 'primevue/inputtext';
@@ -47,6 +48,7 @@ Vue.component('Toast', Toast);
 Vue.component('Calendar', Calendar);
 Vue.component('Paginator', Paginator);
 
+Vue.use(browserDetect);
 Vue.use(PrimeVue);
 Vue.use(ToastService);
 

@@ -658,3 +658,7 @@ input[type="number"]::-webkit-inner-spin-button {
 .p-paginator .p-paginator-last {
   min-width: 2.6rem;
 }
+
+.p-inputtext.p-invalid.p-component {
+  width: 100%;
+}

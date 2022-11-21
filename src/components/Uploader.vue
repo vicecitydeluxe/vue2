@@ -63,7 +63,7 @@
       />
     </div>
     <div
-        v-if="!parsed"
+        v-if="!parsed && !this.$browserDetect.isIOS"
         class="downloader"
     >
       <a

@@ -13,7 +13,6 @@ export default {
             selectedCountry: null,
             selectedCountryFromList: null,
             selectedRegdate: null,
-            selectedDeposit: null,
             checkedCountry: '',
             checkedRegDate: '',
             registrationDate: new Date(),
@@ -28,7 +27,6 @@ export default {
                     "phone_number", "mobile_phone"],
                 ["country", "countryid", "geo", "country_id", "country_code"],
                 ["regdate", "reg date", "reg_date", "registration_date", "registered", "registered_at"],
-                ['deposit', "deposited", "deposit date", "deposit_date", "ftd date", "ftd_date", "ftd"]
             ],
             sortedParsedFields: [],
             sortedDropdownIndexes: [],
@@ -90,7 +88,6 @@ export default {
             "chosenPhone",
             'chosenCountry',
             "chosenRegdate",
-            "chosenDeposit",
         ]),
     }
 }

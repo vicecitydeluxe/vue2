@@ -1,3 +1,3 @@
-firstname,lastname,fullname,email,phone,country,regdate,deposit
-Ray ,Thornton,"*Optional, needed if firstname and lastname are empty",51example@google.com,+79652298 672,US,11.10.2022,0
-Bryan ,Pierce,,demo@example.com,+639674110 714,PH,11.10.2023,0
+firstname,lastname,fullname,email,phone,country,regdate
+Ray ,Thornton,"*Optional, needed if firstname and lastname are empty",51example@google.com,+79652298 672,US,11.10.2022
+Bryan ,Pierce,,demo@example.com,+639674110 714,PH,11.10.2023

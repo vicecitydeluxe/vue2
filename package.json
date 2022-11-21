@@ -22,6 +22,7 @@
     "qrcode.vue": "^1.7.0",
     "telegraf": "^4.9.1",
     "vue": "^2.7.10",
+    "vue-browser-detect-plugin": "^0.1.18",
     "vue-router": "^3.5.1",
     "vuex": "^3.6.2"
   },
