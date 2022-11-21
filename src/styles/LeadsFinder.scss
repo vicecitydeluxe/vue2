@@ -416,3 +416,25 @@
   background: #282828;
   color: white;
 }
+
+.options_container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  &_button {
+    background: #F8F9FA;
+    display: flex;
+    color: black;
+    flex-direction: row-reverse;
+    justify-content: center;
+    border: 1px solid #DEE2E6;
+
+    &_dark {
+      color: white;
+      background: #494C57;
+      border: 1px solid #4B4B4B;
+    }
+  }
+}
+

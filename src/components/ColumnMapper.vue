@@ -229,7 +229,6 @@
           purchase these leads.
         </div>
       </div>
-      <Toast position="bottom-center"/>
     </main>
   </div>
 </template>
@@ -319,23 +318,6 @@ export default {
     actionCb() {
       if (this.$route.path === '/mapper') this.$router.push({name: 'country'})
     },
-    showIncludedToast() {
-      this.$toast.add({
-        severity: 'info',
-        summary: 'Info message',
-        detail: ' Rest of the fields will be included!',
-        life: 2000
-      });
-    },
-    showWarnToast() {
-      this.$toast.add({
-        severity: 'warn',
-        summary: 'Info message',
-        detail: ' Rest of the fields will not be included!',
-        life: 2000
-      });
-    },
-
   },
   computed: {
     ...mapGetters(['listName', "fileName", "parsedFields", 'visitedRouteFlag']),
@@ -513,13 +495,8 @@ export default {
       },
     },
     includeExtra: {
-      handler(newValue) {
-        if (newValue && this.extraFieldsFlag) {
-          this.showIncludedToast()
-        } else {
-          this.globalReducer()
-          this.showWarnToast()
-        }
+      handler() {
+        this.globalReducer()
       }
     },
     darkCalendar: {

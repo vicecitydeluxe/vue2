@@ -14,10 +14,5 @@ export default {
             });
         },
     },
-    updated() {
-        if (!this.respondSuccess) setTimeout(() => {
-            this.showWarnToast()
-        }, 1000)
-    },
 }
 

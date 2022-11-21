@@ -37,9 +37,6 @@ export default {
   },
   mounted() {
     globalTelegram.BackButton.show().onClick(this.redirectCb)
-    setTimeout(() => {
-      this.$router.push({name: 'results'})
-    }, 4500)
   },
   beforeDestroy() {
     globalTelegram.BackButton.hide().offClick(this.redirectCb)

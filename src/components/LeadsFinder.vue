@@ -49,18 +49,20 @@
           </div>
         </div>
       </div>
-      <Accordion>
-        <AccordionTab header="Any seller">
-          <p>
-            Lorem ipsum dolor sit amet
-          </p>
-        </AccordionTab>
-        <AccordionTab header="Any list">
-          <p>
-            Lorem ipsum dolor sit amet
-          </p>
-        </AccordionTab>
-      </Accordion>
+      <div class="options_container">
+        <Button
+            @click="$router.push({name: 'sellers'})"
+            icon="pi pi-angle-right"
+            :label=labelSeller
+            class="options_container_button"
+        />
+        <Button
+            @click="$router.push({name: 'lists'})"
+            icon="pi pi-angle-right"
+            :label=labelLists
+            class="options_container_button"
+        />
+      </div>
       <div class="limit_container">
         <div class="limit_header">Limit</div>
         <div class="limit_wrapper">
@@ -133,14 +135,16 @@ export default {
       ],
       demand: null,
       maxAmount: null,
+      labelSeller: 'Any seller',
+      labelLists: 'Any list'
     }
   },
   methods: {
     redirectCb() {
-      this.$router.push({name: 'layout'})
+      this.$router.push({name: 'finder'})
     },
     actionCb() {
-      if (this.$route.path === '/leads-finder') this.$router.push({name: 'layout'})
+      if (this.$route.path === '/leads-finder') this.$router.push({name: 'buy'})
     }
   },
   watch: {
@@ -170,16 +174,15 @@ export default {
           document.querySelectorAll('.button_middle').forEach(e => e.classList.add('button_middle_dark'))
           document.querySelectorAll('.button_right').forEach(e => e.classList.add('button_right_dark'))
           document.querySelectorAll('.p-radiobutton-box').forEach(e => e.classList.add('p-radiobutton-box_dark'))
-          document.querySelectorAll('.p-accordion-header-link').forEach(e => e.classList.add('p-accordion-header-link_dark'))
-          document.querySelectorAll('.p-accordion-content').forEach(e => e.classList.add('p-accordion-content_dark'))
+          document.querySelectorAll('.options_container_button').forEach(e => e.classList.add('options_container_button_dark'))
         } else if (!newValue) {
           const darkStylesSelectors = ['sticky_dark', 'sticky_number__title_dark',
             'filter_header_dark', 'filter_header_divider_dark',
             'filter_container_dark', 'filter_container_wrapper_dark',
             'limit_header_dark', 'limit_container_dark',
             'button_left_dark', 'button_middle_dark',
-            'button_right_dark', 'p-radiobutton-box_dark',
-            'p-accordion-header-link_dark', 'p-accordion-content_dark']
+            'button_right_dark', 'p-radiobutton-box_dark', 'options_container_button'
+          ]
           document.querySelectorAll('[class*="_dark"]')
               .forEach(e => e.classList.remove(...darkStylesSelectors))
         }

@@ -370,143 +370,143 @@ input[type="number"]::-webkit-inner-spin-button {
 /**
  AccordionTab LeadsSeller Dark Styles
  */
-.p-accordion {
-  background: #F8F9FA;
-  border: 1.7px solid #DEE2E6;
-  border-radius: 7px;
-
-  &_dark {
-    color: white;
-    background: #282828;
-  }
-
-  .p-accordion-tab {
-    box-shadow: none;
-
-    .p-accordion-content {
-      color: #2563EB;
-      display: flex;
-      gap: 10px;
-      flex-direction: column;
-
-      &_dark {
-        background: #282828;
-      }
-    }
-  }
-
-  .p-accordion-header .p-accordion-header-link {
-    padding: 15px;
-  }
-}
-
-.p-accordion {
-  .p-accordion-header:not(.p-disabled).p-highlight {
-    .p-accordion-header-link {
-
-      &_dark {
-        background: #4B4B4B;
-        border-color: transparent;
-        color: white;
-        border-bottom-right-radius: 0;
-        border-bottom-left-radius: 0;
-      }
-    }
-  }
-}
-
-.p-accordion {
-  .p-accordion-header:not(.p-highlight):not(.p-disabled):hover {
-    .p-accordion-header-link {
-
-      &_dark {
-        background: #4B4B4B;
-        border-color: transparent;
-        color: white;
-      }
-    }
-  }
-
-}
-
-.p-accordion {
-  .p-accordion-header:not(.p-disabled).p-highlight:hover {
-    .p-accordion-header-link {
-
-      &_dark {
-        border-color: transparent;
-        background: #4B4B4B;
-        color: white;
-      }
-    }
-  }
-}
-
-.p-accordion {
-  .p-accordion-header:not(.p-disabled) {
-    .p-highlight {
-      .p-accordion-header-link {
-
-        &_dark {
-          background: #4B4B4B;
-          border-color: transparent;
-          color: white;
-          border-bottom-right-radius: 0;
-          border-bottom-left-radius: 0;
-        }
-      }
-    }
-  }
-
-}
-
-.p-accordion {
-  .p-accordion-header {
-    .p-accordion-header-link {
-
-      &_dark {
-        border: 0 none;
-        color: white;
-        background: #4B4B4B;
-        font-weight: 400;
-        border-radius: 4px;
-        transition: none;
-        padding: 15px;
-        display: flex;
-      }
-    }
-  }
-}
-
-.p-accordion .p-accordion-tab.p-accordion-tab-active {
-  margin-bottom: 0;
-}
-
-.p-accordion {
-  .p-accordion-header:not(.p-highlight):not(.p-disabled):hover {
-    .p-accordion-header-link {
-
-      &_dark {
-        background: #282828;
-        color: white;
-      }
-    }
-  }
-}
-
-.p-accordion {
-  .p-accordion-tab:not(.p-accordion-tab-active) {
-    .p-accordion-header-link {
-
-      &_dark {
-        &:focus {
-          background: #282828;
-          color: white;
-        }
-      }
-    }
-  }
-}
+//.p-accordion {
+//  background: #F8F9FA;
+//  border: 1.7px solid #DEE2E6;
+//  border-radius: 7px;
+//
+//  &_dark {
+//    color: white;
+//    background: #282828;
+//  }
+//
+//  .p-accordion-tab {
+//    box-shadow: none;
+//
+//    .p-accordion-content {
+//      color: #2563EB;
+//      display: flex;
+//      gap: 10px;
+//      flex-direction: column;
+//
+//      &_dark {
+//        background: #282828;
+//      }
+//    }
+//  }
+//
+//  .p-accordion-header .p-accordion-header-link {
+//    padding: 15px;
+//  }
+//}
+//
+//.p-accordion {
+//  .p-accordion-header:not(.p-disabled).p-highlight {
+//    .p-accordion-header-link {
+//
+//      &_dark {
+//        background: #4B4B4B;
+//        border-color: transparent;
+//        color: white;
+//        border-bottom-right-radius: 0;
+//        border-bottom-left-radius: 0;
+//      }
+//    }
+//  }
+//}
+//
+//.p-accordion {
+//  .p-accordion-header:not(.p-highlight):not(.p-disabled):hover {
+//    .p-accordion-header-link {
+//
+//      &_dark {
+//        background: #4B4B4B;
+//        border-color: transparent;
+//        color: white;
+//      }
+//    }
+//  }
+//
+//}
+//
+//.p-accordion {
+//  .p-accordion-header:not(.p-disabled).p-highlight:hover {
+//    .p-accordion-header-link {
+//
+//      &_dark {
+//        border-color: transparent;
+//        background: #4B4B4B;
+//        color: white;
+//      }
+//    }
+//  }
+//}
+//
+//.p-accordion {
+//  .p-accordion-header:not(.p-disabled) {
+//    .p-highlight {
+//      .p-accordion-header-link {
+//
+//        &_dark {
+//          background: #4B4B4B;
+//          border-color: transparent;
+//          color: white;
+//          border-bottom-right-radius: 0;
+//          border-bottom-left-radius: 0;
+//        }
+//      }
+//    }
+//  }
+//
+//}
+//
+//.p-accordion {
+//  .p-accordion-header {
+//    .p-accordion-header-link {
+//
+//      &_dark {
+//        border: 0 none;
+//        color: white;
+//        background: #4B4B4B;
+//        font-weight: 400;
+//        border-radius: 4px;
+//        transition: none;
+//        padding: 15px;
+//        display: flex;
+//      }
+//    }
+//  }
+//}
+//
+//.p-accordion .p-accordion-tab.p-accordion-tab-active {
+//  margin-bottom: 0;
+//}
+//
+//.p-accordion {
+//  .p-accordion-header:not(.p-highlight):not(.p-disabled):hover {
+//    .p-accordion-header-link {
+//
+//      &_dark {
+//        background: #282828;
+//        color: white;
+//      }
+//    }
+//  }
+//}
+//
+//.p-accordion {
+//  .p-accordion-tab:not(.p-accordion-tab-active) {
+//    .p-accordion-header-link {
+//
+//      &_dark {
+//        &:focus {
+//          background: #282828;
+//          color: white;
+//        }
+//      }
+//    }
+//  }
+//}
 
 /**
  Calendar Dark Styles

@@ -47,12 +47,7 @@ const routes = [
     {
         path: '/result-importer',
         name: 'results',
-        component: () => import(/* webpackChunkName: "resultImporter" */ '@/components/ResultImporter')
-    },
-    {
-        path: '/spinner',
-        name: 'spinner',
-        component: () => import(/* webpackChunkName: "Spinner" */ '@/components/ImportSpinner')
+        component: () => import(/* webpackChunkName: "resultImporter" */ '@/components/DataAnalyzer')
     },
     {
         path: '/leads-finder',

@@ -43,35 +43,35 @@
           label="My deals"
           iconPos="top"
           class="p-button-lg"
-          @click="$router.push({name: 'lists'})"
+          @click="showPopupAlert"
       />
       <Button
           icon="pi pi-users"
           label="My lists"
           iconPos="top"
           class="p-button-lg"
-          @click="$router.push({name: 'uploadLayout'})"
+          @click="$router.push({name: 'finder'})"
       />
       <Button
           icon="pi pi-database"
           label="Sell leads"
           iconPos="top"
           class="p-button-lg"
-          @click="$router.push({name: 'results'})"
+          @click="$router.push({name: 'uploadLayout'})"
       />
       <Button
           icon="pi pi-briefcase"
           label="My deals"
           iconPos="top"
           class="p-button-lg"
-          @click="$router.push({name: 'sellers'})"
+          @click="showPopupAlert"
       />
       <Button
           icon="pi pi-globe"
           label="Marketplace"
           iconPos="top"
           class="p-button-lg"
-          @click="$router.push({name: 'finder'})"
+          @click="showPopupAlert"
       />
       <Button
           icon="pi pi-shopping-cart"

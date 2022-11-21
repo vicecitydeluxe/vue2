@@ -38,10 +38,10 @@ export default {
   },
   methods: {
     redirectCb() {
-      this.$router.push({name: 'layout'})
+      this.$router.push({name: 'finder'})
     },
     actionCb() {
-      if (this.$route.path === '/filter-sellers') this.$router.push({name: 'layout'})
+      if (this.$route.path === '/filter-sellers') this.$router.push({name: 'finder'})
     }
   },
   watch: {

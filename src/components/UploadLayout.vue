@@ -1,8 +1,8 @@
 <template>
   <div class="header">
-<!--    <Button-->
-<!--        @click="actionCb"-->
-<!--    >TESTY</Button>-->
+    <!--    <Button-->
+    <!--        @click="actionCb"-->
+    <!--    >TESTY</Button>-->
     <header class="header_section">
       <h3>NEW LIST</h3>
     </header>
@@ -34,34 +34,31 @@
 
       <h6>Vertical</h6>
       <Dropdown
-          :disabled="!respondSuccess"
           :class="[ darkModeSwitch
           ? 'dropdown_dark'
           : '']"
-          v-model="selectedCrypto"
-          placeholder="Select a crypto"
-          :options="cryptoPairs"
-          optionLabel="name"
+          v-model="selectedVertical"
+          placeholder="CFD/Crypto"
+          :options="vertical"
           @change="updateVertical"
           @before-show="toggleDarkDropdown"
       />
       <h6>Type</h6>
       <div class="button_container">
-        <button class="btn_left">Registrations</button>
-        <button class="btn_middle">Depositors</button>
-        <button class="btn_right">Unknown</button>
+        <SelectButton
+            class="select_button"
+            :options="types"
+            v-model="selectedType"
+        />
       </div>
-
       <h6>Funnel type</h6>
       <Dropdown
-          :disabled="!respondSuccess"
           :class="[ darkModeSwitch
           ? 'dropdown_dark'
           : '']"
           v-model="selectedFunnel"
-          placeholder="Unknown"
+          placeholder="Unknown "
           :options="funnels"
-          optionLabel="name"
           @change="updateFunnels"
           @before-show="toggleDarkDropdown"
       />
@@ -86,20 +83,24 @@ export default {
       darkDropdown: 0,
       listName: 'CM DE May 2022 depositors',
       listDescription: 'CFD May 2022 depositors',
-      selectedCrypto: null,
+      selectedVertical: null,
       selectedFunnel: null,
-      cryptoPairs: [
-        {name: 'Bitcoin'},
-        {name: 'USDT'},
-        {name: 'Ethereum',},
-        {name: 'Shiba',},
-        {name: 'Luna',}
+      selectedType: null,
+      vertical: [
+        '* CFD',
+        '* Crypto',
       ],
       funnels: [
-        {name: 'Some'},
-        {name: 'Random'},
-        {name: 'Data'},
-      ]
+        'Education',
+        'How to make money',
+        'Unknown'
+      ],
+      types: [
+        'Registrations',
+        'Depositors',
+        'Unknown'
+      ],
+      prevRoute: ''
     }
   },
   methods: {
@@ -115,7 +116,6 @@ export default {
                 this.showWarnToast()
               }, 2000)
             } else {
-              this.respondSuccess = true
               const lastListAdded = this.allLists[this.allLists.length - 1]
               this.listName = lastListAdded.name
               this.updateListName()
@@ -143,18 +143,18 @@ export default {
       this.$store.commit('setListName', this.listName)
     },
     updateFunnels() {
-      this.$store.commit('setFunnelType', this.selectedFunnel.name)
+      this.$store.commit('setFunnelType', this.selectedFunnel)
     },
     updateVertical() {
-      this.$store.commit('setVertical', this.selectedCrypto.name)
+      this.$store.commit('setVertical', this.selectedVertical)
     },
     sendList() {
       const obj = {
         name: this.listName,
         filename: this.listDescription,
-        vertical: this.selectedCrypto?.name,
-        funnel_type: this.selectedFunnel?.name,
-        type: 'Unknown'
+        vertical: this.selectedVertical,
+        funnel_type: this.selectedFunnel,
+        type: this.selectedType
       }
       this.$store.dispatch('SEND_LIST', obj)
           .then((res) => {
@@ -186,7 +186,7 @@ export default {
       return /[0-9a-zA-Z_ ]{5,}/.test(this.listDescription)
     },
     validUploadButton() {
-      return !!(this.validListName && this.validListDescription && this.selectedCrypto && this.selectedFunnel);
+      return !!(this.validListName && this.validListDescription && this.selectedVertical && this.selectedFunnel);
     },
   },
   watch: {
@@ -312,10 +312,11 @@ export default {
       deep: true
     },
   },
-  beforeMount() {
-    this.getaAllLists()
+  beforeRouteEnter(to, from, next) {
+    next(vm => vm.$data.prevRoute = from.fullPath)
   },
   mounted() {
+    if (this.prevRoute === "/") this.getaAllLists()
     globalTelegram.expand()
     globalTelegram.enableClosingConfirmation()
     globalTelegram.MainButton.onClick(this.actionCb)
