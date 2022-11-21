@@ -141,7 +141,7 @@ export default {
   },
   methods: {
     redirectCb() {
-      this.$router.push({name: 'finder'})
+      this.$router.push({name: 'layout'})
     },
     actionCb() {
       if (this.$route.path === '/leads-finder') this.$router.push({name: 'buy'})

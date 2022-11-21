@@ -62,7 +62,7 @@ export default {
                         this[`selected${result.validKey[0].toUpperCase() + result.validKey.slice(1)}`] = result.initialKey
                         this.$store.commit(`setChosen${result.validKey[0].toUpperCase() + result.validKey.slice(1)}`, result.initialKey)
                     }
-                    console.log(result)
+                    // console.log(result)
                 }
             )
             Vue.prototype.$dirtyObject = JSON.parse(JSON.stringify(Vue.prototype.$fullObject.data))

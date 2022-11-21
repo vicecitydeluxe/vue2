@@ -15,11 +15,11 @@
       <div class="map_container">
         <h5 class="map_container_divider"
             v-for="(country, index) in paginatedCountries"
-            v-if="country"
+            v-show="country && uniqueChecker(index)"
             :key="index"
         >{{ country }}
           <Dropdown
-              v-if="country"
+              v-show="country"
               :class="[ darkModeSwitch
             ? 'dropdown_dark'
             : 'dropdown']"
@@ -27,13 +27,15 @@
               placeholder="Choose сode"
               :options="countriesFullTitles"
               :filter="true"
-              @change="toggleDarkDropdown"
+              @change="toggleDarkDropdown;
+              currentSelectedCountry = selectedCountry[index]
+               curIndex = index"
               @before-show="toggleDarkDropdown"
               @filter="toggleDarkDropdown"
           />
         </h5>
         <Paginator
-            v-if="countriesToMap.length > 5"
+            v-if="uniqueCountriesLength > 5"
             class="paginator"
             :rows="5"
             :pageLinkSize="4"
@@ -83,9 +85,16 @@ export default {
         'country_code',
       ],
       countryKeyChecker: false,
+      prevSelectedCounty: '',
+      currentSelectedCountry: '',
+      curIndex: ''
     }
   },
   methods: {
+    uniqueChecker(e) {
+      let unique = this.countriesToMap.map((item, i, ar) => ar.indexOf(item) === i)
+      return unique[e]
+    },
     paginationMaker(event) {
       this.paginatedCountries = new Array(this.countriesToMap.length).fill(undefined)
       let arr = this.countriesToMap.slice(event.page * 5, event.page * 5 + 5)
@@ -145,6 +154,9 @@ export default {
     }
   },
   computed: {
+    uniqueCountriesLength() {
+      return this.countriesToMap.filter((item, i, ar) => ar.indexOf(item) === i).length
+    },
     selectedCountryCreator() {
       this.selectedCountry = new Array(this.countriesToMap.length).fill(undefined)
     },
@@ -187,15 +199,39 @@ export default {
         }
       }, deep: true
     },
+    //TODO mapping logic, redo prev and current state
     selectedCountry: {
       handler(newValue) {
-        if (newValue || newValue.length) {
-          Vue.prototype.$fullObject.data.forEach((el, i) => {
-            if (!this.selectedCountry[i]) return
-            Vue.prototype.$fullObject.data[this.countryIndexes[i]]['country'] = this.selectedCountry[i]
-          })
-          //uncomment next line to see mutation of $fullObject
-          console.log(Vue.prototype?.$fullObject?.data)
+        if ((newValue || newValue.length) && !newValue.every(el => el === undefined)) {
+          if (!this.prevSelectedCounty) {
+            Vue.prototype.$fullObject.data.forEach(el => {
+              el.country === this.countriesToMap[this.curIndex]
+                  ? el.country = this.selectedCountry.filter(el => el)[0]
+                  : this.countriesToMap[this.curIndex]
+            })
+          } else {
+
+            Vue.prototype.$fullObject.data.forEach(el => {
+
+              if (this.countriesToMap[this.curIndex] === el.country) {
+                el.country === this.countriesToMap[this.curIndex]
+                    ? el.country = this.currentSelectedCountry
+                    : this.countriesToMap[this.curIndex]
+              } else {
+                // el.country === this.currentSelectedCountry
+                //     ? el.country = this.currentSelectedCountry
+                //     : el.country
+              }
+              console.log(this.countriesToMap[this.curIndex],
+                  el.country,
+                  this.prevSelectedCounty,
+                  this.currentSelectedCountry)
+            })
+          }
+          this.prevSelectedCounty = this.selectedCountry.filter(el => el)[0]
+
+          //uncomment next line to see mutation of $fullObject.country
+          console.log(Vue.prototype?.$fullObject?.data.map(el => el.country))
         }
       }, deep: true
     },
@@ -245,7 +281,7 @@ export default {
       globalTelegram.BackButton.show()
     }
     // console.log(Vue.prototype?.$invalidObject)
-    globalTelegram.MainButton.setText('Create leads')
+    globalTelegram.MainButton.setText('Next')
     globalTelegram.MainButton.color = '#16a34a'
     globalTelegram.MainButton.onClick(this.actionCb)
     globalTelegram.BackButton.show().onClick(this.redirectCb)
