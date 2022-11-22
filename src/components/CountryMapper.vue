@@ -15,27 +15,27 @@
       <div class="map_container">
         <h5 class="map_container_divider"
             v-for="(country, index) in paginatedCountries"
-            v-show="country && uniqueChecker(index)"
+            v-if="country"
             :key="index"
         >{{ country }}
           <Dropdown
-              v-show="country"
+              v-if="country"
               :class="[ darkModeSwitch
-            ? 'dropdown_dark'
-            : 'dropdown']"
+                      ? 'dropdown_dark'
+                       : 'dropdown']"
               v-model="selectedCountry[index]"
               placeholder="Choose сode"
               :options="countriesFullTitles"
               :filter="true"
               @change="toggleDarkDropdown;
-              currentSelectedCountry = selectedCountry[index]
-               curIndex = index"
+                        iterationIndex = index;
+                        setCountry($event.value)"
               @before-show="toggleDarkDropdown"
               @filter="toggleDarkDropdown"
           />
         </h5>
         <Paginator
-            v-if="uniqueCountriesLength > 5"
+            v-if="countriesToMap.length > 5"
             class="paginator"
             :rows="5"
             :pageLinkSize="4"
@@ -47,10 +47,10 @@
           v-if="countriesToMap.length > 1"
           class="description"
       >This is the final step
-        which will load leads to the DB.
+        before loading leads to the DB.
       </div>
       <div
-          v-if="countriesToMap.length < 1"
+          v-if="countriesToMap.length <= 1"
           class="description"
       >All fields are already mapped!
       </div>
@@ -77,45 +77,17 @@ export default {
       paginatedCountries: [],
       countryIndexes: [],
       selectedCountry: [],
-      countryPossibleKeys: [
-        'country',
-        'countryid',
-        'geo',
-        'country_id',
-        'country_code',
-      ],
-      countryKeyChecker: false,
-      prevSelectedCounty: '',
-      currentSelectedCountry: '',
-      curIndex: ''
+      iterationIndex: '',
     }
   },
   methods: {
-    uniqueChecker(e) {
-      let unique = this.countriesToMap.map((item, i, ar) => ar.indexOf(item) === i)
-      return unique[e]
+    setCountry(e) {
+      this.$store.commit('setCountryCountryState', e)
     },
     paginationMaker(event) {
       this.paginatedCountries = new Array(this.countriesToMap.length).fill(undefined)
       let arr = this.countriesToMap.slice(event.page * 5, event.page * 5 + 5)
       this.paginatedCountries.splice(event.page * 5, event.page * 5 + 5, ...arr)
-    },
-    /**
-     * Checker function toggles
-     * countryKeyChecker property
-     * if there's no country key
-     */
-    countryKeyCheckerFn() {
-      if (!!Vue.prototype?.$fullObject?.data) {
-        Vue.prototype?.$fullObject?.data.filter(obj => {
-          for (const key of Object.keys(obj)) {
-            if (this.countryPossibleKeys.includes(key)) {
-              this.countryKeyChecker = true
-              return
-            }
-          }
-        })
-      }
     },
     /**
      * wrongCountryFinder() creates an array
@@ -126,22 +98,20 @@ export default {
      * wasn't recognized/
      */
     wrongCountryFinder() {
-      this.countryKeyCheckerFn()
+      const wrong = Vue.prototype?.$fullObject?.data.filter((el, i) => {
+        if (!this.countries.includes(el['country'])) {
+          this.countryIndexes.push(i)
+          return el
+        }
+      })
 
-      if (this.countryKeyChecker) {
-        const wrong = Vue.prototype?.$fullObject?.data.filter((el, i) => {
-          if (!this.countries.includes(el['country'])) {
-            this.countryIndexes.push(i)
-            return el
-          }
+      if (!!wrong) {
+        this.countriesToMap = wrong.map((el) => {
+          return el['country']
         })
-
-        if (!!wrong) {
-          this.countriesToMap = wrong.map((el) => {
-            return el['country']
-          })
-        } else return
       } else return
+
+      this.countriesToMap = Array.from(new Set(this.countriesToMap))
     },
     toggleDarkDropdown() {
       this.darkDropdown++
@@ -154,19 +124,15 @@ export default {
     }
   },
   computed: {
-    uniqueCountriesLength() {
-      return this.countriesToMap.filter((item, i, ar) => ar.indexOf(item) === i).length
-    },
     selectedCountryCreator() {
       this.selectedCountry = new Array(this.countriesToMap.length).fill(undefined)
     },
-    ...mapGetters(['listName', "fileName", "chosenCountry"]),
+    ...mapGetters(['listName', "fileName", "chosenCountry", 'oldCountryState']),
     allCountriesInitiallyMapped() {
-      return !!this.countriesToMap.length < 1 && this.selectedCountry.length < 1
+      return !!this.countriesToMap.every(el => !el)
     },
     allCountriesMapped() {
-      return (this.countriesToMap.length === this.selectedCountry.length)
-          && !this.selectedCountry.includes(undefined);
+      return !this.selectedCountry.includes(undefined);
     },
   },
   watch: {
@@ -199,39 +165,19 @@ export default {
         }
       }, deep: true
     },
-    //TODO mapping logic, redo prev and current state
     selectedCountry: {
       handler(newValue) {
-        if ((newValue || newValue.length) && !newValue.every(el => el === undefined)) {
-          if (!this.prevSelectedCounty) {
-            Vue.prototype.$fullObject.data.forEach(el => {
-              el.country === this.countriesToMap[this.curIndex]
-                  ? el.country = this.selectedCountry.filter(el => el)[0]
-                  : this.countriesToMap[this.curIndex]
-            })
-          } else {
-
-            Vue.prototype.$fullObject.data.forEach(el => {
-
-              if (this.countriesToMap[this.curIndex] === el.country) {
-                el.country === this.countriesToMap[this.curIndex]
-                    ? el.country = this.currentSelectedCountry
-                    : this.countriesToMap[this.curIndex]
-              } else {
-                // el.country === this.currentSelectedCountry
-                //     ? el.country = this.currentSelectedCountry
-                //     : el.country
-              }
-              console.log(this.countriesToMap[this.curIndex],
-                  el.country,
-                  this.prevSelectedCounty,
-                  this.currentSelectedCountry)
-            })
-          }
-          this.prevSelectedCounty = this.selectedCountry.filter(el => el)[0]
-
-          //uncomment next line to see mutation of $fullObject.country
-          console.log(Vue.prototype?.$fullObject?.data.map(el => el.country))
+        if (newValue || newValue.length) {
+          Vue.prototype.$fullObject.data.forEach((el, i) => {
+            if (el.country === this.countriesToMap[this.iterationIndex]) {
+              Vue.prototype.$countries[i]['country'] = this.oldCountryState
+              this.selectedCountry[this.countryIndexes.indexOf(i)] = this.oldCountryState
+            }
+            if (!this.selectedCountry[i]) return
+            Vue.prototype.$countries[this.countryIndexes[i]]['country'] = this.selectedCountry[i]
+          })
+          //uncomment next line to see changed values
+          console.log(Vue.prototype.$countries.map(el => el.country))
         }
       }, deep: true
     },
@@ -268,6 +214,12 @@ export default {
     },
   },
   created() {
+    /**
+     *
+     * $countries is initial state array
+     * which is created to take data from
+     */
+    Vue.prototype.$countries = JSON.parse(JSON.stringify(Vue.prototype.$fullObject.data))
     this.wrongCountryFinder()
     if (!!this.countriesToMap.length) {
       let e = {}
@@ -290,6 +242,7 @@ export default {
     globalTelegram.MainButton.hide().offClick(this.actionCb)
     globalTelegram.BackButton.hide().offClick(this.redirectCb)
     Vue.prototype.$invalidObject = []
+    Vue.prototype.$fullObject.data = Vue.prototype.$countries
   },
 }
 </script>

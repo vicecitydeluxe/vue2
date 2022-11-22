@@ -18,7 +18,8 @@ const state = {
     chosenPhone: null,
     chosenCountry: null,
     chosenRegdate: null,
-    visitedRouteFlag: 0
+    visitedRouteFlag: 0,
+    oldCountryState: '',
 }
 
 const getters = {
@@ -75,6 +76,9 @@ const getters = {
     },
     visitedRouteFlag() {
         return state.visitedRouteFlag
+    },
+    oldCountryState() {
+        return state.oldCountryState
     }
 }
 
@@ -246,7 +250,11 @@ const mutations = {
     },
     setVisitedRouteFlag(ctx, data) {
         state.visitedRouteFlag = data
-    }
+    },
+    setOldCountryState(ctx, data) {
+        state.oldCountryState = data
+    },
+
 }
 
 export default {state, getters, actions, mutations}

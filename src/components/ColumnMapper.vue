@@ -33,10 +33,10 @@
             v-model="selectedLastname"
             :value="selectedLastname"
             :options="parsedFields"
-
             @before-show="toggleDarkDropdown"
         />
       </div>
+      <h6 class="map_container">OR</h6>
       <div class="map_container">
         <div class="map_container_title">Full name</div>
         <Dropdown
@@ -51,6 +51,7 @@
             @before-show="toggleDarkDropdown"
         />
       </div>
+      <hr style="margin: 10px">
       <div class="map_container">
         <div class="map_container_title">Email</div>
         <Dropdown
@@ -65,6 +66,7 @@
             @before-show="toggleDarkDropdown"
         />
       </div>
+      <hr style="margin: 10px">
       <div class="map_container">
         <div class="map_container_title">Phone number</div>
         <Dropdown
@@ -79,6 +81,7 @@
             @before-show="toggleDarkDropdown"
         />
       </div>
+      <hr style="margin: 10px">
       <div class="map_container">
         <div class="map_container_title">Country</div>
         <Dropdown
@@ -89,7 +92,6 @@
             v-model="selectedCountry"
             :value="selectedCountry"
             :options="parsedFields"
-
             @before-show="toggleDarkDropdown"
         />
       </div>
@@ -137,6 +139,7 @@
             @before-show="toggleDarkDropdown"
         />
       </div>
+      <hr style="margin: 10px">
       <div class="map_container">
         <div class="map_container_title">Reg date</div>
         <Dropdown
@@ -147,7 +150,6 @@
             v-model="selectedRegdate"
             :value="selectedRegdate"
             :options="parsedFields"
-
             @before-show="toggleDarkDropdown"
         />
       </div>
@@ -190,6 +192,7 @@
             @hide="darkCalendar++"
         />
       </div>
+      <hr style="margin: 10px">
       <div
           class="bottom_section_container"
           v-if="this.extraFieldsFlag"
