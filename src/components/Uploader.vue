@@ -100,7 +100,6 @@ export default {
       emptyFile: false,
       fileName: '',
       delimiter: '',
-      parsedDataLength: '',
       parsedSkippedEmptyLines: '',
       itemsPerPage: 5,
       currentPage: 1,
@@ -121,59 +120,41 @@ export default {
       if (this.$route.path === '/uploader') this.$router.push({name: 'mapper'})
     },
     sendFile(event) {
-      this.fileName = event.files[0].name
-      this.$store.commit('setFileName', this.fileName)
-      // uncomment next lines to see uploading logic
-      // const bodyFormData = new FormData();
-      // bodyFormData.append('document', event.files[0]);
-      // this.$store.dispatch('SEND_DOCUMENT', bodyFormData)
-      /**
-       *Papa.parse() takes 2 params:
-       * file amd config object.
-       * Use skipEmptyLines: 'greedy'
-       * to skip all empty lines.
-       * This variant below does not skip
-       * empty fields and gets
-       * ALL parsed fields.
-       */
-      Papa.parse(event.files[0], {
-        header: true,
-        skipEmptyLines: false,
-        delimitersToGuess: [',', '\t', '|', ';', ' ', '/', ':',
-          Papa.RECORD_SEP, Papa.UNIT_SEP],
-        complete: result => {
-          this.parsedDataLength = result.data.length
-        },
-      })
-      /**
-       *Papa.parse can also recompile
-       * file in .then() block
-       * with the same parameters.
-       */
       return new Promise((resolve) => {
-        Papa.parse(event.files[0], {
-          header: true,
-          worker: true,
-          skipEmptyLines: 'greedy',
-          delimitersToGuess: [',', '\t', '|', ';', ' ', '/', ':',
-            Papa.RECORD_SEP, Papa.UNIT_SEP],
-          complete: result => {
-            if (!result.data.length) this.emptyFile = true
-            else {
-              resolve(result)
-              this.emptyFile = false
-              this.parsed = true
-              this.parsedData = result
-              Vue.prototype.$fullObject = result
-              this.parsedSkippedEmptyLines = result.data.length
-              this.$store.commit('setParsedListLength', this.parsedSkippedEmptyLines)
-              this.$store.commit('setParsedFields', result.meta.fields)
-              if (result.meta.delimiter === '\t') this.parsedData.meta.delimiter = 'Tab'
-              if (result.meta.delimiter === ' ') this.parsedData.meta.delimiter = 'Space'
-            }
-          },
-        })
+        this.fileName = event.files[0].name
+        this.$store.commit('setFileName', this.fileName)
+        if (event.files[0].type !== 'text/csv') {
+          const bodyFormData = new FormData();
+          bodyFormData.append('document', event.files[0]);
+          this.$store.dispatch('SEND_DOCUMENT', bodyFormData)
+              .then((res) => {
+                resolve(res.data.data)
+              })
+        } else resolve(event.files[0])
       })
+          .then((prevResult) => {
+            Papa.parse(prevResult, {
+              header: true,
+              worker: true,
+              skipEmptyLines: 'greedy',
+              delimitersToGuess: [',', '\t', '|', ';', ' ', '/', ':',
+                Papa.RECORD_SEP, Papa.UNIT_SEP],
+              complete: result => {
+                if (!result.data.length) this.emptyFile = true
+                else {
+                  this.emptyFile = false
+                  this.parsed = true
+                  this.parsedData = result
+                  Vue.prototype.$fullObject = result
+                  this.parsedSkippedEmptyLines = result.data.length
+                  this.$store.commit('setParsedListLength', this.parsedSkippedEmptyLines)
+                  this.$store.commit('setParsedFields', result.meta.fields)
+                  if (result.meta.delimiter === '\t') this.parsedData.meta.delimiter = 'Tab'
+                  if (result.meta.delimiter === ' ') this.parsedData.meta.delimiter = 'Space'
+                }
+              },
+            })
+          })
     }
   },
   computed: {
