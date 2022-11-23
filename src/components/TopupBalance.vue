@@ -71,12 +71,13 @@
 <script>
 import QrcodeVue from 'qrcode.vue'
 import tgMixin from "@/mixins/telegram/tgMixin";
+import topupBalanceHandler from "@/mixins/styleHandlers/topupBalanceHandler";
 
 const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "TopupBalance",
-  mixins: [tgMixin],
+  mixins: [tgMixin, topupBalanceHandler],
   components: {
     QrcodeVue,
   },
@@ -147,18 +148,9 @@ export default {
     darkModeSwitch: {
       handler(newValue) {
         if (newValue) {
-          document.querySelectorAll('.p-inputtext').forEach(e => e.classList.add('p-inputtext-dark'))
-          document.querySelectorAll('.text').forEach(e => e.classList.add('text-dark'))
-          document.querySelectorAll('.btn_left').forEach(e => e.classList.add('btn_left_dark'))
-          document.querySelectorAll('.btn_mid').forEach(e => e.classList.add('btn_mid_dark'))
-          document.querySelectorAll('.btn_right').forEach(e => e.classList.add('btn_right_dark'))
-
+          this.switchHandler()
         } else if (!newValue) {
-          document.querySelectorAll('.p-inputtext-dark').forEach(e => e.classList.remove('p-inputtext-dark'))
-          document.querySelectorAll('.text-dark').forEach(e => e.classList.remove('text-dark'))
-          document.querySelectorAll('.btn_left_dark').forEach(e => e.classList.remove('btn_left_dark'))
-          document.querySelectorAll('.btn_mid_dark').forEach(e => e.classList.remove('btn_mid_dark'))
-          document.querySelectorAll('.btn_right_dark').forEach(e => e.classList.remove('btn_right_dark'))
+          this.switchRemover()
         }
       },
     },

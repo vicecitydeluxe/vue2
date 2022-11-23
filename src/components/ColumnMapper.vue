@@ -47,7 +47,6 @@
             v-model="selectedFullname"
             :value="selectedFullname"
             :options="parsedFields"
-
             @before-show="toggleDarkDropdown"
         />
       </div>
@@ -62,7 +61,6 @@
             v-model="selectedEmail"
             :value="selectedEmail"
             :options="parsedFields"
-
             @before-show="toggleDarkDropdown"
         />
       </div>
@@ -77,7 +75,6 @@
             v-model="selectedPhone"
             :value="selectedPhone"
             :options="parsedFields"
-
             @before-show="toggleDarkDropdown"
         />
       </div>
@@ -114,6 +111,8 @@
             placeholder="(choose)"
             :filter="true"
             :options="countriesFullTitles"
+            @filter="toggleDarkDropdown"
+            @change="toggleDarkDropdown"
             @before-show="toggleDarkDropdown"
         />
       </div>
@@ -136,6 +135,8 @@
             placeholder="(choose)"
             :filter="true"
             :options="countriesFullTitles"
+            @filter="toggleDarkDropdown"
+            @change="toggleDarkDropdown"
             @before-show="toggleDarkDropdown"
         />
       </div>
@@ -171,6 +172,7 @@
             :showIcon="true"
             :touchUI="true"
             @hide="darkCalendar++"
+            dateFormat="dd/mm/yy"
         />
       </div>
       <div class="map_container">
@@ -190,6 +192,7 @@
             :showIcon="true"
             :touchUI="true"
             @hide="darkCalendar++"
+            dateFormat="dd/mm/yy"
         />
       </div>
       <hr style="margin: 10px">
@@ -229,6 +232,7 @@ import moment from 'moment';
 import tgMixin from "@/mixins/telegram/tgMixin";
 import columnMapperHelper from "@/mixins/helpers/columnMapperHelper";
 import countryMapperHelper from "@/mixins/helpers/countryMapperHelper";
+import columnMapperHandler from "@/mixins/styleHandlers/columnMapperHandler";
 import {mapGetters} from 'vuex'
 
 const globalTelegram = window.Telegram.WebApp
@@ -237,7 +241,8 @@ const calendars = document.getElementsByClassName('p-calendar')
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: "Mapper",
-  mixins: [tgMixin, columnMapperHelper, countryMapperHelper],
+  mixins: [tgMixin, columnMapperHelper,
+    countryMapperHelper, columnMapperHandler],
   data() {
     return {
       darkCalendar: 0,
@@ -253,7 +258,8 @@ export default {
   },
   methods: {
     removeExtraFields(arr) {
-      const keys = ["firstname", 'lastname', 'fullname', "email", "phone", "country", "regdate"]
+      const keys = ["firstname", 'lastname', 'fullname',
+        "email", "phone", "country", "regdate"]
       arr.forEach(el => {
         for (const dupeElement in el) {
           if (!keys.includes(dupeElement)) delete el[dupeElement]
@@ -413,27 +419,14 @@ export default {
     darkDropdown: {
       handler() {
         if (this.darkDropdown && this.darkModeSwitch) {
-          setTimeout(() => {
-            document.querySelectorAll('.p-placeholder').forEach(e => e.classList.add('p-placeholder_dark'))
-            document.querySelectorAll('.pi-chevron-down').forEach(e => e.classList.add('pi-chevron-down_dark'))
-            document.querySelectorAll('.p-dropdown-item').forEach(e => e.classList.add('p-dropdown-item_dark'))
-            document.querySelectorAll('.p-inputtext').forEach(e => e.classList.add('p-inputtext_dark'))
-            document.querySelectorAll('.p-highlight').forEach(e => e.classList.add('p-highlight_dark'))
-            document.querySelectorAll('.p-radiobutton-box').forEach(e => e.classList.add('p-radiobutton-box_dark'))
-          }, 0)
+          this.dropdownHandler()
         }
       }, deep: true
     },
     $data: {
       handler() {
         if (this.darkModeSwitch) {
-          setTimeout(() => {
-            document.querySelectorAll('.p-placeholder').forEach(e => e.classList.add('p-placeholder_dark'))
-            document.querySelectorAll('.pi-chevron-down').forEach(e => e.classList.add('pi-chevron-down_dark'))
-            document.querySelectorAll('.p-dropdown-item').forEach(e => e.classList.add('p-dropdown-item_dark'))
-            document.querySelectorAll('.p-inputtext').forEach(e => e.classList.add('p-inputtext_dark'))
-            document.querySelectorAll('.p-highlight').forEach(e => e.classList.add('p-highlight_dark'))
-          }, 0)
+          this.dataHandler()
         }
       }, deep: true
     },
@@ -450,38 +443,10 @@ export default {
     darkModeSwitch: {
       handler(newValue) {
         if (newValue) {
-          document.querySelectorAll('.p-placeholder').forEach(e => e.classList.add('p-placeholder_dark'))
-          document.querySelectorAll('.pi-chevron-down').forEach(e => e.classList.add('pi-chevron-down_dark'))
-          document.querySelectorAll('.p-dropdown-item').forEach(e => e.classList.add('p-dropdown-item_dark'))
-          document.querySelectorAll('.p-inputtext').forEach(e => e.classList.add('p-inputtext_dark'))
-          document.querySelectorAll('.p-highlight').forEach(e => e.classList.add('p-highlight_dark'))
-          document.querySelectorAll('.pi-calendar').forEach(e => e.classList.add('pi-calendar_dark'))
-          document.querySelectorAll('.bottom_section_container').forEach(e => e.classList.add('bottom_section_container_dark'))
-          document.querySelectorAll('.description').forEach(e => e.classList.add('description_dark'))
-          document.querySelectorAll('.map_container_title').forEach(e => e.classList.add('map_container_title_dark'))
-          document.querySelectorAll('.btn_left').forEach(e => e.classList.add('btn_left_dark'))
-          document.querySelectorAll('.btn_right').forEach(e => e.classList.add('btn_right_dark'))
-          document.querySelectorAll('.p-radiobutton-box').forEach(e => e.classList.add('p-radiobutton-box_dark'))
-          document.querySelectorAll('.p-calendar').forEach(e => e.classList.add('p-calendar_dark'))
-          document.querySelectorAll('.p-datepicker').forEach(e => e.classList.add('p-datepicker_dark'))
-          document.querySelectorAll('.p-datepicker-header').forEach(e => e.classList.add('p-datepicker-header_dark'))
-          document.querySelectorAll('.p-datepicker-year').forEach(e => e.classList.add('p-datepicker-year_dark'))
-          document.querySelectorAll('.p-datepicker-month').forEach(e => e.classList.add('p-datepicker-month_dark'))
-          document.querySelectorAll('.p-datepicker-next').forEach(e => e.classList.add('p-datepicker-next_dark'))
-          document.querySelectorAll('.p-datepicker-prev').forEach(e => e.classList.add('p-datepicker-prev_dark'))
-          document.querySelectorAll('.p-datepicker-trigger').forEach(e => e.classList.add('p-datepicker-trigger_dark'))
+          this.switchHandler()
         }
         if (!newValue) {
-          const darkStylesSelectors = ['p-placeholder_dark', 'pi-chevron-down_dark',
-            'p-dropdown-item_dark', 'p-inputtext_dark', 'p-highlight_dark',
-            'pi-calendar_dark', 'bottom_section_container_dark',
-            'description_dark', 'map_container_title_dark', 'btn_left_dark',
-            'btn_right_dark', 'p-radiobutton-box_dark', 'p-calendar_dark',
-            'p-datepicker_dark', 'p-datepicker-header_dark',
-            'p-datepicker-month_dark', 'p-datepicker-next_dark',
-            'p-datepicker-prev_dark', 'p-datepicker-year_dark']
-          document.querySelectorAll('[class*="_dark"]')
-              .forEach(e => e.classList.remove(...darkStylesSelectors))
+          this.switchRemover()
         }
       },
     },
@@ -493,15 +458,7 @@ export default {
     darkCalendar: {
       handler(newValue) {
         if (newValue && this.darkModeSwitch) {
-          setTimeout(() => {
-            document.querySelectorAll('.p-calendar').forEach(e => e.classList.add('p-calendar_dark'))
-            document.querySelectorAll('.p-datepicker').forEach(e => e.classList.add('p-datepicker_dark'))
-            document.querySelectorAll('.p-datepicker-header').forEach(e => e.classList.add('p-datepicker-header_dark'))
-            document.querySelectorAll('.p-datepicker-month').forEach(e => e.classList.add('p-datepicker-month_dark'))
-            document.querySelectorAll('.p-datepicker-year').forEach(e => e.classList.add('p-datepicker-year_dark'))
-            document.querySelectorAll('.p-datepicker-next').forEach(e => e.classList.add('p-datepicker-next_dark'))
-            document.querySelectorAll('.p-datepicker-prev').forEach(e => e.classList.add('p-datepicker-prev_dark'))
-          }, 0)
+          this.calendarHandler()
         }
       }
     },

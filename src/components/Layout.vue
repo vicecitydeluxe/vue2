@@ -78,7 +78,7 @@
           label="Buy leads"
           iconPos="top"
           class="p-button-lg"
-          @click="$router.push({name: 'buy'})"
+          @click="showPopupAlert"
       />
     </main>
     <!--    <button @click="getAllNAmes">Test</button>-->
