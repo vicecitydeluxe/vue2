@@ -79,6 +79,12 @@ export default {
           console.log(`ERR: ${err}`)
         })
   },
+  //TODO async logic
+  mounted() {
+    if (this.darkModeSwitch) setTimeout(() => {
+      this.darkModeMaker()
+    }, 1600)
+  },
   methods: {
     updateUsername() {
       this.$store.commit('setName', this.userInfo.username)
@@ -87,27 +93,34 @@ export default {
       this.$store.dispatch('SEND_NAME', this.userInfo.username)
       this.$router.push({name: 'layout'})
     },
+    darkModeMaker() {
+      document.querySelectorAll('.p-fluid').forEach(e => e.classList.add('p-fluid-dark'))
+      document.querySelectorAll('.p-inputtext').forEach(e => e.classList.add('p-inputtext-dark'))
+      document.querySelectorAll('.p-float-label').forEach(e => e.classList.add('p-float-label-dark'))
+      document.querySelectorAll('.p-filled').forEach(e => e.classList.add('p-filled-dark'))
+      document.querySelectorAll('.p-inputwrapper-focus').forEach(e => e.classList.add('p-inputwrapper-focus-dark'))
+      document.querySelectorAll('.p-inputwrapper-filled').forEach(e => e.classList.add('p-inputwrapper-filled-dark'))
+      document.querySelectorAll('.p-button').forEach(e => e.classList.add('p-button-dark'))
+      document.querySelectorAll('.p-component').forEach(e => e.classList.add('p-component-dark'))
+      document.querySelectorAll('.p-inputtext').forEach(e => e.classList.add('p-inputtext-dark'))
+      document.querySelectorAll('.p-component').forEach(e => e.classList.add('p-component-dark'))
+      document.querySelectorAll('.p-filled').forEach(e => e.classList.add('p-filled-dark'))
+      document.querySelectorAll('.p-invalid').forEach(e => e.classList.add('p-invalid-dark'))
+    }
   },
   computed: {
     validInput() {
-      return /[0-9a-zA-Z_]{5,}/.test(this.userInfo.username)
+      return /^.{5,}$/.test(this.userInfo.username)
     },
     isDisabledButton() {
       return this.validInput && this.userInfo.username
-    }
+    },
   },
   watch: {
     darkModeSwitch: {
       handler(newValue) {
         if (newValue) {
-          document.querySelectorAll('.p-fluid').forEach(e => e.classList.add('p-fluid-dark'))
-          document.querySelectorAll('.p-inputtext').forEach(e => e.classList.add('p-inputtext-dark'))
-          document.querySelectorAll('.p-float-label').forEach(e => e.classList.add('p-float-label-dark'))
-          document.querySelectorAll('.p-filled').forEach(e => e.classList.add('p-filled-dark'))
-          document.querySelectorAll('.p-inputwrapper-focus').forEach(e => e.classList.add('p-inputwrapper-focus-dark'))
-          document.querySelectorAll('.p-inputwrapper-filled').forEach(e => e.classList.add('p-inputwrapper-filled-dark'))
-          document.querySelectorAll('.p-button').forEach(e => e.classList.add('p-button-dark'))
-          document.querySelectorAll('.p-component').forEach(e => e.classList.add('p-component-dark'))
+          this.darkModeMaker()
         }
         if (!newValue) {
           const darkStylesSelectors = ['p-fluid-dark', 'p-inputtext-dark',

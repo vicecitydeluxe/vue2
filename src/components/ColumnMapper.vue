@@ -225,6 +225,7 @@
 <script>
 // noinspection ES6UnusedImports
 import Vue from 'vue'
+import moment from 'moment';
 import tgMixin from "@/mixins/telegram/tgMixin";
 import columnMapperHelper from "@/mixins/helpers/columnMapperHelper";
 import countryMapperHelper from "@/mixins/helpers/countryMapperHelper";
@@ -294,7 +295,6 @@ export default {
       this.selectedPhone = this.chosenPhone
       this.selectedCountry = this.chosenCountry
       this.selectedRegdate = this.chosenRegdate
-      this.selectedDeposit = this.chosenDeposit
     },
     toggleDarkCalendar() {
       this.darkCalendar++
@@ -311,20 +311,13 @@ export default {
   },
   computed: {
     ...mapGetters(['listName', "fileName", "parsedFields", 'visitedRouteFlag']),
-    countryEmptyChecker() {
-      for (let i = 0; i < Vue.prototype?.$fullObject?.data?.length; i++) {
-        return !Vue.prototype?.$fullObject?.data[i]['country'];
-      }
-    },
     requiredFieldsFilled() {
       return !!(this.selectedFirstname && this.selectedLastname
               && this.selectedEmail && this.selectedPhone
-              && this.selectedCountry && this.selectedRegdate
-              && !this.countryEmptyChecker) ||
+              && this.selectedCountry && this.selectedRegdate) ||
           !!(this.selectedFullname && this.selectedEmail
               && this.selectedPhone
-              && this.selectedCountry && this.selectedRegdate
-              && !this.countryEmptyChecker);
+              && this.selectedCountry && this.selectedRegdate);
     }
   },
   watch: {
@@ -355,11 +348,15 @@ export default {
     checkedCountry: {
       handler(newValue) {
         if (newValue === 'empty' && this.selectedCountryFromList) {
+          this.selectedCountry = 'country'
+          this.$store.commit('setChosenCountry', 'country')
           Vue.prototype.$fullObject.data.forEach((el) => {
             if (!el['country']) el['country'] = this.selectedCountryFromList
           })
           console.log(Vue.prototype.$fullObject.data)
         } else if (newValue === 'all_to' && this.selectedCountryFromList) {
+          this.selectedCountry = 'country'
+          this.$store.commit('setChosenCountry', 'country')
           Vue.prototype.$fullObject.data.forEach((el) => {
             el['country'] = this.selectedCountryFromList
           })
@@ -379,12 +376,16 @@ export default {
       handler(newValue) {
         if (newValue === 'empty' && this.registrationDate) {
           Vue.prototype.$fullObject.data.forEach((el) => {
-            if (!el['regdate']) el['regdate'] = this.registrationDate
+            this.selectedRegdate = 'regdate'
+            this.$store.commit('setChosenRegdate', 'regdate')
+            if (!el['regdate']) el['regdate'] = moment(this.registrationDate).format('DD.MM.YYYY')
           })
           console.log(Vue.prototype.$fullObject.data)
         } else if (newValue === 'all_to' && this.registrationDate) {
+          this.selectedRegdate = 'regdate'
+          this.$store.commit('setChosenRegdate', 'regdate')
           Vue.prototype.$fullObject.data.forEach((el) => {
-            el['regdate'] = this.registrationDate
+            el['regdate'] = moment(this.registrationDate).format('DD.MM.YYYY')
           })
           console.log(Vue.prototype.$fullObject.data)
           this.regDateCheckboxDisabler = true
@@ -485,8 +486,8 @@ export default {
       },
     },
     includeExtra: {
-      handler() {
-        this.globalReducer()
+      handler(n) {
+        if (!n) this.globalReducer()
       }
     },
     darkCalendar: {

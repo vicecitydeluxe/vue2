@@ -77,6 +77,7 @@
         />
       </a>
     </div>
+    <Toast position="bottom-center"/>
   </div>
 </template>
 
@@ -127,8 +128,27 @@ export default {
           const bodyFormData = new FormData();
           bodyFormData.append('document', event.files[0]);
           this.$store.dispatch('SEND_DOCUMENT', bodyFormData)
-              .then((res) => {
+              .then(res => {
+                if (res.data.status !== 200) {
+                  this.$toast.add({
+                    severity: 'warn',
+                    summary: 'Warning message',
+                    detail: 'The server encountered an unexpected error,' +
+                        ' try to load again or load in CSV format',
+                    life: 3000
+                  });
+                }
                 resolve(res.data.data)
+              })
+              .catch(err => {
+                console.log(err)
+                this.$toast.add({
+                  severity: 'warn',
+                  summary: 'Warning message',
+                  detail: 'The server encountered an unexpected error,' +
+                      ' try again later!',
+                  life: 3000
+                });
               })
         } else resolve(event.files[0])
       })
