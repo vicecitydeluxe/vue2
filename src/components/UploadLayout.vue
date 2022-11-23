@@ -87,8 +87,8 @@ export default {
       selectedFunnel: null,
       selectedType: null,
       vertical: [
-        '* CFD',
-        '* Crypto',
+        'CFD',
+        'Crypto',
       ],
       funnels: [
         'Education',
