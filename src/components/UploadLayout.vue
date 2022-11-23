@@ -70,7 +70,6 @@
 
 <script>
 import tgMixin from "@/mixins/telegram/tgMixin";
-import toastWarn from "@/mixins/helpers/toastWarn";
 import uploadLayoutHandler from "@/mixins/styleHandlers/uploadLayoutHandler";
 import {mapGetters} from 'vuex'
 
@@ -78,7 +77,7 @@ const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "UploadLayout",
-  mixins: [tgMixin, toastWarn, uploadLayoutHandler],
+  mixins: [tgMixin, uploadLayoutHandler],
   data() {
     return {
       darkDropdown: 0,
