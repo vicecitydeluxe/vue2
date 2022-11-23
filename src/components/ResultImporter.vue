@@ -148,6 +148,7 @@ export default {
     }
   },
   methods: {
+    // if need to store extra fields, disable next function on created() hook
     removeExtraFields(arr) {
       const keys = ["firstname", 'lastname', 'fullname', "email", "phone", "country", "regdate"]
       arr.forEach(el => {
@@ -244,7 +245,8 @@ export default {
       })
       this.privateResults[1].value = Vue.prototype.$fullDuplicatesRemoved.length
       this.fullDuplicatesIndexes = []
-      this.showFullInfoToast()
+      console.log(Vue.prototype.$fullDuplicatesRemoved)
+      // this.showFullInfoToast()
     },
     removePartialDuplicates() {
       Vue.prototype.$partialDuplicatesRemoved = Vue.prototype?.$fullObject?.data.filter((el, i) => {
@@ -252,7 +254,8 @@ export default {
       })
       this.privateResults[1].value = Vue.prototype.$partialDuplicatesRemoved.length
       this.partialDuplicatesIndexes = []
-      this.showPartialInfoToast()
+      console.log(Vue.prototype.$partialDuplicatesRemoved)
+      // this.showPartialInfoToast()
     },
     downloadInvalidLeads() {
       return new Promise((resolve) => {

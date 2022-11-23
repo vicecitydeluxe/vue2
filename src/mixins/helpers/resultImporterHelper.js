@@ -46,9 +46,9 @@ export default {
                 {field: 'value', header: '#'},
             ],
             uniqueResults: [
-                {description: 'Fully unique leads', value: '150'},
-                {description: 'Partially unique leads', value: '550'},
-                {description: 'Duplicate leads', value: '800'},
+                {description: 'Fully unique leads', value: ''},
+                {description: 'Partially unique leads', value: ''},
+                {description: 'Duplicate leads', value: ''},
             ],
             invalidParsedLinesIndexes: [],
             fullDuplicatesIndexes: [],

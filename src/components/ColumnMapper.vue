@@ -249,34 +249,25 @@ export default {
       darkDropdown: 0,
       includeExtra: null,
       extraFieldsFlag: false,
-      emptyCountryValueFlag: false,
-      emptyRegDateValueFlag: false,
       countryCheckboxDisabler: false,
       regDateCheckboxDisabler: false,
-      prevRoute: ''
+      prevRoute: '',
+      countryEmptyFlag: false,
+      regdateEmptyFlag: false
     }
   },
   methods: {
+    emptyChecker(e) {
+      for (let i = 0; i < Vue.prototype?.$fullObject?.data?.length; i++) {
+        if (!Vue.prototype?.$fullObject?.data[i][e]) return this[`${e}EmptyFlag`] = true
+      }
+    },
     removeExtraFields(arr) {
       const keys = ["firstname", 'lastname', 'fullname',
         "email", "phone", "country", "regdate"]
       arr.forEach(el => {
         for (const dupeElement in el) {
           if (!keys.includes(dupeElement)) delete el[dupeElement]
-        }
-      })
-    },
-    countryValueChecker() {
-      Vue.prototype?.$fullObject?.data.filter((el) => {
-        if (!el['country']) {
-          this.emptyCountryValueFlag = true
-        }
-      })
-    },
-    regDateValueChecker() {
-      Vue.prototype?.$fullObject?.data.filter((el) => {
-        if (!el['regdate']) {
-          this.emptyRegDateValueFlag = true
         }
       })
     },
@@ -287,11 +278,9 @@ export default {
      * if user has chosen option to delete all extra fields
      */
     globalReducer() {
-      if (!Vue.prototype?.$reducedObject) {
-        Vue.prototype.$reducedObject = JSON.parse(JSON.stringify(Vue.prototype.$fullObject.data))
-        this.removeExtraFields(Vue.prototype?.$reducedObject)
-        console.log(Vue.prototype?.$reducedObject)
-      }
+      Vue.prototype.$reducedObject = JSON.parse(JSON.stringify(Vue.prototype.$fullObject.data))
+      this.removeExtraFields(Vue.prototype?.$reducedObject)
+      console.log(Vue.prototype?.$reducedObject)
     },
     stateReselect() {
       this.selectedFirstname = this.chosenFirstname
@@ -320,42 +309,21 @@ export default {
     requiredFieldsFilled() {
       return !!(this.selectedFirstname && this.selectedLastname
               && this.selectedEmail && this.selectedPhone
-              && this.selectedCountry && this.selectedRegdate) ||
+              && this.selectedCountry && this.selectedRegdate
+              && !this.countryEmptyFlag && !this.regdateEmptyFlag) ||
           !!(this.selectedFullname && this.selectedEmail
               && this.selectedPhone
-              && this.selectedCountry && this.selectedRegdate);
+              && this.selectedCountry && this.selectedRegdate
+              && !this.countryEmptyFlag && !this.regdateEmptyFlag);
     }
   },
   watch: {
-    emptyCountryValueFlag: {
-      handler(newValue) {
-        if (newValue) {
-          this.$toast.add({
-            severity: 'info',
-            summary: 'Info message',
-            detail: 'Empty coutries found, map them below!',
-            life: 4000
-          });
-        }
-      }
-    },
-    emptyRegDateValueFlag: {
-      handler(newValue) {
-        if (newValue) {
-          this.$toast.add({
-            severity: 'info',
-            summary: 'Info message',
-            detail: 'Empty registration dates found, map them below!',
-            life: 4000
-          });
-        }
-      }
-    },
     checkedCountry: {
       handler(newValue) {
         if (newValue === 'empty' && this.selectedCountryFromList) {
           this.selectedCountry = 'country'
           this.$store.commit('setChosenCountry', 'country')
+          this.countryEmptyFlag = false
           Vue.prototype.$fullObject.data.forEach((el) => {
             if (!el['country']) el['country'] = this.selectedCountryFromList
           })
@@ -363,6 +331,7 @@ export default {
         } else if (newValue === 'all_to' && this.selectedCountryFromList) {
           this.selectedCountry = 'country'
           this.$store.commit('setChosenCountry', 'country')
+          this.countryEmptyFlag = false
           Vue.prototype.$fullObject.data.forEach((el) => {
             el['country'] = this.selectedCountryFromList
           })
@@ -384,12 +353,14 @@ export default {
           Vue.prototype.$fullObject.data.forEach((el) => {
             this.selectedRegdate = 'regdate'
             this.$store.commit('setChosenRegdate', 'regdate')
+            this.regdateEmptyFlag = false
             if (!el['regdate']) el['regdate'] = moment(this.registrationDate).format('DD.MM.YYYY')
           })
           console.log(Vue.prototype.$fullObject.data)
         } else if (newValue === 'all_to' && this.registrationDate) {
           this.selectedRegdate = 'regdate'
           this.$store.commit('setChosenRegdate', 'regdate')
+          this.regdateEmptyFlag = false
           Vue.prototype.$fullObject.data.forEach((el) => {
             el['regdate'] = moment(this.registrationDate).format('DD.MM.YYYY')
           })
@@ -451,8 +422,8 @@ export default {
       },
     },
     includeExtra: {
-      handler(n) {
-        if (!n) this.globalReducer()
+      handler(newValue) {
+        !newValue ? this.globalReducer() : console.log(Vue.prototype.$fullObject.data)
       }
     },
     darkCalendar: {
@@ -466,12 +437,14 @@ export default {
   beforeRouteEnter(to, from, next) {
     next(vm => vm.$data.prevRoute = from.fullPath)
   },
+  created() {
+    this.emptyChecker('country')
+    this.emptyChecker('regdate')
+  },
   mounted() {
     !!Vue.prototype?.$fullObject?.data && !this.visitedRouteFlag
         ? this.startCheck()
         : this.stateReselect()
-    this.countryValueChecker()
-    this.regDateValueChecker()
     console.log(Vue.prototype?.$fullObject?.data)
     globalTelegram.MainButton.onClick(this.actionCb)
     globalTelegram.BackButton.show().onClick(this.redirectCb)
