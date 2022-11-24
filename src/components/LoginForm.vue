@@ -58,9 +58,15 @@ export default {
     globalTelegram.ready()
   },
   beforeMount() {
-    this.userInfo.username = globalTelegram.initDataUnsafe.user ? globalTelegram.initDataUnsafe.user.username : 'Unknown_user'
-    this.userInfo.tgNickname = globalTelegram.initDataUnsafe.user ? globalTelegram.initDataUnsafe.user.username : 'Unknown_user'
-    this.userInfo.tgID = globalTelegram.initDataUnsafe.user ? globalTelegram.initDataUnsafe.user.id : '000000000'
+    this.userInfo.username = globalTelegram.initDataUnsafe.user
+        ? globalTelegram.initDataUnsafe.user.username
+        : 'Unknown_user'
+    this.userInfo.tgNickname = globalTelegram.initDataUnsafe.user
+        ? globalTelegram.initDataUnsafe.user.username
+        : 'Unknown_user'
+    this.userInfo.tgID = globalTelegram.initDataUnsafe.user
+        ? globalTelegram.initDataUnsafe.user.id
+        : '000000000'
     this.$store.commit('setName', this.userInfo.username)
 
     this.$store.dispatch('CHECK_NAME')
@@ -80,10 +86,9 @@ export default {
           console.log(`ERR: ${err}`)
         })
   },
-  //TODO async logic
   mounted() {
     if (this.darkModeSwitch) setTimeout(() => {
-      this.darkModeMaker()
+      this.switchHandler()
     }, 1600)
   },
   methods: {
@@ -112,7 +117,7 @@ export default {
         if (!newValue) {
           this.switchRemover()
         }
-      },
+      }, immediate: true
     },
     userInfo: {
       handler(newValue) {
@@ -124,7 +129,8 @@ export default {
           this.dataHandler()
         }
       },
-      deep: true
+      deep: true,
+      immediate: true
     },
   },
 }

@@ -1,14 +1,12 @@
 <template>
   <div class="header">
     <header class="header_section">
-      <h3>IMPORTING LEADS</h3>
+      <h3>PARSING LEADS</h3>
     </header>
     <main class="description">
-      <div>We're importing the leads,
+      <div>We're parsing the leads,
         checking the duplicates, and preparing statistics.
         You can wait or you can close the page.
-        You will get a notification as soon as the lead creation process
-        finishes.
       </div>
       <ProgressSpinner
           style="width:50px;
@@ -56,5 +54,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/ImportSpinner.scss';
+@import '../styles/ParsingStyles.scss';
 </style>

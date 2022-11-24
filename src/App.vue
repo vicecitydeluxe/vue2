@@ -19,7 +19,6 @@ export default {
         : this.darkModeSwitch = true;
   },
   mounted() {
-    if (this.darkModeSwitch) document.body.className = "dark"
     // comment next line to show Telegram and other warnings
     console.warn = () => {}
     globalTelegram.onEvent('themeChanged', () => {
@@ -34,7 +33,7 @@ export default {
         newValue
             ? document.body.className = "dark"
             : document.body.className = "light"
-      },
+      }, immediate:true
     },
   },
 };
