@@ -50,7 +50,7 @@
         before loading leads to the DB.
       </div>
       <div
-          v-if="countriesToMap.length <= 1"
+          v-if="countriesToMap.length < 1"
           class="description"
       >All fields are already mapped!
       </div>
@@ -158,7 +158,6 @@ export default {
           Vue.prototype.$fullObject.data.forEach((el, i) => {
             if (el.country === this.countriesToMap[this.iterationIndex]) {
               Vue.prototype.$countries[i]['country'] = this.oldCountryState
-              this.selectedCountry[this.countryIndexes.indexOf(i)] = this.oldCountryState
             }
             if (!this.selectedCountry[i]) return
             Vue.prototype.$countries[this.countryIndexes[i]]['country'] = this.selectedCountry[i]

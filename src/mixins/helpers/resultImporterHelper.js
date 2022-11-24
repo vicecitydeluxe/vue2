@@ -355,7 +355,7 @@ export default {
                 vertical: this.vertical,
                 funnel_type: this.funnelType,
                 type: 'Unknown',
-                valid_leads_amount: Vue.prototype?.$fullObject?.data?.length,
+                valid_leads_amount: this.privateResults[1]?.value,
                 upload_date: this.todayDate,
                 status: this.listStatusBeforeUpload
             }
