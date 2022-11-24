@@ -2,15 +2,15 @@
   <div class="header">
     <!--    <Button @click="sendParsedList">LIST SENDER</Button>-->
     <header class="header_section">
-      <h3># {{ this.listNameLocal }}</h3>
+      <h3># {{ listNameLocal }}</h3>
     </header>
     <main>
-      <div>List: {{ this.listNameLocal }}</div>
+      <div>List: {{ listNameLocal }}</div>
       <hr class="name_divider">
-      <div>File: {{ this.fileNameLocal }}</div>
+      <div>File: {{ fileNameLocal }}</div>
       <div class="description">Estimation of how loaded
         leads are unique across all your leads. Numbers are valid on:
-        {{ this.todayDate }}
+        {{ todayDate }}
       </div>
       <div class="description_divider">Lead loading results</div>
       <DataTable
@@ -123,10 +123,8 @@
 <script>
 // noinspection ES6UnusedImports
 import Vue from 'vue'
-import Papa from "papaparse";
 import tgMixin from "@/mixins/telegram/tgMixin";
 import resultImporterHelper from "@/mixins/helpers/resultImporterHelper";
-import moment from 'moment';
 
 const globalTelegram = window.Telegram.WebApp
 
@@ -137,18 +135,10 @@ export default {
     return {
       listNameLocal: '',
       fileNameLocal: '',
-      betweenDay: [],
-      betweenWeek: [],
-      betweenMonth: [],
-      betweenOneTwoMonths: [],
-      betweenTwoThreeMonths: [],
-      overThreeMonths: [],
-      futureDateErrors: [],
-      unknownDateFormat: []
     }
   },
   methods: {
-    // if need to store extra fields, disable next function on created() hook
+    // if you need to store extra fields, disable next function on created() hook
     removeExtraFields(arr) {
       const keys = ["firstname", 'lastname', 'fullname', "email", "phone", "country", "regdate"]
       arr.forEach(el => {
@@ -156,195 +146,6 @@ export default {
           if (!keys.includes(dupeElement)) delete el[dupeElement]
         }
       })
-    },
-    dateChecker() {
-      const u = undefined
-      const dayBefore = moment().subtract(1, 'd')
-      const weekBefore = moment().subtract(1, 'week')
-      const monthBefore = moment().subtract(1, 'month')
-      const twoMonthBefore = moment().subtract(2, 'month')
-      const threeMonthBefore = moment().subtract(3, 'month')
-      const year = moment().subtract(1, 'year')
-      //  specify format, default is EU;
-      const format = 'DD.MM.YYYY'
-
-      Vue.prototype?.$fullObject?.data.map((el) => {
-        const elem = el['regdate']
-
-        if (!moment(elem, format).isValid()) {
-          this.unknownDateFormat.push(elem)
-        } else if (moment(elem, format).isBetween(dayBefore, u)) {
-          this.betweenDay.push(elem)
-        } else if (moment(elem, format).isBetween(weekBefore, u)) {
-          this.betweenWeek.push(elem)
-        } else if (moment(elem, format).isBetween(monthBefore, weekBefore)) {
-          this.betweenMonth.push(elem)
-        } else if (moment(elem, format).isBetween(twoMonthBefore, monthBefore)) {
-          this.betweenOneTwoMonths.push(elem)
-        } else if (moment(elem, format).isBetween(threeMonthBefore, twoMonthBefore)) {
-          this.betweenTwoThreeMonths.push(elem)
-        } else if (moment(elem, format).isBetween(year, threeMonthBefore)) {
-          this.overThreeMonths.push(elem)
-        } else if (moment(elem, format).isAfter()) {
-          this.futureDateErrors.push(elem)
-        } else console.error(elem)
-      })
-      this.publicResults[0].value = this.betweenDay.length
-      this.publicResults[1].value = this.betweenWeek.length
-      this.publicResults[2].value = this.betweenMonth.length
-      this.publicResults[3].value = this.betweenOneTwoMonths.length
-      this.publicResults[4].value = this.betweenTwoThreeMonths.length
-      this.publicResults[5].value = this.overThreeMonths.length
-      this.publicResults[6].value = this.futureDateErrors.length
-      this.publicResults[7].value = this.unknownDateFormat.length
-    },
-    getFullDuplicates() {
-      const helpMap = new Map();
-      Vue.prototype.$fullDuplicates = [];
-      if (!!Vue.prototype?.$fullObject?.data) {
-        Vue.prototype?.$fullObject?.data.map((element, index) => {
-          if (helpMap.has(element['email'])) {
-            const existingElement = helpMap.get(element['email']);
-
-            if (element['phone'] === existingElement) {
-              Vue.prototype.$fullDuplicates.push(element);
-              this.fullDuplicatesIndexes.push(index)
-            }
-          } else {
-            helpMap.set(element['email'], element['phone']);
-          }
-        });
-      }
-    },
-    getPartialDuplicates() {
-      const helpMap = new Map();
-      /**
-       * $partialDuplicates & $fullDuplicatesRemoved
-       * are helper array to store
-       * lines to remove later if needed
-       */
-      Vue.prototype.$partialDuplicates = []
-      if (!!Vue.prototype?.$fullObject?.data) {
-        Vue.prototype?.$fullObject?.data.map((element, index) => {
-          if (helpMap.has(element['email'])) {
-            const existingElement = helpMap.get(element['email']);
-
-            if (element['phone'] !== existingElement) {
-              Vue.prototype.$partialDuplicates.push(element);
-              this.partialDuplicatesIndexes.push(index)
-            }
-          } else {
-            helpMap.set(element['email'], element['phone']);
-          }
-        });
-      }
-    },
-    removeFullDuplicates() {
-      Vue.prototype.$fullDuplicatesRemoved = Vue.prototype?.$fullObject?.data.filter((el, i) => {
-        if (!this.fullDuplicatesIndexes.includes(i)) return el
-      })
-      this.privateResults[1].value = Vue.prototype.$fullDuplicatesRemoved.length
-      this.fullDuplicatesIndexes = []
-      console.log(Vue.prototype.$fullDuplicatesRemoved)
-      // this.showFullInfoToast()
-    },
-    removePartialDuplicates() {
-      Vue.prototype.$partialDuplicatesRemoved = Vue.prototype?.$fullObject?.data.filter((el, i) => {
-        if (!this.partialDuplicatesIndexes.includes(i)) return el
-      })
-      this.privateResults[1].value = Vue.prototype.$partialDuplicatesRemoved.length
-      this.partialDuplicatesIndexes = []
-      console.log(Vue.prototype.$partialDuplicatesRemoved)
-      // this.showPartialInfoToast()
-    },
-    downloadInvalidLeads() {
-      return new Promise((resolve) => {
-        /**
-         * $parsedDocument non-reactive helper-object to create a file
-         * user could download and see wrong lines
-         */
-        Vue.prototype.$parsedDocument = Papa.unparse(Object.assign({
-          'fields': Object.keys(Vue.prototype?.$invalidObject[0]),
-          'data': Vue.prototype?.$invalidObject.map((el) => Object.values(el))
-        }))
-        resolve(Vue.prototype.$parsedDocument)
-      }).then(result => {
-        const download = function (result) {
-          const blob = new Blob([result], {type: 'text/csv'});
-          const url = window.URL.createObjectURL(blob)
-          const a = document.createElement('a')
-          a.setAttribute('href', url)
-          a.setAttribute('download', 'invalid_leads.csv');
-          a.click()
-        }
-        download(result)
-      })
-    },
-    sendParsedList() {
-      let obj = []
-      /**
-       * $fullDuplicatesRemoved or $partialDuplicatesRemoved
-       * non-reactive helper-objects
-       * if any of them exist would send as a payload later
-       */
-      if (!!Vue.prototype?.$fullDuplicatesRemoved?.length) {
-        obj = Vue.prototype?.$fullDuplicatesRemoved
-      } else if (!!Vue.prototype?.$partialDuplicatesRemoved?.length) {
-        obj = Vue.prototype?.$partialDuplicatesRemoved
-      } else if (!!Vue.prototype?.$fullObject?.data) {
-        obj = Vue.prototype?.$fullObject?.data
-      }
-
-      this.$store.dispatch('SEND_PARSED_LEADS',
-          {name: this.listNameLocal, file_name: this.fileNameLocal, object: obj})
-          .then(() => {
-            // console.log(res.data)
-          })
-          .catch((err) => {
-            console.log(err)
-          })
-    },
-    sendStatistics() {
-      const obj = {
-        name: this.listName,
-        file_name: this.fileName,
-        full_records: this.parsedListLength,
-        valid_leads: this.privateResults[1]?.value,
-        unable_to_parse: this.privateResults[2]?.value,
-        invalid_emails: this.privateResults[4]?.value,
-        invalid_phones: this.privateResults[5]?.value,
-        invalid_names: this.privateResults[6]?.value,
-      }
-      this.$store.dispatch('SEND_STATS', obj)
-          .then(() => {
-            // console.log(res)
-          })
-          .catch((err) => {
-            console.log(err)
-          })
-    },
-    sendUploadStatus() {
-      /**
-       * Values below taken from getters in mixin-helper
-       */
-      const obj = {
-        name: this.listName,
-        filename: this.filename,
-        vertical: this.vertical,
-        funnel_type: this.funnelType,
-        type: 'Unknown',
-        valid_leads_amount: Vue.prototype?.$fullObject?.data?.length,
-        upload_date: this.todayDate,
-        status: this.listStatusBeforeUpload
-      }
-      this.$store.dispatch('SEND_UPLOAD_STATUS', obj)
-          .then(() => {
-            this.sendStatistics()
-            // console.log(res)
-          })
-          .catch((err) => {
-            console.log(err)
-          })
     },
     actionCb() {
       if (this.$route.path === '/result-importer') {
@@ -418,10 +219,14 @@ export default {
   created() {
     this.listNameLocal = this.listName
     this.fileNameLocal = this.fileName
+
     if (this.parsedListLength > 0) this.privateResults[0].value = this.parsedListLength
+
     this.privateResults[1].value = Vue.prototype?.$fullObject?.data?.length
-    if (!!Vue.prototype?.$fullObject?.data) this.removeExtraFields(Vue.prototype?.$fullObject?.data)
+
     if (!!Vue.prototype?.$fullObject?.data) {
+      //remove next line if you need to store extra fields
+      this.removeExtraFields(Vue.prototype?.$fullObject?.data)
       this.dateChecker()
       this.countersInvoker()
       if (this.invalidParsedLinesIndexes.length === 0) {
@@ -467,6 +272,7 @@ export default {
             .forEach(e => e.classList.replace('p-column-title', 'p-column-title-dark'))
       }, 0)
     }
+    // when we enter from inline button
     if (!Vue.prototype?.$fullObject?.data) {
       globalTelegram.MainButton.setText('Go back to layout section')
       globalTelegram.MainButton.color = '#e50fda'
