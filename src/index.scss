@@ -294,6 +294,8 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .p-dropdown-panel {
+  width: 75%;
+
   .p-dropdown-items {
     .p-dropdown-item {
 
@@ -352,19 +354,85 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 /**
- Data Table Dark Style
- */
-.p-column-title-dark {
-  color: white;
-  font-weight: bold;
+MultiSelect dark styles
+*/
+.pi-chevron-down {
+
+  &_dark {
+    color: white;
+  }
+}
+
+.p-multiselect {
+  .p-multiselect-label.p-placeholder {
+
+    &_dark {
+      color: #F4F9FF99;
+    }
+  }
 }
 
 
-/**
- SelectButton Dark Styles **
- */
-.p-buttonset .p-button {
-  width: 33%;
+.p-multiselect-panel {
+  width: 75%;
+
+  .p-multiselect-items {
+    .p-multiselect-item {
+
+      &_dark {
+        background: #282828;
+        color: white;
+      }
+    }
+  }
+}
+
+.p-multiselect {
+  .p-inputtext {
+
+    &_dark {
+      background: #282828;
+      color: white;
+    }
+  }
+}
+
+.p-multiselect-panel {
+  .p-multiselect-items {
+
+    .p-multiselect-empty-message {
+
+      &_dark {
+        color: white;
+        background: #282828;
+      }
+    }
+
+    .p-multiselect-item.p-highlight {
+
+      &_dark {
+        color: white;
+        background: #32343A;
+      }
+    }
+  }
+}
+
+.p-multiselect-panel {
+  .p-multiselect-header {
+    &_dark {
+      color: white;
+      background: #000000;
+    }
+
+    .p-multiselect-filter-container {
+      .p-multiselect-filter-icon {
+        &_dark {
+          color: white;
+        }
+      }
+    }
+  }
 }
 
 /**
@@ -661,4 +729,16 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .p-inputtext.p-invalid.p-component {
   width: 100%;
+}
+
+.p-inputnumber-input {
+
+  &_dark {
+    color: white;
+    background: #282828;
+  }
+}
+.p-column-title-dark {
+  color: white;
+  font-weight: bold;
 }

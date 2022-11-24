@@ -7,6 +7,7 @@ import browserDetect from "vue-browser-detect-plugin";
 import PrimeVue from 'primevue/config';
 
 import InputText from 'primevue/inputtext';
+import InputNumber from 'primevue/inputnumber';
 import Button from 'primevue/button';
 import SelectButton from 'primevue/selectbutton';
 import FileUpload from 'primevue/fileupload';
@@ -24,6 +25,7 @@ import ToastService from 'primevue/toastservice';
 import Toast from 'primevue/toast';
 import Calendar from 'primevue/calendar';
 import Paginator from 'primevue/paginator';
+import MultiSelect from 'primevue/multiselect';
 
 import 'primevue/resources/themes/md-light-indigo/theme.css'
 import 'primevue/resources/primevue.min.css'
@@ -31,6 +33,7 @@ import 'primeicons/primeicons.css'
 import "./index.scss";
 
 Vue.component('InputText', InputText);
+Vue.component('InputNumber', InputNumber);
 Vue.component('Button', Button);
 Vue.component('FileUpload', FileUpload);
 Vue.component('DataTable', DataTable);
@@ -47,6 +50,7 @@ Vue.component('AccordionTab', AccordionTab);
 Vue.component('Toast', Toast);
 Vue.component('Calendar', Calendar);
 Vue.component('Paginator', Paginator);
+Vue.component('MultiSelect', MultiSelect);
 
 Vue.use(browserDetect);
 Vue.use(PrimeVue);
