@@ -17,9 +17,9 @@ const state = {
     chosenEmail: null,
     chosenPhone: null,
     chosenCountry: null,
+    oldCountryState: '',
     chosenRegdate: null,
     visitedRouteFlag: 0,
-    oldCountryState: '',
 }
 
 const getters = {

@@ -82,13 +82,17 @@
         <Button
             @click="$router.push({name: 'sellers'})"
             icon="pi pi-angle-right"
-            label='Any seller'
+            :label="excludedSellersLength
+                ? `Any seller expect ${excludedSellersLength} selected`
+                : 'Any seller'"
             class="options_container_button"
         />
         <Button
             @click="$router.push({name: 'lists'})"
             icon="pi pi-angle-right"
-            label='Any list'
+            :label="excludedListsLength
+                ? `Any list expect ${excludedListsLength} selected`
+                : 'Any list'"
             class="options_container_button"
         />
       </div>
@@ -154,6 +158,7 @@
 import tgMixin from "@/mixins/telegram/tgMixin";
 import leadsFinderHandler from "@/mixins/styleHandlers/leadsFinderHandler";
 import countryMapperHelper from "@/mixins/helpers/countryMapperHelper";
+import {mapGetters} from "vuex";
 
 const globalTelegram = window.Telegram.WebApp
 
@@ -191,6 +196,9 @@ export default {
       demand: null,
       maxAmount: null,
     }
+  },
+  computed: {
+    ...mapGetters(['excludedListsLength', 'excludedSellersLength'])
   },
   methods: {
     redirectCb() {

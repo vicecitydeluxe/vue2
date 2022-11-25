@@ -36,6 +36,7 @@
 
 <script>
 import tgMixin from "@/mixins/telegram/tgMixin";
+import {mapGetters} from "vuex";
 
 const globalTelegram = window.Telegram.WebApp
 
@@ -48,7 +49,6 @@ export default {
   data() {
     return {
       checkedList: [],
-      index: '',
       selectedFilter: 'Any list',
       filter: ['Any list', 'Choose', 'Exclude'],
       lists: [
@@ -85,6 +85,9 @@ export default {
       ]
     }
   },
+  computed: {
+    ...mapGetters['excludedListsLength'],
+  },
   methods: {
     checkerParent(el, i) {
       this.$set(this.checkedList, i, el)
@@ -109,7 +112,8 @@ export default {
     checkedList: {
       handler(newValue) {
         if (newValue) {
-          console.log(newValue)
+          this.$store.commit('setExcludedListsLength', newValue.filter(el => !el).length)
+
           globalTelegram.MainButton.setText('Apply filter')
           globalTelegram.MainButton.color = '#16a34a'
           globalTelegram.MainButton.show()
@@ -118,6 +122,10 @@ export default {
         }
       },
     }
+  },
+  created() {
+    this.checkedList.length = this.lists.length
+    this.checkedList.fill(true)
   },
   mounted() {
     globalTelegram.MainButton.onClick(this.actionCb)
