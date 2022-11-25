@@ -8,7 +8,7 @@
           <div>Your balance:</div>
           <div class="header_icon">${{ balanceAmount }}</div>
         </div>
-        <div @click="$router.push({name:'deals'})"
+        <div @click="showPopupAlert"
              class="header_profile_container">
           <i class="pi pi-user icon"
              style="color: #3950CC"></i>

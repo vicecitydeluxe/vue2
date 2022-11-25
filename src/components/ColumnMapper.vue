@@ -423,7 +423,9 @@ export default {
     },
     includeExtra: {
       handler(newValue) {
-        !newValue ? this.globalReducer() : console.log(Vue.prototype.$fullObject.data)
+        !newValue
+            ? this.globalReducer()
+            : console.log(Vue.prototype.$fullObject.data)
       }
     },
     darkCalendar: {

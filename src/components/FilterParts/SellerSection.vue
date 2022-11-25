@@ -1,17 +1,18 @@
 <template>
   <section class="container">
     <div class="container_top">
-      <span class="container_title">#192 MegaSeller</span>
+      <span class="container_title">{{ name }}</span>
       <ToggleButton
-          v-model="checked"
+          @click="checker"
           onLabel="Include"
           offLabel="Exclude"
+          v-model="checked"
       />
     </div>
     <div class="container_bottom">
-      <span>Rating: ++++-</span>
-      <span> 5 lists, 4500 leads</span>
-      <span>You bought5: 1 list, 1670 leads</span>
+      <span>Rating:{{ rating }}</span>
+      <span> {{ lists }} lists, {{ leads }} leads</span>
+      <span>You bought: {{ historyList }} list, {{ historyLeads }}leads</span>
     </div>
   </section>
 </template>
@@ -21,11 +22,24 @@ const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "SellerSection",
+  props: {
+    name: String,
+    rating: String,
+    lists: String,
+    leads: String,
+    historyList: String,
+    historyLeads: String
+  },
   data() {
     return {
       darkModeSwitch: false,
-      checked: true,
+      checked: false
     }
+  },
+  methods: {
+    checker() {
+      this.$emit('checker', this.checked)
+    },
   },
   watch: {
     darkModeSwitch: {

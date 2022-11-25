@@ -107,6 +107,11 @@ input[type="number"]::-webkit-inner-spin-button {
 .p-togglebutton.p-button.p-highlight {
   background: #2563eb;
   color: white;
+
+  &:hover {
+    background: #2563eb;
+    color: white;
+  }
 }
 
 .p-togglebutton.p-button:not(.p-disabled):not(.p-highlight):hover {
@@ -738,6 +743,7 @@ MultiSelect dark styles
     background: #282828;
   }
 }
+
 .p-column-title-dark {
   color: white;
   font-weight: bold;

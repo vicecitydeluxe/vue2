@@ -6,16 +6,30 @@
     <main>
       <div>Who you want to buy leads from?</div>
       <div class="button-container">
-        <button class="button_left"
-                v-model="checked"
-                @click="checked = !checked"
-        >Any seller
-        </button>
-        <button class="button_middle">Choose</button>
-        <button class="button_right">Exclude</button>
+        <SelectButton
+            v-model="selectedFilter"
+            :options="filter"
+        />
       </div>
-      <ListSection/>
-      <ListSection/>
+      <ul style="list-style: none">
+        <li
+            v-for="(item, index) in lists"
+            :key="index"
+        >
+          <ListSection
+              :name="item.name"
+              :rating="item.rating"
+              :list="item.list"
+              :funnel="item.funnel"
+              :uploadDate="item.uploadDate"
+              :sold="item.sold"
+              :matching="item.matching"
+              :total="item.total"
+              :checked="checkedList"
+              @checker="(el) => {checkerParent(el, index)}"
+          />
+        </li>
+      </ul>
     </main>
   </div>
 </template>
@@ -33,10 +47,48 @@ export default {
   },
   data() {
     return {
-      checked: false,
+      checkedList: [],
+      index: '',
+      selectedFilter: 'Any list',
+      filter: ['Any list', 'Choose', 'Exclude'],
+      lists: [
+        {
+          name: '#192 MegaSeller',
+          rating: '-++--',
+          list: 'List Example 1',
+          funnel: 'Unknown',
+          uploadDate: '22.11.2022',
+          sold: '7',
+          matching: '15',
+          total: '570'
+        },
+        {
+          name: '#190 Seller',
+          rating: '-++--',
+          list: 'List Example 2',
+          funnel: 'Unknown',
+          uploadDate: '20.11.2022',
+          sold: '3',
+          matching: '15',
+          total: '1000'
+        },
+        {
+          name: '#192 MegaSeller',
+          rating: '-++++',
+          list: 'List Example 3',
+          funnel: 'Unknown',
+          uploadDate: '21.11.2022',
+          sold: '1',
+          matching: '15',
+          total: '570'
+        }
+      ]
     }
   },
   methods: {
+    checkerParent(el, i) {
+      this.$set(this.checkedList, i, el)
+    },
     redirectCb() {
       this.$router.push({name: 'finder'})
     },
@@ -45,22 +97,19 @@ export default {
     }
   },
   watch: {
-    darkModeSwitch: {
+    // darkModeSwitch: {
+    //   handler(newValue) {
+    //     if (newValue) {
+    //
+    //     } else if (!newValue) {
+    //
+    //     }
+    //   },
+    // },
+    checkedList: {
       handler(newValue) {
         if (newValue) {
-          document.querySelectorAll('.button_left').forEach(e => e.classList.add('button_left_dark'))
-          document.querySelectorAll('.button_middle').forEach(e => e.classList.add('button_middle_dark'))
-          document.querySelectorAll('.button_right').forEach(e => e.classList.add('button_right_dark'))
-        } else if (!newValue) {
-          document.querySelectorAll('.button_left').forEach(e => e.classList.remove('button_left_dark'))
-          document.querySelectorAll('.button_middle').forEach(e => e.classList.remove('button_middle_dark'))
-          document.querySelectorAll('.button_right').forEach(e => e.classList.remove('button_right_dark'))
-        }
-      },
-    },
-    checked: {
-      handler(newValue) {
-        if (newValue) {
+          console.log(newValue)
           globalTelegram.MainButton.setText('Apply filter')
           globalTelegram.MainButton.color = '#16a34a'
           globalTelegram.MainButton.show()

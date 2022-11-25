@@ -6,16 +6,28 @@
     <main>
       <div> Who you want to buy leads from?</div>
       <div class="button-container">
-        <button class="button_left"
-                v-model="checked"
-                @click="checked = !checked">Any seller</button>
-        <button class="button_middle">Choose</button>
-        <button class="button_right">Exclude</button>
+        <SelectButton
+            v-model="selectedFilter"
+            :options="filter"
+        />
       </div>
-      <SellerSection/>
-      <SellerSection/>
-      <SellerSection/>
-      <SellerSection/>
+      <ul style="list-style: none">
+        <li
+            v-for="(item, index) in info"
+            :key="index"
+        >
+          <SellerSection
+              :name="item.name"
+              :rating="item.rating"
+              :lists="item.lists"
+              :leads="item.leads"
+              :historyList="item.historyList"
+              :historyLeads="item.historyLeads"
+              :checked="checkedList"
+              @checker="(el) => {checkerParent(el, index)}"
+          />
+        </li>
+      </ul>
     </main>
   </div>
 </template>
@@ -33,10 +45,41 @@ export default {
   },
   data() {
     return {
-      checked: false,
+      checkedList: [],
+      selectedFilter: '',
+      filter: ['Any seller', 'Choose', 'Exclude'],
+      info: [
+        {
+          name: '#191 MegaSeller',
+          rating: '++++-',
+          lists: '5',
+          leads: '4500',
+          historyList: '1',
+          historyLeads: '1500'
+        },
+        {
+          name: '#192 MegaSeller',
+          rating: '-----',
+          lists: '4',
+          leads: '4500',
+          historyList: '1',
+          historyLeads: '500'
+        },
+        {
+          name: '#193 MegaSeller',
+          rating: '+++--',
+          lists: '3',
+          leads: '4500',
+          historyList: '1',
+          historyLeads: '100'
+        }
+      ]
     }
   },
   methods: {
+    checkerParent(el, i) {
+      this.$set(this.checkedList, i, el)
+    },
     redirectCb() {
       this.$router.push({name: 'finder'})
     },
@@ -45,22 +88,19 @@ export default {
     }
   },
   watch: {
-    darkModeSwitch: {
+    // darkModeSwitch: {
+    //   handler(newValue) {
+    //     if (newValue) {
+    //
+    //     } else if (!newValue) {
+    //
+    //     }
+    //   },
+    // },
+    checkedList: {
       handler(newValue) {
         if (newValue) {
-          document.querySelectorAll('.button_left').forEach(e => e.classList.add('button_left_dark'))
-          document.querySelectorAll('.button_middle').forEach(e => e.classList.add('button_middle_dark'))
-          document.querySelectorAll('.button_right').forEach(e => e.classList.add('button_right_dark'))
-        } else if (!newValue) {
-          document.querySelectorAll('.button_left').forEach(e => e.classList.remove('button_left_dark'))
-          document.querySelectorAll('.button_middle').forEach(e => e.classList.remove('button_middle_dark'))
-          document.querySelectorAll('.button_right').forEach(e => e.classList.remove('button_right_dark'))
-        }
-      },
-    },
-    checked: {
-      handler(newValue) {
-        if (newValue) {
+          console.log(newValue)
           globalTelegram.MainButton.setText('Apply filter')
           globalTelegram.MainButton.color = '#16a34a'
           globalTelegram.MainButton.show()

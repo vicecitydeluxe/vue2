@@ -1,19 +1,21 @@
 <template>
   <section class="container">
     <div class="container_top">
-      <span class="container_title">#192 MegaSeller</span>
-      <ToggleButton v-model="checked"
-                    onLabel="Include"
-                    offLabel="Exclude"/>
+      <span class="container_title">{{ name }}</span>
+      <ToggleButton
+          @click="checker()"
+          onLabel="Include"
+          offLabel="Exclude"
+          v-model="checked"
+      />
     </div>
     <div class="container_bottom">
-      <span>Rating: ++++-</span>
-      <span>#1829 CFD May 2022 depositors
-        + deposit date + sales comments</span>
-      <span>Funnel: Unknown</span>
-      <span>include Upload date: 2022-09-16: 12:10</span>
-      <span>Sold (fully or partially)7 times</span>
-      <span>Matching leads/total: 15/570</span>
+      <span>Rating:{{ rating }}</span>
+      <span>{{ list }}</span>
+      <span>Funnel: {{ funnel }}</span>
+      <span>Upload date:{{ uploadDate }}</span>
+      <span>Sold (fully or partially) {{ sold }} times</span>
+      <span>Matching leads/total: {{ matching }}/ {{ total }}</span>
     </div>
   </section>
 
@@ -24,11 +26,26 @@ const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "ListSection",
+  props: {
+    name: String,
+    rating: String,
+    list: String,
+    funnel: String,
+    uploadDate: String,
+    sold: String,
+    matching: String,
+    total: String
+  },
   data() {
     return {
       darkModeSwitch: false,
-      checked: true,
+      checked: false,
     }
+  },
+  methods: {
+    checker() {
+      this.$emit('checker', this.checked)
+    },
   },
   created() {
     globalTelegram.colorScheme === "light"
