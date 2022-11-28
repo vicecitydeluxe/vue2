@@ -35,12 +35,12 @@ export default {
   },
   watch: {
     darkModeSwitch: {
-      handler(newValue) {
-        if (newValue) {
-          document.querySelectorAll('.description').forEach(e => e.classList.add('description_dark'))
-        } else if (!newValue) {
-          document.querySelectorAll('.description_dark').forEach(e => e.classList.remove('description_dark'))
-        }
+      handler(n) {
+        n
+            ? document.querySelectorAll('.description')
+                .forEach(e => e.classList.add('description_dark'))
+            : document.querySelectorAll('.description_dark')
+                .forEach(e => e.classList.remove('description_dark'))
       },
     },
   }

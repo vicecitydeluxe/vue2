@@ -104,15 +104,6 @@ export default {
     }
   },
   watch: {
-    // darkModeSwitch: {
-    //   handler(newValue) {
-    //     if (newValue) {
-    //
-    //     } else if (!newValue) {
-    //
-    //     }
-    //   },
-    // },
     selectedFilter: {
       handler(newValue) {
         if (newValue === 'Any list') {

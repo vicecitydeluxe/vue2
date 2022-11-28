@@ -110,13 +110,10 @@ export default {
   },
   watch: {
     darkModeSwitch: {
-      handler(newValue) {
-        if (newValue) {
-          this.switchHandler()
-        }
-        if (!newValue) {
-          this.switchRemover()
-        }
+      handler(n) {
+        n
+            ? this.switchHandler()
+            : this.switchRemover()
       }, immediate: true
     },
     userInfo: {

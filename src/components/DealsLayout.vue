@@ -38,15 +38,12 @@ export default {
   },
   watch: {
     darkModeSwitch: {
-      handler(newValue) {
-        if (newValue) {
-          document.querySelectorAll('.text')
-              .forEach(e => e.classList.add('text-dark'))
-        }
-        if (!newValue) {
-          document.querySelectorAll('.text-dark')
-              .forEach(e => e.classList.remove('text-dark'))
-        }
+      handler(n) {
+        n
+            ? document.querySelectorAll('.text')
+                .forEach(e => e.classList.add('text-dark'))
+            : document.querySelectorAll('.text-dark')
+                .forEach(e => e.classList.remove('text-dark'))
       },
     },
   }

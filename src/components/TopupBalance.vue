@@ -145,12 +145,10 @@ export default {
       },
     },
     darkModeSwitch: {
-      handler(newValue) {
-        if (newValue) {
-          this.switchHandler()
-        } else if (!newValue) {
-          this.switchRemover()
-        }
+      handler(n) {
+        n
+            ? this.switchHandler()
+            : this.switchRemover()
       },
     },
   },

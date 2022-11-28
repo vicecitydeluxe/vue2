@@ -198,15 +198,12 @@ export default {
   },
   watch: {
     darkModeSwitch: {
-      handler(newValue) {
-        if (newValue) {
-          document.querySelectorAll('.p-column-title')
-              .forEach(e => e.classList.replace('p-column-title', 'p-column-title-dark'))
-        }
-        if (!newValue) {
-          document.querySelectorAll('.p-column-title-dark')
-              .forEach(e => e.classList.replace('p-column-title-dark', 'p-column-title-dark'))
-        }
+      handler(n) {
+        n
+            ? document.querySelectorAll('.p-column-title')
+                .forEach(e => e.classList.replace('p-column-title', 'p-column-title-dark'))
+            : document.querySelectorAll('.p-column-title-dark')
+                .forEach(e => e.classList.replace('p-column-title-dark', 'p-column-title-dark'))
       },
     },
     parsedData: {

@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-<!--    <Button @click="actionCb">NEXT STEP</Button>-->
+    <!--    <Button @click="actionCb">NEXT STEP</Button>-->
     <header class="header_section">
       <h3>FIND LEADS</h3>
     </header>
@@ -202,6 +202,11 @@ export default {
     toggleDarkDropdown() {
       this.darkDropdown++
     },
+    mainButtonShow(p) {
+      globalTelegram.MainButton.setText(p)
+      globalTelegram.MainButton.color = '#16a34a'
+      globalTelegram.MainButton.show()
+    },
   },
   watch: {
     darkDropdown: {
@@ -213,17 +218,11 @@ export default {
     },
     //TODO: set up right condition to show MainButton
     mainButtonFlag: {
-      handler(newValue) {
-        if (newValue) {
-          globalTelegram.MainButton.setText('Buy leads')
-          globalTelegram.MainButton.color = '#16a34a'
-          globalTelegram.MainButton.show()
-        } else if (!newValue) {
-          globalTelegram.MainButton.setText('Apply changes / Buy leads')
-          globalTelegram.MainButton.color = '#16a34a'
-          globalTelegram.MainButton.show()
-        }
-      }, immediate: true
+      handler(n) {
+        n
+            ? this.mainButtonShow('Buy leads')
+            : this.mainButtonShow('Apply changes / Buy leads')
+      }
     },
     priceFilter: {
       handler(newValue) {
@@ -246,6 +245,7 @@ export default {
     },
   },
   mounted() {
+    this.mainButtonShow('Buy leads')
     globalTelegram.MainButton.onClick(this.actionCb)
     globalTelegram.BackButton.show().onClick(this.redirectCb)
   },
