@@ -11,7 +11,10 @@
             :options="filter"
         />
       </div>
-      <ul style="list-style: none">
+      <ul
+          v-if="filterFlag"
+          style="list-style: none"
+      >
         <li
             v-for="(item, index) in info"
             :key="index"
@@ -23,7 +26,7 @@
               :leads="item.leads"
               :historyList="item.historyList"
               :historyLeads="item.historyLeads"
-              :checked="checkedList"
+              :checked="checkedList[index]"
               @checker="(el) => {checkerParent(el, index)}"
           />
         </li>
@@ -47,7 +50,7 @@ export default {
   data() {
     return {
       checkedList: [],
-      selectedFilter: '',
+      selectedFilter: 'Any seller',
       filter: ['Any seller', 'Choose', 'Exclude'],
       info: [
         {
@@ -74,11 +77,12 @@ export default {
           historyList: '1',
           historyLeads: '100'
         }
-      ]
+      ],
+      filterFlag: true
     }
   },
   computed: {
-    ...mapGetters['excludedSellersLength'],
+    ...mapGetters(['excludedSellersLength', 'excludedSellers']),
   },
   methods: {
     checkerParent(el, i) {
@@ -104,7 +108,8 @@ export default {
     checkedList: {
       handler(newValue) {
         if (newValue) {
-          this.$store.commit('setExcludedSellersLength', newValue.filter(el => !el).length)
+          this.$store.commit('setExcludedSellersLength', newValue.filter(el => el).length)
+          this.$store.commit('setExcludedSellers', newValue)
 
           globalTelegram.MainButton.setText('Apply filter')
           globalTelegram.MainButton.color = '#16a34a'
@@ -112,12 +117,28 @@ export default {
         } else if (!newValue) {
           globalTelegram.MainButton.hide()
         }
-      },
-    }
+      }
+    },
+    selectedFilter: {
+      handler(newValue) {
+        if (newValue === 'Any seller') {
+          this.filterFlag = false
+          this.$store.commit('setExcludedSellersLength', 0)
+        } else if (newValue === 'Choose') {
+          this.filterFlag = true
+          if (!this.excludedSellers.length) this.checkedList.fill(true)
+        } else if (newValue === 'Exclude') {
+          this.filterFlag = true
+          if (!this.excludedSellers.length) this.checkedList.fill(false)
+        }
+      }, immediate: true
+    },
   },
   created() {
-    this.checkedList.length = this.info.length
-    this.checkedList.fill(true)
+    if (!this.excludedSellers.length) {
+      this.checkedList.length = this.info.length
+      this.checkedList.fill(false)
+    } else this.checkedList = this.excludedSellers
   },
   mounted() {
     globalTelegram.MainButton.onClick(this.actionCb)

@@ -11,7 +11,10 @@
             :options="filter"
         />
       </div>
-      <ul style="list-style: none">
+      <ul
+          v-if="filterFlag"
+          style="list-style: none"
+      >
         <li
             v-for="(item, index) in lists"
             :key="index"
@@ -25,7 +28,7 @@
               :sold="item.sold"
               :matching="item.matching"
               :total="item.total"
-              :checked="checkedList"
+              :checked="checkedList[index]"
               @checker="(el) => {checkerParent(el, index)}"
           />
         </li>
@@ -82,11 +85,12 @@ export default {
           matching: '15',
           total: '570'
         }
-      ]
+      ],
+      filterFlag: true
     }
   },
   computed: {
-    ...mapGetters['excludedListsLength'],
+    ...mapGetters(['excludedListsLength', 'excludedLists']),
   },
   methods: {
     checkerParent(el, i) {
@@ -109,10 +113,25 @@ export default {
     //     }
     //   },
     // },
+    selectedFilter: {
+      handler(newValue) {
+        if (newValue === 'Any list') {
+          this.filterFlag = false
+          this.$store.commit('setExcludedListsLength', 0)
+        } else if (newValue === 'Choose') {
+          this.filterFlag = true
+          if (!this.excludedLists.length) this.checkedList.fill(true)
+        } else if (newValue === 'Exclude') {
+          this.filterFlag = true
+          if (!this.excludedLists.length) this.checkedList.fill(false)
+        }
+      }, immediate: true
+    },
     checkedList: {
       handler(newValue) {
         if (newValue) {
-          this.$store.commit('setExcludedListsLength', newValue.filter(el => !el).length)
+          this.$store.commit('setExcludedListsLength', newValue.filter(el => el).length)
+          this.$store.commit('setExcludedLists', newValue)
 
           globalTelegram.MainButton.setText('Apply filter')
           globalTelegram.MainButton.color = '#16a34a'
@@ -124,8 +143,10 @@ export default {
     }
   },
   created() {
-    this.checkedList.length = this.lists.length
-    this.checkedList.fill(true)
+    if (!this.excludedLists.length) {
+      this.checkedList.length = this.lists.length
+      this.checkedList.fill(false)
+    } else this.checkedList = this.excludedLists
   },
   mounted() {
     globalTelegram.MainButton.onClick(this.actionCb)

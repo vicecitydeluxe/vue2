@@ -3,10 +3,10 @@
     <div class="container_top">
       <span class="container_title">{{ name }}</span>
       <ToggleButton
-          @click="checker()"
+          @change="checker()"
           onLabel="Include"
           offLabel="Exclude"
-          v-model="checked"
+          :value="checked"
       />
     </div>
     <div class="container_bottom">
@@ -34,17 +34,26 @@ export default {
     uploadDate: String,
     sold: String,
     matching: String,
-    total: String
+    total: String,
+    checked: Boolean
   },
   data() {
     return {
       darkModeSwitch: false,
-      checked: false,
+      checkedLocal: false
     }
   },
   methods: {
     checker() {
-      this.$emit('checker', this.checked)
+      this.checked
+          ? this.checkedLocal = false
+          : this.checkedLocal = true
+      this.$emit('checker', this.checkedLocal)
+    },
+  },
+  computed: {
+    checkAssigner() {
+      this.checkedLocal = this.checked
     },
   },
   created() {
