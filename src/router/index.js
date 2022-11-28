@@ -69,6 +69,11 @@ const routes = [
         name: 'deals',
         component: () => import(/* webpackChunkName: "DealsLayout" */ '@/components/DealsLayout')
     },
+    {
+        path: '/buy-leads',
+        name: 'buy',
+        component: () => import(/* webpackChunkName: "LeadsSeller" */ '@/components/LeadsSeller')
+    },
 ]
 
 const router = new VueRouter({

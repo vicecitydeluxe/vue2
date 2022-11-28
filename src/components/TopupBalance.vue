@@ -69,7 +69,6 @@
 </template>
 
 <script>
-import QrcodeVue from 'qrcode.vue'
 import tgMixin from "@/mixins/telegram/tgMixin";
 import topupBalanceHandler from "@/mixins/styleHandlers/topupBalanceHandler";
 
@@ -79,7 +78,7 @@ export default {
   name: "TopupBalance",
   mixins: [tgMixin, topupBalanceHandler],
   components: {
-    QrcodeVue,
+    QrcodeVue: () => import('qrcode.vue')
   },
   data() {
     return {

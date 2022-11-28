@@ -1,5 +1,6 @@
 <template>
   <div class="header">
+<!--    <Button @click="actionCb">NEXT STEP</Button>-->
     <header class="header_section">
       <h3>FIND LEADS</h3>
     </header>
@@ -49,11 +50,11 @@
         <div class="filter_container_wrapper">
           <div class="field-checkbox">
             <Checkbox
-                id="binary"
+                id="regdate"
                 v-model="regdateUnknownChecker"
                 :binary="true"
             />
-            <label for="binary">With Unknown registration date</label>
+            <label for="regdate">With Unknown registration date</label>
           </div>
           <div class="filter_header_divider">Lead price <</div>
           <InputNumber
@@ -69,11 +70,11 @@
         <div class="filter_container_wrapper">
           <div class="field-checkbox">
             <Checkbox
-                id="binary"
+                id="extraLeads"
                 v-model="extraLeadsChecker"
                 :binary="true"
             />
-            <label for="binary">Exclude leads I bought or
+            <label for="extraLeads">Exclude leads I bought or
               already have</label>
           </div>
         </div>
@@ -101,45 +102,53 @@
         <div class="limit_wrapper">
           <div class="field-radiobutton">
             <RadioButton
-                id="city1"
-                name="city"
-                value="demand"
-                v-model="demand"
-            />
-            <label style="margin-left:4px;"
-                   for="city1">I need</label>
-          </div>
-          <InputNumber
-              class="input"
-              type="text"
-              :class="[ darkModeSwitch
-                        ? 'input_dark'
-                        : 'input']"
-              v-model="leadFilter"
-          />
-          <span>leads</span>
-        </div>
-        <div class="limit_wrapper">
-          <div class="field-radiobutton">
-            <RadioButton
-                id="city1"
-                name="city"
-                value="maxAmount"
-                v-model="maxAmount"
+                id="leadFilter"
+                value="leadFilter"
+                v-model="radioButtonValue"
             />
             <label
-                for="city1">I spent max</label>
+                style="margin-left: 3px"
+                for="leadFilter"
+            >I need</label>
           </div>
           <InputNumber
-              :class="[ darkModeSwitch
-                        ? 'input_dark'
-                        : 'input']"
+              style="height: 38px;"
+              :class="[validLeadsInput
+                  ? 'input'
+                  : 'p-invalid']"
+              v-model="leadFilter"
+              @input="toggleDarkDropdown"
+          />
+          <span
+              style="width: 65px;"
+          >leads</span>
+        </div>
+        <div class="limit_wrapper">
+          <div class="field-radiobutton" style="width: 70px;">
+            <RadioButton
+                id="priceMax"
+                value="priceMaxFilter"
+                v-model="radioButtonValue"
+            />
+            <label
+                style="margin-left: 3px"
+                for="priceMax"
+            >I spent max</label>
+          </div>
+          <InputNumber
+              style="height: 38px;"
+              :class="[validPriceMaxInput
+                  ? 'input'
+                  : 'p-invalid']"
               v-model="priceMaxFilter"
               mode="currency"
               currency="USD"
               locale="en-US"
+              @input="toggleDarkDropdown"
           />
-          <span>balance:</span>
+          <span
+              style="width: 70px;"
+          >balance:</span>
         </div>
       </div>
       <div>Sort by
@@ -156,56 +165,39 @@
 
 <script>
 import tgMixin from "@/mixins/telegram/tgMixin";
+import leadsFinderHelper from "@/mixins/helpers/leadsFinderHelper";
 import leadsFinderHandler from "@/mixins/styleHandlers/leadsFinderHandler";
 import countryMapperHelper from "@/mixins/helpers/countryMapperHelper";
-import {mapGetters} from "vuex";
 
 const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "LeadsFinder",
-  mixins: [tgMixin, leadsFinderHandler, countryMapperHelper],
+  mixins: [
+    tgMixin,
+    leadsFinderHelper,
+    leadsFinderHandler,
+    countryMapperHelper
+  ],
   data() {
     return {
       darkDropdown: 0,
       regdateUnknownChecker: false,
-      extraLeadsChecker: false,
-      types: [
-        'Registrations',
-        'Depositors',
-        'Unknown',
-      ],
-      selectedType: null,
-      sortOptions: [
-        'Min price first',
-        'New leads first',
-        'Seller rank'
-      ],
-      regdateFilter: ['Less 24 hours',
-        'Less than a week',
-        'Less than a month',
-        ' Over a month (but less than 3 months)',
-        'Up to 3 months',
-        'More than 3 months'],
-      selectedCountries: null,
-      selectedOption: 'New leads first',
-      regdateSelected: null,
       priceFilter: null,
-      leadFilter: null,
-      priceMaxFilter: null,
-      demand: null,
-      maxAmount: null,
+      radioButtonValue: null,
     }
   },
   computed: {
-    ...mapGetters(['excludedListsLength', 'excludedSellersLength'])
+    mainButtonFlag() {
+      return !!(this.leadFilter && !!this.priceMaxFilter)
+    }
   },
   methods: {
     redirectCb() {
       this.$router.push({name: 'layout'})
     },
     actionCb() {
-      if (this.$route.path === '/leads-finder') this.$router.push({name: 'buy'})
+      this.$router.push({name: 'buy'})
     },
     toggleDarkDropdown() {
       this.darkDropdown++
@@ -217,24 +209,28 @@ export default {
         if (this.darkDropdown && this.darkModeSwitch) {
           this.multiSelectHandler()
         }
-      }, deep: true
+      }
     },
-    // extraLeadsChecker: {
-    //   handler(newValue) {
-    //     if (newValue) {
-    //       globalTelegram.MainButton.setText('Apply changes / Buy leads')
-    //       globalTelegram.MainButton.color = '#16a34a'
-    //       globalTelegram.MainButton.show()
-    //     } else if (!newValue) {
-    //       globalTelegram.MainButton.hide()
-    //     }
-    //   },
-    // },
+    //TODO: set up right condition to show MainButton
+    mainButtonFlag: {
+      handler(newValue) {
+        if (newValue) {
+          globalTelegram.MainButton.setText('Buy leads')
+          globalTelegram.MainButton.color = '#16a34a'
+          globalTelegram.MainButton.show()
+        } else if (!newValue) {
+          globalTelegram.MainButton.setText('Apply changes / Buy leads')
+          globalTelegram.MainButton.color = '#16a34a'
+          globalTelegram.MainButton.show()
+        }
+      }, immediate: true
+    },
     priceFilter: {
       handler(newValue) {
         if ((newValue && this.darkModeSwitch) || (!newValue && this.darkModeSwitch)) {
           setTimeout(() => {
-            document.querySelectorAll('.p-inputnumber-input').forEach(e => e.classList.add('p-inputnumber-input_dark'))
+            document.querySelectorAll('.p-inputnumber-input')
+                .forEach(e => e.classList.add('p-inputnumber-input_dark'))
           }, 0)
         }
       }

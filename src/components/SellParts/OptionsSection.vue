@@ -1,17 +1,19 @@
 <template>
   <section class="container">
     <div class="container_bottom">
-      <span><strong>Vertical:</strong> CFD/Crypto </span>
-      <span><strong>Funnel type:</strong> Unknown,Education</span>
-      <span><strong>Type:</strong> Depositors</span>
-      <span><strong>Countries:</strong> GB United Kingdom </span>
-      <span><strong>Registration date:</strong> Up to 3 Months </span>
-      <span>Exclude leads I bought or already have</span>
+      <!--      <span><strong>Vertical:</strong> CFD/Crypto </span>-->
+      <!--      <span><strong>Funnel type:</strong> Unknown,Education</span>-->
+      <span><strong>Type: </strong>{{ globalSelectedType }}</span>
+      <span style="word-wrap: break-word;"><strong>Countries: </strong> {{ globalSelectedCountries.join(',') }}</span>
+      <span><strong>Registration date: </strong>{{ globalRegdateSelected }} </span>
+      <span v-if="globalExtraLeadsChecker">Exclude leads I bought or already have</span>
     </div>
   </section>
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+
 const globalTelegram = window.Telegram.WebApp;
 
 export default {
@@ -20,6 +22,14 @@ export default {
     return {
       darkModeSwitch: false,
     }
+  },
+  computed: {
+    ...mapGetters([
+      'globalSelectedType',
+      'globalSelectedCountries',
+      'globalRegdateSelected',
+      'globalExtraLeadsChecker',
+    ]),
   },
   created() {
     globalTelegram.colorScheme === "light"

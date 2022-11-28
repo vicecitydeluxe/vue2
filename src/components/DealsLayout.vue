@@ -4,11 +4,13 @@
       <h3>DEAL # 9192</h3>
     </header>
     <main>
-      <div class="text">We're importing the leads, checking the duplicates, and preparing statistics.
-        <div> You can wait or you can close the page. You will get a notification as soon as the lead
+      <span class="text">We're importing the leads,
+        checking the duplicates, and preparing statistics.
+        <span> You can wait or you can close the page.
+          You will get a notification as soon as the lead
           creation process finishes.
-        </div>
-      </div>
+        </span>
+      </span>
     </main>
   </div>
 </template>
@@ -22,24 +24,28 @@ export default {
   name: "DealsLayout",
   mixins: [tgMixin],
   methods: {
-    redirectCb() {
+    actionCb() {
       this.$router.push({name: 'layout'})
     },
   },
   mounted() {
-    globalTelegram.BackButton.show().onClick(this.redirectCb)
+    globalTelegram.MainButton.setText("Close");
+    globalTelegram.MainButton.color = "#16a34a";
+    globalTelegram.MainButton.show().onClick(this.actionCb)
   },
   beforeDestroy() {
-    globalTelegram.BackButton.hide().offClick(this.redirectCb)
+    globalTelegram.MainButton.hide().offClick(this.actionCb)
   },
   watch: {
     darkModeSwitch: {
       handler(newValue) {
         if (newValue) {
-          document.querySelectorAll('.text').forEach(e => e.classList.add('text-dark'))
+          document.querySelectorAll('.text')
+              .forEach(e => e.classList.add('text-dark'))
         }
         if (!newValue) {
-          document.querySelectorAll('.text-dark').forEach(e => e.classList.remove('text-dark'))
+          document.querySelectorAll('.text-dark')
+              .forEach(e => e.classList.remove('text-dark'))
         }
       },
     },

@@ -2,29 +2,11 @@ import $axios from '../api/index'
 
 const state = {
     name: 'Unknown_user',
-    excludedListsLength: null,
-    excludedSellersLength: null,
-    excludedLists: [],
-    excludedSellers: []
-
 }
 const getters = {
     name() {
         return state.name
-    },
-    excludedListsLength() {
-        return state.excludedListsLength
-    },
-    excludedSellersLength() {
-        return state.excludedSellersLength
-    },
-    excludedLists() {
-        return state.excludedLists
-    },
-    excludedSellers() {
-        return state.excludedSellers
     }
-
 }
 const actions = {
 
@@ -79,18 +61,6 @@ const actions = {
 const mutations = {
     setName(ctx, data) {
         state.name = data
-    },
-    setExcludedListsLength(cxt, data) {
-        state.excludedListsLength = data
-    },
-    setExcludedSellersLength(ctx, data) {
-        state.excludedSellersLength = data
-    },
-    setExcludedLists(cxt, data) {
-        state.excludedLists = data
-    },
-    setExcludedSellers(ctx, data) {
-        state.excludedSellers = data
     }
 }
 

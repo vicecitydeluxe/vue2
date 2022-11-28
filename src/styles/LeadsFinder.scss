@@ -173,29 +173,10 @@
 .limit_wrapper {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   gap: 0.5rem;
   margin-top: 10px;
 }
-
-.input {
-  height: 38px;
-  border: 1px solid #CED4DA;
-  border-radius: 7px;
-
-  &_dark {
-    height: 38px;
-    border: 1px solid #CED4DA;
-    border-radius: 7px;
-    background: #282828;
-    color: white;
-
-    &::placeholder {
-      color: white;
-    }
-  }
-}
-
 
 .button-container {
   margin-top: 7px;
