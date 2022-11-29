@@ -154,6 +154,10 @@ export default {
     },
     selectedCountry: {
       handler(newValue) {
+        if (!newValue.includes(undefined)) {
+          console.log(newValue)
+          globalTelegram.MainButton.show()
+        }
         if (newValue || newValue.length) {
           Vue.prototype.$fullObject.data.forEach((el, i) => {
             if (el.country === this.countriesToMap[this.iterationIndex]) {
@@ -165,7 +169,7 @@ export default {
           //uncomment next line to see changed values
           console.log(Vue.prototype.$countries.map(el => el.country))
         }
-      }, deep: true
+      }
     },
     darkModeSwitch: {
       handler(newValue) {
