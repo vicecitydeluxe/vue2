@@ -45,9 +45,14 @@ const routes = [
         component: () => import(/* webpackChunkName: "countryMapper" */ '@/components/CountryMapper')
     },
     {
+        path: '/data-analyzer',
+        name: 'analyzer',
+        component: () => import(/* webpackChunkName: "AsyncDataAnalyzer" */ '@/components/AsyncParts/AsyncDataAnalyzer')
+    },
+    {
         path: '/result-importer',
         name: 'results',
-        component: () => import(/* webpackChunkName: "resultImporter" */ '@/components/DataAnalyzer')
+        component: () => import(/* webpackChunkName: "AsyncResultImporter" */ '@/components/AsyncParts/AsyncResultImporter')
     },
     {
         path: '/leads-finder',

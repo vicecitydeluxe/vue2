@@ -92,6 +92,13 @@
             @before-show="toggleDarkDropdown"
         />
       </div>
+      <span
+          v-if="countryEmptyFlag"
+      >*No column detected or empty fields exist, you need to set default value:</span>
+      <div
+          v-if="!countryEmptyFlag"
+          style="margin-bottom:5px"
+      >Choose a default value (if no value provided in the file):</div>
       <div class="sub_map_container">
         <div>
           <RadioButton
@@ -154,6 +161,13 @@
             @before-show="toggleDarkDropdown"
         />
       </div>
+      <span
+          v-if="regdateEmptyFlag"
+      >*No column detected or empty fields exist, you need to set default value:</span>
+      <div
+          v-if="!regdateEmptyFlag"
+          style="margin-bottom:5px;"
+      >Choose a default value (if no value provided in the file):</div>
       <div class="sub_map_container">
         <div>
           <RadioButton
@@ -439,14 +453,12 @@ export default {
   beforeRouteEnter(to, from, next) {
     next(vm => vm.$data.prevRoute = from.fullPath)
   },
-  created() {
-    this.emptyChecker('country')
-    this.emptyChecker('regdate')
-  },
   mounted() {
     !!Vue.prototype?.$fullObject?.data && !this.visitedRouteFlag
         ? this.startCheck()
         : this.stateReselect()
+    this.emptyChecker('country')
+    this.emptyChecker('regdate')
     console.log(Vue.prototype?.$fullObject?.data)
     globalTelegram.MainButton.onClick(this.actionCb)
     globalTelegram.BackButton.show().onClick(this.redirectCb)
