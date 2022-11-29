@@ -122,7 +122,7 @@ export default {
       this.$router.push({name: 'mapper'})
     },
     actionCb() {
-      if (this.$route.path === '/country-mapper') this.$router.push({name: 'results'})
+      this.$router.push({name: 'analyzer'})
     }
   },
   computed: {

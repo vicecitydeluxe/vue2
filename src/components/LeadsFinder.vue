@@ -168,6 +168,7 @@ import tgMixin from "@/mixins/telegram/tgMixin";
 import leadsFinderHelper from "@/mixins/helpers/leadsFinderHelper";
 import leadsFinderHandler from "@/mixins/styleHandlers/leadsFinderHandler";
 import countryMapperHelper from "@/mixins/helpers/countryMapperHelper";
+import {mapGetters} from "vuex";
 
 const globalTelegram = window.Telegram.WebApp
 
@@ -188,11 +189,29 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      'globalSelectedType',
+      'globalSelectedCountries',
+      'globalRegdateSelected',
+      'globalExtraLeadsChecker',
+      'globalSelectedOption',
+      'globalLeadFilter',
+      'globalPriceMaxFilter'
+    ]),
     mainButtonFlag() {
       return !!(this.leadFilter && !!this.priceMaxFilter)
     }
   },
   methods: {
+    globalStateAssigner() {
+      this.selectedType = this.globalSelectedType
+      if (!this.globalSelectedCountries.includes('Any')) this.selectedCountries = this.globalSelectedCountries
+      this.regdateSelected = this.globalRegdateSelected
+      this.extraLeadsChecker = this.globalExtraLeadsChecker
+      this.selectedOption = this.globalSelectedOption
+      this.priceMaxFilter = this.globalLeadFilter
+      this.leadFilter = this.globalPriceMaxFilter
+    },
     redirectCb() {
       this.$router.push({name: 'layout'})
     },
@@ -243,6 +262,9 @@ export default {
         }
       },
     },
+  },
+  created() {
+    this.globalStateAssigner()
   },
   mounted() {
     this.mainButtonShow('Buy leads')

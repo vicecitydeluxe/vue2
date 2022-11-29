@@ -111,7 +111,7 @@ export default {
     actionCb() {
       this.sendParsedList()
       this.sendUploadStatus()
-      this.$router.push({name: 'layout'})
+      this.$router.push({name: 'results'})
     },
     redirectCb() {
       this.$router.push({name: 'country'})
