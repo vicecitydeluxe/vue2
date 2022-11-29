@@ -126,9 +126,6 @@ export default {
     }
   },
   computed: {
-    selectedCountryCreator() {
-      this.selectedCountry = new Array(this.countriesToMap.length).fill(undefined)
-    },
     ...mapGetters(['listName', "fileName", "chosenCountry", 'oldCountryState']),
     allCountriesInitiallyMapped() {
       return !!this.countriesToMap.every(el => !el)
@@ -154,6 +151,7 @@ export default {
     },
     selectedCountry: {
       handler(newValue) {
+        console.log(newValue)
         if (!newValue.includes(undefined)) {
           console.log(newValue)
           globalTelegram.MainButton.show()
@@ -169,7 +167,7 @@ export default {
           //uncomment next line to see changed values
           console.log(Vue.prototype.$countries.map(el => el.country))
         }
-      }
+      }, deep:true
     },
     darkModeSwitch: {
       handler(newValue) {
@@ -205,6 +203,8 @@ export default {
     }
   },
   mounted() {
+    this.selectedCountry = new Array(this.countriesToMap.length).fill(undefined)
+
     if (!!this.allCountriesInitiallyMapped) {
       globalTelegram.MainButton.show()
       globalTelegram.BackButton.show()
