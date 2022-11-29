@@ -98,17 +98,18 @@
       <div
           v-if="!countryEmptyFlag"
           style="margin-bottom:5px"
-      >Choose a default value (if no value provided in the file):</div>
+      >Choose a default value (if no value provided in the file):
+      </div>
       <div class="sub_map_container">
         <div>
           <RadioButton
               :disabled="countryCheckboxDisabler"
-              id="empty"
+              id="emptyCountry"
               value="empty"
               v-model="checkedCountry"
               @click="toggleDarkDropdown"
           />
-          <label class="sub_map_container_divider" for="empty">Set empty to</label>
+          <label class="sub_map_container_divider" for="emptyCountry">Set empty to</label>
         </div>
         <Dropdown
             :class="[ darkModeSwitch
@@ -126,13 +127,13 @@
       <div class="sub_map_container">
         <div>
           <RadioButton
-              id="all_to"
+              id="country"
               value="all_to"
               v-model="checkedCountry"
               @click="toggleDarkDropdown"
           />
           <label class="sub_map_container_divider"
-                 for="all_to">Set all to</label>
+                 for="country">Set all to</label>
         </div>
         <Dropdown
             :class="[ darkModeSwitch
@@ -167,18 +168,19 @@
       <div
           v-if="!regdateEmptyFlag"
           style="margin-bottom:5px;"
-      >Choose a default value (if no value provided in the file):</div>
+      >Choose a default value (if no value provided in the file):
+      </div>
       <div class="sub_map_container">
         <div>
           <RadioButton
               :disabled="regDateCheckboxDisabler"
-              id="empty"
+              id="emptyRegdate"
               value="empty"
               v-model="checkedRegDate"
               @click="toggleDarkDropdown"
           />
           <label class="radio_label_divider"
-                 for="empty">Set empty to</label>
+                 for="emptyRegdate">Set empty to</label>
         </div>
         <Calendar
             id="icon"
@@ -192,13 +194,13 @@
       <div class="map_container">
         <div>
           <RadioButton
-              id="all_to"
+              id="regdate"
               value="all_to"
               v-model="checkedRegDate"
               @click="toggleDarkDropdown"
           />
           <label class="sub_map_container_divider"
-                 for="all_to">Set all to</label>
+                 for="regdate">Set all to</label>
         </div>
         <Calendar
             id="icon"

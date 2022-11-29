@@ -181,6 +181,7 @@ export default {
       handler(newValue) {
         if (newValue) {
           globalTelegram.MainButton.show()
+          console.log(newValue)
         }
       },
     },
