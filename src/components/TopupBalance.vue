@@ -119,8 +119,8 @@ export default {
       this.$router.push({name: 'layout'})
     },
     actionCb() {
-      if (this.$route.path === '/top-up') this.updateBalanceAmount()
-    }
+      this.updateBalanceAmount()
+    },
   },
   watch: {
     amount: {

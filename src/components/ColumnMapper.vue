@@ -317,7 +317,7 @@ export default {
       this.$router.push({name: 'uploader'})
     },
     actionCb() {
-      if (this.$route.path === '/mapper') this.$router.push({name: 'country'})
+      this.$router.push({name: 'country'})
     },
   },
   computed: {
@@ -405,16 +405,12 @@ export default {
     },
     darkDropdown: {
       handler() {
-        if (this.darkDropdown && this.darkModeSwitch) {
-          this.dropdownHandler()
-        }
+        (this.darkDropdown && this.darkModeSwitch) && this.dropdownHandler()
       }, deep: true
     },
     $data: {
       handler() {
-        if (this.darkModeSwitch) {
-          this.dataHandler()
-        }
+        this.darkModeSwitch && this.dataHandler()
       }, deep: true
     },
     requiredFieldsFilled: {
@@ -428,27 +424,22 @@ export default {
       },
     },
     darkModeSwitch: {
-      handler(newValue) {
-        if (newValue) {
-          this.switchHandler()
-        }
-        if (!newValue) {
-          this.switchRemover()
-        }
+      handler(n) {
+        n
+            ? this.switchHandler()
+            : this.switchRemover()
       },
     },
     includeExtra: {
-      handler(newValue) {
-        !newValue
+      handler(n) {
+        !n
             ? this.globalReducer()
             : console.log(Vue.prototype.$fullObject.data)
       }
     },
     darkCalendar: {
-      handler(newValue) {
-        if (newValue && this.darkModeSwitch) {
-          this.calendarHandler()
-        }
+      handler(n) {
+        (n && this.darkModeSwitch) && this.calendarHandler()
       }
     },
   },
@@ -459,9 +450,12 @@ export default {
     !!Vue.prototype?.$fullObject?.data && !this.visitedRouteFlag
         ? this.startCheck()
         : this.stateReselect()
+
     this.emptyChecker('country')
     this.emptyChecker('regdate')
+
     console.log(Vue.prototype?.$fullObject?.data)
+
     globalTelegram.MainButton.onClick(this.actionCb)
     globalTelegram.BackButton.show().onClick(this.redirectCb)
 
@@ -474,8 +468,10 @@ export default {
     if (!this.includeExtra && !!Vue.prototype?.$fullObject?.data && !!Vue.prototype?.$reducedObject) {
       Vue.prototype.$fullObject.data = Vue.prototype?.$reducedObject
     }
+
     globalTelegram.MainButton.hide().offClick(this.actionCb)
     globalTelegram.BackButton.hide().offClick(this.redirectCb)
+
     this.$store.commit('setVisitedRouteFlag', 1)
   },
 }

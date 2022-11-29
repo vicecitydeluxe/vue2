@@ -230,9 +230,7 @@ export default {
   watch: {
     darkDropdown: {
       handler() {
-        if (this.darkDropdown && this.darkModeSwitch) {
-          this.multiSelectHandler()
-        }
+        (this.darkDropdown && this.darkModeSwitch) && this.multiSelectHandler()
       }
     },
     //TODO: set up right condition to show MainButton
@@ -254,12 +252,10 @@ export default {
       }
     },
     darkModeSwitch: {
-      handler(newValue) {
-        if (newValue) {
-          this.switchHandler()
-        } else if (!newValue) {
-          this.switchRemover()
-        }
+      handler(n) {
+        n
+            ? this.switchHandler()
+            : this.switchRemover()
       },
     },
   },

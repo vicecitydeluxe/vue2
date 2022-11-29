@@ -92,19 +92,10 @@ export default {
       this.$router.push({name: 'finder'})
     },
     actionCb() {
-      if (this.$route.path === '/filter-sellers') this.$router.push({name: 'finder'})
+     this.$router.push({name: 'finder'})
     }
   },
   watch: {
-    // darkModeSwitch: {
-    //   handler(newValue) {
-    //     if (newValue) {
-    //
-    //     } else if (!newValue) {
-    //
-    //     }
-    //   },
-    // },
     checkedList: {
       handler(newValue) {
         if (newValue) {

@@ -130,30 +130,22 @@ export default {
     allCountriesInitiallyMapped() {
       return !!this.countriesToMap.every(el => !el)
     },
-    allCountriesMapped() {
-      return !this.selectedCountry.includes(undefined);
-    },
   },
   watch: {
     darkDropdown: {
       handler() {
-        if (this.darkDropdown && this.darkModeSwitch) {
-          this.dropdownHandler()
-        }
+        (this.darkDropdown && this.darkModeSwitch) && this.dropdownHandler()
       }, deep: true
     },
     $data: {
       handler() {
-        if (this.darkModeSwitch) {
-          this.dataHandler()
-        }
+        this.darkModeSwitch && this.dataHandler()
       }, deep: true
     },
     selectedCountry: {
       handler(newValue) {
-        console.log(newValue)
         if (!newValue.includes(undefined)) {
-          console.log(newValue)
+          console.log('all countries mapped!', newValue)
           globalTelegram.MainButton.show()
         }
         if (newValue || newValue.length) {
@@ -167,30 +159,18 @@ export default {
           //uncomment next line to see changed values
           console.log(Vue.prototype.$countries.map(el => el.country))
         }
-      }, deep:true
+      }, deep: true
     },
     darkModeSwitch: {
-      handler(newValue) {
-        if (newValue) {
-          this.switchHandler()
-        }
-        if (!newValue) {
-          this.switchRemover()
-        }
-      },
-    },
-    allCountriesMapped: {
-      handler(newValue) {
-        if (newValue) {
-          globalTelegram.MainButton.show()
-          console.log(newValue)
-        }
+      handler(n) {
+        n
+            ? this.switchHandler()
+            : this.switchRemover()
       },
     },
   },
   created() {
     /**
-     *
      * $countries is initial state array
      * which is created to take data from
      */
@@ -218,6 +198,7 @@ export default {
   beforeDestroy() {
     globalTelegram.MainButton.hide().offClick(this.actionCb)
     globalTelegram.BackButton.hide().offClick(this.redirectCb)
+
     Vue.prototype.$invalidObject = []
     Vue.prototype.$fullObject.data = Vue.prototype.$countries
   },

@@ -192,16 +192,12 @@ export default {
   watch: {
     darkDropdown: {
       handler() {
-        if (this.darkDropdown && this.darkModeSwitch) {
-          this.dropdownHandler()
-        }
+        (this.darkDropdown && this.darkModeSwitch) && this.dropdownHandler()
       }, deep: true
     },
     $data: {
       handler() {
-        if (this.darkModeSwitch) {
-          this.dataHandler()
-        }
+        this.darkModeSwitch && this.dataHandler()
       }, deep: true
     },
     validUploadButton: {
@@ -214,13 +210,10 @@ export default {
       },
     },
     darkModeSwitch: {
-      handler(newValue) {
-        if (newValue) {
-          this.switchHandler()
-        }
-        if (!newValue) {
-          this.switchRemover()
-        }
+      handler(n) {
+        n
+            ? this.switchHandler()
+            : this.switchRemover()
       },
     },
     listName: {
@@ -252,7 +245,7 @@ export default {
     next(vm => vm.$data.prevRoute = from.fullPath)
   },
   mounted() {
-    if (this.prevRoute === "/") this.getaAllLists()
+    this.prevRoute === "/" && this.getaAllLists()
     globalTelegram.expand()
     globalTelegram.enableClosingConfirmation()
     globalTelegram.MainButton.onClick(this.actionCb)
