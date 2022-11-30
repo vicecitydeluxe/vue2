@@ -48,5 +48,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/ParsingStyles.scss';
+@import '../../../styles/ParsingStyles';
 </style>

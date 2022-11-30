@@ -129,13 +129,13 @@ export default {
             this.$store.commit('setBalanceAmount', res.data.data.balance)
             if (this.balanceAmount === 0) {
               this.balanceFlag = false
-              globalTelegram.MainButton.setText("Confirm allocation and buy leads");
-              globalTelegram.MainButton.show()
-              globalTelegram.MainButton.onClick(this.actionCb);
-            } else {
               globalTelegram.MainButton.setText("Top up");
               globalTelegram.MainButton.show()
               globalTelegram.MainButton.onClick(this.topupCb);
+            } else {
+              globalTelegram.MainButton.setText("Confirm allocation and buy leads");
+              globalTelegram.MainButton.show()
+              globalTelegram.MainButton.onClick(this.actionCb);
             }
           })
           .catch((err) => {

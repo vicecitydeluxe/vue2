@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import parsingSpinner from "@/components/ParsingSpinner";
-import parsingError from "@/components/ParsingError";
+import parsingSpinner from "@/components/AsyncParts/Helpers/ParsingSpinner";
+import parsingError from "@/components/AsyncParts/Helpers/ParsingError";
 
 const result = import('@/components/ResultImporter')
 export default {

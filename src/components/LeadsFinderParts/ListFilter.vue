@@ -151,5 +151,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/ListFilter.scss';
+@import '../../styles/ListFilter';
 </style>

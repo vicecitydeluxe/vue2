@@ -62,12 +62,12 @@ const routes = [
     {
         path: '/filter-sellers',
         name: 'sellers',
-        component: () => import(/* webpackChunkName: "SellerFiler" */ '@/components/SellerFilter')
+        component: () => import(/* webpackChunkName: "SellerFiler" */ '@/components/LeadsFinderParts/SellerFilter')
     },
     {
         path: '/filter-lists',
         name: 'lists',
-        component: () => import(/* webpackChunkName: "ListFilter" */ '@/components/ListFilter')
+        component: () => import(/* webpackChunkName: "ListFilter" */ '@/components/LeadsFinderParts/ListFilter')
     },
     {
         path: '/deals-layout',
