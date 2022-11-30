@@ -6,10 +6,13 @@ const state = {
     globalSelectedType: 'Unknown',
     globalSelectedCountries: ['Any'],
     globalRegdateSelected: 'Less than a week',
+    globalRegdateUnknownChecker: null,
+    globalPriceFilter: null,
     globalExtraLeadsChecker: null,
+    globalRadioButtonValue: null,
     globalLeadFilter: 0,
     globalPriceMaxFilter: 0,
-    globalSelectedOption: null
+    globalSelectedOption: 'New leads first'
 }
 
 const getters = {
@@ -34,8 +37,17 @@ const getters = {
     globalRegdateSelected() {
         return state.globalRegdateSelected
     },
+    globalRegdateUnknownChecker() {
+        return state.globalRegdateUnknownChecker
+    },
+    globalPriceFilter() {
+        return state.globalPriceFilter
+    },
     globalExtraLeadsChecker() {
         return state.globalExtraLeadsChecker
+    },
+    globalRadioButtonValue() {
+        return state.globalRadioButtonValue
     },
     globalLeadFilter() {
         return state.globalLeadFilter
@@ -72,8 +84,17 @@ const mutations = {
     setGlobalRegdateSelected(ctx, data) {
         state.globalRegdateSelected = data
     },
+    setGlobalRegdateUnknownChecker(ctx, data) {
+        state.globalRegdateUnknownChecker = data
+    },
+    setGlobalPriceFilter(ctx, data) {
+        state.globalPriceFilter = data
+    },
     setGlobalExtraLeadsChecker(ctx, data) {
         state.globalExtraLeadsChecker = data
+    },
+    setGlobalRadioButtonValue(ctx, data) {
+        state.globalRadioButtonValue = data
     },
     setGlobalLeadFilter(ctx, data) {
         state.globalLeadFilter = data

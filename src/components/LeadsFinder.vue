@@ -193,10 +193,13 @@ export default {
       'globalSelectedType',
       'globalSelectedCountries',
       'globalRegdateSelected',
+      'globalRegdateUnknownChecker',
+      'globalPriceFilter',
       'globalExtraLeadsChecker',
+      'globalRadioButtonValue',
       'globalSelectedOption',
       'globalLeadFilter',
-      'globalPriceMaxFilter'
+      'globalPriceMaxFilter',
     ]),
     mainButtonFlag() {
       return !!(this.leadFilter && !!this.priceMaxFilter)
@@ -207,10 +210,13 @@ export default {
       this.selectedType = this.globalSelectedType
       if (!this.globalSelectedCountries.includes('Any')) this.selectedCountries = this.globalSelectedCountries
       this.regdateSelected = this.globalRegdateSelected
+      this.regdateUnknownChecker = this.globalRegdateUnknownChecker
+      this.priceFilter = this.globalPriceFilter
       this.extraLeadsChecker = this.globalExtraLeadsChecker
+      this.radioButtonValue = this.globalRadioButtonValue
       this.selectedOption = this.globalSelectedOption
-      this.priceMaxFilter = this.globalLeadFilter
-      this.leadFilter = this.globalPriceMaxFilter
+      this.priceMaxFilter = this.globalPriceMaxFilter
+      this.leadFilter = this.globalLeadFilter
     },
     redirectCb() {
       this.$router.push({name: 'layout'})

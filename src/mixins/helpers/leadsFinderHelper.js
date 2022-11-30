@@ -7,7 +7,7 @@ export default {
             selectedCountries: null,
             regdateSelected: null,
             extraLeadsChecker: false,
-            selectedOption: 'New leads first',
+            selectedOption: null,
             priceMaxFilter: null,
             leadFilter: null,
             types: [
@@ -47,15 +47,30 @@ export default {
                 this.$store.commit('setGlobalRegdateSelected', n)
             }
         },
+        regdateUnknownChecker: {
+            handler(n) {
+                this.$store.commit('setGlobalRegdateUnknownChecker', n)
+            }
+        },
+        priceFilter: {
+            handler(n) {
+                this.$store.commit('setGlobalPriceFilter', n)
+            }
+        },
         extraLeadsChecker: {
             handler(n) {
                 this.$store.commit('setGlobalExtraLeadsChecker', n)
             }
         },
+        radioButtonValue: {
+            handler(n) {
+                this.$store.commit('setGlobalRadioButtonValue', n)
+            }
+        },
         selectedOption: {
             handler(n) {
                 this.$store.commit('setGlobalSelectedOption', n)
-            }, immediate: true
+            }
         },
         priceMaxFilter: {
             handler(n) {
