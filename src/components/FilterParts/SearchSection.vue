@@ -1,21 +1,32 @@
 <template>
   <section class="container">
-    <div class="container_top">
-      <span class="container_title">{{ name }}</span>
-      <ToggleButton
-          @change="checker()"
-          onLabel="Include"
-          offLabel="Exclude"
-          :value="checked"
+    <div class="container_section">
+      <span class="container_title">{{ number }}</span>
+      <Button
+          label="Edit"
+          @click="editList"
       />
     </div>
     <div class="container_bottom">
-      <span>Rating:{{ rating }}</span>
-      <span>{{ list }}</span>
-      <span>Funnel: {{ funnel }}</span>
       <span>Upload date:{{ uploadDate }}</span>
-      <span>Sold (fully or partially) {{ sold }} times</span>
-      <span>Matching leads/total: {{ matching }}/ {{ total }}</span>
+      <div class="container_section">
+        <span>{{ list }}</span>
+        <Button
+            label="Stats"
+            v-if="status !=='Empty'"
+            @click="statsList"
+        />
+      </div>
+      <span>Leads: {{ leads }} </span>
+      <div class="container_section">
+        <span>Leads Price: {{ leadsPrice }}</span>
+        <Button
+            label="Change status"
+            v-if="status !=='Empty'"
+            @click="changeStatusList"
+        />
+      </div>
+      <span>Status: {{ status }}</span>
     </div>
   </section>
 
@@ -27,57 +38,49 @@ const globalTelegram = window.Telegram.WebApp
 export default {
   name: "ListSection",
   props: {
-    name: {
-      default: 'Unresolved name',
-      type: String
-    },
-    rating: {
-      default: 'Unresolved rating',
+    number: {
+      default: '#0',
       type: String
     },
     list: {
-      default: 'List name unresolved',
-      type: String
-    },
-    funnel: {
-      default: 'Funnel unresolved',
+      default: 'List Example',
       type: String
     },
     uploadDate: {
-      default: 'Upload date unresolved',
+      default: '22.11.2022',
       type: String
     },
-    sold: {
-      default: 'Unresolved amount',
+    leads: {
+      default: '0',
       type: String
     },
-    matching: {
-      default: 'Unresolved amount',
+    leadsPrice: {
+      default: '0',
       type: String
     },
-    total: {
-      default: 'Unresolved amount',
+    status: {
+      default: 'Empty (no leads uploaded)',
       type: String
     },
-    checked: Boolean
   },
   data() {
     return {
       darkModeSwitch: false,
-      checkedLocal: false
+      itemId: null
     }
   },
   methods: {
-    checker() {
-      this.checked
-          ? this.checkedLocal = false
-          : this.checkedLocal = true
-      this.$emit('checker', this.checkedLocal)
+    editList() {
+      this.$emit('edit', this.itemId)
+      this.$router.push({name: 'uploadLayout'})
     },
-  },
-  computed: {
-    checkAssigner() {
-      this.checkedLocal = this.checked
+    statsList() {
+      this.$emit('stats', this.itemId)
+      this.$router.push({name: 'analyzer'})
+    },
+    changeStatusList() {
+      this.$emit('status', this.itemId)
+      this.$router.push({name: 'status-changer'})
     },
   },
   created() {
@@ -93,6 +96,11 @@ export default {
     })
   },
   watch: {
+    number: {
+      handler(newValue) {
+        this.itemId = newValue
+      }, immediate: true
+    },
     darkModeSwitch: {
       handler(newValue) {
         if (newValue) {
@@ -112,7 +120,7 @@ export default {
 <style lang="scss" scoped>
 .container {
   padding: 15px;
-  height: 260px;
+  height: 250px;
   background: #F7F7FD;
   border-radius: 7px;
   margin-bottom: 25px;
@@ -136,7 +144,7 @@ export default {
     }
   }
 
-  &_top {
+  &_section {
     display: flex;
     align-content: center;
     align-items: center;

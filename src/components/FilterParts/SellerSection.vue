@@ -23,12 +23,30 @@ const globalTelegram = window.Telegram.WebApp
 export default {
   name: "SellerSection",
   props: {
-    name: String,
-    rating: String,
-    lists: String,
-    leads: String,
-    historyList: String,
-    historyLeads: String,
+    name: {
+      default: 'Unresolved name',
+      type: String
+    },
+    rating: {
+      default: 'Unresolved rating',
+      type: String
+    },
+    lists: {
+      default: 'Unresolved amount',
+      type: String
+    },
+    leads: {
+      default: 'Unresolved amount',
+      type: String
+    },
+    historyList: {
+      default: 'Unresolved amount',
+      type: String
+    },
+    historyLeads: {
+      default: 'Unresolved amount',
+      type: String
+    },
     checked: Boolean
   },
   data() {

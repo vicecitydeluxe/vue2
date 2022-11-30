@@ -1,0 +1,204 @@
+<template>
+  <div class="header">
+    <header class="header_section">
+      <h3>MY LISTS</h3>
+    </header>
+    <main>
+      <div>List status</div>
+      <div class="button-container">
+        <SelectButton
+            v-model="selectedFilter"
+            :options="filter"
+        />
+      </div>
+      <span
+          class="p-input-icon-left"
+          style="width:100%;
+                 margin-bottom:10px;
+                 height: 100%;"
+      >
+        <i
+            class="pi pi-search"
+            style="margin-top: -12px;"
+        />
+        <InputText
+            type="text"
+            placeholder="Search..."
+            v-model="inputValue"
+            style="width:100%;
+                   margin-bottom:10px;
+                   height: 100%;"
+        />
+    </span>
+      <ul
+          style="list-style: none"
+      >
+        <li
+            v-for="(item, index) in dynamicList"
+            :key="index"
+        >
+          <SearchSection
+              :number='item.number'
+              :uploadDate="item.uploadDate"
+              :list="item.list"
+              :leads="item.leads"
+              :leadsPrice="item.leadsPrice"
+              :status="item.status"
+              @edit="logID"
+              @stats="logID"
+              @status="logID"
+          />
+        </li>
+      </ul>
+    </main>
+  </div>
+</template>
+
+<script>
+import tgMixin from "@/mixins/telegram/tgMixin";
+import {mapGetters} from "vuex";
+
+const globalTelegram = window.Telegram.WebApp
+
+export default {
+  name: "ListSearcher",
+  mixins: [tgMixin],
+  components: {
+    SearchSection: () => import('@/components/FilterParts/SearchSection')
+  },
+  data() {
+    return {
+      selectedFilter: 'All',
+      filter: ['Hidden', 'Published', 'Archived', 'All'],
+      lists: [
+        {
+          number: '#1',
+          list: 'List Example NAME 1',
+          uploadDate: '22.11.2022',
+          leads: '100',
+          leadsPrice: '1',
+          status: 'Empty'
+        },
+        {
+          number: '#2',
+          list: 'List Example NAME 2',
+          uploadDate: '20.11.2022',
+          leads: '500',
+          leadsPrice: '2',
+          status: 'Published'
+        },
+        {
+          number: '#3',
+          list: 'List Example NAME 3',
+          uploadDate: '21.11.2022',
+          leads: '1000',
+          leadsPrice: '3',
+          status: 'Published'
+        },
+        {
+          number: '#4',
+          list: 'List Example NAME 4',
+          uploadDate: '21.11.2022',
+          leads: '1000',
+          leadsPrice: '3',
+          status: 'Hidden'
+        },
+        {
+          number: '#5',
+          list: 'List Example NAME 5',
+          uploadDate: '21.11.2022',
+          leads: '1000',
+          leadsPrice: '3',
+          status: 'Archived'
+        }
+      ],
+      hiddenHelper: [],
+      publishedHelper: [],
+      archivedHelper: [],
+      inputValue: null
+    }
+  },
+  computed: {
+    ...mapGetters([]),
+    dynamicList() {
+      return this["lists" + this.selectedFilter]
+    },
+    listsAll() {
+      if (!this.inputValue) return this.lists
+      else {
+        return this.lists.filter((_, i) => Object.values(this.lists[i])
+            .join('')
+            .toLowerCase()
+            .includes(this.inputValue.toLowerCase())
+        )
+      }
+    },
+    listsHidden() {
+      if (!this.inputValue) return this.hiddenHelper
+      else {
+        return this.hiddenHelper.filter((_, i) => Object.values(this.hiddenHelper[i])
+            .join('')
+            .toLowerCase()
+            .includes(this.inputValue.toLowerCase())
+        )
+      }
+    },
+    listsPublished() {
+      if (!this.inputValue) return this.publishedHelper
+      else {
+        return this.publishedHelper.filter((_, i) => Object.values(this.publishedHelper[i])
+            .join('')
+            .toLowerCase()
+            .includes(this.inputValue.toLowerCase())
+        )
+      }
+    },
+    listsArchived() {
+      if (!this.inputValue) return this.archivedHelper
+      else {
+        return this.archivedHelper.filter((_, i) => Object.values(this.archivedHelper[i])
+            .join('')
+            .toLowerCase()
+            .includes(this.inputValue.toLowerCase())
+        )
+      }
+    },
+  },
+  methods: {
+    logID(e) {
+      console.log(e)
+    },
+    redirectCb() {
+      this.$router.push({name: 'layout'})
+    },
+    // actionCb() {
+    //   this.$router.push({name: 'finder'})
+    // }
+  },
+  watch: {
+    selectedFilter: {
+      handler(n) {
+        if (n === 'Hidden' && !this.hiddenHelper.length) {
+          this.hiddenHelper = this.lists.filter(el => el.status === 'Hidden')
+        } else if (n === 'Published' && !this.publishedHelper.length) {
+          this.publishedHelper = this.lists.filter(el => el.status === 'Published')
+        } else if (n === 'Archived' && !this.archivedHelper.length) {
+          this.archivedHelper = this.lists.filter(el => el.status === 'Archived')
+        }
+      }, immediate: true
+    },
+  },
+  mounted() {
+    // globalTelegram.MainButton.onClick(this.actionCb)
+    globalTelegram.BackButton.show().onClick(this.redirectCb)
+  },
+  beforeDestroy() {
+    // globalTelegram.MainButton.hide().offClick(this.actionCb)
+    globalTelegram.BackButton.hide().offClick(this.redirectCb)
+  },
+}
+</script>
+
+<style lang="scss" scoped>
+@import '../styles/ListFilter';
+</style>
