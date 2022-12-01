@@ -80,6 +80,7 @@ export default {
     },
     changeStatusList() {
       this.$emit('status', this.itemId)
+      this.$store.commit('setMockStatus', this.status)
       this.$router.push({name: 'status-changer'})
     },
   },

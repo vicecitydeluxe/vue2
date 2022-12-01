@@ -15,20 +15,26 @@
       <div class="input_container">
         <span>Price per lead:</span>
         <InputNumber
+            showButtons
+            :step="0.05"
             :min="0"
             style="height: 38px;"
-            v-model="inputValue"
+            :class="[!publishedFlag
+                  ? ''
+                  : 'p-invalid']"
+            v-model="pricePerLead"
             mode="currency"
             currency="USD"
             locale="en-US"
             @input="toggleDarkDropdown"
         />
       </div>
-      <span class="text">This is the price buyers pay for a lead. The service fee, 10%, would be deducted when you actually sell leads.</span>
+      <span class="text">This is the price buyers pay for a lead.
+        The service fee, 10%, would be deducted when you actually sell leads.</span>
       <div class="field-checkbox" style="margin:10px 10px">
         <Checkbox
             id="option"
-            v-model="selectedOption"
+            v-model="decreaseFlag"
             :binary="true"
         />
         <label for="option">Decrease price</label>
@@ -37,22 +43,24 @@
         <div class="bottom_section_container">
           <span>By</span>
           <InputNumber
+              :disabled="!decreaseFlag"
               :min="0"
               :max="100"
               id="bottom"
-              style="height: 38px; width: 80px"
+              style="height: 38px; width: 65px"
               v-model="percentValue"
-              prefix="%"
+              suffix="%"
               @input="toggleDarkDropdown"
           />
         </div>
         <div class="bottom_section_container">
           <span>Every</span>
           <Dropdown
-              style="width: 180px"
+              :disabled="!decreaseFlag"
+              style="width: 180px;"
               :class="[ darkModeSwitch
             ? 'dropdown_dark'
-            : 'map_container_dropdown']"
+            : '']"
               @change="toggleDarkDropdown"
               v-model="selectedTimePeriod"
               :value="selectedTimePeriod"
@@ -66,12 +74,13 @@
         <div class="bottom_section_container">
           <span>Down to minimum of</span>
           <InputNumber
+              :disabled="!decreaseFlag"
               :min="0"
               :max="100"
               id="input"
-              style="height: 38px; width: 80px"
+              style="height: 38px; width: 65px"
               v-model="minPercentValue"
-              prefix="%"
+              suffix="%"
               @input="toggleDarkDropdown"
           />
           <span>of the initial price</span>
@@ -96,23 +105,25 @@ export default {
       filter: ['Hidden', 'Published', 'Archived'],
       selectedFilter: null,
       timePeriod: ['day', '2 days', '3 days', 'week'],
-      selectedTimePeriod: null,
-      selectedOption: null,
-      inputValue: 0,
+      selectedTimePeriod: 'day',
+      decreaseFlag: false,
+      pricePerLead: 0,
       percentValue: 0,
-      minPercentValue: 0
+      minPercentValue: 0,
+      publishedFlag: false
     }
   },
   computed: {
-    ...mapGetters(['mockLists', 'mockID']),
+    ...mapGetters(['mockLists', 'mockID', 'mockStatus']),
+    mainButtonShow() {
+      return !!(this.selectedFilter === 'Published' && this.pricePerLead) ||
+          !!(this.decreaseFlag && this.percentValue && this.minPercentValue)
+    }
   },
   methods: {
-    redirectCb() {
-      this.$router.push({name: 'layout'})
+    actionCb() {
+      this.$router.push({name: 'list-search'})
     },
-    // actionCb() {
-    //   this.$router.push({name: 'finder'})
-    // },
     toggleDarkDropdown() {
       this.darkDropdown++
     },
@@ -130,9 +141,13 @@ export default {
       document.querySelectorAll('.p-placeholder').forEach(e => e.classList.add('p-placeholder_dark'))
     },
     switchRemover() {
-      const darkStylesSelectors = ['text-dark', 'p-inputnumber-input_dark', 'p-placeholder_dark']
-      document.querySelectorAll('[class*="_dark"]')
-          .forEach(e => e.classList.remove(...darkStylesSelectors))
+      document.querySelectorAll('.text-dark').forEach(e => e.classList.remove('text-dark'))
+      document.querySelectorAll('.p-inputnumber-input_dark').forEach(e => e.classList.remove('p-inputnumber-input_dark'))
+      document.querySelectorAll('.p-placeholder_dark').forEach(e => e.classList.remove('p-placeholder_dark'))
+      document.querySelectorAll('.pi-chevron-down_dark').forEach(e => e.classList.remove('pi-chevron-down_dark'))
+      document.querySelectorAll('.p-dropdown-item_dark').forEach(e => e.classList.remove('p-dropdown-item_dark'))
+      document.querySelectorAll('.p-inputtext_dark').forEach(e => e.classList.remove('p-inputtext_dark'))
+      document.querySelectorAll('.p-highlight_dark').forEach(e => e.classList.remove('p-highlight_dark'))
     },
     dataHandler() {
       setTimeout(() => {
@@ -165,18 +180,66 @@ export default {
     selectedFilter: {
       handler(n) {
         this.$store.commit('setMockLists', n)
+        n === 'Published'
+            ? this.publishedFlag = true
+            : this.publishedFlag = false
+      }
+    },
+    pricePerLead: {
+      handler(n) {
+        !n
+            ? this.publishedFlag = true
+            : this.publishedFlag = false
+      }, immediate: true
+    },
+    decreaseFlag: {
+      handler(n) {
+        if (n) {
+          document.getElementById("bottom").classList.add("p-invalid");
+          document.getElementById("input").classList.add("p-invalid");
+        } else {
+          document.getElementById("bottom").classList.remove("p-invalid");
+          document.getElementById("input").classList.remove("p-invalid");
+        }
+      }
+    },
+    percentValue: {
+      handler(n) {
+        n
+            ? setTimeout(() => document.getElementById("bottom").classList.remove("p-invalid"), 0)
+            : setTimeout(() => document.getElementById("bottom").classList.add("p-invalid"), 0)
+      }
+    },
+    minPercentValue: {
+      handler(n) {
+        n
+            ? setTimeout(() => document.getElementById("input").classList.remove("p-invalid"), 0)
+            : setTimeout(() => document.getElementById("input").classList.add("p-invalid"), 0)
+      }
+    },
+    mainButtonShow: {
+      handler(n) {
+        n
+            ? globalTelegram.MainButton.show()
+            : globalTelegram.MainButton.hide()
       }
     },
   },
+  created() {
+    this.selectedFilter = this.mockStatus
+  },
   mounted() {
-    document.getElementById('bottom').setAttribute("style", "width:50px");
-    document.getElementById('input').setAttribute("style", "width:50px");
-    // globalTelegram.MainButton.onClick(this.actionCb)
-    globalTelegram.BackButton.show().onClick(this.redirectCb)
+    document.getElementById('bottom').setAttribute("style", "width:35px");
+    document.getElementById('input').setAttribute("style", "width:35px");
+
+    globalTelegram.MainButton.setText('Update status')
+    globalTelegram.MainButton.color = '#16a34a'
+    globalTelegram.MainButton.onClick(this.actionCb)
+    globalTelegram.BackButton.show().onClick(this.actionCb)
   },
   beforeDestroy() {
-    // globalTelegram.MainButton.hide().offClick(this.actionCb)
-    globalTelegram.BackButton.hide().offClick(this.redirectCb)
+    globalTelegram.MainButton.hide().offClick(this.actionCb)
+    globalTelegram.BackButton.hide().offClick(this.actionCb)
   },
 }
 </script>

@@ -62,7 +62,8 @@ const state = {
             status: 'Archived'
         }
     ],
-    mockID: null
+    mockID: null,
+    mockStatus: null
 }
 
 const getters = {
@@ -128,6 +129,9 @@ const getters = {
     },
     mockID() {
         return state.mockID
+    },
+    mockStatus() {
+        return state.mockStatus
     }
 }
 
@@ -309,6 +313,9 @@ const mutations = {
     },
     setMockID(ctx, data) {
         state.mockID = data
+    },
+    setMockStatus(ctx, data) {
+        state.mockStatus = data
     }
 
 }
