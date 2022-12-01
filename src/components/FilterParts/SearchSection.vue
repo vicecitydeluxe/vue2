@@ -26,7 +26,7 @@
             @click="changeStatusList"
         />
       </div>
-      <span>Status: {{ status }}</span>
+      <span>Status: <b>{{ status }}</b></span>
     </div>
   </section>
 

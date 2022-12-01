@@ -20,6 +20,49 @@ const state = {
     oldCountryState: '',
     chosenRegdate: null,
     visitedRouteFlag: 0,
+    mockLists: [
+        {
+            number: '#1',
+            list: 'List Example NAME 1',
+            uploadDate: '22.11.2022',
+            leads: '100',
+            leadsPrice: '1',
+            status: 'Empty'
+        },
+        {
+            number: '#2',
+            list: 'List Example NAME 2',
+            uploadDate: '20.11.2022',
+            leads: '500',
+            leadsPrice: '2',
+            status: 'Published'
+        },
+        {
+            number: '#3',
+            list: 'List Example NAME 3',
+            uploadDate: '21.11.2022',
+            leads: '1000',
+            leadsPrice: '3',
+            status: 'Published'
+        },
+        {
+            number: '#4',
+            list: 'List Example NAME 4',
+            uploadDate: '21.11.2022',
+            leads: '1000',
+            leadsPrice: '3',
+            status: 'Hidden'
+        },
+        {
+            number: '#5',
+            list: 'List Example NAME 5',
+            uploadDate: '21.11.2022',
+            leads: '1000',
+            leadsPrice: '3',
+            status: 'Archived'
+        }
+    ],
+    mockID: null
 }
 
 const getters = {
@@ -79,6 +122,12 @@ const getters = {
     },
     oldCountryState() {
         return state.oldCountryState
+    },
+    mockLists() {
+        return state.mockLists
+    },
+    mockID() {
+        return state.mockID
     }
 }
 
@@ -254,6 +303,13 @@ const mutations = {
     setOldCountryState(ctx, data) {
         state.oldCountryState = data
     },
+    setMockLists(ctx, data) {
+        const index = state.mockLists.findIndex(el => el.number === state.mockID)
+        state.mockLists[index].status = data
+    },
+    setMockID(ctx, data) {
+        state.mockID = data
+    }
 
 }
 

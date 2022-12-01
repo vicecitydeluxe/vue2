@@ -70,48 +70,7 @@ export default {
     return {
       selectedFilter: 'All',
       filter: ['Hidden', 'Published', 'Archived', 'All'],
-      lists: [
-        {
-          number: '#1',
-          list: 'List Example NAME 1',
-          uploadDate: '22.11.2022',
-          leads: '100',
-          leadsPrice: '1',
-          status: 'Empty'
-        },
-        {
-          number: '#2',
-          list: 'List Example NAME 2',
-          uploadDate: '20.11.2022',
-          leads: '500',
-          leadsPrice: '2',
-          status: 'Published'
-        },
-        {
-          number: '#3',
-          list: 'List Example NAME 3',
-          uploadDate: '21.11.2022',
-          leads: '1000',
-          leadsPrice: '3',
-          status: 'Published'
-        },
-        {
-          number: '#4',
-          list: 'List Example NAME 4',
-          uploadDate: '21.11.2022',
-          leads: '1000',
-          leadsPrice: '3',
-          status: 'Hidden'
-        },
-        {
-          number: '#5',
-          list: 'List Example NAME 5',
-          uploadDate: '21.11.2022',
-          leads: '1000',
-          leadsPrice: '3',
-          status: 'Archived'
-        }
-      ],
+      lists: [],
       hiddenHelper: [],
       publishedHelper: [],
       archivedHelper: [],
@@ -119,7 +78,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([]),
+    ...mapGetters(['mockLists']),
     dynamicList() {
       return this["lists" + this.selectedFilter]
     },
@@ -166,6 +125,7 @@ export default {
   },
   methods: {
     logID(e) {
+      this.$store.commit("setMockID", e)
       console.log(e)
     },
     redirectCb() {
@@ -187,6 +147,9 @@ export default {
         }
       }, immediate: true
     },
+  },
+  created() {
+    this.lists = this.mockLists
   },
   mounted() {
     // globalTelegram.MainButton.onClick(this.actionCb)
