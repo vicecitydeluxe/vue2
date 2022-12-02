@@ -50,6 +50,6 @@ export default {
 }
 </script>
 
-<style scoped>
-@import '../../styles/WizardSection/DealsLayout.scss';
+<style lang="scss" scoped>
+@import '../../styles/WizardSection/DealsLayout';
 </style>
