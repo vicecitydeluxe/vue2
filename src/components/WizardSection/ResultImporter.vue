@@ -100,6 +100,16 @@ export default {
     this.fileNameLocal = this.fileName
   },
   mounted() {
+    //setup do destroy global variables
+    // !!Vue.prototype?.$fullObject?.data && (Vue.prototype.$fullObject.data = [])
+    // !!Vue.prototype?.$reducedObject && (Vue.prototype.$reducedObject = [])
+    // !!Vue.prototype?.$invalidObject && (Vue.prototype.$invalidObject = [])
+    // !!Vue.prototype?.$fullDuplicates && (Vue.prototype.$fullDuplicates = [])
+    // !!Vue.prototype?.$partialDuplicates && (Vue.prototype.$partialDuplicates = [])
+    // !!Vue.prototype?.$fullDuplciatesRemoved && (Vue.prototype.$fullDuplciatesRemoved = [])
+    // !!Vue.prototype?.$partialDuplciatesRemoved && (Vue.prototype.$partialDuplciatesRemoved = [])
+    // !!Vue.prototype?.$parsedDocument && (Vue.prototype.$parsedDocument = [])
+
     this.dateChecker()
     if (this.darkModeSwitch) {
       setTimeout(() => {

@@ -195,7 +195,7 @@ export default {
     }
   },
   mounted() {
-    console.log(Vue.prototype?.$fullObject?.data)
+    !!Vue.prototype?.$fullObject?.data && console.log(Vue.prototype.$fullObject.data)
     if (this.darkModeSwitch) {
       setTimeout(() => {
         document.querySelectorAll('.p-column-title')

@@ -454,7 +454,7 @@ export default {
     this.emptyChecker('country')
     this.emptyChecker('regdate')
 
-    console.log(Vue.prototype?.$fullObject?.data)
+    !!Vue.prototype?.$fullObject?.data && console.log(Vue.prototype.$fullObject.data)
 
     globalTelegram.MainButton.onClick(this.actionCb)
     globalTelegram.BackButton.show().onClick(this.redirectCb)

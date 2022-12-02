@@ -148,7 +148,8 @@ export default {
           console.log('all countries mapped!', newValue)
           globalTelegram.MainButton.show()
         }
-        if (newValue || newValue.length) {
+        // next line: nullish checker is for handling console warning
+        if ((newValue || newValue.length) && !!Vue.prototype?.$fullObject?.data) {
           Vue.prototype.$fullObject.data.forEach((el, i) => {
             if (el.country === this.countriesToMap[this.iterationIndex]) {
               Vue.prototype.$countries[i]['country'] = this.oldCountryState
@@ -174,7 +175,7 @@ export default {
      * $countries is initial state array
      * which is created to take data from
      */
-    Vue.prototype.$countries = JSON.parse(JSON.stringify(Vue.prototype.$fullObject.data))
+    !!Vue.prototype?.$fullObject?.data && (Vue.prototype.$countries = JSON.parse(JSON.stringify(Vue.prototype.$fullObject.data)))
     this.wrongCountryFinder()
     if (!!this.countriesToMap.length) {
       let e = {}
@@ -199,8 +200,8 @@ export default {
     globalTelegram.MainButton.hide().offClick(this.actionCb)
     globalTelegram.BackButton.hide().offClick(this.redirectCb)
 
-    Vue.prototype.$invalidObject = []
-    Vue.prototype.$fullObject.data = Vue.prototype.$countries
+    !!Vue.prototype?.$invalidObject && (Vue.prototype.$invalidObject = [])
+    !!Vue.prototype.$fullObject?.data && (Vue.prototype.$fullObject.data = Vue.prototype.$countries)
   },
 }
 </script>
