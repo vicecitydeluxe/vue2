@@ -174,6 +174,15 @@ const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "LeadsFinder",
+  components: {
+    InputNumber: () => import ('primevue/inputnumber'),
+    Button: () => import('primevue/button'),
+    SelectButton: () => import ('primevue/selectbutton'),
+    Dropdown: () => import ('primevue/dropdown'),
+    Checkbox: () => import ('primevue/checkbox'),
+    RadioButton: () => import ('primevue/radiobutton'),
+    MultiSelect: () => import('primevue/multiselect')
+  },
   mixins: [
     tgMixin,
     leadsFinderHelper,

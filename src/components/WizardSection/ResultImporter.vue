@@ -62,6 +62,11 @@ const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "ResultImporter",
+  components: {
+    // Button: () => import('primevue/button')
+    DataTable: () => import ('primevue/datatable'),
+    Column: () => import ('primevue/column'),
+  },
   mixins: [tgMixin, resultImporterHelper],
   data() {
     return {

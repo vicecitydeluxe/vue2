@@ -62,10 +62,12 @@ const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "ListSearcher",
-  mixins: [tgMixin],
   components: {
-    SearchSection: () => import('@/components/MyListsSection/ListSearcherParts/Helpers/SearchSection')
+    SearchSection: () => import('@/components/MyListsSection/ListSearcherParts/Helpers/SearchSection'),
+    InputText: () => import ('primevue/inputtext'),
+    SelectButton: () => import ('primevue/selectbutton')
   },
+  mixins: [tgMixin],
   data() {
     return {
       selectedFilter: 'All',

@@ -324,7 +324,19 @@ export default {
                         life: 2000
                     });
                 })
-        }
+        },
+        switchHandler() {
+            document.querySelectorAll('.p-column-title')
+                .forEach(e => e.classList.replace('p-column-title', 'p-column-title-dark'))
+            document.querySelectorAll('.description').forEach(e => e.classList.add('description_dark'))
+            document.querySelectorAll('.description_divider').forEach(e => e.classList.add('description_divider_dark'))
+        },
+        switchRemover() {
+            document.querySelectorAll('.p-column-title-dark')
+                .forEach(e => e.classList.replace('p-column-title-dark', 'p-column-title'))
+            document.querySelectorAll('.description_dark').forEach(e => e.classList.remove('description_dark'))
+            document.querySelectorAll('.description_divider').forEach(e => e.classList.remove('description_divider_dark'))
+        },
     },
     computed: {
         ...mapGetters(['listName', 'fileName', 'parsedListLength',

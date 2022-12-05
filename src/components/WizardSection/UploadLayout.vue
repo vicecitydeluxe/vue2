@@ -77,6 +77,12 @@ const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "UploadLayout",
+  components: {
+    // Button: () => import('primevue/button'),
+    InputText: () => import ('primevue/inputtext'),
+    SelectButton: () => import ('primevue/selectbutton'),
+    Dropdown: () => import ('primevue/dropdown'),
+  },
   mixins: [tgMixin, uploadLayoutHandler],
   data() {
     return {

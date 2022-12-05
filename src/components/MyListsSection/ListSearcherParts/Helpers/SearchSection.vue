@@ -37,6 +37,9 @@ const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "SearchSection",
+  components: {
+    Button: () => import('primevue/button')
+  },
   props: {
     number: {
       default: '#0',

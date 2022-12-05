@@ -5,52 +5,15 @@ import store from './store'
 
 import browserDetect from "vue-browser-detect-plugin";
 import PrimeVue from 'primevue/config';
-
-import InputText from 'primevue/inputtext';
-import InputNumber from 'primevue/inputnumber';
-import Button from 'primevue/button';
-import SelectButton from 'primevue/selectbutton';
-import FileUpload from 'primevue/fileupload';
-import DataTable from 'primevue/datatable';
-import Column from 'primevue/column';
-import Dropdown from 'primevue/dropdown';
-import Checkbox from 'primevue/checkbox';
-import InputMask from 'primevue/inputmask';
-import RadioButton from 'primevue/radiobutton';
-import ProgressSpinner from 'primevue/progressspinner';
-import ToggleButton from 'primevue/togglebutton';
-import Accordion from 'primevue/accordion';
-import AccordionTab from 'primevue/accordiontab';
 import ToastService from 'primevue/toastservice';
 import Toast from 'primevue/toast';
-import Calendar from 'primevue/calendar';
-import Paginator from 'primevue/paginator';
-import MultiSelect from 'primevue/multiselect';
 
 import 'primevue/resources/themes/md-light-indigo/theme.css'
 import 'primevue/resources/primevue.min.css'
 import 'primeicons/primeicons.css'
 import "./index.scss";
 
-Vue.component('InputText', InputText);
-Vue.component('InputNumber', InputNumber);
-Vue.component('Button', Button);
-Vue.component('FileUpload', FileUpload);
-Vue.component('DataTable', DataTable);
-Vue.component('Column', Column);
-Vue.component('Dropdown', Dropdown);
-Vue.component('Checkbox', Checkbox);
-Vue.component('InputMask', InputMask);
-Vue.component('RadioButton', RadioButton);
-Vue.component('ProgressSpinner', ProgressSpinner);
-Vue.component('SelectButton', SelectButton);
-Vue.component('ToggleButton', ToggleButton);
-Vue.component('Accordion', Accordion);
-Vue.component('AccordionTab', AccordionTab);
 Vue.component('Toast', Toast);
-Vue.component('Calendar', Calendar);
-Vue.component('Paginator', Paginator);
-Vue.component('MultiSelect', MultiSelect);
 
 Vue.use(browserDetect);
 Vue.use(PrimeVue);

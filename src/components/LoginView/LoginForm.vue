@@ -43,6 +43,9 @@ const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "LoginForm",
+  components: {
+    InputText: () => import ('primevue/inputtext'),
+  },
   mixins: [tgMixin, toastWarn, loginFormHandler],
   data() {
     return {

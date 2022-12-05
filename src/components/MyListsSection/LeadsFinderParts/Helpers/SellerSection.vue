@@ -22,6 +22,9 @@ const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "SellerSection",
+  components: {
+    ToggleButton: () => import ('primevue/togglebutton')
+  },
   props: {
     name: {
       default: 'Unresolved name',

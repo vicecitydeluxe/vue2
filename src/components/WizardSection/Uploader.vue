@@ -92,6 +92,12 @@ const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "Uploader",
+  components: {
+    DataTable: () => import ('primevue/datatable'),
+    Column: () => import ('primevue/column'),
+    Button: () => import('primevue/button'),
+    FileUpload: () => import('primevue/fileupload')
+  },
   mixins: [tgMixin],
   data() {
     return {

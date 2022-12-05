@@ -27,6 +27,9 @@ const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "ImportSpinner",
+  components: {
+    ProgressSpinner: () => import ('primevue/progressspinner')
+  },
   mixins: [tgMixin],
   methods: {
     redirectCb() {

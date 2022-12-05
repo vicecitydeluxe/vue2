@@ -47,6 +47,9 @@ const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "Layout",
+  components: {
+    Button: () => import('primevue/button')
+  },
   mixins: [tgMixin, tgHapticFeedback, layoutHelper],
   methods: {
     showPopupAlert() {

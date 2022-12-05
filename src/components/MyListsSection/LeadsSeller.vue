@@ -77,13 +77,15 @@ import {mapGetters} from "vuex";
 const globalTelegram = window.Telegram.WebApp;
 
 export default {
+  name: 'LeadsSeller',
+  components: {
+    OptionsSection: () => import("@/components/MyListsSection/LeadsSellerParts/OptionsSection"),
+    Button: () => import('primevue/button')
+  },
   mixins: [
     tgMixin,
     leadsSellerHandler
   ],
-  components: {
-    OptionsSection: () => import("@/components/MyListsSection/LeadsSellerParts/OptionsSection"),
-  },
   data() {
     return {
       darkModeSwitch: false,

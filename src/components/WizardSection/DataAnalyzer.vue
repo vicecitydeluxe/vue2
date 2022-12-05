@@ -91,6 +91,11 @@ const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "DataAnalyzer",
+  components: {
+    DataTable: () => import ('primevue/datatable'),
+    Column: () => import ('primevue/column'),
+    Button: () => import('primevue/button'),
+  },
   mixins: [tgMixin, dataAnalyzerHelper],
   data() {
     return {
@@ -119,6 +124,17 @@ export default {
     backCb() {
       this.$router.push({name: 'layout'})
     },
+    inlineTGHandler() {
+      globalTelegram.MainButton.setText('Go back to layout section')
+      globalTelegram.MainButton.color = '#e50fda'
+      globalTelegram.MainButton.show().onClick(this.backCb)
+    },
+    regularTGHandler() {
+      globalTelegram.MainButton.setText('Import results')
+      globalTelegram.MainButton.color = '#16a34a'
+      globalTelegram.MainButton.show().onClick(this.actionCb)
+      globalTelegram.BackButton.show().onClick(this.redirectCb)
+    }
 
   },
   computed: {
@@ -134,19 +150,10 @@ export default {
   },
   watch: {
     darkModeSwitch: {
-      handler(newValue) {
-        if (newValue) {
-          document.querySelectorAll('.p-column-title')
-              .forEach(e => e.classList.replace('p-column-title', 'p-column-title-dark'))
-          document.querySelectorAll('.description').forEach(e => e.classList.add('description_dark'))
-          document.querySelectorAll('.description_divider').forEach(e => e.classList.add('description_divider_dark'))
-        }
-        if (!newValue) {
-          document.querySelectorAll('.p-column-title-dark')
-              .forEach(e => e.classList.replace('p-column-title-dark', 'p-column-title'))
-          document.querySelectorAll('.description_dark').forEach(e => e.classList.remove('description_dark'))
-          document.querySelectorAll('.description_divider').forEach(e => e.classList.remove('description_divider_dark'))
-        }
+      handler(n) {
+        n
+            ? this.switchHandler()
+            : this.switchRemover()
       },
     },
     invalidParsedLinesIndexes: {
@@ -196,23 +203,16 @@ export default {
   },
   mounted() {
     !!Vue.prototype?.$fullObject?.data && console.log(Vue.prototype.$fullObject.data)
-    if (this.darkModeSwitch) {
-      setTimeout(() => {
-        document.querySelectorAll('.p-column-title')
-            .forEach(e => e.classList.replace('p-column-title', 'p-column-title-dark'))
-      }, 0)
-    }
+
+    this.darkModeSwitch && setTimeout(() => {
+      document.querySelectorAll('.p-column-title')
+          .forEach(e => e.classList.replace('p-column-title', 'p-column-title-dark'))
+    }, 0)
+
     // when we enter from inline button
-    if (!Vue.prototype?.$fullObject?.data) {
-      globalTelegram.MainButton.setText('Go back to layout section')
-      globalTelegram.MainButton.color = '#e50fda'
-      globalTelegram.MainButton.show().onClick(this.backCb)
-    } else {
-      globalTelegram.MainButton.setText('Import results')
-      globalTelegram.MainButton.color = '#16a34a'
-      globalTelegram.MainButton.show().onClick(this.actionCb)
-      globalTelegram.BackButton.show().onClick(this.redirectCb)
-    }
+    !Vue.prototype?.$fullObject?.data
+        ? this.inlineTGHandler()
+        : this.regularTGHandler()
   },
   beforeDestroy() {
     globalTelegram.MainButton.offClick(this.actionCb)

@@ -43,10 +43,11 @@ const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "SellerFilter",
-  mixins: [tgMixin],
   components: {
-    SellerSection: () => import('@/components/MyListsSection/LeadsFinderParts/Helpers/SellerSection')
+    SellerSection: () => import('@/components/MyListsSection/LeadsFinderParts/Helpers/SellerSection'),
+    SelectButton: () => import ('primevue/selectbutton')
   },
+  mixins: [tgMixin],
   data() {
     return {
       checkedList: [],

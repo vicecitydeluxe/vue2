@@ -71,6 +71,10 @@ const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "CountryMapper",
+  components: {
+    Paginator: () => import('primevue/paginator'),
+    Dropdown: () => import('primevue/dropdown')
+  },
   mixins: [tgMixin, countryMapperHelper, countryMapperHandler],
   data() {
     return {

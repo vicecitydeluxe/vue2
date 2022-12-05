@@ -76,10 +76,11 @@ const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "TopupBalance",
-  mixins: [tgMixin, topupBalanceHandler],
   components: {
-    QrcodeVue: () => import('qrcode.vue')
+    QrcodeVue: () => import('qrcode.vue'),
+    InputText: () => import ('primevue/inputtext'),
   },
+  mixins: [tgMixin, topupBalanceHandler],
   data() {
     return {
       amount: '',

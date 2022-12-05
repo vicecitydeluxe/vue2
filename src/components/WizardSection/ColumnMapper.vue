@@ -257,6 +257,11 @@ const calendars = document.getElementsByClassName('p-calendar')
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: "Mapper",
+  components: {
+    Dropdown: () => import ('primevue/dropdown'),
+    RadioButton: () => import ('primevue/radiobutton'),
+    Calendar: () => import ('primevue/calendar')
+  },
   mixins: [tgMixin, columnMapperHelper,
     countryMapperHelper, columnMapperHandler],
   data() {

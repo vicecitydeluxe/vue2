@@ -98,6 +98,12 @@ const globalTelegram = window.Telegram.WebApp
 
 export default {
   name: "StatusChanger",
+  components: {
+    InputNumber: () => import ('primevue/inputnumber'),
+    SelectButton: () => import ('primevue/selectbutton'),
+    Dropdown: () => import ('primevue/dropdown'),
+    Checkbox: () => import ('primevue/checkbox')
+  },
   mixins: [tgMixin],
   data() {
     return {
@@ -229,9 +235,10 @@ export default {
     this.selectedFilter = this.mockStatus
   },
   mounted() {
-    document.getElementById('bottom').setAttribute("style", "width:35px");
-    document.getElementById('input').setAttribute("style", "width:35px");
-
+    setTimeout(() => {
+      document.getElementById('bottom').setAttribute("style", "width:35px");
+      document.getElementById('input').setAttribute("style", "width:35px");
+    }, 100)
     globalTelegram.MainButton.setText('Update status')
     globalTelegram.MainButton.color = '#16a34a'
     globalTelegram.MainButton.onClick(this.actionCb)
