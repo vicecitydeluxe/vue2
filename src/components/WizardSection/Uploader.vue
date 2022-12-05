@@ -170,7 +170,7 @@ export default {
                 else {
                   this.emptyFile = false
                   this.parsed = true
-                  this.parsedData = result
+                  this.parsedData = Object.preventExtensions(result)
                   Vue.prototype.$fullObject = result
                   this.parsedSkippedEmptyLines = result.data.length
                   this.$store.commit('setParsedListLength', this.parsedSkippedEmptyLines)

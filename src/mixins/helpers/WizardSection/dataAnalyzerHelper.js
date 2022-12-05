@@ -2,8 +2,7 @@
 import Vue from "vue";
 import {mapActions, mapGetters} from "vuex";
 import Papa from "papaparse";
-import {ParseError, parsePhoneNumber} from "libphonenumber-js";
-import {parsePhoneNumberFromString as parseMax} from "libphonenumber-js/min";
+import {isValidPhoneNumber} from 'libphonenumber-js'
 
 export default {
     data() {
@@ -115,20 +114,7 @@ export default {
             if (this.chosenPhone) {
                 Vue.prototype?.$fullObject?.data.map((el, i) => {
                     let element = Vue.prototype?.$fullObject?.data[i]['phone']
-
-                    try {
-                        parsePhoneNumber(element).isValid()
-                    } catch (error) {
-                        if (error instanceof ParseError) {
-                            this.invalidParsedLinesIndexes.push(i)
-                            this.$store.commit('pushInvalidPhone', element)
-                            this.privateResults[5].value = this.invalidPhone.length
-                            // console.log(error.message)
-                            return
-                        } else throw error
-                    }
-
-                    if (parseMax(element).isValid()) {
+                    if (isValidPhoneNumber(element)) {
                         this.$store.commit('pushValidPhone', element)
                     } else {
                         this.invalidParsedLinesIndexes.push(i)
@@ -140,7 +126,7 @@ export default {
         },
         countersInvoker() {
             this.emailInvalidCounter()
-            this.phoneInvalidCounter()
+            // this.phoneInvalidCounter()
             this.firsNameInvalidCounter()
             this.lastNameInvalidCounter()
             this.fullNameInvalidCounter()
