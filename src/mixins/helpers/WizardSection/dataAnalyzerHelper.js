@@ -126,6 +126,7 @@ export default {
         },
         countersInvoker() {
             this.emailInvalidCounter()
+            // TODO: remove phone validating logic;
             // this.phoneInvalidCounter()
             this.firsNameInvalidCounter()
             this.lastNameInvalidCounter()
@@ -215,7 +216,7 @@ export default {
             })
         },
         // requests
-        sendParsedList() {
+        sendData() {
             let obj = []
             /**
              * $fullDuplicatesRemoved or $partialDuplicatesRemoved
@@ -230,39 +231,11 @@ export default {
                 obj = Vue.prototype?.$fullObject?.data
             }
 
-            this.$store.dispatch('SEND_PARSED_LEADS',
+            const firstRequest = this.$store.dispatch('SEND_PARSED_LEADS',
                 {name: this.listNameLocal, file_name: this.fileNameLocal, object: obj})
-                .then(() => {
-                    // console.log(res.data)
-                })
-                .catch((err) => {
-                    console.log(err)
-                })
-        },
-        sendStatistics() {
-            const obj = {
-                name: this.listName,
-                file_name: this.fileName,
-                full_records: this.parsedListLength,
-                valid_leads: this.privateResults[1]?.value,
-                unable_to_parse: this.privateResults[2]?.value,
-                invalid_emails: this.privateResults[4]?.value,
-                invalid_phones: this.privateResults[5]?.value,
-                invalid_names: this.privateResults[6]?.value,
-            }
-            this.$store.dispatch('SEND_STATS', obj)
-                .then(() => {
-                    // console.log(res)
-                })
-                .catch((err) => {
-                    console.log(err)
-                })
-        },
-        sendUploadStatus() {
-            /**
-             * Values below taken from getters in mixin-helper
-             */
-            const obj = {
+                .catch((err) => console.log(err))
+
+            const objStatus = {
                 name: this.listName,
                 filename: this.filename,
                 vertical: this.vertical,
@@ -272,14 +245,30 @@ export default {
                 upload_date: this.todayDate,
                 status: this.listStatusBeforeUpload
             }
-            this.$store.dispatch('SEND_UPLOAD_STATUS', obj)
-                .then(() => {
-                    this.sendStatistics()
-                    // console.log(res)
-                })
-                .catch((err) => {
-                    console.log(err)
-                })
+
+            const secondRequest = this.$store.dispatch('SEND_UPLOAD_STATUS', objStatus)
+                .catch(err => console.log(err))
+
+            const objStat = {
+                name: this.listName,
+                file_name: this.fileName,
+                full_records: this.parsedListLength,
+                valid_leads: this.privateResults[1]?.value,
+                unable_to_parse: this.privateResults[2]?.value,
+                invalid_emails: this.privateResults[4]?.value,
+                invalid_phones: this.privateResults[5]?.value,
+                invalid_names: this.privateResults[6]?.value,
+            }
+
+            const thirdRequest = this.$store.dispatch('SEND_STATS', objStat)
+                .catch((err) => console.log(err))
+
+            const arr = [firstRequest, secondRequest, thirdRequest]
+
+            Promise.allSettled(arr)
+                .then((res) => console.log(res))
+                .catch(err => console.log(err))
+
         },
         getStats() {
             this.$store.dispatch('GET_STATS')

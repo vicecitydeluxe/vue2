@@ -299,8 +299,8 @@ export default {
      * if user has chosen option to delete all extra fields
      */
     globalReducer() {
-      Vue.prototype.$reducedObject = JSON.parse(JSON.stringify(Vue.prototype.$fullObject.data))
-      this.removeExtraFields(Vue.prototype?.$reducedObject)
+      Vue.prototype.$reducedObject = Object.preventExtensions(Vue.prototype.$fullObject.data)
+      this.removeExtraFields(Vue.prototype.$reducedObject)
       console.log(Vue.prototype?.$reducedObject)
     },
     stateReselect() {
@@ -471,7 +471,7 @@ export default {
   },
   beforeDestroy() {
     if (!this.includeExtra && !!Vue.prototype?.$fullObject?.data && !!Vue.prototype?.$reducedObject) {
-      Vue.prototype.$fullObject.data = Vue.prototype?.$reducedObject
+      Vue.prototype.$fullObject.data = Vue.prototype.$reducedObject
     }
 
     globalTelegram.MainButton.hide().offClick(this.actionCb)

@@ -106,14 +106,14 @@ export default {
   },
   mounted() {
     //setup do destroy global variables
-    // !!Vue.prototype?.$fullObject?.data && (Vue.prototype.$fullObject.data = [])
-    // !!Vue.prototype?.$reducedObject && (Vue.prototype.$reducedObject = [])
-    // !!Vue.prototype?.$invalidObject && (Vue.prototype.$invalidObject = [])
-    // !!Vue.prototype?.$fullDuplicates && (Vue.prototype.$fullDuplicates = [])
-    // !!Vue.prototype?.$partialDuplicates && (Vue.prototype.$partialDuplicates = [])
-    // !!Vue.prototype?.$fullDuplciatesRemoved && (Vue.prototype.$fullDuplciatesRemoved = [])
-    // !!Vue.prototype?.$partialDuplciatesRemoved && (Vue.prototype.$partialDuplciatesRemoved = [])
-    // !!Vue.prototype?.$parsedDocument && (Vue.prototype.$parsedDocument = [])
+    // !!Vue.prototype?.$fullObject?.data && delete Vue.prototype.$fullObject.data
+    // !!Vue.prototype?.$reducedObject && delete Vue.prototype.$reducedObject
+    // !!Vue.prototype?.$invalidObject && delete Vue.prototype.$invalidObject
+    // !!Vue.prototype?.$fullDuplicates && delete Vue.prototype.$fullDuplicates
+    // !!Vue.prototype?.$partialDuplicates && delete Vue.prototype.$partialDuplicates
+    // !!Vue.prototype?.$fullDuplciatesRemoved && delete Vue.prototype.$fullDuplciatesRemoved
+    // !!Vue.prototype?.$partialDuplciatesRemoved && delete Vue.prototype.$partialDuplciatesRemoved
+    // !!Vue.prototype?.$parsedDocument && delete Vue.prototype.$parsedDocument
 
     this.dateChecker()
     if (this.darkModeSwitch) {

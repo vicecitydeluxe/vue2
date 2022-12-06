@@ -179,6 +179,7 @@ export default {
      * $countries is initial state array
      * which is created to take data from
      */
+    // TODO: find a way to optimize memory leak
     !!Vue.prototype?.$fullObject?.data && (Vue.prototype.$countries = JSON.parse(JSON.stringify(Vue.prototype.$fullObject.data)))
     this.wrongCountryFinder()
     if (!!this.countriesToMap.length) {

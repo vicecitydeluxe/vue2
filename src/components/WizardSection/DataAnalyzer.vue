@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <!--    <Button @click="sendParsedList">LIST SENDER</Button>-->
+<!--    <Button @click="sendData">LIST SENDER</Button>-->
     <header class="header_section">
       <h3># {{ listNameLocal }}</h3>
     </header>
@@ -114,8 +114,7 @@ export default {
       })
     },
     actionCb() {
-      this.sendParsedList()
-      this.sendUploadStatus()
+      this.sendData()
       this.$router.push({name: 'results'})
     },
     redirectCb() {

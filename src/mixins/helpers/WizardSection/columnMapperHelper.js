@@ -65,7 +65,7 @@ export default {
                     // console.log(result)
                 }
             )
-            Vue.prototype.$dirtyObject = JSON.parse(JSON.stringify(Vue.prototype.$fullObject.data))
+            Vue.prototype.$dirtyObject = Object.preventExtensions(Vue.prototype.$fullObject.data)
         },
         sortParsedFields() {
             for (let i = 0; i < this.requiredFieldsDictionary.length; i++) {
