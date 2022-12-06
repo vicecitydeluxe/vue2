@@ -2,7 +2,7 @@
 import Vue from "vue";
 import {mapActions, mapGetters} from "vuex";
 import Papa from "papaparse";
-import {isValidPhoneNumber} from 'libphonenumber-js'
+// import {isValidPhoneNumber} from 'libphonenumber-js'
 
 export default {
     data() {
@@ -108,22 +108,22 @@ export default {
                 })
             }
         },
-        phoneInvalidCounter() {
-            this.privateResults[5].value = this.invalidPhone.length
-
-            if (this.chosenPhone) {
-                Vue.prototype?.$fullObject?.data.map((el, i) => {
-                    let element = Vue.prototype?.$fullObject?.data[i]['phone']
-                    if (isValidPhoneNumber(element)) {
-                        this.$store.commit('pushValidPhone', element)
-                    } else {
-                        this.invalidParsedLinesIndexes.push(i)
-                        this.$store.commit('pushInvalidPhone', element)
-                        this.privateResults[5].value = this.invalidPhone.length
-                    }
-                })
-            }
-        },
+        // phoneInvalidCounter() {
+        //     this.privateResults[5].value = this.invalidPhone.length
+        //
+        //     if (this.chosenPhone) {
+        //         Vue.prototype?.$fullObject?.data.map((el, i) => {
+        //             let element = Vue.prototype?.$fullObject?.data[i]['phone']
+        //             if (isValidPhoneNumber(element)) {
+        //                 this.$store.commit('pushValidPhone', element)
+        //             } else {
+        //                 this.invalidParsedLinesIndexes.push(i)
+        //                 this.$store.commit('pushInvalidPhone', element)
+        //                 this.privateResults[5].value = this.invalidPhone.length
+        //             }
+        //         })
+        //     }
+        // },
         countersInvoker() {
             this.emailInvalidCounter()
             // TODO: remove phone validating logic;

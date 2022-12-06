@@ -73,7 +73,7 @@ export default {
     this.$store.commit('setName', this.userInfo.username)
 
     this.$store.dispatch('CHECK_NAME')
-        .then((res) => {
+        .then(res => {
           if (res.data.status === 200 || res.data?.error === 'ALREADY_REGISTERED') {
             this.respondSuccess = true
             this.$router.push({name: 'layout'})
@@ -84,7 +84,7 @@ export default {
             this.showComponent = true
           }
         })
-        .catch((err) => {
+        .catch(err => {
           this.showComponent = true
           console.log(`ERR: ${err}`)
         })

@@ -124,7 +124,7 @@ export default {
       this.$router.push({name: 'uploadLayout'})
     },
     actionCb() {
-      if (this.$route.path === '/uploader') this.$router.push({name: 'mapper'})
+      this.$router.push({name: 'mapper'})
     },
     sendFile(event) {
       return new Promise((resolve) => {

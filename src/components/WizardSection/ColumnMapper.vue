@@ -280,7 +280,7 @@ export default {
   methods: {
     emptyChecker(e) {
       for (let i = 0; i < Vue.prototype?.$fullObject?.data?.length; i++) {
-        if (!Vue.prototype?.$fullObject?.data[i][e]) return this[`${e}EmptyFlag`] = true
+        !Vue.prototype?.$fullObject?.data[i][e] && (this[`${e}EmptyFlag`] = true)
       }
     },
     removeExtraFields(arr) {
@@ -392,20 +392,14 @@ export default {
     },
     selectedCountryFromList: {
       handler() {
-        if (this.checkedCountry === 'empty') {
-          this.checkedCountry = ''
-        } else if (this.checkedCountry === 'all_to') {
-          this.checkedCountry = ''
-        }
+        if (this.checkedCountry === 'empty') this.checkedCountry = ''
+        else if (this.checkedCountry === 'all_to') this.checkedCountry = ''
       },
     },
     registrationDate: {
       handler() {
-        if (this.checkedRegDate === 'empty') {
-          this.checkedRegDate = ''
-        } else if (this.checkedRegDate === 'all_to') {
-          this.checkedRegDate = ''
-        }
+        if (this.checkedRegDate === 'empty') this.checkedRegDate = ''
+        else if (this.checkedRegDate === 'all_to') this.checkedRegDate = ''
       },
     },
     darkDropdown: {

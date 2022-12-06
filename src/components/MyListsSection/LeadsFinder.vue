@@ -217,7 +217,7 @@ export default {
   methods: {
     globalStateAssigner() {
       this.selectedType = this.globalSelectedType
-      if (!this.globalSelectedCountries.includes('Any')) this.selectedCountries = this.globalSelectedCountries
+      !this.globalSelectedCountries.includes('Any') && (this.selectedCountries = this.globalSelectedCountries)
       this.regdateSelected = this.globalRegdateSelected
       this.regdateUnknownChecker = this.globalRegdateUnknownChecker
       this.priceFilter = this.globalPriceFilter

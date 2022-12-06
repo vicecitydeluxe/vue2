@@ -65,12 +65,8 @@ export default {
   },
   beforeMount() {
     this.$store.dispatch('CHECK_BALANCE')
-        .then((res) => {
-          this.$store.commit('setBalanceAmount', res.data.data.balance)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+        .then(res => this.$store.commit('setBalanceAmount', res.data.data.balance))
+        .catch(err => console.log(err))
   },
   watch: {
     darkModeSwitch: {

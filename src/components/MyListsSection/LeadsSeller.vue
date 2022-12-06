@@ -127,7 +127,7 @@ export default {
     },
     balanceChecker() {
       this.$store.dispatch('CHECK_BALANCE')
-          .then((res) => {
+          .then(res => {
             this.$store.commit('setBalanceAmount', res.data.data.balance)
             if (this.balanceAmount === 0) {
               this.balanceFlag = false
@@ -140,7 +140,7 @@ export default {
               globalTelegram.MainButton.onClick(this.actionCb);
             }
           })
-          .catch((err) => {
+          .catch(err => {
             this.errorFlag = true
             console.log(err)
           })
