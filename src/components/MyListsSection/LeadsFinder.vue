@@ -14,12 +14,11 @@
         <div class="filter_header">Filter</div>
         <div class="filter_container_wrapper">
           <div class="filter_header_divider">Type (Multiple select)</div>
-          <div style="display:flex; justify-content: center">
-            <SelectButton
-                v-model="selectedType"
-                :options="types"
-            />
-          </div>
+          <SelectButton
+              id="select_top"
+              v-model="selectedType"
+              :options="types"
+          />
         </div>
         <div class="filter_container_wrapper">
           <div class="filter_header_divider">Countries</div>
@@ -44,6 +43,9 @@
                       : 'dropdown']"
               :options="regdateFilter"
               v-model="regdateSelected"
+              @change="toggleDarkDropdown"
+              @before-show="toggleDarkDropdown"
+              @filter="toggleDarkDropdown"
               placeholder="Choose filter"
           />
         </div>
@@ -154,6 +156,7 @@
       <div>Sort by
         <div class="button-container">
           <SelectButton
+              id="select_bottom"
               :options="sortOptions"
               v-model="selectedOption"
           />
@@ -278,6 +281,10 @@ export default {
     this.globalStateAssigner()
   },
   mounted() {
+    setTimeout(() => {
+      document.getElementById('select_top').setAttribute("style", "display:flex");
+      document.getElementById('select_bottom').setAttribute("style", "width:100%; display:flex");
+    }, 100)
     this.mainButtonShow('Buy leads')
     globalTelegram.MainButton.onClick(this.actionCb)
     globalTelegram.BackButton.show().onClick(this.redirectCb)

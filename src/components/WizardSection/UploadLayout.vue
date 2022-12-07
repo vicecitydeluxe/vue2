@@ -46,6 +46,7 @@
       <h6>Type</h6>
       <div class="button_container">
         <SelectButton
+            id="select"
             class="select_button"
             :options="types"
             v-model="selectedType"
@@ -251,6 +252,9 @@ export default {
     next(vm => vm.$data.prevRoute = from.fullPath)
   },
   mounted() {
+    setTimeout(() => {
+      document.getElementById('select').setAttribute("style", "width:100%; display:flex");
+    }, 100)
     this.prevRoute === "/" && this.getaAllLists()
     globalTelegram.expand()
     globalTelegram.enableClosingConfirmation()

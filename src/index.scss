@@ -752,3 +752,18 @@ MultiSelect dark styles
 .p-button-label {
   font-size: 13px;
 }
+
+.p-selectbutton .p-button:focus.p-highlight {
+  background: #2563eb;;
+  color: white;
+  border-color: #d9d8d9;
+}
+
+.p-selectbutton .p-button.p-highlight {
+  background: #2563eb;;
+  border-color: #d9d8d9;
+  color: white;
+}
+.p-selectbutton .p-button {
+  flex: 1 0 25%;
+}

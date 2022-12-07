@@ -7,6 +7,7 @@
       <div>List status:</div>
       <div class="button-container">
         <SelectButton
+            id="select"
             v-model="selectedFilter"
             :options="filter"
         />
@@ -238,6 +239,7 @@ export default {
     setTimeout(() => {
       document.getElementById('bottom').setAttribute("style", "width:35px");
       document.getElementById('input').setAttribute("style", "width:35px");
+      document.getElementById('select').setAttribute("style", "width:100%; display:flex");
     }, 100)
     globalTelegram.MainButton.setText('Update status')
     globalTelegram.MainButton.color = '#16a34a'

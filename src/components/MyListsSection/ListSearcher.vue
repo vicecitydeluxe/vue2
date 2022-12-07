@@ -7,6 +7,7 @@
       <div>List status</div>
       <div class="button-container">
         <SelectButton
+            id="select"
             v-model="selectedFilter"
             :options="filter"
         />
@@ -154,6 +155,9 @@ export default {
     this.lists = this.mockLists
   },
   mounted() {
+    setTimeout(() => {
+      document.getElementById('select').setAttribute("style", "width:100%; display:flex");
+    }, 100)
     // globalTelegram.MainButton.onClick(this.actionCb)
     globalTelegram.BackButton.show().onClick(this.redirectCb)
   },
