@@ -1,7 +1,7 @@
 <template>
   <section class="container">
     <div class="container_top">
-      <span class="container_title">{{ name }}</span>
+      <span class="container_title" v-text="name"/>
       <ToggleButton
           @change="checker"
           onLabel="Include"

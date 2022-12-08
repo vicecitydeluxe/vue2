@@ -4,8 +4,9 @@
       <h3>BUY LEADS</h3>
     </header>
     <main>
-      <div class="main_top_container"><span>{{ globalLeadFilter }}</span>
-        <span>{{ globalPriceMaxFilter }} $</span>
+      <div class="main_top_container">
+        <span v-text="globalLeadFilter"/>
+        <span v-text="globalPriceMaxFilter"/>
       </div>
       <span class="main_title">Review your options:</span>
       <OptionsSection/>

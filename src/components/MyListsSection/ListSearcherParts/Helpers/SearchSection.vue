@@ -1,7 +1,10 @@
 <template>
   <section class="container">
     <div class="container_section">
-      <span class="container_title">{{ number }}</span>
+      <span
+          class="container_title"
+          v-text="number"
+      />
       <Button
           label="Edit"
           @click="editList"
@@ -10,7 +13,7 @@
     <div class="container_bottom">
       <span>Upload date:{{ uploadDate }}</span>
       <div class="container_section">
-        <span>{{ list }}</span>
+        <span v-text="list"/>
         <Button
             label="Stats"
             v-if="status !=='Empty'"

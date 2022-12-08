@@ -11,7 +11,7 @@
       <hr class="hidden">
       <div class="description_divider">Public statistics</div>
       <div class="description">Numbers are valid
-        at the time of loading on {{ this.todayDate }}
+        at the time of loading on {{ todayDate }}
       </div>
       <div class="description_divider">Leads age</div>
       <DataTable

@@ -1,7 +1,10 @@
 <template>
   <section class="container">
     <div class="container_top">
-      <span class="container_title">{{ name }}</span>
+      <span
+          class="container_title"
+          v-text="name"
+      />
       <ToggleButton
           @change="checker()"
           onLabel="Include"
@@ -11,7 +14,7 @@
     </div>
     <div class="container_bottom">
       <span>Rating:{{ rating }}</span>
-      <span>{{ list }}</span>
+      <span v-text="list"/>
       <span>Funnel: {{ funnel }}</span>
       <span>Upload date:{{ uploadDate }}</span>
       <span>Sold (fully or partially) {{ sold }} times</span>
