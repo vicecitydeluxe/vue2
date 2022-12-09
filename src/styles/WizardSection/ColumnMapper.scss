@@ -1,44 +1,56 @@
 @import '../sectionMixin.scss';
 
+$f: 15px;
+$b: #2563EB;
+$w: white;
+$n: none;
+$s: solid;
+$S: 7px;
+$c: center;
+$F: flex;
+$if: inline-flex;
+$B: bottom;
+$h: hidden;
+
 .main_section_divider {
-  margin: 15px 0 15px 0;
+  margin: $f 0 $f 0;
 }
 
 .description {
-  padding: 15px;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  padding: $f;
+  margin-top: $f;
+  margin-bottom: $f;
   background: #F7F7FD;
-  border-radius: 7px;
+  border-radius: $S;
 
   &_dark {
-    padding: 15px;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    padding: $f;
+    margin-top: $f;
+    margin-bottom: $f;
     background: #32343A;
-    color: white;
-    border-radius: 7px;
+    color: $w;
+    border-radius: $S;
   }
 }
 
 .map_container {
-  display: flex;
+  display: $F;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
+  align-items: $c;
+  margin-bottom: $f;
   gap: 3px;
 
   &_dropdown {
     width: 166px;
     left: 0;
-    border: 2px solid #CED4DA;
-    border-radius: 7px;
+    border: 2px $s #CED4DA;
+    border-radius: $S;
 
     &_dark {
       width: 166px;
       left: 0;
-      border: 2px solid #CED4DA;
-      border-radius: 7px;
+      border: 2px $s #CED4DA;
+      border-radius: $S;
       background: #282828;
     }
   }
@@ -75,10 +87,10 @@
 }
 
 .sub_map_container {
-  display: flex;
-  margin-bottom: 15px;
+  display: $F;
+  margin-bottom: $f;
   justify-content: space-between;
-  align-items: center;
+  align-items: $c;
   gap: 65px;
 
   &_divider {
@@ -91,190 +103,190 @@
   position: static;
   left: 0;
   top: 24px;
-  border: 1px solid #CED4DA;
-  border-radius: 7px;
+  border: 1px $s #CED4DA;
+  border-radius: $S;
 
   &_dark {
     width: 166px;
     position: static;
     left: 0;
     top: 24px;
-    border: 1px solid #CED4DA;
-    border-radius: 7px;
-    color: white;
+    border: 1px $s #CED4DA;
+    border-radius: $S;
+    color: $w;
     background: #282828;
 
     &::placeholder {
-      color: white;
+      color: $w;
       opacity: 1; /* Firefox */
     }
   }
 }
 
 .bottom_section_container {
-  padding: 15px;
+  padding: $f;
   text-indent: 10px;
   background: #F7F7FD;
-  border-radius: 7px;
+  border-radius: $S;
 
   &_dark {
-    padding: 15px;
+    padding: $f;
     text-indent: 10px;
     background: #32343A;
-    color: white;
-    border-radius: 7px;
+    color: $w;
+    border-radius: $S;
   }
 }
 
 .options_container {
-  display: flex;
-  justify-content: center;
-  margin: 15px 0 15px 0;
+  display: $F;
+  justify-content: $c;
+  margin: $f 0 $f 0;
 }
 
 .btn_right {
   width: 100%;
   font-size: 14px;
   padding: 0.714rem 1rem;
-  margin-right: 15px;
-  display: inline-flex;
+  margin-right: $f;
+  display: $if;
   cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-  align-items: center;
-  vertical-align: bottom;
-  text-align: center;
-  overflow: hidden;
+  -webkit-user-select: $n;
+  -moz-user-select: $n;
+  user-select: $n;
+  align-items: $c;
+  vertical-align: $B;
+  text-align: $c;
+  overflow: $h;
   position: relative;
   border-width: 1px 1px 1px 1px;
-  border-style: solid;
+  border-style: $s;
   border-color: #CED4DA;
-  background: white;
-  border-radius: 0 7px 7px 0;
+  background: $w;
+  border-radius: 0 $S $S 0;
 
   &_dark {
     width: 100%;
     font-size: 14px;
     padding: 0.714rem 1rem;
-    margin-right: 15px;
-    display: inline-flex;
+    margin-right: $f;
+    display: $if;
     cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
-    align-items: center;
-    vertical-align: bottom;
-    text-align: center;
-    overflow: hidden;
+    -webkit-user-select: $n;
+    -moz-user-select: $n;
+    user-select: $n;
+    align-items: $c;
+    vertical-align: $B;
+    text-align: $c;
+    overflow: $h;
     position: relative;
     border-width: 1px 1px 1px 1px;
-    border-style: solid;
+    border-style: $s;
     border-color: #CED4DA;
     background: #282828;
-    color: white;
-    border-radius: 0 7px 7px 0;
+    color: $w;
+    border-radius: 0 $S $S 0;
 
     &:hover {
-      background: #2563EB;
-      color: white;
+      background: $b;
+      color: $w;
     }
 
     &:focus {
-      background: #2563EB;
-      color: white;
+      background: $b;
+      color: $w;
     }
   }
 
   &:hover {
-    background: #2563EB;
-    color: white;
+    background: $b;
+    color: $w;
   }
 
   &:focus {
-    background: #2563EB;
-    color: white;
+    background: $b;
+    color: $w;
   }
 }
 
 .btn_left {
-  margin-left: 15px;
+  margin-left: $f;
   width: 100%;
   font-size: 14px;
   padding: 0.714rem 1rem;
-  display: inline-flex;
+  display: $if;
   cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-  align-items: center;
-  vertical-align: bottom;
-  text-align: center;
-  overflow: hidden;
+  -webkit-user-select: $n;
+  -moz-user-select: $n;
+  user-select: $n;
+  align-items: $c;
+  vertical-align: $B;
+  text-align: $c;
+  overflow: $h;
   position: relative;
-  background: white;
-  border-radius: 7px 0 0 7px;
+  background: $w;
+  border-radius: $S 0 0 $S;
   border-width: 1px 0 1px 1px;
-  border-style: solid;
+  border-style: $s;
   border-color: #CED4DA;
 
   &_dark {
-    margin-left: 15px;
+    margin-left: $f;
     width: 100%;
     font-size: 14px;
     padding: 0.714rem 1rem;
-    display: inline-flex;
+    display: $if;
     cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
-    align-items: center;
-    vertical-align: bottom;
-    text-align: center;
-    overflow: hidden;
+    -webkit-user-select: $n;
+    -moz-user-select: $n;
+    user-select: $n;
+    align-items: $c;
+    vertical-align: $B;
+    text-align: $c;
+    overflow: $h;
     position: relative;
     background: #282828;
-    color: white;
-    border-radius: 7px 0 0 7px;
+    color: $w;
+    border-radius: $S 0 0 $S;
     border-width: 1px 0 1px 1px;
-    border-style: solid;
+    border-style: $s;
     border-color: #CED4DA;
 
     &:hover {
-      background: #2563EB;
-      color: white;
+      background: $b;
+      color: $w;
     }
 
     &:focus {
-      background: #2563EB;
-      color: white;
+      background: $b;
+      color: $w;
     }
   }
 
   &:hover {
-    background: #2563EB;
-    color: white;
+    background: $b;
+    color: $w;
   }
 
   &:focus {
-    background: #2563EB;
-    color: white;
+    background: $b;
+    color: $w;
   }
 }
 
 .dropdown_dark {
   background: #282828;
-  border: 1.7px solid #CED4DA;
+  border: 1.7px $s #CED4DA;
   width: 166px;
   left: 0;
-  border-radius: 7px;
+  border-radius: $S;
 }
 
 .pi-calendar {
 
   &_dark {
     content: "\e927";
-    color: white !important;
+    color: $w !important;
   }
 }
 

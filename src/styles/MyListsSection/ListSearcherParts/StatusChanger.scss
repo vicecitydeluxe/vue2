@@ -1,24 +1,29 @@
 @import './src/styles/MyListsSection/LeadsFinderParts/ListFilter.scss';
 @import '../../textMixin';
 
+$f: flex;
+$c: center;
+$t: 10px;
+$s: space-around;
+
 .input_container {
-  margin-top: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
+  margin-top: $t;
+  display: $f;
+  align-items: $c;
+  justify-content: $s;
 }
 
 .bottom_section {
-  margin-top: 10px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  margin-top: $t;
+  display: $f;
+  justify-content: $s;
+  align-items: $c;
 
   &_container {
     margin-top: 12px;
-    align-items: center;
-    display: flex;
-    gap: 10px;
+    align-items: $c;
+    display: $f;
+    gap: $t;
   }
 }
 

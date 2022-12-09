@@ -1,13 +1,18 @@
 @import '../descriptionMixin.scss';
 @import '../optionsContainerMixin.scss';
 
+$t: 20px;
+$f: flex;
+$sb: space-between;
+$b: #2563EB;
+
 .header {
-  margin-right: 20px;
-  margin-left: 20px;
+  margin-right: $t;
+  margin-left: $t;
 
   &_section {
-    display: flex;
-    justify-content: space-between;
+    display: $f;
+    justify-content: $sb;
     align-items: center;
   }
 }
@@ -15,9 +20,9 @@
 .main {
 
   &_top_container {
-    display: flex;
-    justify-content: space-between;
-    color: #2563EB;
+    display: $f;
+    justify-content: $sb;
+    color: $b;
     font-weight: 600;
     font-size: 16px;
     margin-bottom: 25px;
@@ -35,8 +40,8 @@
     font-weight: 500;
     font-size: 14px;
     line-height: 17px;
-    color: #2563EB;
-    display: flex;
+    color: $b;
+    display: $f;
   }
 
   &_bottom_filter {

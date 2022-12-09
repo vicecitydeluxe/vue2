@@ -1,8 +1,10 @@
 @import '../sectionMixin.scss';
 
+$h: 100%;
+
 .p-input_text {
-  font-size: 100%;
-  width: 100%;
+  font-size: $h;
+  width: $h;
   margin-bottom: 10px;
   border: 1px solid #CED4DA;
   border-radius: 7px;
@@ -14,7 +16,7 @@
 }
 
 .p-dropdown {
-  width: 100%;
+  width: $h;
 }
 
 .dropdown_dark {

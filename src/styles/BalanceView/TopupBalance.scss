@@ -1,16 +1,29 @@
 @import '../textMixin';
 
+$t: 20px;
+$c: center;
+$f: flex;
+$if: inline-flex;
+$w: white;
+$b: #2563EB;
+$n: none;
+$b: bottom;
+$r: relative;
+$p: pointer;
+$h: hidden;
+$s: solid;
+
 .header {
-  display: flex;
+  display: $f;
   justify-content: space-between;
-  align-items: center;
-  margin-left: 20px;
-  margin-right: 20px;
+  align-items: $c;
+  margin-left: $t;
+  margin-right: $t;
 }
 
 .layout {
-  display: flex;
-  justify-content: center;
+  display: $f;
+  justify-content: $c;
 }
 
 .p-inputtext {
@@ -26,64 +39,64 @@
   font-size: 14px;
   padding: 0.714rem 1rem;
   margin: 0;
-  display: inline-flex;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-  align-items: center;
-  vertical-align: bottom;
-  text-align: center;
-  overflow: hidden;
-  position: relative;
+  display: $if;
+  cursor: $p;
+  -webkit-user-select: $n;
+  -moz-user-select: $n;
+  user-select: $n;
+  align-items: $c;
+  vertical-align: $b;
+  text-align: $c;
+  overflow: $h;
+  position: $r;
 
-  background: white;
+  background: $w;
   border-radius: 7px 0 0 7px;
   border-width: 1px 0 1px 1px;
-  border-style: solid;
+  border-style: $s;
   border-color: #CED4DA;
 
   &_dark {
     font-size: 14px;
     padding: 0.714rem 1rem;
     margin: 0;
-    display: inline-flex;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
-    align-items: center;
-    vertical-align: bottom;
-    text-align: center;
-    overflow: hidden;
-    position: relative;
+    display: $if;
+    cursor: $p;
+    -webkit-user-select: $n;
+    -moz-user-select: $n;
+    user-select: $n;
+    align-items: $c;
+    vertical-align: $b;
+    text-align: $c;
+    overflow: $h;
+    position: $r;
 
     border-radius: 7px 0 0 7px;
     border-width: 1px 0 1px 1px;
-    border-style: solid;
+    border-style: $s;
     border-color: #CED4DA;
-    color: white;
+    color: $w;
     background: #282828;
 
     &:hover {
-      background: #2563EB;
-      color: white;
+      background: $b;
+      color: $w;
     }
 
     &:focus {
-      background: #2563EB;
-      color: white;
+      background: $b;
+      color: $w;
     }
   }
 
   &:hover {
-    background: #2563EB;
-    color: white;
+    background: $b;
+    color: $w;
   }
 
   &:focus {
-    background: #2563EB;
-    color: white;
+    background: $b;
+    color: $w;
   }
 }
 
@@ -91,62 +104,62 @@
   font-size: 14px;
   padding: 0.714rem 1rem;
   margin: 0;
-  display: inline-flex;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-  align-items: center;
-  vertical-align: bottom;
-  text-align: center;
-  overflow: hidden;
-  position: relative;
+  display: $if;
+  cursor: $p;
+  -webkit-user-select: $n;
+  -moz-user-select: $n;
+  user-select: $n;
+  align-items: $c;
+  vertical-align: $b;
+  text-align: $c;
+  overflow: $h;
+  position: $r;
   border-width: 1px 0 1px 1px;
-  border-style: solid;
+  border-style: $s;
   border-color: #CED4DA;
-  background: white;
+  background: $w;
   border-radius: inherit;
 
   &_dark {
     font-size: 14px;
     padding: 0.714rem 1rem;
     margin: 0;
-    display: inline-flex;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
-    align-items: center;
-    vertical-align: bottom;
-    text-align: center;
-    overflow: hidden;
-    position: relative;
+    display: $if;
+    cursor: $p;
+    -webkit-user-select: $n;
+    -moz-user-select: $n;
+    user-select: $n;
+    align-items: $c;
+    vertical-align: $b;
+    text-align: $c;
+    overflow: $h;
+    position: $r;
     border-width: 1px 0 1px 1px;
-    border-style: solid;
+    border-style: $s;
     border-color: #CED4DA;
     border-radius: inherit;
-    color: white;
+    color: $w;
     background: #282828;
 
     &:hover {
-      //background: #2563EB;
-      color: white;
+      //background: $b;
+      color: $w;
     }
 
     &:focus {
-      //background: #2563EB;
-      color: white;
+      //background: $b;
+      color: $w;
     }
   }
 
   &:hover {
-    //background: #2563EB;
-    color: white;
+    //background: $b;
+    color: $w;
   }
 
   &:focus {
-    //background: #2563EB;
-    color: white;
+    //background: $b;
+    color: $w;
   }
 }
 
@@ -154,82 +167,82 @@
   font-size: 14px;
   padding: 0.714rem 1rem;
   margin: 0;
-  display: inline-flex;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-  align-items: center;
-  vertical-align: bottom;
-  text-align: center;
-  overflow: hidden;
-  position: relative;
+  display: $if;
+  cursor: $p;
+  -webkit-user-select: $n;
+  -moz-user-select: $n;
+  user-select: $n;
+  align-items: $c;
+  vertical-align: $b;
+  text-align: $c;
+  overflow: $h;
+  position: $r;
   border-width: 1px 1px 1px 1px;
-  border-style: solid;
+  border-style: $s;
   border-color: #CED4DA;
-  background: white;
+  background: $w;
   border-radius: 0 7px 7px 0;
 
   &_dark {
     font-size: 14px;
     padding: 0.714rem 1rem;
     margin: 0;
-    display: inline-flex;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
-    align-items: center;
-    vertical-align: bottom;
-    text-align: center;
-    overflow: hidden;
-    position: relative;
+    display: $if;
+    cursor: $p;
+    -webkit-user-select: $n;
+    -moz-user-select: $n;
+    user-select: $n;
+    align-items: $c;
+    vertical-align: $b;
+    text-align: $c;
+    overflow: $h;
+    position: $r;
     border-width: 1px 1px 1px 1px;
-    border-style: solid;
+    border-style: $s;
     border-color: #CED4DA;
     border-radius: 0 7px 7px 0;
-    color: white;
+    color: $w;
     background: #282828;
 
     &:hover {
-      //background: #2563EB;
-      color: white;
+      //background: $b;
+      color: $w;
     }
 
     &:focus {
-      //background: #2563EB;
-      color: white;
+      //background: $b;
+      color: $w;
     }
   }
 
   &:hover {
-    //background: #2563EB;
-    color: white;
+    //background: $b;
+    color: $w;
   }
 
   &:focus {
-    //background: #2563EB;
-    color: white;
+    //background: $b;
+    color: $w;
   }
 }
 
 .main {
-  margin-right: 20px;
-  margin-left: 20px;
+  margin-right: $t;
+  margin-left: $t;
 }
 
 .input_container {
-  display: flex;
+  display: $f;
   flex-direction: column;
-  align-items: center;
+  align-items: $c;
   gap: 10px;
-  margin-top: 20px;
-  margin-right: 20px;
-  margin-left: 20px;
+  margin-top: $t;
+  margin-right: $t;
+  margin-left: $t;
 
   &_section {
-    display: flex;
-    align-items: center;
+    display: $f;
+    align-items: $c;
     gap: 25px;
   }
 }

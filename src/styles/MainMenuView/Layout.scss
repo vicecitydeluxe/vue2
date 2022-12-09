@@ -1,9 +1,14 @@
+$f: flex;
+$c: center;
+$p: pointer;
+$t: 20px;
+
 .header {
   width: 100%;
   margin: 0 auto;
   height: 52px;
-  display: flex;
-  align-items: center;
+  display: $f;
+  align-items: $c;
   justify-content: space-between;
   //background: rgba(217, 217, 217, 0.01);
   border-width: 1px 0;
@@ -12,20 +17,20 @@
   box-shadow: 0 2px 50px rgba(33, 68, 255, 0.08);
 
   &_balance_container {
-    display: flex;
-    align-items: center;
+    display: $f;
+    align-items: $c;
     gap: 5px;
-    margin-left: 20px;
-    cursor: pointer;
+    margin-left: $t;
+    cursor: $p;
   }
 
   &_profile_container {
-    display: flex;
-    align-items: center;
+    display: $f;
+    align-items: $c;
     justify-content: flex-end;
     gap: 5px;
-    margin-right: 20px;
-    cursor: pointer;
+    margin-right: $t;
+    cursor: $p;
   }
 
   &_icon {
@@ -38,8 +43,8 @@
 }
 
 .layout {
-  display: flex;
-  justify-content: center;
+  display: $f;
+  justify-content: $c;
   flex-wrap: wrap;
   gap: 1rem;
   margin-top: 26px;

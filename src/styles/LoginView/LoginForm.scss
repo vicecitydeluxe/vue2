@@ -1,15 +1,18 @@
+$t: 20px;
+$T: 2rem;
+
 .form-demo {
-  margin-right: 20px;
-  margin-left: 20px;
+  margin-right: $t;
+  margin-left: $t;
   .card {
     min-width: 250px;
 
     form {
-      margin-top: 2rem;
+      margin-top: $T;
     }
 
     .p-field {
-      margin-bottom: 2rem;
+      margin-bottom: $T;
     }
   }
 

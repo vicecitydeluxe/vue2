@@ -1,13 +1,24 @@
 @import '../optionsContainerMixin.scss';
 
+$t: 20px;
+$tf: 25px;
+$s: 7px;
+$f: flex;
+$w: white;
+$W: #DEE2E6;
+$b: #282828;
+$c: center;
+$S: solid;
+
+
 .header {
-  margin-right: 20px;
-  margin-left: 20px;
+  margin-right: $t;
+  margin-left: $t;
 
   &_section {
-    display: flex;
+    display: $f;
     justify-content: space-between;
-    align-items: center;
+    align-items: $c;
   }
 }
 
@@ -15,13 +26,13 @@
   position: sticky;
   top: 0;
   z-index: 1;
-  background: white;
+  background: $w;
 
   &_dark {
     position: sticky;
     top: 0;
     z-index: 1;
-    background: #282828;
+    background: $b;
   }
 
   &_number {
@@ -42,7 +53,6 @@
         line-height: 17px;
         color: #ffffff;
       }
-
     }
   }
 }
@@ -54,36 +64,36 @@
 .filter_header {
   font-weight: 700;
   font-size: 14px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: $f;
+  justify-content: $c;
+  align-items: $c;
   height: 38px;
   background: #F8F9FA;
-  border-bottom: 1px solid #DEE2E6;
-  border-radius: 7px 7px 0 0;
+  border-bottom: 1px $S $W;
+  border-radius: $s $s 0 0;
 
   &_dark {
     font-weight: 700;
     font-size: 14px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: $f;
+    justify-content: $c;
+    align-items: $c;
     height: 38px;
-    color: white;
+    color: $w;
     background: #494C57;
-    border-bottom: 1px solid #4B4B4B;
-    border-radius: 7px 7px 0 0;
+    border-bottom: 1px $S #4B4B4B;
+    border-radius: $s $s 0 0;
   }
 
   &_divider {
     margin-top: 15px;
-    margin-bottom: 7px;
+    margin-bottom: $s;
     font-weight: 600;
     font-size: 14px;
 
     &_dark {
-      color: white;
-      margin-bottom: 7px;
+      color: $w;
+      margin-bottom: $s;
       font-weight: 600;
       font-size: 14px;
     }
@@ -91,19 +101,19 @@
 }
 
 .filter_container {
-  margin-top: 25px;
-  margin-bottom: 25px;
+  margin-top: $tf;
+  margin-bottom: $tf;
   height: 450px;
-  border: 1px solid #DEE2E6;
-  border-radius: 7px;
+  border: 1px $S $W;
+  border-radius: $s;
 
   &_dark {
-    margin-top: 25px;
-    margin-bottom: 25px;
+    margin-top: $tf;
+    margin-bottom: $tf;
     height: 450px;
-    border: 1px solid #4B4B4B;
-    border-radius: 7px;
-    background: #282828;
+    border: 1px $S #4B4B4B;
+    border-radius: $s;
+    background: $b;
   }
 
   &_wrapper {
@@ -111,7 +121,7 @@
 
     &_dark {
       margin: 15px;
-      color: white;
+      color: $w;
     }
   }
 }
@@ -123,70 +133,70 @@
   &_dark {
     height: 38px;
     width: 100%;
-    background: #282828;
-    border: 1px solid #CED4DA;
-    color: white;
+    background: $b;
+    border: 1px $S #CED4DA;
+    color: $w;
   }
 }
 
 .limit_container {
-  margin-top: 25px;
-  margin-bottom: 25px;
+  margin-top: $tf;
+  margin-bottom: $tf;
   height: 164px;
-  border: 1px solid #DEE2E6;
-  border-radius: 7px;
+  border: 1px $S $W;
+  border-radius: $s;
 
   &_dark {
-    margin-top: 25px;
-    margin-bottom: 25px;
+    margin-top: $tf;
+    margin-bottom: $tf;
     height: 164px;
-    border: 1px solid #4B4B4B;
-    border-radius: 7px;
-    background: #282828;
-    color: white;
+    border: 1px $S #4B4B4B;
+    border-radius: $s;
+    background: $b;
+    color: $w;
   }
 }
 
 .limit_header {
   font-weight: 700;
   font-size: 14px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: $f;
+  justify-content: $c;
+  align-items: $c;
   height: 38px;
   background: #F8F9FA;
-  border-bottom: 1px solid #DEE2E6;
-  border-radius: 7px 7px 0 0;
+  border-bottom: 1px $S $W;
+  border-radius: $s $s 0 0;
 
   &_dark {
     font-weight: 700;
     font-size: 14px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: $f;
+    justify-content: $c;
+    align-items: $c;
     height: 38px;
     background: #494C57;
-    color: white;
-    border-bottom: 1px solid #4B4B4B;
-    border-radius: 7px 7px 0 0;
+    color: $w;
+    border-bottom: 1px $S #4B4B4B;
+    border-radius: $s $s 0 0;
   }
 }
 
 .limit_wrapper {
-  display: flex;
-  align-items: center;
+  display: $f;
+  align-items: $c;
   justify-content: space-evenly;
   gap: 0.5rem;
   margin-top: 10px;
 }
 
 .button-container {
-  margin-top: 7px;
-  display: flex;
-  justify-content: center;
+  margin-top: $s;
+  display: $f;
+  justify-content: $c;
 }
 
 .dark_switch {
-  background: #282828;
-  color: white;
+  background: $b;
+  color: $w;
 }

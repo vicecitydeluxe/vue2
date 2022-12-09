@@ -1,20 +1,26 @@
 @import '../../../sectionMixin.scss';
 
+$s: 7px;
+$c: column;
+$ft: 15px;
+$f: flex;
+$g: 10px;
+
 .description {
   background: #F7F7FD;
-  border-radius: 7px;
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  border-radius: $s;
+  padding: $ft;
+  display: $f;
+  flex-direction: $c;
+  gap: $g;
 
   &_dark {
     background: #32343A;
     color: white;
-    border-radius: 7px;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    border-radius: $s;
+    padding: $ft;
+    display: $f;
+    flex-direction: $c;
+    gap: $g;
   }
 }

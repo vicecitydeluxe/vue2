@@ -2,12 +2,14 @@
 @import '../descriptionMixin.scss';
 @import '../nameDividerMixin';
 
+$f: flex;
+
 .map_container {
-  display: flex;
+  display: $f;
   flex-direction: column;
 
   &_divider {
-    display: flex;
+    display: $f;
     justify-content: space-between;
     align-items: center;
     margin: 15px 0 15px 0;
@@ -31,7 +33,7 @@
 }
 
 .paginator {
-  display: flex;
+  display: $f;
   justify-content: center;
 }
 

@@ -1,17 +1,21 @@
+$t: 20px;
+$f: flex;
+$c: center;
+
 .header {
-  margin-right: 20px;
-  margin-left: 20px;
+  margin-right: $t;
+  margin-left: $t;
 
   &_section {
-    display: flex;
+    display: $f;
     justify-content: space-between;
-    align-items: center;
+    align-items: $c;
   }
 }
 
 .button-container {
   margin-top: 7px;
   margin-bottom: 25px;
-  display: flex;
-  justify-content: center;
+  display: $f;
+  justify-content: $c;
 }
