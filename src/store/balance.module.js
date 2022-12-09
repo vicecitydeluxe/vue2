@@ -3,11 +3,13 @@ import $axios from '../api/index'
 const state = {
     balanceAmount: '0'
 }
+
 const getters = {
     balanceAmount() {
         return state.balanceAmount
     }
 }
+
 const actions = {
 
     SEND_BALANCE(_, payload) {

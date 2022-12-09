@@ -134,7 +134,6 @@ export default {
       globalTelegram.MainButton.show().onClick(this.actionCb)
       globalTelegram.BackButton.show().onClick(this.redirectCb)
     }
-
   },
   computed: {
     invalidFieldsChecker() {

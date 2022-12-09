@@ -3,6 +3,7 @@ import $axios from '../api/index'
 const state = {
     name: 'Unknown_user',
 }
+
 const getters = {
     name() {
         return state.name
