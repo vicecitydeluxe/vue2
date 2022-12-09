@@ -1,13 +1,4 @@
-.header {
-  margin-right: 20px;
-  margin-left: 20px;
-
-  &_section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-}
+@import '../sectionMixin.scss';
 
 .description {
   margin-bottom: 15px;
@@ -46,8 +37,3 @@
   display: flex;
   justify-content: center;
 }
-
-
-
-
-

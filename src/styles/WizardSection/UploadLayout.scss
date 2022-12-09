@@ -1,13 +1,4 @@
-.header {
-  margin-right: 20px;
-  margin-left: 20px;
-
-  &_section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-}
+@import '../sectionMixin.scss';
 
 .p-input_text {
   font-size: 100%;
@@ -30,4 +21,3 @@
   background: #282828;
   border: 1px solid #CED4DA;
 }
-

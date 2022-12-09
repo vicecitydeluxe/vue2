@@ -1,0 +1,16 @@
+.description {
+  background: #F7F7FD;
+  border-radius: 7px;
+  padding: 15px;
+  margin-bottom: 25px;
+  margin-top: 5px;
+
+  &_dark {
+    color: white;
+    margin-top: 5px;
+    background: #32343A;
+    border-radius: 7px;
+    padding: 15px;
+    margin-bottom: 25px;
+  }
+}

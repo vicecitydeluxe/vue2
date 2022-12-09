@@ -188,6 +188,10 @@
             :showIcon="true"
             :touchUI="true"
             @hide="darkCalendar++"
+            @date-select="darkCalendar++"
+            @show="darkCalendar++"
+            @month-change="darkCalendar++"
+            @year-change="darkCalendar++"
             dateFormat="dd/mm/yy"
         />
       </div>
@@ -208,6 +212,10 @@
             :showIcon="true"
             :touchUI="true"
             @hide="darkCalendar++"
+            @date-select="darkCalendar++"
+            @show="darkCalendar++"
+            @month-change="darkCalendar++"
+            @year-change="darkCalendar++"
             dateFormat="dd/mm/yy"
         />
       </div>
@@ -252,8 +260,6 @@ import columnMapperHandler from "@/mixins/styleHandlers/WizardSection/columnMapp
 import {mapGetters} from 'vuex'
 
 const globalTelegram = window.Telegram.WebApp
-const calendars = document.getElementsByClassName('p-calendar')
-
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: "Mapper",
@@ -457,11 +463,6 @@ export default {
 
     globalTelegram.MainButton.onClick(this.actionCb)
     globalTelegram.BackButton.show().onClick(this.redirectCb)
-
-    for (let i = 0; i < calendars.length; i++) {
-      calendars[i].addEventListener('click', this.toggleDarkCalendar);
-    }
-
   },
   beforeDestroy() {
     if (!this.includeExtra && !!Vue.prototype?.$fullObject?.data && !!Vue.prototype?.$reducedObject) {

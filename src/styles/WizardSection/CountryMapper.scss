@@ -1,35 +1,6 @@
-.header {
-  margin-right: 20px;
-  margin-left: 20px;
-
-  &_section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-}
-
-.name_divider {
-  margin-top: 15px;
-  margin-bottom: 15px;
-}
-
-.section_divider {
-  margin-bottom: 25px;
-}
-
-.description {
-  background: #F7F7FD;
-  border-radius: 7px;
-  padding: 15px;
-
-  &_dark {
-    background: #32343A;
-    color: white;
-    border-radius: 7px;
-    padding: 15px;
-  }
-}
+@import '../sectionMixin.scss';
+@import '../descriptionMixin.scss';
+@import '../nameDividerMixin';
 
 .map_container {
   display: flex;
@@ -62,4 +33,8 @@
 .paginator {
   display: flex;
   justify-content: center;
+}
+
+.section_divider {
+  margin-bottom: 25px;
 }

@@ -1,17 +1,1 @@
-.header {
-  margin-right: 20px;
-  margin-left: 20px;
-
-  &_section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-}
-
-.button-container {
-  margin-top: 7px;
-  margin-bottom: 25px;
-  display: flex;
-  justify-content: center;
-}
+@import "./ListFilter.scss";
