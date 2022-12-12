@@ -8,7 +8,10 @@
       <div>List: {{ listNameLocal }}</div>
       <hr class="name_divider">
       <div>File: {{ fileNameLocal }}</div>
-      <div class="description">Estimation of how loaded
+      <div
+          class="description"
+          v-once
+      >Estimation of how loaded
         leads are unique across all your leads. Numbers are valid on:
         {{ todayDate }}
       </div>

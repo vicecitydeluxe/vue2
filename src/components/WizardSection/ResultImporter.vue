@@ -10,7 +10,10 @@
       <div>File: {{ fileNameLocal }}</div>
       <hr class="hidden">
       <div class="description_divider">Public statistics</div>
-      <div class="description">Numbers are valid
+      <div
+          class="description"
+          v-once
+      >Numbers are valid
         at the time of loading on {{ todayDate }}
       </div>
       <div class="description_divider">Leads age</div>

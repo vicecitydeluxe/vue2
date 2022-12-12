@@ -9,6 +9,7 @@
       <div class="section_divider">File: {{ fileName }}</div>
       <div
           v-if="countriesToMap.length > 1"
+          v-once
           class="description"
       >Unknown countries have been found. Map them.
       </div>
@@ -46,11 +47,13 @@
       <div
           v-if="countriesToMap.length > 1"
           class="description"
+          v-once
       >This is the final step
         before loading leads to the DB.
       </div>
       <div
           v-if="countriesToMap.length < 1"
+          v-once
           class="description"
       >All fields are already mapped!
       </div>

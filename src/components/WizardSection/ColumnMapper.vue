@@ -7,7 +7,10 @@
       <div>List: {{ listName }}</div>
       <hr class="main_section_divider">
       <div>File: {{ fileName }}</div>
-      <div class="description">Please map the required columns.
+      <div
+          class="description"
+          v-once
+      >Please map the required columns.
         You can import either full name or first+last name.
       </div>
       <div class="map_container">
@@ -94,9 +97,12 @@
       </div>
       <span
           v-if="countryEmptyFlag"
-      >*No column detected or empty fields exist, you need to set default value:</span>
+          v-once
+      >*No column detected or empty fields exist, you need to set default value:
+      </span>
       <div
           v-if="!countryEmptyFlag"
+          v-once
           style="margin-bottom:5px"
       >Choose a default value (if no value provided in the file):
       </div>
@@ -109,7 +115,11 @@
               v-model="checkedCountry"
               @click="toggleDarkDropdown"
           />
-          <label class="sub_map_container_divider" for="emptyCountry">Set empty to</label>
+          <label
+              class="sub_map_container_divider"
+              for="emptyCountry"
+          >Set empty to
+          </label>
         </div>
         <Dropdown
             :class="[ darkModeSwitch
@@ -132,8 +142,11 @@
               v-model="checkedCountry"
               @click="toggleDarkDropdown"
           />
-          <label class="sub_map_container_divider"
-                 for="country">Set all to</label>
+          <label
+              class="sub_map_container_divider"
+              for="country"
+          >Set all to
+          </label>
         </div>
         <Dropdown
             :class="[ darkModeSwitch
@@ -164,9 +177,12 @@
       </div>
       <span
           v-if="regdateEmptyFlag"
-      >*No column detected or empty fields exist, you need to set default value:</span>
+          v-once
+      >*No column detected or empty fields exist, you need to set default value:
+      </span>
       <div
           v-if="!regdateEmptyFlag"
+          v-once
           style="margin-bottom:5px;"
       >Choose a default value (if no value provided in the file):
       </div>
@@ -179,8 +195,11 @@
               v-model="checkedRegDate"
               @click="toggleDarkDropdown"
           />
-          <label class="radio_label_divider"
-                 for="emptyRegdate">Set empty to</label>
+          <label
+              class="radio_label_divider"
+              for="emptyRegdate"
+          >Set empty to
+          </label>
         </div>
         <Calendar
             id="icon"
@@ -203,8 +222,11 @@
               v-model="checkedRegDate"
               @click="toggleDarkDropdown"
           />
-          <label class="sub_map_container_divider"
-                 for="regdate">Set all to</label>
+          <label
+              class="sub_map_container_divider"
+              for="regdate"
+          >Set all to
+          </label>
         </div>
         <Calendar
             id="icon"
@@ -224,7 +246,9 @@
           class="bottom_section_container"
           v-if="this.extraFieldsFlag"
       >
-        <div>What to do with the rest of the fields
+        <div
+            v-once
+        >What to do with the rest of the fields
           found in the source file? (You shouldn't include them if they
           contain sensitive data)
         </div>
@@ -240,7 +264,9 @@
           >Include
           </button>
         </div>
-        <div>Other fields will be imported,
+        <div
+            v-once
+        >Other fields will be imported,
           stored and buyers will be able to see them after
           purchase these leads.
         </div>

@@ -4,7 +4,7 @@
       <h3>PARSING LEADS</h3>
     </header>
     <main class="description">
-      <div>We're parsing the leads,
+      <div v-once>We're parsing the leads,
         checking the duplicates, and preparing statistics.
         You can wait or you can close the page.
       </div>

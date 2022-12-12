@@ -4,7 +4,7 @@
       <h3>OOPS!</h3>
     </header>
     <main class="description">
-      <div>Error was occurred during parsing a file.
+      <div v-once>Error was occurred during parsing a file.
         Try to reload it again or to separate file
         to smaller parts.
       </div>

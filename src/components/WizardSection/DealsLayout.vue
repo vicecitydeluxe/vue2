@@ -4,7 +4,10 @@
       <h3>DEAL # 9192</h3>
     </header>
     <main>
-      <span class="text">We're importing the leads,
+      <span
+          class="text"
+          v-once
+      >We're importing the leads,
         checking the duplicates, and preparing statistics.
         <span> You can wait or you can close the page.
           You will get a notification as soon as the lead

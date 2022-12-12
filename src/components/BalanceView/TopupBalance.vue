@@ -16,8 +16,16 @@
     </main>
     <div v-if="!showQR" class="main">
       <h6>Amount</h6>
-      <InputText inputmode="decimal" type="text" v-model="amount"></InputText>
-      <div class="text">All transactions get processed automatically.
+      <InputText
+          inputmode="decimal"
+          type="text"
+          v-model="amount"
+          style="margin-bottom: 15px;"
+      />
+      <div
+          class="text"
+          v-once
+      >All transactions get processed automatically.
         Balance will be added to your account
         as soon as we get confirmation from the blockchain network.
         <div> The exchange rate is fixed for 15 minutes.
