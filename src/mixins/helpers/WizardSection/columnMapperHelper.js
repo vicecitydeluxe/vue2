@@ -68,7 +68,8 @@ export default {
             Vue.prototype.$dirtyObject = Object.preventExtensions(Vue.prototype.$fullObject.data)
         },
         sortParsedFields() {
-            for (let i = 0; i < this.requiredFieldsDictionary.length; i++) {
+            const length = this.requiredFieldsDictionary.length
+            for (let i = 0; i < length; i++) {
                 this.parsedFields.filter(el => {
                     if (this.requiredFieldsDictionary[i].includes(el)) {
                         this.sortedParsedFields.push(el)

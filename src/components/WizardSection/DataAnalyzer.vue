@@ -175,11 +175,11 @@ export default {
         })
         this.privateResults[1].value = Vue.prototype.$fullObject.data.length
 
-        if (this.invalidParsedLinesIndexes.length !== 0) {
-          this.getFullDuplicates()
-          this.getPartialDuplicates()
-        }
-      },
+        // if (this.invalidParsedLinesIndexes.length !== 0) {
+        //   this.getFullDuplicates()
+        //   this.getPartialDuplicates()
+        // }
+      }
     },
   },
   created() {
@@ -194,10 +194,6 @@ export default {
       //remove next line if you need to store extra fields
       this.removeExtraFields(Vue.prototype?.$fullObject?.data)
       this.countersInvoker()
-      if (this.invalidParsedLinesIndexes.length === 0) {
-        this.getFullDuplicates()
-        this.getPartialDuplicates()
-      }
     } else {
       this.getStats()
     }
@@ -227,9 +223,8 @@ export default {
      * before leave to prevent stacking results
      * and errors in "if" statements
      */
-    this.$store.dispatch('eraseInvoker')
-    Vue.prototype.$fullDuplicatesRemoved = []
-    Vue.prototype.$partialDuplicatesRemoved = []
+    // Vue.prototype.$fullDuplicatesRemoved = []
+    // Vue.prototype.$partialDuplicatesRemoved = []
   },
 }
 </script>

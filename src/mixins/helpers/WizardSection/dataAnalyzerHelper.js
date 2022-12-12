@@ -1,8 +1,8 @@
 // noinspection ES6UnusedImports
 import Vue from "vue";
-import {mapActions, mapGetters} from "vuex";
+import {mapGetters} from "vuex";
 import Papa from "papaparse";
-// import {isValidPhoneNumber} from 'libphonenumber-js'
+import {isValidPhoneNumber} from 'libphonenumber-js'
 
 export default {
     data() {
@@ -19,13 +19,13 @@ export default {
                 {field: 'value', header: '#'},
             ],
             privateResults: [
-                {description: 'Records in source file', value: ''},
-                {description: 'Fully valid leads (would be imported)', value: ''},
-                {description: 'Cannot parse line view lines', value: ''},
+                {description: 'Records in source file', value: null},
+                {description: 'Fully valid leads (would be imported)', value: null},
+                {description: 'Cannot parse line view lines', value: null},
                 {description: 'Invalid leads view'},
-                {description: '-missing or invalid email', value: ''},
-                {description: '-missing or invalid number', value: ''},
-                {description: '-missing name/lastname/fullname', value: ''},
+                {description: '-missing or invalid email', value: null},
+                {description: '-missing or invalid number', value: null},
+                {description: '-missing name/lastname/fullname', value: null},
             ],
             invalidParsedLinesIndexes: [],
             fullDuplicatesIndexes: [],
@@ -33,147 +33,78 @@ export default {
         }
     },
     methods: {
-        firsNameInvalidCounter() {
-            if (this.chosenFirstname) {
-                this.privateResults[6].value = this.invalidFirstName.length
-
+        invalidCounter(condition, staticHeader, index, regExp, cb) {
+            if (condition) {
+                let invalid = 0
+                let indexes = []
                 Vue.prototype?.$fullObject?.data.map((el, i) => {
-                    let element = Vue.prototype?.$fullObject?.data[i]['firstname']
-
-                    if (element) {
-                        this.$store.commit('pushValidFirstName', element)
-                    } else if (!element) {
-                        this.invalidParsedLinesIndexes.push(i)
-                        this.$store.commit('pushInvalidFirstName', element)
-                        this.privateResults[6].value = this.invalidFirstName.length
-                    }
-                })
-            }
-        },
-        lastNameInvalidCounter() {
-            if (this.chosenLastname) {
-                this.privateResults[6].value = this.invalidLastName.length
-
-                Vue.prototype?.$fullObject?.data.map((el, i) => {
-                    let element = Vue.prototype?.$fullObject?.data[i]['lastname']
-
-                    if (element) {
-                        this.$store.commit('pushValidLastName', element)
-                    } else if (!element) {
-                        /**
-                         * Function invokes after firsNameInvalidCounter(),
-                         * and if there exist duplicated indexes with
-                         * invalid data, it skips them
-                         */
-                        if (this.invalidParsedLinesIndexes.includes(i)) return
-                        this.invalidParsedLinesIndexes.push(i)
-                        this.$store.commit('pushInvalidLastName', element)
-                        this.privateResults[6].value = this.invalidLastName.length + this.invalidFirstName.length
-                    }
-                })
-            }
-        },
-        fullNameInvalidCounter() {
-            if (this.chosenFullname) {
-                this.privateResults[6].value = this.invalidFullName.length
-
-                Vue.prototype?.$fullObject?.data.map((el, i) => {
-                    let element = Vue.prototype?.$fullObject?.data[i]['fullname']
-
-                    if (element) {
-                        this.$store.commit('pushValidFullName', element)
-                    } else if (!element) {
-                        this.invalidParsedLinesIndexes.push(i)
-                        this.$store.commit('pushInvalidFullName', element)
-                        this.privateResults[6].value = this.invalidFullName.length
-                    }
-                })
-            }
-        },
-        emailInvalidCounter() {
-            this.privateResults[4].value = this.invalidEmail.length
-
-            if (this.chosenEmail) {
-                Vue.prototype?.$fullObject?.data.map((el, i) => {
-                    let element = Vue.prototype?.$fullObject?.data[i]['email']
+                    const element = Vue.prototype?.$fullObject?.data[i][staticHeader]
                     const regex = new RegExp(/^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/g)
-
-                    if (regex.test(element)) {
-                        this.$store.commit('pushValidEmail', element)
-                    } else {
-                        this.invalidParsedLinesIndexes.push(i)
-                        this.$store.commit('pushInvalidEmail', element)
-                        this.privateResults[4].value = this.invalidEmail.length
+                    if (!element) {
+                        if (this.invalidParsedLinesIndexes.includes(i)) return
+                        invalid++
+                        indexes.push(i)
+                    } else if (regExp && !regex.test(element)) {
+                        indexes.push(i)
+                        invalid++
+                    } else if (cb && !cb(element)) {
+                        indexes.push(i)
+                        invalid++
                     }
                 })
+                this.invalidParsedLinesIndexes = [...this.invalidParsedLinesIndexes, ...indexes]
+                this.privateResults[index].value += invalid
             }
         },
-        // phoneInvalidCounter() {
-        //     this.privateResults[5].value = this.invalidPhone.length
-        //
-        //     if (this.chosenPhone) {
-        //         Vue.prototype?.$fullObject?.data.map((el, i) => {
-        //             let element = Vue.prototype?.$fullObject?.data[i]['phone']
-        //             if (isValidPhoneNumber(element)) {
-        //                 this.$store.commit('pushValidPhone', element)
-        //             } else {
-        //                 this.invalidParsedLinesIndexes.push(i)
-        //                 this.$store.commit('pushInvalidPhone', element)
-        //                 this.privateResults[5].value = this.invalidPhone.length
-        //             }
-        //         })
-        //     }
-        // },
         countersInvoker() {
-            this.emailInvalidCounter()
-            // TODO: remove phone validating logic;
-            // this.phoneInvalidCounter()
-            this.firsNameInvalidCounter()
-            this.lastNameInvalidCounter()
-            this.fullNameInvalidCounter()
+            this.invalidCounter(this.chosenFirstname, 'firstname', 6)
+            this.invalidCounter(this.chosenLastname, 'lastname', 6)
+            this.invalidCounter(this.chosenFullname, 'fullname', 6)
+            this.invalidCounter(this.chosenEmail, 'email', 4, true)
+            this.invalidCounter(this.chosenPhone, 'phone', 5, false, isValidPhoneNumber)
             this.invalidParsedLinesIndexes = [...new Set(this.invalidParsedLinesIndexes)]
         },
-        getFullDuplicates() {
-            const helpMap = new Map();
-            Vue.prototype.$fullDuplicates = [];
-            if (!!Vue.prototype?.$fullObject?.data) {
-                Vue.prototype?.$fullObject?.data.map((element, index) => {
-                    if (helpMap.has(element['email'])) {
-                        const existingElement = helpMap.get(element['email']);
-
-                        if (element['phone'] === existingElement) {
-                            Vue.prototype.$fullDuplicates.push(element);
-                            this.fullDuplicatesIndexes.push(index)
-                        }
-                    } else {
-                        helpMap.set(element['email'], element['phone']);
-                    }
-                });
-            }
-        },
-        getPartialDuplicates() {
-            const helpMap = new Map();
-            /**
-             * $partialDuplicates & $fullDuplicatesRemoved
-             * are helper array to store
-             * lines to remove later if needed
-             */
-            Vue.prototype.$partialDuplicates = []
-            if (!!Vue.prototype?.$fullObject?.data) {
-                Vue.prototype?.$fullObject?.data.map((element, index) => {
-                    if (helpMap.has(element['email'])) {
-                        const existingElement = helpMap.get(element['email']);
-
-                        if (element['phone'] !== existingElement) {
-                            Vue.prototype.$partialDuplicates.push(element);
-                            this.partialDuplicatesIndexes.push(index)
-                        }
-                    } else {
-                        helpMap.set(element['email'], element['phone']);
-                    }
-                });
-            }
-        },
+        // getFullDuplicates() {
+        //     const helpMap = new Map();
+        //     Vue.prototype.$fullDuplicates = [];
+        //     if (!!Vue.prototype?.$fullObject?.data) {
+        //         Vue.prototype?.$fullObject?.data.map((element, index) => {
+        //             if (helpMap.has(element['email'])) {
+        //                 const existingElement = helpMap.get(element['email']);
+        //
+        //                 if (element['phone'] === existingElement) {
+        //                     Vue.prototype.$fullDuplicates.push(element);
+        //                     this.fullDuplicatesIndexes.push(index)
+        //                 }
+        //             } else {
+        //                 helpMap.set(element['email'], element['phone']);
+        //             }
+        //         });
+        //     }
+        // },
+        // getPartialDuplicates() {
+        //     const helpMap = new Map();
+        //     /**
+        //      * $partialDuplicates & $fullDuplicatesRemoved
+        //      * are helper array to store
+        //      * lines to remove later if needed
+        //      */
+        //     Vue.prototype.$partialDuplicates = []
+        //     if (!!Vue.prototype?.$fullObject?.data) {
+        //         Vue.prototype?.$fullObject?.data.map((element, index) => {
+        //             if (helpMap.has(element['email'])) {
+        //                 const existingElement = helpMap.get(element['email']);
+        //
+        //                 if (element['phone'] !== existingElement) {
+        //                     Vue.prototype.$partialDuplicates.push(element);
+        //                     this.partialDuplicatesIndexes.push(index)
+        //                 }
+        //             } else {
+        //                 helpMap.set(element['email'], element['phone']);
+        //             }
+        //         });
+        //     }
+        // },
         // removeFullDuplicates() {
         //     Vue.prototype.$fullDuplicatesRemoved = Vue.prototype?.$fullObject?.data.filter((el, i) => {
         //         if (!this.fullDuplicatesIndexes.includes(i)) return el
@@ -193,7 +124,7 @@ export default {
         //     // this.showPartialInfoToast()
         // },
         downloadInvalidLeads() {
-            return new Promise((resolve) => {
+            return new Promise(resolve => {
                 /**
                  * $parsedDocument non-reactive helper-object to create a file
                  * user could download and see wrong lines
@@ -223,17 +154,18 @@ export default {
              * non-reactive helper-objects
              * if any of them exist would send as a payload later
              */
-            if (!!Vue.prototype?.$fullDuplicatesRemoved?.length) {
-                obj = Vue.prototype?.$fullDuplicatesRemoved
-            } else if (!!Vue.prototype?.$partialDuplicatesRemoved?.length) {
-                obj = Vue.prototype?.$partialDuplicatesRemoved
-            } else if (!!Vue.prototype?.$fullObject?.data) {
-                obj = Vue.prototype?.$fullObject?.data
-            }
+            // if (!!Vue.prototype?.$fullDuplicatesRemoved?.length) {
+            //     obj = Vue.prototype?.$fullDuplicatesRemoved
+            // } else if (!!Vue.prototype?.$partialDuplicatesRemoved?.length) {
+            //     obj = Vue.prototype?.$partialDuplicatesRemoved
+            // } else if (!!Vue.prototype?.$fullObject?.data) {
+            //     obj = Vue.prototype?.$fullObject?.data
+            // }
+            obj = Vue.prototype?.$fullObject?.data
 
             const firstRequest = this.$store.dispatch('SEND_PARSED_LEADS',
                 {name: this.listNameLocal, file_name: this.fileNameLocal, object: obj})
-                .catch((err) => console.log(err))
+                .catch(err => console.log(err))
 
             const objStatus = {
                 name: this.listName,
@@ -261,18 +193,18 @@ export default {
             }
 
             const thirdRequest = this.$store.dispatch('SEND_STATS', objStat)
-                .catch((err) => console.log(err))
+                .catch(err => console.log(err))
 
             const arr = [firstRequest, secondRequest, thirdRequest]
 
             Promise.allSettled(arr)
-                .then((res) => console.log(res))
+                .then(res => console.log(res))
                 .catch(err => console.log(err))
 
         },
         getStats() {
             this.$store.dispatch('GET_STATS')
-                .then((res) => {
+                .then(res => {
                     let obj = res.data.data[res.data.data.length - 1]
                     this.listNameLocal = obj?.name || 'Unknown_list'
                     this.fileNameLocal = obj?.fileName || 'Unknown_file'
@@ -290,7 +222,7 @@ export default {
                         life: 2000
                     });
                 })
-                .catch((err) => {
+                .catch(err => {
                     console.log(err)
                     this.$toast.add({
                         severity: 'warn',
@@ -321,9 +253,6 @@ export default {
 
             "chosenFirstname", "chosenLastname", "chosenFullname",
             "chosenEmail", "chosenPhone", 'chosenRegdate',
-
-            "invalidPhone", 'invalidEmail', "invalidFirstName",
-            "invalidLastName", "invalidFullName"]),
-        ...mapActions((['eraseInvoker']))
+        ])
     },
 }

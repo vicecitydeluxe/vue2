@@ -311,7 +311,8 @@ export default {
   },
   methods: {
     emptyChecker(e) {
-      for (let i = 0; i < Vue.prototype?.$fullObject?.data?.length; i++) {
+      const length = Vue.prototype?.$fullObject?.data?.length
+      for (let i = 0; i < length; i++) {
         !Vue.prototype?.$fullObject?.data[i][e] && (this[`${e}EmptyFlag`] = true)
       }
     },
@@ -371,6 +372,15 @@ export default {
     }
   },
   watch: {
+    //TODO: add fullname swap first+last replace logic
+    // selectedFullname: {
+    //   handler(n, o) {
+    //     Vue.prototype.$fullObject.data.forEach(el => {
+    //       delete el.firstname
+    //       delete el.lastname
+    //     })
+    //   }
+    // },
     checkedCountry: {
       handler(newValue) {
         if (newValue === 'empty' && this.selectedCountryFromList) {

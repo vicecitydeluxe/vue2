@@ -20,7 +20,7 @@
       <h4>DATA PREVIEW: {{ fileName }}</h4>
       <div
           class="parsed_data"
-      > {{ parsedSkippedEmptyLines }} record(s) found
+      > {{ emptyLines }} record(s) found
       </div>
       <h5>Delimiter: "{{ parsedData.meta.delimiter }}"</h5>
       <h6>Please check if the record seem correct.
@@ -161,7 +161,7 @@ export default {
           .then((prevResult) => {
             Papa.parse(prevResult, {
               header: true,
-              worker: true,
+              transformHeader: h => h.replace(/ /g, ''),
               skipEmptyLines: 'greedy',
               delimitersToGuess: [',', '\t', '|', ';', ' ', '/', ':',
                 Papa.RECORD_SEP, Papa.UNIT_SEP],
@@ -185,6 +185,9 @@ export default {
   },
   computed: {
     ...mapGetters(['listName']),
+    emptyLines() {
+      return Number(this.parsedSkippedEmptyLines.toFixed(2)).toLocaleString('en-US')
+    },
     slicedArray() {
       if (this.parsedData.data) {
         return this.parsedData.data.slice(this.fromProp, this.toProp)

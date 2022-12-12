@@ -3,7 +3,6 @@ import Vuex from 'vuex';
 import user from './user.module';
 import lists from './lists.module'
 import balance from './balance.module'
-import validators from './validator.module'
 import preferences from './preferences.module'
 
 Vue.use(Vuex);
@@ -13,7 +12,6 @@ export default new Vuex.Store({
         user,
         lists,
         balance,
-        validators,
         preferences
     }
 });
