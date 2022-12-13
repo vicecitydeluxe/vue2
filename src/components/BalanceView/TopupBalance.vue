@@ -1,20 +1,22 @@
 <template>
-  <div>
-    <header class="header">
+  <div class="header">
+    <header>
       <h3>TOPUP</h3>
     </header>
     <main class="layout">
-      <button class="btn_left">Bitcoin</button>
-      <button
-          disabled
-          class="btn_mid">USDT ERC20
-      </button>
-      <button
-          disabled
-          class="btn_right">Ethereum TRC20
-      </button>
+      <SelectButton
+          id="select"
+          class="select_button"
+          :options="types"
+          optionLabel="name"
+          optionDisabled="disabled"
+          v-model="selectedType"
+      />
     </main>
-    <div v-if="!showQR" class="main">
+    <div
+        v-if="!showQR"
+        class="main"
+    >
       <h6>Amount</h6>
       <InputText
           inputmode="decimal"
@@ -28,14 +30,17 @@
       >All transactions get processed automatically.
         Balance will be added to your account
         as soon as we get confirmation from the blockchain network.
-        <div> The exchange rate is fixed for 15 minutes.
+        <span> The exchange rate is fixed for 15 minutes.
           If you make a transaction after that period the
           actual exchange rate
           will be used.
-        </div>
+        </span>
       </div>
     </div>
-    <div class="input_container" v-if="showQR">
+    <div
+        class="input_container"
+        v-if="showQR"
+    >
       <p class="input_container_section">
         <label for="paymentAddress">Payment Address: </label>
         <InputText
@@ -87,6 +92,7 @@ export default {
   components: {
     QrcodeVue: () => import('qrcode.vue'),
     InputText: () => import ('primevue/inputtext'),
+    SelectButton: () => import ('primevue/selectbutton'),
   },
   mixins: [tgMixin, topupBalanceHandler],
   data() {
@@ -97,6 +103,12 @@ export default {
       paymentAddress: '',
       paymentAmount: '',
       showQR: false,
+      types: [
+        {name: 'Bitcoin', disabled: false},
+        {name: 'USDT ERC20', disabled: true},
+        {name: 'Ethereum TRC20', disabled: true}
+      ],
+      selectedType: null
     }
   },
   methods: {
@@ -162,6 +174,9 @@ export default {
     },
   },
   mounted() {
+    setTimeout(() => {
+      document.getElementById('select').setAttribute("style", "width:100%; display:flex");
+    }, 100)
     globalTelegram.MainButton.setText('Make a payment')
     globalTelegram.MainButton.color = '#16a34a'
 
