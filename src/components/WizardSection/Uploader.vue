@@ -127,6 +127,8 @@ export default {
       this.$router.push({name: 'mapper'})
     },
     sendFile(event) {
+      this.$store.commit('uploadEraser')
+
       return new Promise((resolve) => {
         this.fileName = event.files[0].name
         this.$store.commit('setFileName', this.fileName)

@@ -48,6 +48,8 @@ export default {
     },
     methods: {
         dateChecker() {
+            //todo: try to guess format & keep it or it should be static?
+            //console.log(moment(a, ['DDMMMMY', 'MMMMDDY', 'MM/DD/YYYY HH:mm:ss.SSS']).isValid())
             const u = undefined
             const dayBefore = moment().subtract(1, 'd')
             const weekBefore = moment().subtract(1, 'week')

@@ -316,8 +316,16 @@ const mutations = {
     },
     setMockStatus(ctx, data) {
         state.mockStatus = data
+    },
+    uploadEraser() {
+        state.chosenFirstname = null
+        state.chosenLastname = null
+        state.chosenFullname = null
+        state.chosenEmail = null
+        state.chosenPhone = null
+        state.chosenCountry = null
+        state.chosenRegdate = null
     }
-
 }
 
 export default {state, getters, actions, mutations}
