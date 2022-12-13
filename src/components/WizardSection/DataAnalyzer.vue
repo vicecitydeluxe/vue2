@@ -171,9 +171,9 @@ export default {
          * Valid leads in $fullObject
          */
         // todo: but should we remove invalid data by default or store it ?..
-        Vue.prototype.$fullObject.data = Vue.prototype?.$fullObject?.data.filter((el, i) => {
-          if (!newValue.includes(i)) return el
-        })
+        // Vue.prototype.$fullObject.data = Vue.prototype?.$fullObject?.data.filter((el, i) => {
+        //   if (!newValue.includes(i)) return el
+        // })
         this.privateResults[1].value = Vue.prototype.$fullObject.data.length
 
         // if (this.invalidParsedLinesIndexes.length !== 0) {

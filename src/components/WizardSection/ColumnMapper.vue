@@ -1,5 +1,6 @@
 <template>
   <div class="header">
+<!--    <div>{{ requiredFieldsFilled}}</div>-->
     <header class="header_section">
       <h3>COLUMN MAPPING</h3>
     </header>
@@ -334,7 +335,7 @@ export default {
     globalReducer() {
       Vue.prototype.$reducedObject = Object.preventExtensions(Vue.prototype.$fullObject.data)
       this.removeExtraFields(Vue.prototype.$reducedObject)
-      console.log(Vue.prototype?.$reducedObject)
+      // console.log(Vue.prototype?.$reducedObject)
     },
     stateReselect() {
       this.selectedFirstname = this.chosenFirstname
@@ -390,7 +391,7 @@ export default {
           Vue.prototype.$fullObject.data.forEach((el) => {
             if (!el['country']) el['country'] = this.selectedCountryFromList
           })
-          console.log(Vue.prototype.$fullObject.data)
+          // console.log(Vue.prototype.$fullObject.data)
         } else if (newValue === 'all_to' && this.selectedCountryFromList) {
           this.selectedCountry = 'country'
           this.$store.commit('setChosenCountry', 'country')
@@ -398,7 +399,7 @@ export default {
           Vue.prototype.$fullObject.data.forEach((el) => {
             el['country'] = this.selectedCountryFromList
           })
-          console.log(Vue.prototype.$fullObject.data)
+          // console.log(Vue.prototype.$fullObject.data)
           this.countryCheckboxDisabler = true
         } else if (newValue === 'empty' || newValue === 'all_to') {
           this.$toast.add({
@@ -408,7 +409,7 @@ export default {
             life: 2000
           });
         }
-      },
+      }
     },
     checkedRegDate: {
       handler(newValue) {
@@ -419,7 +420,7 @@ export default {
             this.regdateEmptyFlag = false
             if (!el['regdate']) el['regdate'] = moment(this.registrationDate).format('DD.MM.YYYY')
           })
-          console.log(Vue.prototype.$fullObject.data)
+          // console.log(Vue.prototype.$fullObject.data)
         } else if (newValue === 'all_to' && this.registrationDate) {
           this.selectedRegdate = 'regdate'
           this.$store.commit('setChosenRegdate', 'regdate')
@@ -427,10 +428,20 @@ export default {
           Vue.prototype.$fullObject.data.forEach((el) => {
             el['regdate'] = moment(this.registrationDate).format('DD.MM.YYYY')
           })
-          console.log(Vue.prototype.$fullObject.data)
+          // console.log(Vue.prototype.$fullObject.data)
           this.regDateCheckboxDisabler = true
         }
       },
+    },
+    selectedCountry: {
+      handler() {
+        this.countryEmptyFlag = false
+      }
+    },
+    selectedRegdate: {
+      handler() {
+        this.regdateEmptyFlag = false
+      }
     },
     selectedCountryFromList: {
       handler() {
