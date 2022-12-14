@@ -11,7 +11,7 @@
                   v-model="userInfo.username"
                   @keyup="updateUsername"
                   :class="[validInput
-                  ? 'p-inputtext '
+                  ? 'p-inputtext'
                   : 'p-invalid']"
               />
               <label for="name">You may choose alternative
@@ -44,6 +44,7 @@ const globalTelegram = window.Telegram.WebApp
 export default {
   name: "LoginForm",
   components: {
+    Button: () => import('primevue/button'),
     InputText: () => import ('primevue/inputtext'),
   },
   mixins: [tgMixin, toastWarn, loginFormHandler],

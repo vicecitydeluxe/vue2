@@ -90,6 +90,7 @@ const globalTelegram = window.Telegram.WebApp
 export default {
   name: "TopupBalance",
   components: {
+    Button: () => import('primevue/button'),
     QrcodeVue: () => import('qrcode.vue'),
     InputText: () => import ('primevue/inputtext'),
     SelectButton: () => import ('primevue/selectbutton'),
