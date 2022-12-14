@@ -5,6 +5,15 @@ import {mapGetters} from "vuex";
 export default {
     data() {
         return {
+            dropdownTitles: [
+                'First name',
+                'Last name',
+                'Full name',
+                'Email',
+                'Phone number',
+                'Country',
+                'Reg date'
+            ],
             selectedFirstname: null,
             selectedLastname: null,
             selectedFullname: null,
@@ -90,5 +99,8 @@ export default {
             'chosenCountry',
             "chosenRegdate",
         ]),
+        styleHandler() {
+            return this.darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown'
+        }
     }
 }

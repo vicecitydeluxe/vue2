@@ -11,32 +11,30 @@
       <InputText
           enterkeyhint="enter"
           @keyup="updateListName"
-          :class="[validListName
-          ? 'p-input_text '
-          : 'p-invalid']"
+          :class="inputStyleHandler"
           type="text"
           v-model="listName"
       />
-      <small v-if="!validListName"
-             class="p-error">Min 5 characters required</small>
-
+      <small
+          v-if="!validListName"
+          class="p-error"
+          v-text="staticRequirement"
+      />
       <h6>List description (visible to buyers)</h6>
       <InputText
           enterkeyhint="enter"
-          :class="[validListDescription
-          ? 'p-input_text '
-          : 'p-invalid']"
+          :class="inputStyleHandler"
           type="text"
           v-model="listDescription"
       />
-      <small v-if="!validListDescription"
-             class="p-error">Min 5 characters required</small>
-
+      <small
+          v-if="!validListDescription"
+          class="p-error"
+          v-text="staticRequirement"
+      />
       <h6>Vertical</h6>
       <Dropdown
-          :class="[ darkModeSwitch
-          ? 'dropdown_dark'
-          : '']"
+          :class="dropdownStyleHandler"
           v-model="selectedVertical"
           placeholder="CFD/Crypto"
           :options="vertical"
@@ -54,9 +52,7 @@
       </div>
       <h6>Funnel type</h6>
       <Dropdown
-          :class="[ darkModeSwitch
-          ? 'dropdown_dark'
-          : '']"
+          :class="dropdownStyleHandler"
           v-model="selectedFunnel"
           placeholder="Unknown "
           :options="funnels"
@@ -88,6 +84,7 @@ export default {
   data() {
     return {
       darkDropdown: 0,
+      staticRequirement: 'Min 5 characters required',
       listName: 'CM DE May 2022 depositors',
       listDescription: 'CFD May 2022 depositors',
       selectedVertical: null,
@@ -195,6 +192,12 @@ export default {
     validUploadButton() {
       return !!(this.validListName && this.validListDescription && this.selectedVertical && this.selectedFunnel);
     },
+    inputStyleHandler() {
+      return this.validListDescription ? 'p-input_text ' : 'p-invalid'
+    },
+    dropdownStyleHandler() {
+      return this.darkModeSwitch ? 'dropdown_dark' : ''
+    }
   },
   watch: {
     darkDropdown: {

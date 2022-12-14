@@ -23,9 +23,7 @@
         <div class="filter_container_wrapper">
           <div class="filter_header_divider">Countries</div>
           <MultiSelect
-              :class="[ darkModeSwitch
-                      ? 'dropdown_dark'
-                      : 'dropdown']"
+              :class="styleHandler"
               v-model="selectedCountries"
               placeholder="Choose сode"
               :options="countriesFullTitles"
@@ -38,9 +36,7 @@
         <div class="filter_container_wrapper">
           <div class="filter_header_divider">Registration date</div>
           <Dropdown
-              :class="[ darkModeSwitch
-                      ? 'dropdown_dark'
-                      : 'dropdown']"
+              :class="styleHandler"
               :options="regdateFilter"
               v-model="regdateSelected"
               @change="toggleDarkDropdown"
@@ -60,9 +56,7 @@
           </div>
           <div class="filter_header_divider">Lead price <</div>
           <InputNumber
-              :class="[ darkModeSwitch
-                      ? 'dropdown_dark'
-                      : 'dropdown']"
+              :class="styleHandler"
               v-model="priceFilter"
               mode="currency"
               currency="USD"
@@ -213,6 +207,9 @@ export default {
       'globalLeadFilter',
       'globalPriceMaxFilter',
     ]),
+    styleHandler() {
+      return this.darkModeSwitch ? 'dropdown_dark' : 'dropdown'
+    },
     mainButtonFlag() {
       return !!(this.leadFilter && !!this.priceMaxFilter)
     }

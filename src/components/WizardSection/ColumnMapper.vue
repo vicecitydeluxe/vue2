@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-<!--    <div>{{ requiredFieldsFilled}}</div>-->
+    <!--    <div>{{ requiredFieldsFilled}}</div>-->
     <header class="header_section">
       <h3>COLUMN MAPPING</h3>
     </header>
@@ -15,11 +15,12 @@
         You can import either full name or first+last name.
       </div>
       <div class="map_container">
-        <div class="map_container_title">First name</div>
+        <div
+            class="map_container_title"
+            v-text="dropdownTitles[0]"
+        />
         <Dropdown
-            :class="[ darkModeSwitch
-            ? 'dropdown_dark'
-            : 'map_container_dropdown']"
+            :class="styleHandler"
             @change="dropdownCb(0)"
             v-model="selectedFirstname"
             :value="selectedFirstname"
@@ -28,11 +29,12 @@
         />
       </div>
       <div class="map_container">
-        <div class="map_container_title">Last name</div>
+        <div
+            class="map_container_title"
+            v-text="dropdownTitles[1]"
+        />
         <Dropdown
-            :class="[ darkModeSwitch
-            ? 'dropdown_dark'
-            : 'map_container_dropdown']"
+            :class="styleHandler"
             @change="dropdownCb(1)"
             v-model="selectedLastname"
             :value="selectedLastname"
@@ -42,11 +44,12 @@
       </div>
       <h6 class="map_container">OR</h6>
       <div class="map_container">
-        <div class="map_container_title">Full name</div>
+        <div
+            class="map_container_title"
+            v-text="dropdownTitles[2]"
+        />
         <Dropdown
-            :class="[ darkModeSwitch
-            ? 'dropdown_dark'
-            : 'map_container_dropdown']"
+            :class="styleHandler"
             @change="dropdownCb(2)"
             v-model="selectedFullname"
             :value="selectedFullname"
@@ -56,11 +59,12 @@
       </div>
       <hr style="margin: 10px">
       <div class="map_container">
-        <div class="map_container_title">Email</div>
+        <div
+            class="map_container_title"
+            v-text="dropdownTitles[3]"
+        />
         <Dropdown
-            :class="[ darkModeSwitch
-            ? 'dropdown_dark'
-            : 'map_container_dropdown']"
+            :class="styleHandler"
             @change="dropdownCb(3)"
             v-model="selectedEmail"
             :value="selectedEmail"
@@ -70,11 +74,12 @@
       </div>
       <hr style="margin: 10px">
       <div class="map_container">
-        <div class="map_container_title">Phone number</div>
+        <div
+            class="map_container_title"
+            v-text="dropdownTitles[4]"
+        />
         <Dropdown
-            :class="[ darkModeSwitch
-            ? 'dropdown_dark'
-            : 'map_container_dropdown']"
+            :class="styleHandler"
             @change="dropdownCb(4)"
             v-model="selectedPhone"
             :value="selectedPhone"
@@ -84,11 +89,12 @@
       </div>
       <hr style="margin: 10px">
       <div class="map_container">
-        <div class="map_container_title">Country</div>
+        <div
+            class="map_container_title"
+            v-text="dropdownTitles[5]"
+        />
         <Dropdown
-            :class="[ darkModeSwitch
-            ? 'dropdown_dark'
-            : 'map_container_dropdown']"
+            :class="styleHandler"
             @change="dropdownCb(5)"
             v-model="selectedCountry"
             :value="selectedCountry"
@@ -99,7 +105,8 @@
       <span
           v-if="countryEmptyFlag"
           v-once
-      >*No column detected or empty fields exist, you need to set default value:
+      >*No column detected or empty fields exist,
+        you need to set default value:
       </span>
       <div
           v-if="!countryEmptyFlag"
@@ -123,9 +130,7 @@
           </label>
         </div>
         <Dropdown
-            :class="[ darkModeSwitch
-            ? 'dropdown_dark'
-            : 'map_container_dropdown']"
+            :class="styleHandler"
             v-model="selectedCountryFromList"
             placeholder="(choose)"
             :filter="true"
@@ -164,11 +169,12 @@
       </div>
       <hr style="margin: 10px">
       <div class="map_container">
-        <div class="map_container_title">Reg date</div>
+        <div
+            class="map_container_title"
+            v-text="dropdownTitles[6]"
+        />
         <Dropdown
-            :class="[ darkModeSwitch
-            ? 'dropdown_dark'
-            : 'map_container_dropdown']"
+            :class="styleHandler"
             @change="dropdownCb(6)"
             v-model="selectedRegdate"
             :value="selectedRegdate"
@@ -179,7 +185,8 @@
       <span
           v-if="regdateEmptyFlag"
           v-once
-      >*No column detected or empty fields exist, you need to set default value:
+      >*No column detected or empty fields exist,
+        you need to set default value:
       </span>
       <div
           v-if="!regdateEmptyFlag"
