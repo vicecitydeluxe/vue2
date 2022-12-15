@@ -126,14 +126,15 @@ export default {
         downloadInvalidLeads() {
             return new Promise(resolve => {
                 /**
-                 * $parsedDocument non-reactive helper-object to create a file
+                 * $_parsedDocument non-reactive private
+                 * helper-object to create a file
                  * user could download and see wrong lines
                  */
-                Vue.prototype.$parsedDocument = Papa.unparse(Object.assign({
+                Vue.prototype.$_parsedDocument = Papa.unparse(Object.assign({
                     'fields': Object.keys(Vue.prototype?.$invalidObject[0]),
                     'data': Vue.prototype?.$invalidObject.map((el) => Object.values(el))
                 }))
-                resolve(Vue.prototype.$parsedDocument)
+                resolve(Vue.prototype.$_parsedDocument)
             }).then(result => {
                 const download = function (result) {
                     const blob = new Blob([result], {type: 'text/csv'});

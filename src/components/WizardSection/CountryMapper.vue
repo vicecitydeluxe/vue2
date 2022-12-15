@@ -159,13 +159,13 @@ export default {
         if ((newValue || newValue.length) && !!Vue.prototype?.$fullObject?.data) {
           Vue.prototype.$fullObject.data.forEach((el, i) => {
             if (el.country === this.countriesToMap[this.iterationIndex]) {
-              Vue.prototype.$countries[i] = this.oldCountryState
+              Vue.prototype.$_countries[i] = this.oldCountryState
             }
             if (!this.selectedCountry[i]) return
-            Vue.prototype.$countries[this.countryIndexes[i]] = this.selectedCountry[i]
+            Vue.prototype.$_countries[this.countryIndexes[i]] = this.selectedCountry[i]
           })
           //uncomment next line to see changed values
-          console.log(Vue.prototype.$countries)
+          console.log(Vue.prototype.$_countries)
         }
       }, deep: true
     },
@@ -179,11 +179,11 @@ export default {
   },
   created() {
     /**
-     * $countries is initial state array
+     * $_countries is initial state array
      * which is created to take data from,
      * basic structure: [{country:'value'},...]
      */
-    !!Vue.prototype?.$fullObject?.data && (Vue.prototype.$countries = JSON.parse(JSON.stringify(Vue.prototype.$fullObject.data.map(el => el.country))))
+    !!Vue.prototype?.$fullObject?.data && (Vue.prototype.$_countries = JSON.parse(JSON.stringify(Vue.prototype.$fullObject.data.map(el => el.country))))
     this.wrongCountryFinder()
     if (!!this.countriesToMap.length) {
       let e = {}
@@ -211,7 +211,7 @@ export default {
     !!Vue.prototype?.$invalidObject && (Vue.prototype.$invalidObject = [])
     !!Vue.prototype.$fullObject?.data && (Vue.prototype.$fullObject.data = Vue.prototype.$fullObject.data.map((el, i) => ({
       ...el,
-      country: Vue.prototype.$countries[i]
+      country: Vue.prototype.$_countries[i]
     })))
   },
 }

@@ -252,7 +252,7 @@
       <hr style="margin: 10px">
       <div
           class="bottom_section_container"
-          v-if="this.extraFieldsFlag"
+          v-if="extraFieldsFlag"
       >
         <div
             v-once
@@ -308,7 +308,7 @@ export default {
     return {
       darkCalendar: 0,
       darkDropdown: 0,
-      includeExtra: null,
+      includeExtra: true,
       extraFieldsFlag: false,
       countryCheckboxDisabler: false,
       regDateCheckboxDisabler: false,
@@ -334,15 +334,15 @@ export default {
       })
     },
     /**
-     * $reducedObject non-reactive helper-object to remove all extra
+     * $_reducedObject is non-reactive helper-object to remove all extra
      * non-required fields.
      * Assigned to $fullObject. data
      * if user has chosen option to delete all extra fields
      */
     globalReducer() {
-      Vue.prototype.$reducedObject = Object.preventExtensions(Vue.prototype.$fullObject.data)
-      this.removeExtraFields(Vue.prototype.$reducedObject)
-      // console.log(Vue.prototype?.$reducedObject)
+      Vue.prototype.$_reducedObject = Object.preventExtensions(Vue.prototype.$fullObject.data)
+      this.removeExtraFields(Vue.prototype.$_reducedObject)
+      // console.log(Vue.prototype?.$_reducedObject)
     },
     stateReselect() {
       this.selectedFirstname = this.chosenFirstname
@@ -519,8 +519,8 @@ export default {
     globalTelegram.BackButton.show().onClick(this.redirectCb)
   },
   beforeDestroy() {
-    if (!this.includeExtra && !!Vue.prototype?.$fullObject?.data && !!Vue.prototype?.$reducedObject) {
-      Vue.prototype.$fullObject.data = Vue.prototype.$reducedObject
+    if (!this.includeExtra && !!Vue.prototype?.$fullObject?.data && !!Vue.prototype?.$_reducedObject) {
+      Vue.prototype.$fullObject.data = Vue.prototype.$_reducedObject
     }
 
     globalTelegram.MainButton.hide().offClick(this.actionCb)
