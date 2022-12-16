@@ -1,3 +1,12 @@
+/**
+global variables all has underscore at the end
+ */
+$b_: #2563EB;
+$B_: #282828;
+$w_: white;
+$n_: none;
+$s_: solid;
+
 * {
   padding: 0;
   margin: 0;
@@ -21,7 +30,7 @@ body {
  Body Dark Styles
  */
 body.dark {
-  background: #282828;
+  background: $B_;
   color: #ffffff;
 }
 
@@ -80,7 +89,7 @@ input[type="number"] {
 
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
+  -webkit-appearance: $n_;
   margin: 0;
 }
 
@@ -97,26 +106,26 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .p-button {
-  background: #2563EB;
+  background: $b_;
 
   &:enabled:hover {
-    background: #2563EB;
+    background: $b_;
   }
 }
 
 .p-togglebutton.p-button.p-highlight {
-  background: #2563eb;
-  color: white;
+  background: $b_;
+  color: $w_;
 
   &:hover {
-    background: #2563eb;
-    color: white;
+    background: $b_;
+    color: $w_;
   }
 }
 
 .p-togglebutton.p-button:not(.p-disabled):not(.p-highlight):hover {
-  background: white;
-  border-color: #2563eb;
+  background: $w_;
+  border-color: $b_;
   color: rgb(37 99 235);
 }
 
@@ -144,13 +153,13 @@ input[type="number"]::-webkit-inner-spin-button {
 .p-inputtext-dark {
   width: 100%;
   font-size: 1rem;
-  color: white;
-  background: #282828;
+  color: $w_;
+  background: $B_;
   padding: 1rem 1rem;
   transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s, background-size 0.2s cubic-bezier(0.64, 0.09, 0.08, 1);
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+  -webkit-appearance: $n_;
+  -moz-appearance: $n_;
+  appearance: $n_;
   border-radius: 4px;
 }
 
@@ -161,14 +170,14 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .p-fluid-dark .p-inputtext-dark {
   width: 100%;
-  color: white;
-  background-color: #282828;
+  color: $w_;
+  background-color: $B_;
   padding: 1rem 1rem;
-  border: 1px solid rgb(255 255 255 / 38%);
+  border: 1px $s_ rgb(255 255 255 / 38%);
   transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s, background-size 0.2s cubic-bezier(0.64, 0.09, 0.08, 1);
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+  -webkit-appearance: $n_;
+  -moz-appearance: $n_;
+  appearance: $n_;
   border-radius: 4px;
 }
 
@@ -178,8 +187,8 @@ input[type="number"]::-webkit-inner-spin-button {
 .p-float-label-dark textarea.p-filled-dark ~ label,
 .p-float-label-dark .p-inputwrapper-focus-dark ~ label,
 .p-float-label-dark .p-inputwrapper-filled-dark ~ label {
-  color: white;
-  background-color: #282828;
+  color: $w_;
+  background-color: $B_;
   top: -0.75rem;
   font-size: 12px;
 }
@@ -191,16 +200,16 @@ input[type="number"]::-webkit-inner-spin-button {
 .p-float-label .p-inputwrapper-focus-dark ~ label,
 .p-float-label .p-inputwrapper-filled-dark ~ label {
   top: -0.5rem !important;
-  background-color: #282828;
+  background-color: $B_;
   padding: 2px 4px;
   margin-left: -4px;
   margin-top: 0;
-  color: white;
+  color: $w_;
 }
 
 .p-float-label-dark label {
   position: absolute;
-  pointer-events: none;
+  pointer-events: $n_;
   top: 50%;
   margin-top: -0.5rem;
   transition-property: all;
@@ -216,9 +225,9 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .p-button-dark {
   width: 100%;
-  background-color: #2563EB !important;
+  background-color: $b_ !important;
   color: rgba(255, 255, 255) !important;
-  border: 0 none;
+  border: 0 $n_;
   padding: 0.714rem 1rem;
   font-size: 1rem;
   transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s, background-size 0.2s cubic-bezier(0.64, 0.09, 0.08, 1);
@@ -255,26 +264,26 @@ input[type="number"]::-webkit-inner-spin-button {
 .p-inputtext-dark {
   font-size: 100%;
   width: 100%;
-  background: #282828;
-  border: 1px solid white;
+  background: $B_;
+  border: 1px $s_ $w_;
   font-family: Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
   color: rgba(255, 255, 255);
   padding: 1rem 1rem;
   transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s, background-size 0.2s cubic-bezier(0.64, 0.09, 0.08, 1);
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+  -webkit-appearance: $n_;
+  -moz-appearance: $n_;
+  appearance: $n_;
   border-radius: 4px;
 
   &:enabled:hover {
-    background: #282828;
-    border: 1px solid white;
+    background: $B_;
+    border: 1px $s_ $w_;
     color: rgba(255, 255, 255);
   }
 
   &:disabled {
-    background: #282828;
-    border: 1px solid white;
+    background: $B_;
+    border: 1px $s_ $w_;
     color: rgba(255, 255, 255);
   }
 }
@@ -285,7 +294,7 @@ input[type="number"]::-webkit-inner-spin-button {
 .pi-chevron-down {
 
   &_dark {
-    color: white;
+    color: $w_;
   }
 }
 
@@ -305,8 +314,8 @@ input[type="number"]::-webkit-inner-spin-button {
     .p-dropdown-item {
 
       &_dark {
-        background: #282828;
-        color: white;
+        background: $B_;
+        color: $w_;
       }
     }
   }
@@ -316,8 +325,8 @@ input[type="number"]::-webkit-inner-spin-button {
   .p-inputtext {
 
     &_dark {
-      background: #282828;
-      color: white;
+      background: $B_;
+      color: $w_;
     }
   }
 }
@@ -328,15 +337,15 @@ input[type="number"]::-webkit-inner-spin-button {
     .p-dropdown-empty-message {
 
       &_dark {
-        color: white;
-        background: #282828;
+        color: $w_;
+        background: $B_;
       }
     }
 
     .p-dropdown-item.p-highlight {
 
       &_dark {
-        color: white;
+        color: $w_;
         background: #32343A;
       }
     }
@@ -346,13 +355,13 @@ input[type="number"]::-webkit-inner-spin-button {
 .p-dropdown-panel {
   .p-dropdown-header {
     &_dark {
-      color: white;
+      color: $w_;
       background: #000000;
     }
 
     .p-dropdown-filter-icon {
       &_dark {
-        color: white;
+        color: $w_;
       }
     }
   }
@@ -364,7 +373,7 @@ MultiSelect dark styles
 .pi-chevron-down {
 
   &_dark {
-    color: white;
+    color: $w_;
   }
 }
 
@@ -385,8 +394,8 @@ MultiSelect dark styles
     .p-multiselect-item {
 
       &_dark {
-        background: #282828;
-        color: white;
+        background: $B_;
+        color: $w_;
       }
     }
   }
@@ -396,8 +405,8 @@ MultiSelect dark styles
   .p-inputtext {
 
     &_dark {
-      background: #282828;
-      color: white;
+      background: $B_;
+      color: $w_;
     }
   }
 }
@@ -408,15 +417,15 @@ MultiSelect dark styles
     .p-multiselect-empty-message {
 
       &_dark {
-        color: white;
-        background: #282828;
+        color: $w_;
+        background: $B_;
       }
     }
 
     .p-multiselect-item.p-highlight {
 
       &_dark {
-        color: white;
+        color: $w_;
         background: #32343A;
       }
     }
@@ -426,14 +435,14 @@ MultiSelect dark styles
 .p-multiselect-panel {
   .p-multiselect-header {
     &_dark {
-      color: white;
+      color: $w_;
       background: #000000;
     }
 
     .p-multiselect-filter-container {
       .p-multiselect-filter-icon {
         &_dark {
-          color: white;
+          color: $w_;
         }
       }
     }
@@ -445,25 +454,25 @@ MultiSelect dark styles
  */
 //.p-accordion {
 //  background: #F8F9FA;
-//  border: 1.7px solid #DEE2E6;
+//  border: 1.7px $s_ #DEE2E6;
 //  border-radius: 7px;
 //
 //  &_dark {
-//    color: white;
-//    background: #282828;
+//    color: $w_;
+//    background: $B_;
 //  }
 //
 //  .p-accordion-tab {
-//    box-shadow: none;
+//    box-shadow: $n_;
 //
 //    .p-accordion-content {
-//      color: #2563EB;
+//      color: $b_;
 //      display: flex;
 //      gap: 10px;
 //      flex-direction: column;
 //
 //      &_dark {
-//        background: #282828;
+//        background: $B_;
 //      }
 //    }
 //  }
@@ -480,7 +489,7 @@ MultiSelect dark styles
 //      &_dark {
 //        background: #4B4B4B;
 //        border-color: transparent;
-//        color: white;
+//        color: $w_;
 //        border-bottom-right-radius: 0;
 //        border-bottom-left-radius: 0;
 //      }
@@ -495,7 +504,7 @@ MultiSelect dark styles
 //      &_dark {
 //        background: #4B4B4B;
 //        border-color: transparent;
-//        color: white;
+//        color: $w_;
 //      }
 //    }
 //  }
@@ -509,7 +518,7 @@ MultiSelect dark styles
 //      &_dark {
 //        border-color: transparent;
 //        background: #4B4B4B;
-//        color: white;
+//        color: $w_;
 //      }
 //    }
 //  }
@@ -523,7 +532,7 @@ MultiSelect dark styles
 //        &_dark {
 //          background: #4B4B4B;
 //          border-color: transparent;
-//          color: white;
+//          color: $w_;
 //          border-bottom-right-radius: 0;
 //          border-bottom-left-radius: 0;
 //        }
@@ -538,12 +547,12 @@ MultiSelect dark styles
 //    .p-accordion-header-link {
 //
 //      &_dark {
-//        border: 0 none;
-//        color: white;
+//        border: 0 $n_;
+//        color: $w_;
 //        background: #4B4B4B;
 //        font-weight: 400;
 //        border-radius: 4px;
-//        transition: none;
+//        transition: $n_;
 //        padding: 15px;
 //        display: flex;
 //      }
@@ -560,8 +569,8 @@ MultiSelect dark styles
 //    .p-accordion-header-link {
 //
 //      &_dark {
-//        background: #282828;
-//        color: white;
+//        background: $B_;
+//        color: $w_;
 //      }
 //    }
 //  }
@@ -573,8 +582,8 @@ MultiSelect dark styles
 //
 //      &_dark {
 //        &:focus {
-//          background: #282828;
-//          color: white;
+//          background: $B_;
+//          color: $w_;
 //        }
 //      }
 //    }
@@ -586,20 +595,20 @@ MultiSelect dark styles
  */
 .p-calendar {
   &_dark {
-    background: #282828;
-    border: 1px solid #CED4DA;
+    background: $B_;
+    border: 1px $s_ #CED4DA;
   }
 }
 
 .p-calendar-w-btn {
   .p-datepicker-trigger.p-button span {
-    color: #2563EB;
+    color: $b_;
   }
 
   .p-inputtext {
 
     &_dark {
-      color: white;
+      color: $w_;
     }
   }
 }
@@ -609,12 +618,12 @@ MultiSelect dark styles
 
   &_dark {
     table th > span {
-      color: white;
+      color: $w_;
     }
 
     &:not(.p-datepicker-inline) {
       background: #4B4B4B;
-      color: white;
+      color: $w_;
     }
   }
 }
@@ -623,8 +632,8 @@ MultiSelect dark styles
   .p-datepicker-header {
 
     &_dark {
-      color: white;
-      background: #282828;
+      color: $w_;
+      background: $B_;
     }
   }
 }
@@ -632,7 +641,7 @@ MultiSelect dark styles
 .p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-year,
 .p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-month {
   &_dark {
-    color: white;
+    color: $w_;
   }
 }
 
@@ -640,7 +649,7 @@ MultiSelect dark styles
 .p-datepicker .p-datepicker-header .p-datepicker-next {
 
   &_dark {
-    color: white;
+    color: $w_;
   }
 }
 
@@ -651,19 +660,19 @@ MultiSelect dark styles
   .p-radiobutton-box {
 
     &_dark {
-      border: 2px solid #2563EB;
-      background: #282828;
+      border: 2px $s_ $b_;
+      background: $B_;
     }
 
     .p-radiobutton-icon {
-      background-color: #2563eb;
+      background-color: $b_;
     }
   }
 }
 
 .p-radiobutton {
   .p-radiobutton-box.p-highlight {
-    border-color: #2563eb;
+    border-color: $b_;
   }
 }
 
@@ -710,10 +719,10 @@ MultiSelect dark styles
 
 .p-fileupload-choose {
   width: 100%;
-  background: #2563EB;
+  background: $b_;
 
   &:not(.p-disabled):hover {
-    background: #2563EB;
+    background: $b_;
   }
 }
 
@@ -739,13 +748,13 @@ MultiSelect dark styles
 .p-inputnumber-input {
 
   &_dark {
-    color: white;
-    background: #282828;
+    color: $w_;
+    background: $B_;
   }
 }
 
 .p-column-title-dark {
-  color: white;
+  color: $w_;
   font-weight: bold;
 }
 
@@ -754,16 +763,17 @@ MultiSelect dark styles
 }
 
 .p-selectbutton .p-button:focus.p-highlight {
-  background: #2563eb;;
-  color: white;
+  background: $b_;;
+  color: $w_;
   border-color: #d9d8d9;
 }
 
 .p-selectbutton .p-button.p-highlight {
-  background: #2563eb;;
+  background: $b_;;
   border-color: #d9d8d9;
-  color: white;
+  color: $w_;
 }
+
 .p-selectbutton .p-button {
   flex: 1 0 25%;
 }

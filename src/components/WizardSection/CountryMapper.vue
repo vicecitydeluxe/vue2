@@ -113,11 +113,8 @@ export default {
           return el
         }
       })
-
       if (!!wrong) {
-        this.countriesToMap = wrong.map((el) => {
-          return el['country']
-        })
+        this.countriesToMap = wrong.map(el => el['country'])
       } else return
 
       this.countriesToMap = Array.from(new Set(this.countriesToMap))

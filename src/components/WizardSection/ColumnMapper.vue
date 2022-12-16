@@ -408,13 +408,6 @@ export default {
           })
           // console.log(Vue.prototype.$fullObject.data)
           this.countryCheckboxDisabler = true
-        } else if (newValue === 'empty' || newValue === 'all_to') {
-          this.$toast.add({
-            severity: 'warn',
-            summary: 'Warn message',
-            detail: 'Choose country from the list to proceed!',
-            life: 2000
-          });
         }
       }
     },
