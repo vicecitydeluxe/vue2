@@ -74,7 +74,7 @@ export default {
                     // console.log(result)
                 }
             )
-            Vue.prototype.$dirtyObject = Object.preventExtensions(Vue.prototype.$fullObject.data)
+            Vue.prototype.$dirtyObject = JSON.parse(JSON.stringify(Vue.prototype.$fullObject.data))
         },
         sortParsedFields() {
             const length = this.requiredFieldsDictionary.length
@@ -101,6 +101,12 @@ export default {
         ]),
         styleHandler() {
             return this.darkModeSwitch ? 'dropdown_dark' : 'map_container_dropdown'
-        }
+        },
+        dropdownModelTop() {
+            return ['Firstname', 'Lastname']
+        },
+        dropdownModelMain() {
+            return ['Fullname', 'Email', 'Phone']
+        },
     }
 }

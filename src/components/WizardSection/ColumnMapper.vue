@@ -14,80 +14,40 @@
       >Please map the required columns.
         You can import either full name or first+last name.
       </div>
-      <div class="map_container">
+      <div class="map_container"
+           v-for="(_, index) in dropdownModelTop"
+      >
         <div
             class="map_container_title"
-            v-text="dropdownTitles[0]"
+            v-text="dropdownTitles[index]"
         />
         <Dropdown
             :class="styleHandler"
-            @change="dropdownCb(0)"
-            v-model="selectedFirstname"
+            @change="dropdownCb(index)"
+            v-model="$data['selected' + dropdownModelTop[index]]"
             :value="selectedFirstname"
             :options="parsedFields"
             @before-show="toggleDarkDropdown"
         />
       </div>
-      <div class="map_container">
-        <div
-            class="map_container_title"
-            v-text="dropdownTitles[1]"
-        />
-        <Dropdown
-            :class="styleHandler"
-            @change="dropdownCb(1)"
-            v-model="selectedLastname"
-            :value="selectedLastname"
-            :options="parsedFields"
-            @before-show="toggleDarkDropdown"
-        />
-      </div>
       <h6 class="map_container">OR</h6>
-      <div class="map_container">
-        <div
-            class="map_container_title"
-            v-text="dropdownTitles[2]"
-        />
-        <Dropdown
-            :class="styleHandler"
-            @change="dropdownCb(2)"
-            v-model="selectedFullname"
-            :value="selectedFullname"
-            :options="parsedFields"
-            @before-show="toggleDarkDropdown"
-        />
+      <div v-for="(_, index) in dropdownModelMain">
+        <div class="map_container">
+          <div
+              class="map_container_title"
+              v-text="dropdownTitles[index+2]"
+          />
+          <Dropdown
+              :class="styleHandler"
+              @change="dropdownCb(index+2)"
+              v-model="$data['selected' + dropdownModelMain[index]]"
+              :value="$data['selected' + dropdownModelMain[index]]"
+              :options="parsedFields"
+              @before-show="toggleDarkDropdown"
+          />
+        </div>
+        <hr style="margin: 10px">
       </div>
-      <hr style="margin: 10px">
-      <div class="map_container">
-        <div
-            class="map_container_title"
-            v-text="dropdownTitles[3]"
-        />
-        <Dropdown
-            :class="styleHandler"
-            @change="dropdownCb(3)"
-            v-model="selectedEmail"
-            :value="selectedEmail"
-            :options="parsedFields"
-            @before-show="toggleDarkDropdown"
-        />
-      </div>
-      <hr style="margin: 10px">
-      <div class="map_container">
-        <div
-            class="map_container_title"
-            v-text="dropdownTitles[4]"
-        />
-        <Dropdown
-            :class="styleHandler"
-            @change="dropdownCb(4)"
-            v-model="selectedPhone"
-            :value="selectedPhone"
-            :options="parsedFields"
-            @before-show="toggleDarkDropdown"
-        />
-      </div>
-      <hr style="margin: 10px">
       <div class="map_container">
         <div
             class="map_container_title"
