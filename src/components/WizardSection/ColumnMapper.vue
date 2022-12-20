@@ -313,6 +313,11 @@ export default {
       this.selectedCountry = this.chosenCountry
       this.selectedRegdate = this.chosenRegdate
     },
+    checkedHandler(header) {
+      this.$data['selected' + header] = header
+      this.$store.commit(`setChosen${header[0].toUpperCase() + header.slice(1)}`, header)
+      this.$data[header + 'EmptyFlag'] = false
+    },
     toggleDarkCalendar() {
       this.darkCalendar++
     },
@@ -352,18 +357,14 @@ export default {
     checkedCountry: {
       handler(newValue) {
         if (newValue === 'empty' && this.selectedCountryFromList) {
-          this.selectedCountry = 'country'
-          this.$store.commit('setChosenCountry', 'country')
-          this.countryEmptyFlag = false
-          Vue.prototype.$fullObject.data.forEach((el) => {
+          this.checkedHandler('country')
+          Vue.prototype.$fullObject.data.forEach(el => {
             if (!el['country']) el['country'] = this.selectedCountryFromList
           })
           // console.log(Vue.prototype.$fullObject.data)
         } else if (newValue === 'all_to' && this.selectedCountryFromList) {
-          this.selectedCountry = 'country'
-          this.$store.commit('setChosenCountry', 'country')
-          this.countryEmptyFlag = false
-          Vue.prototype.$fullObject.data.forEach((el) => {
+          this.checkedHandler('country')
+          Vue.prototype.$fullObject.data.forEach(el => {
             el['country'] = this.selectedCountryFromList
           })
           // console.log(Vue.prototype.$fullObject.data)
@@ -374,18 +375,14 @@ export default {
     checkedRegDate: {
       handler(newValue) {
         if (newValue === 'empty' && this.registrationDate) {
-          Vue.prototype.$fullObject.data.forEach((el) => {
-            this.selectedRegdate = 'regdate'
-            this.$store.commit('setChosenRegdate', 'regdate')
-            this.regdateEmptyFlag = false
+          this.checkedHandler('regdate')
+          Vue.prototype.$fullObject.data.forEach(el => {
             if (!el['regdate']) el['regdate'] = moment(this.registrationDate).format('DD.MM.YYYY')
           })
           // console.log(Vue.prototype.$fullObject.data)
         } else if (newValue === 'all_to' && this.registrationDate) {
-          this.selectedRegdate = 'regdate'
-          this.$store.commit('setChosenRegdate', 'regdate')
-          this.regdateEmptyFlag = false
-          Vue.prototype.$fullObject.data.forEach((el) => {
+          this.checkedHandler('regdate')
+          Vue.prototype.$fullObject.data.forEach(el => {
             el['regdate'] = moment(this.registrationDate).format('DD.MM.YYYY')
           })
           // console.log(Vue.prototype.$fullObject.data)

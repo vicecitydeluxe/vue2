@@ -18,11 +18,15 @@
         class="main"
     >
       <h6>Amount</h6>
-      <InputText
-          inputmode="decimal"
-          type="text"
+      <InputNumber
+          showButtons
+          :step="0.05"
+          :min="0"
+          mode="currency"
+          currency="USD"
+          locale="en-US"
           v-model="amount"
-          style="margin-bottom: 15px;"
+          style="margin-bottom: 15px;width:100%;"
       />
       <div
           class="text"
@@ -92,13 +96,14 @@ export default {
   components: {
     Button: () => import('primevue/button'),
     QrcodeVue: () => import('qrcode.vue'),
+    InputNumber: () => import ('primevue/inputnumber'),
     InputText: () => import ('primevue/inputtext'),
     SelectButton: () => import ('primevue/selectbutton'),
   },
   mixins: [tgMixin, topupBalanceHandler],
   data() {
     return {
-      amount: '',
+      amount: 0,
       value: '',
       size: 200,
       paymentAddress: '',
